@@ -1,8 +1,6 @@
-
-
 var seznam = (req, res) => {
-    res.render('login', {
-        layout: 'layout-noNavbar'
+    res.render('projects', {
+        
     });
 };
 
@@ -10,5 +8,3 @@ var seznam = (req, res) => {
 module.exports = {
     seznam,
 };
-
-

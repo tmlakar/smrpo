@@ -34,14 +34,85 @@ body, html {
     font-family: 'Montserrat' !important;
 }
 
-/* headings & paragraphs */
+
+/* navbar */
 
 .navbar-brand {
     color: #FFB703 !important;
     font-size: larger;
     font-style: italic;
-    font-weight: 900;
+    font-weight: bold !important;
+    padding: 0px 15px 0px 30px !important;
 }
+
+.nav-item {
+    margin: 0px 15px !important;
+    font-size: 14px;
+}
+
+.font-awesome {
+    font-size: 20px !important;
+}
+
+/* login */
+
+.vh-100 {
+    background-color: #F8F9FA !important;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+}
+
+.login-card {
+    border: none !important;
+}
+
+.login-form-input {
+    border-radius: 15px !important;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
+    border: solid 1px #FFB703 !important;
+    
+}
+
+.button-login {
+    border-radius: 15px !important;
+    font-size: medium;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
+    background-color: #8ECAE6 !important;
+    border: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+
+}
+
+.button-login>a {
+    color: none !important;
+}
+
+.placeholder-text {
+    font-size: medium;
+    color:#666666 !important;
+}
+
+.brand-logo {
+    text-align: center;
+    color: #FFB703 !important;
+    font-size: larger;
+    font-style: italic;
+    font-weight: bolder !important;
+    margin-top: 20px !important;
+}
+
+.card {
+    border-radius: 20px !important;
+}
+
+.form-outline-bottom {
+    padding-bottom: 40px !important;
+}
+
+
+/* headings & paragraphs */
 
 h1 {
     padding: 10px;

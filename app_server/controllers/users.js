@@ -1,8 +1,6 @@
-
-
 var seznam = (req, res) => {
-    res.render('login', {
-        layout: 'layout-noNavbar'
+    res.render('users-admin', {
+        
     });
 };
 
