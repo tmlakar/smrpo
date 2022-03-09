@@ -1,0 +1,77 @@
+/* font */
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@500);
+
+/* colors */
+
+:root {
+  --black: #000000;
+  --dark-charcoal: #333333;
+  --granite-gray: #666666;
+  --spanish-gray: #999999;
+  --chinese-silver: #CCCCCC;
+  --bright-gray: #EEEEEE;
+  --whitest: #ffffff;
+
+  /* theme colors */
+  --c1: #FB8500;
+  --c2: #FFB703;
+  --c3: #023047;
+  --c4: #219EBC;
+  --c5: #8ECAE6;
+  --c6: #E5E5E5;
+  --c7: #F8F9FA;
+
+
+  /* tag colors */
+  --blue:#6699CC;
+  --yellow: #FFF275;
+  --orange: #FF8C42;
+  --light-red: #FF3C38;
+  --dark-red: #A23E48;
+}
+
+body, html {
+    font-family: 'Montserrat' !important;
+}
+
+/* headings & paragraphs */
+
+.navbar-brand {
+    color: #FFB703 !important;
+    font-size: larger;
+    font-style: italic;
+    font-weight: 900;
+}
+
+h1 {
+    padding: 10px;
+}
+
+h2 {
+
+
+}
+
+h3 {
+
+
+}
+
+h4 {
+
+
+}
+
+p {
+    padding: 12px;
+}
+
+/* dropdown */
+
+/* buttons */
+
+/* button dropdowns */
+
+/* navbar */
+
+/* labels & badges */
