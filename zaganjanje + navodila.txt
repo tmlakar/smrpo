@@ -36,8 +36,20 @@ $ brew services list
 (Name              Status  User   File
 mongodb-community started tjasam ~/Library/LaunchAgents/homebrew.mxcl.mongodb-community.plist)
 
--> from a new terminal:
+-> from a new terminal (zagon shella):
 $ mongosh
+(od tu dodajamo rocno v podatkovno bazo:
+
+> show dbs
+> use mongodb-community (ime nase baze)
+> show collections (prikaz kolekcij oziroma zbirk)
+> db.Users.insertOne({}) ... (dodajanje novega zapisa)
+
+V podatkovno bazo lahko posredujemo poizvedbo db.Users.find(), ki nam vrne vse dokumente, ki so shranjeni v zbirki Users.
+Namig: Za brisanje vseh zapisov iz zbirke (npr. iz Users) lahko uporabimo ukaz db.Users.remove({}), 
+če pa želimo zbirko v celoti odstraniti (npr. Users), potem uporabimo ukaz db.Users.drop().
+(vec v lavbi zbirki)
+
 
 (-> zaustavitev:
 $ brew services stop mongodb-community)

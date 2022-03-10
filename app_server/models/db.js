@@ -36,3 +36,8 @@ mongoose.connection.on("connected", () => {
       process.exit(0);
     });
   });
+
+//   reference na sheme
+
+require("./admin");
+require("./user");
