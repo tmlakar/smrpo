@@ -57,6 +57,13 @@ $ brew services stop mongodb-community)
 
 _______________________________________________________
 
+REST API za dostop do MongoDB podatkovne baze
+-> omogoca interakcijo s podatkovno bazo s pomocjo HTTP zahtev
+-> izvaja standardne CRUD operacije
+
+dostopanje na localhost:3000/api/... za preverjanje delovanja
+_______________________________________________________
+
 
 Razdelitev po mapah (kje je kaj?):
 
@@ -68,7 +75,9 @@ app_server
 
 
 app_api
-
+	controllers
+	models
+	routes
 
 
 public
