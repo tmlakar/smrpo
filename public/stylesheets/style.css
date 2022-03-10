@@ -34,6 +34,10 @@ body, html {
     font-family: 'Montserrat' !important;
 }
 
+.row {
+    max-width: 100% !important;
+    padding-left: 30px !important;
+}
 
 /* navbar */
 
@@ -150,6 +154,30 @@ body, html {
 }
 
 
+/* admin - user view */
+
+.user-item {
+    padding-left: 200px !important;
+    font-style: italic;
+    color:#FFB703 !important;
+}
+
+.users-row {
+
+}
+
+.card-user {
+    padding: 20px !important;
+}
+
+.user-card-item {
+    padding-left: 200px !important;
+    font-size: 15px !important;
+    color: #333333 !important;
+}
+
+ /*  */ /*  */ /*  */ /*  */ /*  */ /*  */ /*  */ /*  */ /*  */ /*  */ /*  */ /*  */ /*  */ /*  */ /*  */ /*  */ /*  */ /*  */
+
 /* headings & paragraphs */
 
 h1 {
@@ -162,7 +190,12 @@ h2 {
 }
 
 h3 {
-
+    padding-left: 35px !important;
+    padding-top: 25px !important;
+    padding-bottom: 10px !important;
+    color:#023047 !important;
+    font-size: 30px !important;
+   
 
 }
 
@@ -181,6 +214,5 @@ p {
 
 /* button dropdowns */
 
-/* navbar */
 
 /* labels & badges */
