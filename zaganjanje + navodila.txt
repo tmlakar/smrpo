@@ -21,9 +21,26 @@ __________________________________________________
 podatkovna baza MongoDB
 
 -> lokalna vzpostavitev na računalniku:
+download:
 - Windows: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
 - MacOS: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
 
+
+- - - - - - - - - - - - - - - - 
+
+-> MacOS zagon v terminalu:
+$ brew services start mongodb-community
+
+-> preverjanje zagona:
+$ brew services list
+(Name              Status  User   File
+mongodb-community started tjasam ~/Library/LaunchAgents/homebrew.mxcl.mongodb-community.plist)
+
+-> from a new terminal:
+$ mongosh
+
+(-> zaustavitev:
+$ brew services stop mongodb-community)
 
 
 _______________________________________________________

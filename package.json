@@ -13,6 +13,7 @@
     "hbs": "^4.2.0",
     "html5-qrcode": "^2.1.6",
     "http-errors": "~1.6.3",
+    "mongoose": "*",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.15",
     "qr-image": "^3.2.0",
