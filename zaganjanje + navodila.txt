@@ -1,5 +1,6 @@
-Scrum aplikacija
+Scrumly aplikacija
 
+________________________________________________
 
 Navodila za zagon:
 $ cd smrpo
@@ -7,25 +8,42 @@ $ npm install
 $ npm install -g nodemon
 $ nodemon
 
-
-
 (ce pri kaksnem ukazu vrze error, das pred ukaz sudo, in zahteva tvoje uporabniskovo geslo (administrator pravice))
 
 (za bootstrap)
-sudo npm install bootstrap
+$ sudo npm install bootstrap
 
 Aplikacijo odpremo v brskalniku na naslovu:
 localhost:3000
 
+__________________________________________________
+
+podatkovna baza MongoDB
+
+-> lokalna vzpostavitev na računalniku:
+- Windows: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
+- MacOS: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
+
+
+
+_______________________________________________________
 
 
 Razdelitev po mapah (kje je kaj?):
 
 app_server
-	controllers (nadzirajo, kaksna vsebina se prikazuje pri posameznih zaslonskih maskah - views)
+	controllers (nadzirajo, kaksna vsebina se prikazuje pri posameznih zaslonskih maskah -> views)
 	models (modeli podatkovnih struktur oziroma .json fajli podatkov)
 	routes (povezave med controllerji, views in models)
 	views (zaslonske maske)
+
+
+app_api
+
+
+
+public
+	je src za vse javascript in stylesheets datoteke + slike itd.
 
 
 
