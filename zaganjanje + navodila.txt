@@ -27,27 +27,20 @@ download:
 
 __________________________________________________
 
--> uvazanje zacetnih podatkov v lokalno podatkovno bazo:
-1. moznost: iz ukazne vrstice:
-Users: mongoimport app_server/models/user.json -d mongodb-community --jsonArray -c Users
-Admins: mongoimport app_server/models/admin.json -d mongodb-community --jsonArray -c Admins
-
-2. moznost: iz ukazne vrstice uporabi ukaza za izvajanje skript iz package.json:
-	1. npm run-script admini-uvoz
-	2. npm run-script uporabniki-uvoz
-
+zagon lokalne podatkovne baze MongoDB
 
 - - - - - - - - - - - - - - - - 
 
--> MacOS zagon v terminalu:
+MACOS zagon podatkovne baze:
+-> MacOS zagon podatkovne baze v terminalu:
 $ brew services start mongodb-community
 
--> preverjanje zagona:
+-> MacOS preverjanje zagona:
 $ brew services list
 (Name              Status  User   File
 mongodb-community started tjasam ~/Library/LaunchAgents/homebrew.mxcl.mongodb-community.plist)
 
--> from a new terminal (zagon shella):
+-> MacOS from a new terminal (zagon shella):
 $ mongosh
 (od tu lahko dodajamo rocno v podatkovno bazo:
 
@@ -62,9 +55,28 @@ Namig: Za brisanje vseh zapisov iz zbirke (npr. iz Users) lahko uporabimo ukaz d
 (vec v lavbi zbirki)
 
 
-(-> zaustavitev:
+(-> MacOS zaustavitev:
 $ brew services stop mongodb-community)
 
+- - - - - - - - - - - - - - - - - - - - 
+
+Windows zagon podatkovne baze:
+-> v novem terminalu:
+mongosh
+
+(ostali ukazi so enaki kot pri MacOS, če se kaj razlikuje prosim dopišite)
+
+_______________________________________________________
+
+-> uvazanje zacetnih podatkov v lokalno podatkovno bazo:
+1. moznost: iz ukazne vrstice:
+Users: mongoimport app_server/models/user.json -d mongodb-community --jsonArray -c Users
+Admins: mongoimport app_server/models/admin.json -d mongodb-community --jsonArray -c Admins
+
+
+2. moznost: iz ukazne vrstice uporabi ukaza za izvajanje skript iz package.json:
+	1. npm run-script admini-uvoz
+	2. npm run-script uporabniki-uvoz
 
 _______________________________________________________
 
@@ -72,27 +84,41 @@ REST API za dostop do MongoDB podatkovne baze
 -> omogoca interakcijo s podatkovno bazo s pomocjo HTTP zahtev
 -> izvaja standardne CRUD operacije
 
-dostopanje na localhost:3000/api/... za preverjanje delovanja
+-> dostopanje na localhost:3000/api/... za preverjanje delovanja GET metod
+
+Primeri za testiranje s CURL za pravilno delovanje rest api metod (bili potrebni samo za preverjanje):
+-> CURL POST:
+	curl -X POST \
+       -d "name=Helena&surname=Blagne&username=helenabg&email=helena@blagne.si&role=user" \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       http://localhost:3000/api/users
+
+-> CURL PUT:
+	curl -X PUT \
+		-d "name=Neli&surname=Blagne&username=helenabg&email=helena@blagne.si&role=user" \
+		-H "Content-Type: application/x-www-form-urlencoded" \
+		"http://localhost:3000/api/users/622b3f756e765042fa49227f"
+
+-> CURL DELETE:
+	curl -X DELETE \
+		"http://localhost:3000/api/users/622b3fdde8403c0d26471320"
 _______________________________________________________
 
 
 Razdelitev po mapah (kje je kaj?):
 
-app_server
+app_server - streznik
 	controllers (nadzirajo, kaksna vsebina se prikazuje pri posameznih zaslonskih maskah -> views)
 	models (modeli podatkovnih struktur oziroma .json fajli podatkov)
 	routes (povezave med controllerji, views in models)
 	views (zaslonske maske)
 
 
-app_api
+app_api - komuniciranje streznika s podatkovno bazo prek REST APIja
 	controllers
 	models
 	routes
 
 
-public
-	je src za vse javascript in stylesheets datoteke + slike itd.
-
-
+public - src za vse javascript in stylesheets datoteke + slike itd.
 
