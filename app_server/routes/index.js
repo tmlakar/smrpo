@@ -10,6 +10,13 @@ router.get('/', ctrlLogin.seznam);
 // users
 var ctrlUsers = require("../controllers/users");
 router.get('/users', ctrlUsers.seznam);
+router.get('/users/:id', ctrlUsers.podrobnostiUser);
+router.delete('/users/:id', ctrlUsers.izbrisiUserja);
+router
+  .route('/user-new')
+  .get(ctrlUsers.dodajanjeUserja)
+  .post(ctrlUsers.shraniUserja);
+
 
 // projects
 var ctrlProjects = require("../controllers/projects");

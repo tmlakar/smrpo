@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
 const userShema = new mongoose.Schema({
-    name: { type: String, required: true },
-    surname: { type: String, required: true },
-    username: { type: String, required: true },
-    email: { type: String, required: true },
+    name: { type: String },
+    surname: { type: String},
+    username: { type: String},
+    email: { type: String },
     password: String,
-    role: { type: String, required: true },
+    role: { type: String},
   });
 
 // ko zacnemo razmisljati o projektih/sprintih/karticah razsirimo shemo v

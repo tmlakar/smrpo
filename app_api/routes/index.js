@@ -9,7 +9,7 @@ const ctrlAdmin = require("../controllers/admins");
 router.get("/users", ctrlUser.usersList);
 
 // dodajanje novega userja
-router.post("/users", ctrlUser.userCreate);
+router.post("/user-new", ctrlUser.userCreate);
 
 //branje dolocenega userja
 router.get("/users/:idUser", ctrlUser.userInfo);

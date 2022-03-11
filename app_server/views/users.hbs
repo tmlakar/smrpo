@@ -1,0 +1,39 @@
+
+<div>
+<h3>Users</h3>
+</div>
+{{!-- uporabniki -> dinamično iz baze s pomočjo REST API --}}
+<div class="table-responsive users-table">
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Surname</th>
+      <th scope="col">Email</th>
+      <th scope="col">Username</th>
+      <th scope="col">Role</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+  </thead>
+  <tbody>
+    {{#each users as |user|}}
+    <tr>
+      <th scope="row">{{user.name}}</th>
+      <td>{{user.surname}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.role}}</td>
+
+      {{!-- gumba za edit in delete uporabnikov --}}
+
+      <td><a href="/users/{{user._id}}"><button type="button" class="btn btn-dark">Edit user</button></a></td>
+      <td><a href=""><button type="button" class="btn btn-dark">Delete user</button></a></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+
+{{!-- gumb za dodajanje novega uporabnika --}}
+
+<a href="/user-new"><button class="btn btn-dark" style="position: float !important; margin-bottom: 40px !important; margin-left: 40px !important; padding: 10px  !important">+ dodaj novega uporabnika</button></a>
