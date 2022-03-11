@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "uporabniki-uvoz": "mongoimport app_server/models/user.json -d mongodb-community --jsonArray -c Users",
+    "admini-uvoz": "mongoimport app_server/models/admin.json -d mongodb-community --jsonArray -c Admins"
   },
   "dependencies": {
     "bootstrap": "^5.1.3",

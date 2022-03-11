@@ -25,6 +25,17 @@ download:
 - Windows: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
 - MacOS: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/
 
+__________________________________________________
+
+-> uvazanje zacetnih podatkov v lokalno podatkovno bazo:
+1. moznost: iz ukazne vrstice:
+Users: mongoimport app_server/models/user.json -d mongodb-community --jsonArray -c Users
+Admins: mongoimport app_server/models/admin.json -d mongodb-community --jsonArray -c Admins
+
+2. moznost: iz ukazne vrstice uporabi ukaza za izvajanje skript iz package.json:
+	1. npm run-script admini-uvoz
+	2. npm run-script uporabniki-uvoz
+
 
 - - - - - - - - - - - - - - - - 
 
@@ -38,7 +49,7 @@ mongodb-community started tjasam ~/Library/LaunchAgents/homebrew.mxcl.mongodb-co
 
 -> from a new terminal (zagon shella):
 $ mongosh
-(od tu dodajamo rocno v podatkovno bazo:
+(od tu lahko dodajamo rocno v podatkovno bazo:
 
 > show dbs
 > use mongodb-community (ime nase baze)
