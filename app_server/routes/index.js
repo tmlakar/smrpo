@@ -11,11 +11,13 @@ router.get('/', ctrlLogin.seznam);
 var ctrlUsers = require("../controllers/users");
 router.get('/users', ctrlUsers.seznam);
 router.get('/users/:id', ctrlUsers.podrobnostiUser);
+router.put('/users/:id', ctrlUsers.posodobiUserja);
 router.delete('/users/:id', ctrlUsers.izbrisiUserja);
 router
   .route('/user-new')
   .get(ctrlUsers.dodajanjeUserja)
-  .post(ctrlUsers.shraniUserja);
+  .post(ctrlUsers.shraniUserja)
+  
 
 
 // projects

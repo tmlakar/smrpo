@@ -12,8 +12,7 @@
       <th scope="col">Email</th>
       <th scope="col">Username</th>
       <th scope="col">Role</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
+      
   </thead>
   <tbody>
     
@@ -23,11 +22,80 @@
       <td>{{username}}</td>
       <td>{{email}}</td>
       <td>{{role}}</td>
-
-      {{!-- gumba za edit in delete uporabnikov --}}
-      <td><a href="/users/{{_id}}"></a><button type="button" class="btn btn-dark">Edit user</button></a></td>
-      <td><a href=""><button type="button" class="btn btn-dark">Delete user</button></a></td>
+      
     </tr>
   </tbody>
 </table>
 </div>
+
+<div>
+  {{!-- vnosna polja za spremembo uporabniskih podatkov s strani admina --}}
+  <form id="posodobiUporabnika" method="" style="padding-top: 60px  !important;">
+  <div class="mb-3">
+    <label class="form-label">Name</label>
+    <input class="form-control" name="name" id="name" aria-describedby="emailHelp">
+    
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Surname</label>
+    <input class="form-control" name="surname" id="surname" aria-describedby="emailHelp">
+    
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Username</label>
+    <input class="form-control" name="username" id="username" aria-describedby="emailHelp">
+    
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input class="form-control" name="email" id="email" aria-describedby="emailHelp">
+    
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Password</label>
+    <input class="form-control" name="password" id="password" aria-describedby="emailHelp">
+    
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Role</label>
+    <input class="form-control" name="role" id="role" aria-describedby="emailHelp">
+    
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+
+{{!-- gumb za izbris uporabnika --}}
+<div><button id="izbris" type="button" data-toggle="modal"
+                data-target="#modalnoOknoIzbrisi" class="btn btn-dark">Delete user</button></div>
+
+{{!-- modalno okno za potrditev izbrisa uporabika --}}
+<div class="modal fade" id="modalnoOknoIzbrisi" tabindex="-1" role="dialog"
+                   aria-labelledby="exampleModalLabel" aria-hidden="true">
+                   <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                         <h5 class="modal-title" id="exampleModalLabel">Potrditev</h5>
+                         <button type="button" class="close" data-dismiss="modal"
+                           aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                         </button>
+                      </div>
+                      <div class="modal-body">
+                         <p>
+                           Ste prepričani da želite izbrisati tega uporabnika?
+                         </p>
+                         <p class="text-secondary">
+                           <small>Če izbrišete uporabnika, bo ta trajno odstranjen iz podatkovne baze.</small>
+                         </p>
+                      </div>
+                      <form>
+                      <div class="modal-footer">
+                         <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Prekliči</button>
+                         <button type="submit" class="btn btn-primary btn-lg" onclick="brisanje()">Potrdi</button>
+                         </form>
+                      </div>
+                     </div>
+                   </div>
+                 </div>

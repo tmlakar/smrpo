@@ -34,6 +34,10 @@ body, html {
     font-family: 'Montserrat' !important;
 }
 
+body {
+    padding: 2% !important;
+}
+
 .row {
     max-width: 100% !important;
     padding-left: 30px !important;

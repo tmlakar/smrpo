@@ -101,7 +101,7 @@ Primeri za testiranje s CURL za pravilno delovanje rest api metod (bili potrebni
 
 -> CURL DELETE:
 	curl -X DELETE \
-		"http://localhost:3000/api/users/622b3fdde8403c0d26471320"
+		"http://localhost:3000/api/users/622c5e83c89db7682bcee73e"
 _______________________________________________________
 
 
