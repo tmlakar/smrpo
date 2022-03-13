@@ -14,9 +14,8 @@ router.get('/users/:id', ctrlUsers.podrobnostiUser);
 router.put('/users/:id', ctrlUsers.posodobiUserja);
 router.delete('/users/:id', ctrlUsers.izbrisiUserja);
 router
-  .route('/user-new')
-  .get(ctrlUsers.dodajanjeUserja)
-  .post(ctrlUsers.shraniUserja)
+  .route('/users')
+  .post(ctrlUsers.shraniUserja);
   
 
 

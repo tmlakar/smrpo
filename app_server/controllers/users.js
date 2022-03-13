@@ -33,7 +33,15 @@ const dodajanjeUserja = (req, res) => {
 
 /* POST metoda - dodajanje novega uporabika */
 const shraniUserja = (req, res) => {
-  
+  if (!req.body.name || !req.body.surname || !req.body.username || !req.body.email || !req.body.password || !req.body.role) {
+    res.render('error', {
+         message: "Prišlo je do napake.",
+         error: {
+              status: "Niste izpolnili vseh zahtevanih polj!",
+              stack: "Pri urejanju članka niste izpolnili enega izmed polj: name, surname, username, email, password, role. Prosimo izpolnite manjkajoča polja."
+         }
+    });
+  } else {
     axios({
       method: 'post',
       url: '/api/user-new',
@@ -50,7 +58,7 @@ const shraniUserja = (req, res) => {
     }).catch((napaka) => {
       prikaziNapako(req, res, napaka);
     });
-  
+}
 };
 
 /* Prikazi stran s podrobnostmi uporabnika */
@@ -64,8 +72,21 @@ var podrobnostiUser = (req, res) => {
 };
 
 /* Posodobitev uporabnika */
+
+
 const posodobiUserja = (req, res) => {
+  
   var userId = req.params.id;
+
+  if (!req.body.name || !req.body.surname || !req.body.username || !req.body.email || !req.body.password || !req.body.role) {
+    res.render('error', {
+         message: "Prišlo je do napake.",
+         error: {
+              status: "Niste izpolnili vseh zahtevanih polj!",
+              stack: "Pri urejanju članka niste izpolnili enega izmed polj: name, surname, username, email, password, role. Prosimo izpolnite manjkajoča polja."
+         }
+    });
+  } else {
   axios({
     method: 'put',
     url: apiParametri.streznik + '/api/users/' + userId,
@@ -79,16 +100,17 @@ const posodobiUserja = (req, res) => {
      }
     })
     .then(() => {
-        res.redirect('/user/');
+        res.redirect('/user' + userId);
     }).catch((napaka) => {
     prikaziNapako(req, res, napaka);
     });
+  }
 };
 
 /* Brisanje uporabnika */
 
 const izbrisiUserja = (req, res) => {
-  
+  console.log(req.params.id);
   var userId = req.params.id;
   axios
        .delete(apiParametri.streznik + '/api/users/' + userId)

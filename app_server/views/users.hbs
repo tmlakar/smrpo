@@ -34,6 +34,68 @@
 </table>
 </div>
 
-{{!-- gumb za dodajanje novega uporabnika --}}
+{{!-- gumb za dodajanje novega uporabnika + modalno okno za dodajanje novega uporabnika --}}
 
-<a href="/user-new"><button class="btn btn-dark" style="position: float !important; margin-bottom: 40px !important; margin-left: 40px !important; padding: 10px  !important">+ dodaj novega uporabnika</button></a>
+<div><button id="izbris" type="button" data-toggle="modal"
+                data-target="#modalnoOknoDodaj" class="btn btn-dark">Add new user</button></div><br>
+<div class="modal fade" id="modalnoOknoDodaj" tabindex="-1" role="dialog"
+                   aria-labelledby="exampleModalLabel" aria-hidden="true">
+                   <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                         <h5 class="modal-title" id="exampleModalLabel">Add new user</h5>
+                         <button type="button" class="close" data-dismiss="modal"
+                           aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                         </button>
+                      </div>
+                      <div class="modal-body">
+
+                        <form id="posodobiUporabnika" method="post" style="padding-top: 60px  !important;">
+                          <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input class="form-control" name="name" id="name" aria-describedby="emailHelp">
+                            
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Surname</label>
+                            <input class="form-control" name="surname" id="surname" aria-describedby="emailHelp">
+                            
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input class="form-control" name="username" id="username" aria-describedby="emailHelp">
+                            
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input class="form-control" name="email" id="email" aria-describedby="emailHelp">
+                            
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input class="form-control" name="password" id="password" aria-describedby="emailHelp">
+                            
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Role</label>
+                            <input class="form-control" name="role" id="role" aria-describedby="emailHelp">
+                            
+                          </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                        </div>
+                        
+                      </div>
+
+                      
+
+                      <form>
+                      <div class="modal-footer">
+                         <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Prekliči</button>
+                         
+                         </form>
+                      </div>
+                     </div>
+                   </div>
+                 </div>
