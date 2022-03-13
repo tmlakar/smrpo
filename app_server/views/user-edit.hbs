@@ -30,7 +30,7 @@
 
 <div>
   {{!-- vnosna polja za spremembo uporabniskih podatkov s strani admina --}}
-  <div><button id="izbris" type="button" data-toggle="modal"
+  <div><button id="posodobitev" type="button" data-toggle="modal"
                 data-target="#modalnoOknoPosodobi" class="btn btn-dark">Edit user</button></div><br>
 
 <div class="modal fade" id="modalnoOknoPosodobi" tabindex="-1" role="dialog"
@@ -46,7 +46,7 @@
                       </div>
                       <div class="modal-body">
 
-                        <form id="posodobiUporabnika" method="" style="padding-top: 60px  !important;">
+                        <form id="posodobiUporabnika" method="post" style="padding-top: 60px  !important;">
                           <div class="mb-3">
                             <label class="form-label">Name</label>
                             <input class="form-control" name="name" id="name" aria-describedby="emailHelp">
@@ -77,7 +77,7 @@
                             <input class="form-control" name="role" id="role" aria-describedby="emailHelp">
                             
                           </div>
-                        <button id="posodobiUporabnika" class="btn btn-primary btn-lg" onclick="posodobiUserja()">Potrdi</button>
+                        <button type="submit"id="posodobiUporabnika" class="btn btn-primary btn-lg" onclick="posodobiUserja()">Potrdi</button>
                       
                         </form>
                         </div>
@@ -85,7 +85,7 @@
                       </div>
                       <form>
                       <div class="modal-footer">
-                         <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Prekliči</button>
+                         
                          
                          </form>
                       </div>
@@ -94,22 +94,24 @@
                  </div>
 
 {{!-- gumb za izbris uporabnika --}}
-<div><button id="izbris" type="button" data-toggle="modal"
-                data-target="#modalnoOknoIzbrisi" class="btn btn-dark">Delete user</button></div>
+<div><a href="/users/{{_id}}/izbrisi"><button id="izbris" type="button" data-toggle="modal"
+                data-target="#modalnoOknoIzbrisi" class="btn btn-dark">Delete user</button></a></div>
 
 {{!-- modalno okno za potrditev izbrisa uporabika --}}
-<div class="modal fade" id="modalnoOknoIzbrisi" tabindex="-1" role="dialog"
+
+{{!-- <div class="modal fade" id="modalnoOknoIzbrisi" tabindex="-1" role="dialog"
                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                    <div class="modal-dialog" role="document">
                      <div class="modal-content">
                       <div class="modal-header">
-                         <h5 class="modal-title" id="exampleModalLabel">Potrditev</h5>
+                         <h5 class="modal-title" id="exampleModalLabel">Deleting existing user</h5>
                          <button type="button" class="close" data-dismiss="modal"
                            aria-label="Close">
                            <span aria-hidden="true">&times;</span>
                          </button>
                       </div>
                       <div class="modal-body">
+                        <form id="izbrisiUporabnika" method="post">
                          <p>
                            Ste prepričani da želite izbrisati tega uporabnika?
                          </p>
@@ -117,12 +119,15 @@
                            <small>Če izbrišete uporabnika, bo ta trajno odstranjen iz podatkovne baze.</small>
                          </p>
                       </div>
-                      <form>
+                      <button type="submit" class="btn btn-primary btn-lg" onClick="izbrisiUserja()">Potrdi</button>
+                      
                       <div class="modal-footer">
-                         <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Prekliči</button>
-                         <button type="submit" class="btn btn-primary btn-lg" onclick="brisanje()">Potrdi</button>
-                         </form>
+                        
+                         
+                         
                       </div>
+                      </form>
                      </div>
                    </div>
                  </div>
+                  --}}

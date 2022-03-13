@@ -11,8 +11,9 @@ router.get('/', ctrlLogin.seznam);
 var ctrlUsers = require("../controllers/users");
 router.get('/users', ctrlUsers.seznam);
 router.get('/users/:id', ctrlUsers.podrobnostiUser);
-router.put('/users/:id', ctrlUsers.posodobiUserja);
-router.delete('/users/:id', ctrlUsers.izbrisiUserja);
+router.post('/users/:id', ctrlUsers.posodobiUserja);
+router.get('/users/:id/izbrisi', ctrlUsers.pridobiUserjaZaIzbris);
+router.post('/users/:id/izbrisi', ctrlUsers.izbrisiUserja);
 router
   .route('/users')
   .post(ctrlUsers.shraniUserja);

@@ -26,10 +26,6 @@ var seznam = (req, res) => {
 };
 
 
-/* Prikazi stran za dodajanje novega uporabnika */
-const dodajanjeUserja = (req, res) => {
-  res.render('user-new');
-};
 
 /* POST metoda - dodajanje novega uporabika */
 const shraniUserja = (req, res) => {
@@ -100,7 +96,7 @@ const posodobiUserja = (req, res) => {
      }
     })
     .then(() => {
-        res.redirect('/user' + userId);
+        res.redirect('/users');
     }).catch((napaka) => {
     prikaziNapako(req, res, napaka);
     });
@@ -109,17 +105,28 @@ const posodobiUserja = (req, res) => {
 
 /* Brisanje uporabnika */
 
-const izbrisiUserja = (req, res) => {
-  console.log(req.params.id);
+const pridobiUserjaZaIzbris = (req, res) => {
   var userId = req.params.id;
   axios
-       .delete(apiParametri.streznik + '/api/users/' + userId)
-       .then(() => {
-            res.redirect('/users', odgovor.data);
-       })
-       .catch((napaka) => {
-            prikaziNapako(req, res, napaka);
-       });
+      .get (apiParametri.streznik + '/api/users/' + userId)
+      .then((odgovor) => {
+          res.render('user-delete', odgovor.data);
+      });
+};
+
+const izbrisiUserja = (req, res) => {
+  
+  var userId = req.params.id;
+  axios({
+    method: 'delete',
+    url: apiParametri.streznik + '/api/users/' + userId
+    })
+    .then(() => {
+        res.redirect('/users');
+    }).catch((napaka) => {
+    prikaziNapako(req, res, napaka);
+    });
+  
 
 };
 
@@ -128,10 +135,10 @@ const izbrisiUserja = (req, res) => {
 module.exports = {
     seznam,
     podrobnostiUser,
-    dodajanjeUserja,
     shraniUserja,
     izbrisiUserja,
-    posodobiUserja
+    posodobiUserja,
+    pridobiUserjaZaIzbris
 };
 
 
