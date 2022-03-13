@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const ctrlUser = require("../controllers/users");
-const ctrlAdmin = require("../controllers/admins");
 
 /* Users */
 
@@ -20,9 +19,6 @@ router.put("/users/:idUser", ctrlUser.userUpdate);
 //brisanje userja
 router.delete("/users/:idUser", ctrlUser.userDelete);
 
-
-
-/* Admins */
 
 
 

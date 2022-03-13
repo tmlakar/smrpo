@@ -39,5 +39,5 @@ mongoose.connection.on("connected", () => {
 
 //   reference na sheme
 
-require("./admin");
+
 require("./user");
