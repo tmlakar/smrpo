@@ -93,6 +93,18 @@ Primeri za testiranje s CURL za pravilno delovanje rest api metod (bili potrebni
        -H "Content-Type: application/x-www-form-urlencoded" \
        http://localhost:3000/api/user-new
 
+// registracija zeton
+curl -X POST \
+       -d "name=Helena&surname=Blagne&username=helenabg&email=helena@blagne.si&password=test&role=user" \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       http://localhost:3000/api/registracija
+
+//avtentikacija prijava
+curl -X POST \
+       -d "username=helena@blagne.si&password=test" \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       http://localhost:3000/api/	   
+
 -> CURL PUT:
 	curl -X PUT \
 		-d "name=Neli&surname=Blagne&username=helenabg&email=helena@blagne.si&role=user" \

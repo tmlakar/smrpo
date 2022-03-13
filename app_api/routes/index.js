@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const ctrlUser = require("../controllers/users");
+const ctrlAvtentikacija = require("../controllers/avtentikacija");
 
 /* Users */
 
@@ -20,6 +21,9 @@ router.put("/users/:idUser", ctrlUser.userUpdate);
 router.delete("/users/:idUser", ctrlUser.userDelete);
 
 
+/* Avtentikacija */
+router.post("/registracija", ctrlAvtentikacija.registracija);
+router.post("/", ctrlAvtentikacija.prijava);
 
 
 module.exports = router;
