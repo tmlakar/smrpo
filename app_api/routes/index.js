@@ -2,7 +2,14 @@ const express = require("express");
 const router = express.Router();
 const ctrlUser = require("../controllers/users");
 const ctrlAvtentikacija = require("../controllers/avtentikacija");
+const ctrlHome = require("../controllers/home");
 
+const jwt = require("express-jwt");
+const avtentikacija = jwt({
+  secret: process.env.JWT_GESLO,
+  userProperty: "payload",
+  algorithms: ["HS256"],
+});
 
 
 /* Users */
@@ -21,6 +28,10 @@ router.delete("/users/:idUser", ctrlUser.userDelete);
 /* Avtentikacija */
 router.post("/registracija", ctrlAvtentikacija.registracija);
 router.post("/prijava", ctrlAvtentikacija.prijava);
+
+
+/* Home page */
+router.post("/home/:idUser", ctrlHome.userInfo);
 
 
 module.exports = router;

@@ -61,6 +61,12 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
+// Obvladovanje napak zaradi avtentikacije
+app.use((err, req, res, next) => {
+  if (err.name == "UnauthorizedError")
+    res.status(401).json({ sporočilo: err.name + ": " + err.message + "." });
+});
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

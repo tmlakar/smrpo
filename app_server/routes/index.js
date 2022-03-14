@@ -8,6 +8,10 @@ var ctrlLogin = require("../controllers/home");
 router.get('/', ctrlLogin.prikaz);
 router.post('/', ctrlLogin.prijava);
 
+//home page
+var ctrlHome = require("../controllers/land");
+router.get('/home', ctrlHome.prikaz);
+
 // users
 var ctrlUsers = require("../controllers/users");
 router.get('/users', ctrlUsers.seznam);

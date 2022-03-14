@@ -10,7 +10,10 @@ const userShema = new mongoose.Schema({
     email: { type: String, unique: true},
     nakljucnaVrednost: {type: String, required: true},
     zgoscenaVrednost: {type: String, required: true},
-    role: { type: String },
+    role: { type: String,
+        default: 'user',
+        enum: ["user", "supervisor", "admin"]
+      }
 });
 
 
@@ -52,8 +55,9 @@ userShema.methods.generirajJwt = function () {
       name: this.name,
       exp: parseInt(datumPoteka.getTime() / 1000),
     },
-    process.env.JWT_GESLO
-  );
+    process.env.JWT_GESLO); 
+  
+
 };
 
 
