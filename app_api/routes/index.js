@@ -3,6 +3,8 @@ const router = express.Router();
 const ctrlUser = require("../controllers/users");
 const ctrlAvtentikacija = require("../controllers/avtentikacija");
 
+
+
 /* Users */
 
 // branje seznama userjev
@@ -23,7 +25,7 @@ router.delete("/users/:idUser", ctrlUser.userDelete);
 
 /* Avtentikacija */
 router.post("/registracija", ctrlAvtentikacija.registracija);
-router.post("/", ctrlAvtentikacija.prijava);
+router.post("/prijava", ctrlAvtentikacija.prijava);
 
 
 module.exports = router;

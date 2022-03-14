@@ -75,8 +75,7 @@ Admins: mongoimport app_server/models/admin.json -d mongodb-community --jsonArra
 
 
 2. moznost: iz ukazne vrstice uporabi ukaza za izvajanje skript iz package.json:
-	1. npm run-script admini-uvoz
-	2. npm run-script uporabniki-uvoz
+	1. npm run-script uporabniki-uvoz
 
 _______________________________________________________
 
@@ -103,7 +102,7 @@ curl -X POST \
 curl -X POST \
        -d "username=helena@blagne.si&password=test" \
        -H "Content-Type: application/x-www-form-urlencoded" \
-       http://localhost:3000/api/	   
+       http://localhost:3000/api/prijava	   
 
 -> CURL PUT:
 	curl -X PUT \

@@ -43,6 +43,10 @@ body {
     padding-left: 30px !important;
 }
 
+.vh-100 {
+    padding: 0px !important;
+}
+
 /* navbar */
 
 .navbar-brand {

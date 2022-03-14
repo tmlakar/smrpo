@@ -3,17 +3,7 @@ const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 
 
-// const userShema = new mongoose.Schema({
-//     name: { type: String },
-//     surname: { type: String},
-//     username: { type: String},
-//     email: { type: String },
-//     password: String,
-//     role: { type: String},
-//   });
-
-  
-  const userShema = new mongoose.Schema({
+const userShema = new mongoose.Schema({
     name: { type: String },
     surname: { type: String},
     username: { type: String},
@@ -21,7 +11,7 @@ const jwt = require("jsonwebtoken");
     nakljucnaVrednost: {type: String, required: true},
     zgoscenaVrednost: {type: String, required: true},
     role: { type: String},
-  });
+});
 
 
 /* Sifriranje uporabniskega gesla */
