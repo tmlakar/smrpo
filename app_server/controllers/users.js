@@ -40,7 +40,7 @@ const shraniUserja = (req, res) => {
   } else {
     axios({
       method: 'post',
-      url: '/api/user-new',
+      url: apiParametri.streznik + '/api/registracija',
       data: {
         name: req.body.name,
         surname: req.body.surname,
@@ -128,6 +128,17 @@ const izbrisiUserja = (req, res) => {
     });
   
 
+};
+
+const prikaziNapako = (req, res, napaka) => {
+  let naslov = "Nekaj je šlo narobe!";
+  let vsebina = napaka.response.data["sporočilo"] ?
+      napaka.response.data["sporočilo"] : (napaka.response.data["message"] ?
+          napaka.response.data["message"] : "Nekaj nekje očitno ne deluje.");
+  res.render('error', {
+      title: naslov,
+      vsebina: vsebina
+  });
 };
 
 

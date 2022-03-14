@@ -5,7 +5,8 @@ var router = express.Router();
 
 // login
 var ctrlLogin = require("../controllers/home");
-router.get('/', ctrlLogin.seznam);
+router.get('/', ctrlLogin.prikaz);
+router.post('/', ctrlLogin.prijava);
 
 // users
 var ctrlUsers = require("../controllers/users");

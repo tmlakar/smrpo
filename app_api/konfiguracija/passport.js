@@ -9,9 +9,9 @@ passport.use(
       usernameField: 'username',
       passwordField: 'password'
     },
-    (uporabniskoIme, password, pkKoncano) => {
+    (username, password, pkKoncano) => {
       User.findOne(
-        { email: uporabniskoIme },
+        { username: username },
         (napaka, uporabnik) => {
           if (napaka)
             return pkKoncano(napaka);

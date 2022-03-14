@@ -6,11 +6,11 @@ const jwt = require("jsonwebtoken");
 const userShema = new mongoose.Schema({
     name: { type: String },
     surname: { type: String},
-    username: { type: String},
-    email: { type: String },
+    username: { type: String, unique: true},
+    email: { type: String, unique: true},
     nakljucnaVrednost: {type: String, required: true},
     zgoscenaVrednost: {type: String, required: true},
-    role: { type: String},
+    role: { type: String },
 });
 
 
@@ -48,7 +48,7 @@ userShema.methods.generirajJwt = function () {
   return jwt.sign(
     {
       _id: this._id,
-      email: this.email,
+      username: this.username,
       name: this.name,
       exp: parseInt(datumPoteka.getTime() / 1000),
     },
