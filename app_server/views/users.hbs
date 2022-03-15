@@ -13,7 +13,7 @@
       <th scope="col">Username</th>
       <th scope="col">Role</th>
       <th scope="col"></th>
-      
+
   </thead>
   <tbody>
     {{#each users as |user|}}
@@ -27,7 +27,7 @@
       {{!-- gumba za edit in delete uporabnikov --}}
 
       <td><a href="/users/{{user._id}}"><button type="button" class="btn btn-dark">Edit user</button></a></td>
-      
+
     </tr>
     {{/each}}
   </tbody>
@@ -55,27 +55,37 @@
                           <div class="mb-3">
                             <label class="form-label">Name</label>
                             <input class="form-control" name="name" id="name" aria-describedby="emailHelp">
-                            
+
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Surname</label>
                             <input class="form-control" name="surname" id="surname" aria-describedby="emailHelp">
-                            
+
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Username</label>
                             <input class="form-control" name="username" id="username" aria-describedby="emailHelp">
-                            
+
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Email</label>
                             <input class="form-control" name="email" id="email" aria-describedby="emailHelp">
-                            
+
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input class="form-control" name="password" id="password" aria-describedby="emailHelp">
-                            
+                            <input class="form-control" name="password" id="password" type="password" pattern="(?=.{12,128})" title="Mora biti dolgo vsaj 12 znakov!" aria-describedby="emailHelp">
+                            <input id="prikazi" type="checkbox" onClick="myFunction()">Show Password
+                            <script>
+                              function myFunction() {
+                                var x = document.getElementById("password");
+                                if (x.type === "password") {
+                                  x.type = "text";
+                                } else {
+                                  x.type = "password";
+                                }
+                              }
+                              </script>
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Role</label>
@@ -83,22 +93,27 @@
                               <option value="user">User</option>
                               <option value="supervisor">Supervisor</option>
                               <option value="admin">Admin</option>
-                              
+
                             </select>
-                            
+
                           </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                         </div>
-                        
+
                       </div>
 
-                      
+
 
                       <form>
                       <div class="modal-footer">
+<<<<<<< HEAD
                         
                          
+=======
+                         <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">Prekliči</button>
+
+>>>>>>> 0b62faa6811f6d16be9f4d3da3f00d48d591269f
                          </form>
                       </div>
                      </div>

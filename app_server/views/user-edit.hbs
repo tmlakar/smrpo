@@ -12,17 +12,17 @@
       <th scope="col">Email</th>
       <th scope="col">Username</th>
       <th scope="col">Role</th>
-      
+
   </thead>
   <tbody>
-    
+
     <tr>
       <th scope="row">{{name}}</th>
       <td>{{surname}}</td>
       <td>{{username}}</td>
       <td>{{email}}</td>
       <td>{{role}}</td>
-      
+
     </tr>
   </tbody>
 </table>
@@ -50,43 +50,53 @@
                           <div class="mb-3">
                             <label class="form-label">Name</label>
                             <input class="form-control" name="name" id="name" aria-describedby="emailHelp">
-                            
+
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Surname</label>
                             <input class="form-control" name="surname" id="surname" aria-describedby="emailHelp">
-                            
+
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Username</label>
                             <input class="form-control" name="username" id="username" aria-describedby="emailHelp">
-                            
+
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Email</label>
                             <input class="form-control" name="email" id="email" aria-describedby="emailHelp">
-                            
+
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input class="form-control" name="password" id="password" aria-describedby="emailHelp">
-                            
+                            <input class="form-control" name="password" type="password" pattern="(?=.{12,128})" title="Mora biti dolgo vsaj 12 znakov!" id="password" aria-describedby="emailHelp">
+                            <input id="prikazi" type="checkbox" onClick="myFunction()">Show Password
+                            <script>
+                              function myFunction() {
+                                var x = document.getElementById("password");
+                                if (x.type === "password") {
+                                  x.type = "text";
+                                } else {
+                                  x.type = "password";
+                                }
+                              }
+                              </script>
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Role</label>
                             <input class="form-control" name="role" id="role" aria-describedby="emailHelp">
-                            
+
                           </div>
                         <button type="submit"id="posodobiUporabnika" class="btn btn-primary btn-lg" onclick="posodobiUserja()">Potrdi</button>
-                      
+
                         </form>
                         </div>
-                        
+
                       </div>
                       <form>
                       <div class="modal-footer">
-                         
-                         
+
+
                          </form>
                       </div>
                      </div>
@@ -120,11 +130,11 @@
                          </p>
                       </div>
                       <button type="submit" class="btn btn-primary btn-lg" onClick="izbrisiUserja()">Potrdi</button>
-                      
+
                       <div class="modal-footer">
-                        
-                         
-                         
+
+
+
                       </div>
                       </form>
                      </div>
