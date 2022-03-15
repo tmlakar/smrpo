@@ -38,7 +38,7 @@
                    <div class="modal-dialog" role="document">
                      <div class="modal-content">
                       <div class="modal-header">
-                         <h5 class="modal-title" id="exampleModalLabel">Posodobi uporabnika</h5>
+                         <h5 class="modal-title" id="exampleModalLabel">Update user settings</h5>
                          <button type="button" class="close" data-dismiss="modal"
                            aria-label="Close">
                            <span aria-hidden="true">&times;</span>
@@ -49,42 +49,33 @@
                         <form id="posodobiUporabnika" method="post" style="padding-top: 60px  !important;">
                           <div class="mb-3">
                             <label class="form-label">Name</label>
-                            <input class="form-control" name="name" id="name" aria-describedby="emailHelp">
+                            <input class="form-control" name="name" placeholder="{{name}}" value="{{name}}" id="name" aria-describedby="emailHelp">
 
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Surname</label>
-                            <input class="form-control" name="surname" id="surname" aria-describedby="emailHelp">
+                            <input class="form-control" name="surname"  placeholder="{{surname}}" value="{{surname}}" id="surname" aria-describedby="emailHelp">
 
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Username</label>
-                            <input class="form-control" name="username" id="username" aria-describedby="emailHelp">
+                            <input class="form-control" name="username" placeholder="{{username}}" value="{{username}}" id="username" aria-describedby="emailHelp">
 
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input class="form-control" name="email" id="email" aria-describedby="emailHelp">
+                            <input class="form-control" name="email" placeholder="{{email}}" value="{{email}}" id="email" aria-describedby="emailHelp">
 
                           </div>
-                          <div class="mb-3">
-                            <label class="form-label">Password</label>
-                            <input class="form-control" name="password" type="password" pattern="(?=.{12,128})" title="Mora biti dolgo vsaj 12 znakov!" id="password" aria-describedby="emailHelp">
-                            <input id="prikazi" type="checkbox" onClick="myFunction()">Show Password
-                            <script>
-                              function myFunction() {
-                                var x = document.getElementById("password");
-                                if (x.type === "password") {
-                                  x.type = "text";
-                                } else {
-                                  x.type = "password";
-                                }
-                              }
-                              </script>
-                          </div>
+                         
                           <div class="mb-3">
                             <label class="form-label">Role</label>
-                            <input class="form-control" name="role" id="role" aria-describedby="emailHelp">
+                            <select name="role" id="role" value="{{role}}">
+                              <option value="user">User</option>
+                              <option value="supervisor">Supervisor</option>
+                              <option value="admin">Admin</option>
+
+                            </select>
 
                           </div>
                         <button type="submit"id="posodobiUporabnika" class="btn btn-primary btn-lg" onclick="posodobiUserja()">Potrdi</button>

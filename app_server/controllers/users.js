@@ -74,7 +74,7 @@ const posodobiUserja = (req, res) => {
   
   var userId = req.params.id;
 
-  if (!req.body.name || !req.body.surname || !req.body.username || !req.body.email || !req.body.password || !req.body.role) {
+  if (!req.body.name || !req.body.surname || !req.body.username || !req.body.email ||  !req.body.role) {
     res.render('error', {
          message: "Prišlo je do napake.",
          error: {
@@ -91,7 +91,6 @@ const posodobiUserja = (req, res) => {
          surname: req.body.surname,
          username: req.body.username,
          email: req.body.email,
-         password: req.body.password,
          role: req.body.role
      }
     })

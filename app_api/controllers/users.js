@@ -65,7 +65,6 @@ const userCreate = (req, res) => {
         user.surname = req.body.surname;
         user.username = req.body.username;
         user.email = req.body.email;
-        user.password = req.body.password;
         user.role = req.body.role;
 
         user.save((napaka, user) => {
