@@ -42,13 +42,13 @@ userShema.methods.preveriGeslo = function (password) {
 
 /* Generiranje zetona JWT - iz koristnih podatkov o uporabniku in skritega gesla, datum poteka nastavljen na 7 dni */
 
-
+var zeton;
 
 userShema.methods.generirajJwt = function () {
   const datumPoteka = new Date();
   datumPoteka.setDate(datumPoteka.getDate() + 7);
   
-  return jwt.sign(
+  zeton = jwt.sign(
     {
       _id: this._id,
       username: this.username,
@@ -56,9 +56,14 @@ userShema.methods.generirajJwt = function () {
       exp: parseInt(datumPoteka.getTime() / 1000),
     },
     process.env.JWT_GESLO); 
-  
+    
+    console.log(zeton);
+    
+    return zeton;
+
 
 };
+
 
 
 
