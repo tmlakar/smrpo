@@ -11,9 +11,12 @@ var apiParametri = {
 
 
 var prikaz = (req, res) => {
-    res.render('home', {
-        layout: 'layout'
-    });
+  var userId = req.params.id;
+  axios
+      .get (apiParametri.streznik + '/api/home/' + userId)
+      .then((odgovor) => {
+          res.render('home', odgovor.data);
+      });
 };
 
 

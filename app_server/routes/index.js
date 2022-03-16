@@ -10,7 +10,7 @@ router.post('/', ctrlLogin.prijava);
 
 //home page
 var ctrlHome = require("../controllers/land");
-router.get('/home', ctrlHome.prikaz);
+router.get('/home/:id', ctrlHome.prikaz);
 
 
 // users

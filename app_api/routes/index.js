@@ -31,7 +31,7 @@ router.post("/prijava", ctrlAvtentikacija.prijava);
 
 
 /* Home page */
-router.post("/home/:idUser", ctrlHome.userInfo);
+router.get("/home/:idUser", ctrlHome.userInfo);
 
 
 module.exports = router;
