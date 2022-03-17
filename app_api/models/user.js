@@ -12,7 +12,7 @@ const userShema = new mongoose.Schema({
     zgoscenaVrednost: {type: String, required: true},
     role: { type: String,
         default: 'user',
-        enum: ["user", "supervisor", "admin"]
+        enum: ["user", "admin"]
       }
 });
 
@@ -51,8 +51,11 @@ userShema.methods.generirajJwt = function () {
   zeton = jwt.sign(
     {
       _id: this._id,
-      username: this.username,
       name: this.name,
+      surname: this.surname,
+      username: this.username,
+      email: this.email,
+      role: this.role,
       exp: parseInt(datumPoteka.getTime() / 1000),
     },
     process.env.JWT_GESLO); 

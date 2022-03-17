@@ -15,6 +15,7 @@ var apiParametri = {
 var prikaz = (req, res) => {
     res.render('login', {
         layout: 'layout-noNavbar'
+        
     });
 };
 
@@ -36,12 +37,14 @@ const prijava = (req, res) => {
           password: req.body.password,
         }
       }).then(() => {
-        res.redirect('/projects', );
+        res.redirect('/projects');
       }).catch((napaka) => {
         prikaziNapako(req, res, napaka);
       });
   }
   };
+
+
 
   const prikaziNapako = (req, res, napaka) => {
     let naslov = "Nekaj je šlo narobe!";

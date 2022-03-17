@@ -14,7 +14,7 @@ const registracija = (req, res) => {
     uporabnik.nastaviGeslo(req.body.password);
     uporabnik.save((napaka) => {
       if (napaka) res.status(500).json(napaka);
-      else res.status(200).json({ žeton: uporabnik.generirajJwt() });
+      else res.status(200).json({ });
     });
   };
 
@@ -23,7 +23,7 @@ const registracija = (req, res) => {
       return res.status(400).json({ sporočilo: "Zahtevani so vsi podatki." });
     passport.authenticate("local", (napaka, uporabnik, informacije) => {
       if (napaka) return res.status(500).json(napaka);
-      if (uporabnik) res.status(200).json({ žeton: uporabnik.generirajJwt(),  });
+      if (uporabnik) res.status(200).json({ žeton: uporabnik.generirajJwt(), uporabnik});
       else res.status(401).json(informacije);
     })(req, res);
   };

@@ -110,6 +110,12 @@ curl -X POST \
 		-H "Content-Type: application/x-www-form-urlencoded" \
 		"http://localhost:3000/api/users/622b3f756e765042fa49227f"
 
+// posod
+	curl -X PUT \
+		-d "name=Katjusa&surname=Jaklic&username=katjusa&email=katjusa@katjusa.si" \
+		-H "Content-Type: application/x-www-form-urlencoded" \
+		"http://localhost:3000/api/home/622f627c5469f35691b0e3d0"
+
 -> CURL DELETE:
 	curl -X DELETE \
 		"http://localhost:3000/api/users/622c5e83c89db7682bcee73e"
