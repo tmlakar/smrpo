@@ -30,7 +30,7 @@ router.post("/registracija", ctrlAvtentikacija.registracija);
 router.post("/prijava", ctrlAvtentikacija.prijava);
 
 /* Home page */
-router.get("/home", ctrlHome.userInfo);
+router.get("/home", ctrlHome.vrni);
 
 
 module.exports = router;

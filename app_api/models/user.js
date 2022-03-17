@@ -60,7 +60,7 @@ userShema.methods.generirajJwt = function () {
     },
     process.env.JWT_GESLO); 
     
-    console.log(zeton);
+    console.log({žeton: zeton});
     
     return zeton;
 

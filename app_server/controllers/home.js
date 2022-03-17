@@ -37,7 +37,8 @@ const prijava = (req, res) => {
           password: req.body.password,
         }
       }).then(() => {
-        res.redirect('/projects');
+        res.redirect('/home');
+        
       }).catch((napaka) => {
         prikaziNapako(req, res, napaka);
       });

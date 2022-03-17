@@ -1,3 +1,5 @@
+const { vrniUporabnika } = require("../../app_api/controllers/home");
+
 var apiParametri = {
     streznik: "http://localhost:" + (process.env.PORT || 3000),
   };
@@ -13,7 +15,7 @@ var apiParametri = {
 var prikaz = (req, res) => {
   res.render('home', {
     
-});
+  });
 };
 
 

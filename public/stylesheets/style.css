@@ -38,12 +38,13 @@ body, html {
     font-family: 'Montserrat' !important;
 }
 
-body {
-    padding-top: 4% !important;
-    padding-bottom: 4% !important;
-    padding-left: 2% !important;
-    padding-right: 2% !important;
+.hbses {
+    padding-top: 5% !important;
+    padding-bottom: 5% !important;
+    padding-left: 3% !important;
+    padding-right: 3% !important;
 }
+
 
 .row {
     max-width: 100% !important;
