@@ -3,28 +3,24 @@
 <h3>Projects</h3>
 
 {{!-- projekti -> dinamično iz baze s pomočjo REST API --}}
-<div class="table-responsive users-table">
-  <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      
-
-  </thead>
-  <tbody>
+<div class="col-md-12">
     {{#each projects as |project|}}
-    <tr>
-      <th scope="row">{{project.name}}</th>
+    
+      
+        <div class="card" style="margin: 20px !important; background-color: #8ECAE6; border: 0px !important">
+          <div class="card-body">
+            <h5>{{project.name}}</h5>
+            <br>
+            <a href="/projects/{{project._id}}"><button type="button" class="btn btn-dark">Edit project</button></a></td>
 
+          </div>
+        </div>
       {{!-- gumba za edit projectov --}}
 
-      <td><a href="/projects/{{project._id}}"><button type="button" class="btn btn-dark">Edit project</button></a></td>
-
-    </tr>
+      
+    
     {{/each}}
-  </tbody>
-</table>
-</div>
+  </div>
 
 {{!-- gumb za dodajanje novega projekta + modalno okno za dodajanje novega projekta--}}
 
