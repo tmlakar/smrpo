@@ -1,9 +1,63 @@
+
+var apiParametri = {
+    streznik: "http://localhost:" + (process.env.PORT || 3000),
+  };
+  if (process.env.NODE_ENV === "production") {
+    
+  }
+  const axios = require("axios").create({
+    baseURL: apiParametri.streznik,
+    timeout: 5000,
+  });
+
+
 var seznam = (req, res) => {
-    res.render('projects', {
-        
-    });
+    axios
+      .get (apiParametri.streznik + '/api/projects', {})
+      .then((odgovor) => {
+          res.render('projects', {
+          projects: odgovor.data});
+      });
 };
 
+/* Details project */
+var podrobnostiProject = (req, res) => {
+    var projectId = req.params.id;
+    axios
+        .get (apiParametri.streznik + '/api/projects/' + projectId)
+        .then((odgovor) => {
+            res.render('project-edit', odgovor.data);
+        });
+  };
+
+
+  const posodobiProject = (req, res) => {
+  
+    var projectId = req.params.id;
+  
+    if (!req.body.name) {
+      res.render('error', {
+           message: "Prišlo je do napake.",
+           error: {
+                status: "Niste izpolnili vseh zahtevanih polj!",
+                stack: "Pri urejanju članka niste izpolnili enega izmed polj: name, Prosimo izpolnite manjkajoča polja."
+           }
+      });
+    } else {
+    axios({
+      method: 'put',
+      url: apiParametri.streznik + '/api/projects/' + projectId,
+      data: {
+           name: req.body.name
+       }
+      })
+      .then(() => {
+          res.redirect('/projects');
+      }).catch((napaka) => {
+      prikaziNapako(req, res, napaka);
+      });
+    }
+  };
 
 const prikaziNapako = (req, res, napaka) => {
     let naslov = "Nekaj je šlo narobe!";
@@ -17,6 +71,11 @@ const prikaziNapako = (req, res, napaka) => {
 };
 
 
+
+
+
 module.exports = {
     seznam,
+    podrobnostiProject,
+    posodobiProject
 };
