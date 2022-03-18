@@ -31,6 +31,31 @@ var podrobnostiProject = (req, res) => {
   };
 
 
+  const createProject = (req, res) => {
+    if (!req.body.name) {
+      res.render('error', {
+           message: "Prišlo je do napake.",
+           error: {
+                status: "Niste izpolnili vseh zahtevanih polj!",
+                stack: "Pri urejanju članka niste izpolnili enega izmed polj: name, surname, username, email, password, role. Prosimo izpolnite manjkajoča polja."
+           }
+      });
+    } else {
+      axios({
+        method: 'post',
+        url: apiParametri.streznik + '/api/project-new',
+        data: {
+          name: req.body.name
+        }
+      }).then(() => {
+        res.redirect('/projects', );
+      }).catch((napaka) => {
+        prikaziNapako(req, res, napaka);
+      });
+  }
+  };
+
+
   const posodobiProject = (req, res) => {
   
     var projectId = req.params.id;
@@ -77,5 +102,6 @@ const prikaziNapako = (req, res, napaka) => {
 module.exports = {
     seznam,
     podrobnostiProject,
-    posodobiProject
+    posodobiProject,
+    createProject
 };

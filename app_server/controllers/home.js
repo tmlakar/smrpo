@@ -35,12 +35,15 @@ const prijava = (req, res) => {
         data: {
           username: req.body.username,
           password: req.body.password,
-        }
+        },
+        
       }).then(() => {
-        res.redirect('/home');
+          res.redirect('/home');
         
       }).catch((napaka) => {
         prikaziNapako(req, res, napaka);
+        //+ alert
+        
       });
     }
   };
@@ -58,8 +61,10 @@ const prijava = (req, res) => {
             napaka.response.data["message"] : "Nekaj nekje očitno ne deluje.");
     res.render('error', {
         title: naslov,
-        vsebina: vsebina
-    });
+        vsebina: vsebina,
+        layout: "layout-noNavbar"
+    }
+    );
 };
 
 module.exports = {

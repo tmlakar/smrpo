@@ -29,6 +29,7 @@ router
 // projects
 var ctrlProjects = require("../controllers/projects");
 router.get('/projects', ctrlProjects.seznam);
+router.post('/projects', ctrlProjects.createProject);
 router.get('/projects/:id', ctrlProjects.podrobnostiProject);
 router.post('/projects/:id', ctrlProjects.posodobiProject);
 
