@@ -70,7 +70,7 @@
 
                           <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input class="form-control" name="password" id="password" value="{{password}}" type="password"  pattern="(?=.{12,128})" title="The password must be at least 12 characters long!" aria-describedby="emailHelp">
+                            <input class="form-control" name="password" id="password" value="{{password}}" type="password"  pattern=".{12,128}" title="The password must be at least 12 characters long!" aria-describedby="emailHelp">
                             <input id="prikazi" value="{{password}}" type="checkbox" onClick="myFunction()">Show Password
                             <script>
                               function myFunction() {
@@ -83,7 +83,7 @@
                               }
                               </script>
                           </div>
-                         
+
                           <div class="mb-3">
                             <label class="form-label">Role</label>
                             <select name="role" id="role" value="{{role}}">
