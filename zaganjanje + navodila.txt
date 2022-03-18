@@ -112,13 +112,18 @@ curl -X POST \
 
 // posodobitev
 	curl -X PUT \
-		-d "name=Katjusa&surname=Jaklic&username=katjusa&email=katjusa@katjusa.si" \
+		-d "name=This one was updated" \
 		-H "Content-Type: application/x-www-form-urlencoded" \
-		"http://localhost:3000/api/home/622f627c5469f35691b0e3d0"
+		"http://localhost:3000/api/projects/62346721332caaac0e351133"
 
 -> CURL DELETE:
 	curl -X DELETE \
 		"http://localhost:3000/api/users/622c5e83c89db7682bcee73e"
+
+curl -X POST \
+       -d "name=Building a wall - how to" \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       http://localhost:3000/api/project-new
 _______________________________________________________
 
 

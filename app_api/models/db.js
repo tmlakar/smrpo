@@ -41,3 +41,4 @@ mongoose.connection.on("connected", () => {
 
 
 require("./user");
+require("./project");
