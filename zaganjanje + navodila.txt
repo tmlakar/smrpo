@@ -94,7 +94,7 @@ Primeri za testiranje s CURL za pravilno delovanje rest api metod (bili potrebni
 
 // registracija zeton
 curl -X POST \
-       -d "name=Helena&surname=Blagne&username=blagneh&email=helenb@helena.si&password=testtesttest1&role=user" \
+       -d "name=Neli&surname=Potokar&username=nelip&email=neli@helena.si&password=testtesttest1&role=admin&accessToken=xxxx" \
        -H "Content-Type: application/x-www-form-urlencoded" \
        http://localhost:3000/api/registracija
 
@@ -110,7 +110,7 @@ curl -X POST \
 		-H "Content-Type: application/x-www-form-urlencoded" \
 		"http://localhost:3000/api/users/622b3f756e765042fa49227f"
 
-// posod
+// posodobitev
 	curl -X PUT \
 		-d "name=Katjusa&surname=Jaklic&username=katjusa&email=katjusa@katjusa.si" \
 		-H "Content-Type: application/x-www-form-urlencoded" \

@@ -16,7 +16,7 @@ const avtentikacija = jwt({
 // branje seznama userjev
 router.get("/users", ctrlUser.usersList);
 // dodajanje novega userja
-router.post("/user-new", avtentikacija, ctrlUser.userCreate);
+router.post("/user-new", ctrlUser.userCreate);
 //branje dolocenega userja
 router.get("/users/:idUser", ctrlUser.userInfo);
 //posodabljanje dolocenega userja
@@ -30,7 +30,7 @@ router.post("/registracija", ctrlAvtentikacija.registracija);
 router.post("/prijava", ctrlAvtentikacija.prijava);
 
 /* Home page */
-router.get("/home", ctrlHome.vrni);
+router.get("/home", ctrlHome.izpisiPodatke);
 
 
 module.exports = router;

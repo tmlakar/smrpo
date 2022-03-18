@@ -42,7 +42,11 @@ const prijava = (req, res) => {
       }).catch((napaka) => {
         prikaziNapako(req, res, napaka);
       });
-  }
+    }
+  };
+
+  const token = (req, res) => {
+    
   };
 
 
@@ -60,7 +64,8 @@ const prijava = (req, res) => {
 
 module.exports = {
     prikaz,
-    prijava
+    prijava,
+    token
 };
 
 

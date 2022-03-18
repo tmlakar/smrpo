@@ -16,17 +16,8 @@ const vrniUporabnika = (req, res, pkOdgovor) => {
     }
   };
 
-  const vrni = (req, res) => {
-    if (req.payload && req.payload.username) {
-      User.findOne({
-        username: header.payload.username,
-      }).exec((napaka, uporabnik) => {
-        if (!uporabnik)
-          return res.status(404).json({ sporočilo: "Ne najdem uporabnika." });
-        else if (napaka) return res.status(500).json(napaka);
-        
-      });
-    }
+  const izpisiPodatke = (req, res) => {
+    
   };
 
 
@@ -80,6 +71,6 @@ module.exports = {
     vrniUporabnika,
     userInfo,
     userUpdate,
-    vrni
+    izpisiPodatke
   };
   

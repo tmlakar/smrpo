@@ -54,27 +54,27 @@
                         <form id="posodobiUporabnika" method="post" style="padding-top: 60px  !important;">
                           <div class="mb-3">
                             <label class="form-label">Name</label>
-                            <input class="form-control" name="name" id="name" aria-describedby="emailHelp">
+                            <input class="form-control" name="name" id="name" aria-describedby="emailHelp" required>
 
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Surname</label>
-                            <input class="form-control" name="surname" id="surname" aria-describedby="emailHelp">
+                            <input class="form-control" name="surname" id="surname" aria-describedby="emailHelp" required>
 
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Username</label>
-                            <input class="form-control" name="username" id="username" aria-describedby="emailHelp">
+                            <input class="form-control" name="username" id="username" aria-describedby="emailHelp" required>
 
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input class="form-control" name="email" id="email" aria-describedby="emailHelp">
+                            <input class="form-control" name="email" id="email" type="email" aria-describedby="emailHelp" required>
 
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input class="form-control" name="password" id="password" type="password" pattern="(?=.{12,128})" title="The password must be at least 12 characters long!" aria-describedby="emailHelp">
+                            <input class="form-control" name="password" id="password" type="password" pattern="(?=.{12,128})" title="The password must be at least 12 characters long!" aria-describedby="emailHelp" required>
                             <input id="prikazi" type="checkbox" onClick="myFunction()">Show Password
                             <script>
                               function myFunction() {

@@ -13,7 +13,8 @@ const userShema = new mongoose.Schema({
     role: { type: String,
         default: 'user',
         enum: ["user", "admin"]
-      }
+      },
+    accessToken: {type: String}
 });
 
 
