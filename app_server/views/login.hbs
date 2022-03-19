@@ -14,6 +14,7 @@
 
             
             <form method="post">
+              
             
             <div class="form-outline mb-4 ">
               <input name="username" id="username" class="form-control form-control-lg login-form-input placeholder-text"  placeholder="Username" required>
@@ -23,7 +24,7 @@
             <div class="form-outline form-outline-bottom mb-4">
 
               <input name="password" id="password" type="password" class="form-control form-control-lg login-form-input placeholder-text" placeholder="Password" pattern=".{12,128}" title="The password must be at least 12 characters long!" required>
-              <input id="prikazi" style="margin-right: 10px;margin-top:30px;" type="checkbox" onClick="myFunction()">Show Password
+              <input id="prikazi" style="margin-right: 10px;margin-top:30px;" type="checkbox" onClick="myFunction()">Show password
               <script>
                 function myFunction() {
                   var x = document.getElementById("password");
@@ -36,9 +37,22 @@
                 </script>
             </div>
 
+            <script>
+              function izpisi() {
+               
+                var x = document.getElementById("wrongUsername");
+                x.hidden = false;
+              }
+            </script>
 
+            
+            {{!-- ce pride do tega, da streznik sporoci, da sta uporabnisko ime in geslo napacno, se izpise alert --}}
 
-            <button type="submit" class="btn btn-primary btn-lg btn-block button-login w-50">Login</button>
+            <div class="alert alert-warning" id="wrongUsername" role="alert" style=" padding-top: 12px; border-radius: 20px" hidden="true">
+            <span style="font-size: 14px !important">Wrong username or password!</span>
+            </div>
+
+            <button type="submit" id="login" class="btn btn-primary btn-lg btn-block button-login w-50">Login</button>
             </a>
 
             </form>

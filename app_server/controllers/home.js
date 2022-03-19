@@ -38,18 +38,16 @@ const prijava = (req, res) => {
         },
         
       }).then(() => {
+        
           res.redirect('/home');
         
       }).catch((napaka) => {
+        
         prikaziNapako(req, res, napaka);
         
         
       });
     }
-  };
-
-  const token = (req, res) => {
-    
   };
 
 
@@ -59,18 +57,17 @@ const prijava = (req, res) => {
     let vsebina = napaka.response.data["sporočilo"] ?
         napaka.response.data["sporočilo"] : (napaka.response.data["message"] ?
             napaka.response.data["message"] : "Nekaj nekje očitno ne deluje.");
-    res.render('error', {
+    res.send({
         title: naslov,
         vsebina: vsebina,
-        layout: "layout-noNavbar"
+        
     }
     );
 };
 
 module.exports = {
     prikaz,
-    prijava,
-    token
+    prijava
 };
 
 
