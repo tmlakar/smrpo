@@ -42,7 +42,7 @@ const prijava = (req, res) => {
         
       }).catch((napaka) => {
         prikaziNapako(req, res, napaka);
-        //+ alert
+        
         
       });
     }

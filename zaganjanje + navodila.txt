@@ -2,11 +2,17 @@ Scrumly aplikacija
 
 ________________________________________________
 
+1. v root directory ustvari fajl .env in vanj shrani
+JWT_GESLO=toleNašeGeslo
+
+
 Navodila za zagon:
 $ cd smrpo
 $ npm install
 $ npm install -g nodemon
 $ nodemon
+
+
 
 (ce pri kaksnem ukazu vrze error, das pred ukaz sudo, in zahteva tvoje uporabniskovo geslo (administrator pravice))
 
@@ -15,6 +21,8 @@ $ sudo npm install bootstrap
 
 Aplikacijo odpremo v brskalniku na naslovu:
 localhost:3000
+
+
 
 __________________________________________________
 
