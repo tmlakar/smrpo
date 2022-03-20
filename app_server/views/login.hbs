@@ -36,9 +36,22 @@
                 </script>
             </div>
 
+            <script>
+              function izpisi() {
+
+                var x = document.getElementById("wrongUsername");
+                x.hidden = false;
+              }
+            </script>
 
 
-            <button type="submit" class="btn btn-primary btn-lg btn-block button-login w-50">Login</button>
+            {{!-- ce pride do tega, da streznik sporoci, da sta uporabnisko ime in geslo napacno, se izpise alert --}}
+
+            <div class="alert alert-warning" id="wrongUsername" role="alert" style=" padding-top: 12px; border-radius: 20px" hidden="true">
+            <span style="font-size: 14px !important">Wrong username or password!</span>
+            </div>
+
+            <button type="submit" id="login" class="btn btn-primary btn-lg btn-block button-login w-50">Login</button>
             </a>
 
             </form>
