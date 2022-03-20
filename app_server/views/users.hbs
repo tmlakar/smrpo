@@ -4,7 +4,7 @@
 
 {{!-- uporabniki -> dinamično iz baze s pomočjo REST API --}}
 <div class="table-responsive users-table">
-  <table class="table">
+  <table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">Name</th>
@@ -36,7 +36,8 @@
 {{!-- gumb za dodajanje novega uporabnika + modalno okno za dodajanje novega uporabnika --}}
 
 <div><button id="izbris" type="button" data-toggle="modal"
-                data-target="#modalnoOknoDodaj" class="btn btn-dark">Add new user</button></div><br>
+                data-target="#modalnoOknoDodaj" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right"><i class="fa-solid fa-plus dodaj"></i></button></div><br>
+
 <div class="modal fade" id="modalnoOknoDodaj" tabindex="-1" role="dialog"
                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                    <div class="modal-dialog" role="document">
@@ -50,31 +51,31 @@
                       </div>
                       <div class="modal-body">
 
-                        <form id="posodobiUporabnika" method="post" style="padding-top: 60px  !important;">
+                        <form id="posodobiUporabnika" method="post" style="">
                           <div class="mb-3">
                             <label class="form-label">Name</label>
-                            <input class="form-control" name="name" id="name" aria-describedby="emailHelp" required>
+                            <input class="form-control input-form" name="name" id="name" aria-describedby="emailHelp" required>
 
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Surname</label>
-                            <input class="form-control" name="surname" id="surname" aria-describedby="emailHelp" required>
+                            <input class="form-control input-form" name="surname" id="surname" aria-describedby="emailHelp" required>
 
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Username</label>
-                            <input class="form-control" name="username" id="username" aria-describedby="emailHelp" required>
+                            <input class="form-control input-form" name="username" id="username" aria-describedby="emailHelp" required>
 
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input class="form-control" name="email" id="email" type="email" aria-describedby="emailHelp" required>
+                            <input class="form-control input-form" name="email" id="email" type="email" aria-describedby="emailHelp" required>
 
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input class="form-control" name="password" id="password" type="password" pattern=".{12,128}" title="The password must be at least 12 characters long!" aria-describedby="emailHelp" required>
-                            <input id="prikazi" type="checkbox" onClick="myFunction()">Show Password
+                            <input class="form-control input-form" name="password" id="password" type="password" pattern=".{12,128}" title="The password must be at least 12 characters long!" aria-describedby="emailHelp" required>
+                            <input id="prikazi" style="margin-right: 10px;margin-top:20px;" type="checkbox" onClick="myFunction()">Show Password
                             <script>
                               function myFunction() {
                                 var x = document.getElementById("password");
@@ -86,16 +87,16 @@
                               }
                               </script>
                           </div>
-                          <div class="mb-3">
-                            <label class="form-label">Role</label>
-                            <select name="role" id="role">
+                          <div class="mb-3 form-select">
+                            <label class="form-label ">Role</label><br>
+                            <select class="" name="role" id="role">
                               <option value="user">User</option>
                               <option value="admin">Admin</option>
 
                             </select>
 
                           </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn submit-form">Submit</button>
                         </form>
                         </div>
 
