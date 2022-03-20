@@ -63,10 +63,6 @@ const prijava = (req, res) => {
     }
   };
 
-  const token = (req, res) => {
-
-  };
-
 
 
   const prikaziNapako = (req, res, napaka) => {

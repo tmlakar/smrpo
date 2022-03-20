@@ -82,7 +82,7 @@ var prikaz = (req, res) => {
 };
 
 const logout = (req, res) => {
-  cookies.set('authcookie', {expires: new Date(0)});
+  //cookies.set('authcookie', {expires: new Date(0)});
   res.redirect('/');
 };
 

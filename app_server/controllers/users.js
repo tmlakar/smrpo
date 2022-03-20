@@ -31,7 +31,17 @@ const prikaziStran = (req, res, uporabniki) => {
 };
 
 
-
+const dodaj = (req, res) => {
+    var x = req.query.error;
+    var isError = true;
+    if(x == "napaka"){
+      isError = true;
+    }
+    else{
+      isError = false;
+    }
+  res.render('user-new', {napaka: isError});
+};
 
 /* POST metoda - dodajanje novega uporabika */
 const shraniUserja = (req, res) => {
@@ -58,7 +68,8 @@ const shraniUserja = (req, res) => {
     }).then(() => {
       res.redirect('/users', );
     }).catch((napaka) => {
-      prikaziNapako(req, res, napaka);
+      var string = "napaka";
+      res.redirect('/user-new?error=' + string);
     });
 }
 };
@@ -152,6 +163,7 @@ const prikaziNapako = (req, res, napaka) => {
 module.exports = {
     seznam,
     podrobnostiUser,
+    dodaj,
     shraniUserja,
     izbrisiUserja,
     posodobiUserja,

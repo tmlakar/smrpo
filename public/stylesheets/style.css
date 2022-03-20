@@ -366,3 +366,9 @@ p {
     margin: 10px !important;
     padding-bottom: 30px!important
 } 
+
+.user-add {
+    background-color: #EEEEEE !important;
+    border: 0px solid !important;
+    
+}

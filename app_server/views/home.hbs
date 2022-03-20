@@ -4,25 +4,11 @@
 <h4 class="card-title">Hello, {{name}} {{surname}}!</h5>
 
 {{!-- maybe priljubljeni projekti? --}}
-<h5 class="card-title" style="padding-bottom: 20px !important">Account information</h5>
-<div class="col-sm" style="padding-bottom: 30px !important; margin-left 0px !important; padding-left: 0px !important;">
-    <div class="card " style="border-color: var(--c1) !important; background-color: none !important; margin-left 0px !important">
-      <div class="card-body">
-        <p class="card-text"><span>Full name:</span>
-          <br>
-          {{name}} {{surname}}
-          
-        </p>
-        <p class="card-text"><span>Username:</span>
-          <br>
-          {{username}}
-        </p>
-        <p class="card-text"><span>Email:</span>
-          <br>
-          {{email}}
-        </p>
 
-        <a href="/account"><button type="" class="btn submit-form" style="background-color: var(--c4) !important; width: 200px !important">Edit information</button></a>
+<div class="col-sm-6" style="padding-bottom: 30px !important; margin-left 0px !important; padding-left: 0px !important;">
+    <div class="card " style="border-color: var(--c2) !important; background-color: var(--c2) !important; margin-left 0px !important">
+      <div class="card-body">
+        <a href="/account"><button type="" class="btn submit-form" style="background-color: var(--c4) !important; width: 250px !important">Edit account information</button></a>
         
       </div>
     </div>
@@ -32,6 +18,7 @@
 {{!-- projekti uporabnika --}}
 
 <h5 class="card-title" style="padding-bottom: 20px !important">Your projects</h5>
+<div class="col-sm-6">
 <a href="" style="text-decoration: none !important; "><div class="card" style="margin-top: 20px !important; background-color: #8ECAE6; border: 0px !important">
           <div class="card-body">
             <h6>Project 1</h6>
@@ -47,5 +34,7 @@
 
           </div>
         </div></a>
+
+</div>
 
 </div>

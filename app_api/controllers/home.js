@@ -16,9 +16,7 @@ const vrniUporabnika = (req, res, pkOdgovor) => {
     }
   };
 
-  const izpisiPodatke = (req, res) => {
-    
-  };
+
 
 
   const userInfo = (req, res) => {
@@ -71,6 +69,5 @@ module.exports = {
     vrniUporabnika,
     userInfo,
     userUpdate,
-    izpisiPodatke
   };
   

@@ -61,11 +61,12 @@ router.post("/registracija", ctrlAvtentikacija.registracija);
 router.post("/prijava", ctrlAvtentikacija.prijava);
 
 /* Home page */
-router.get("/home", ctrlHome.izpisiPodatke);
+
 
 /* Account */
 router.get('/account/:idUser', ctrlAccount.userInfo);
 router.put('/account/:idUser', ctrlAccount.userUpdate);
+router.put('/account/pass/:idUser', ctrlAccount.userUpdatePass);
 
 
 module.exports = router;

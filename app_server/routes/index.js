@@ -11,7 +11,7 @@ router.post('/', ctrlLogin.prijava);
 //home page
 var ctrlHome = require("../controllers/land");
 // tale dela z uporabniskimi podatki
-//router.get('/home', ctrlHome.podrobnostiUser);
+// router.get('/home', ctrlHome.podrobnostiUser);
 // tale dela z cookiji -> torej ce je posodobitev, se ne bo posodobil, se bo mogu najprej odjavit pa prijavit spet
 router.get('/home', ctrlHome.prikaz);
 router.get('/logout', ctrlHome.logout);
@@ -24,9 +24,8 @@ router.get('/users/:id', ctrlUsers.podrobnostiUser);
 router.post('/users/:id', ctrlUsers.posodobiUserja);
 router.get('/users/:id/izbrisi', ctrlUsers.pridobiUserjaZaIzbris);
 router.post('/users/:id/izbrisi', ctrlUsers.izbrisiUserja);
-router
-  .route('/users')
-  .post(ctrlUsers.shraniUserja);
+router.get('/user-new', ctrlUsers.dodaj);
+router.post('/user-new', ctrlUsers.shraniUserja);
   
 
 
@@ -44,5 +43,7 @@ var ctrlAccount = require("../controllers/account");
 // router.get('/account', ctrlAccount.podrobnostiUser);
 router.get('/account', ctrlAccount.prikaz);
 router.post('/account', ctrlAccount.posodobiUserja);
+router.get('/account/edit-password', ctrlAccount.prikaz2);
+router.post('/account/edit-password', ctrlAccount.posodobiGeslo);
 
 module.exports = router;
