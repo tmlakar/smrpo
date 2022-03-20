@@ -1,10 +1,10 @@
 const { vrniUporabnika } = require("../../app_api/controllers/home");
-
+const jwt = require("express-jwt");
 var apiParametri = {
     streznik: "http://localhost:" + (process.env.PORT || 3000),
   };
   if (process.env.NODE_ENV === "production") {
-    
+
   }
   const axios = require("axios").create({
     baseURL: apiParametri.streznik,
@@ -12,10 +12,27 @@ var apiParametri = {
   });
 
 
+
+
 var prikaz = (req, res) => {
-  res.render('home', {
-    
+  console.log("dobim cookie", req.cookies.authcookie)
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  var rawPayload = atob(encodedPayload);
+  var user = JSON.parse(rawPayload);
+  var username = user.username;
+  var vloga = user.role;
+  if(vloga == "user"){
+    res.render('home', {
+        name: username,
+        layout: 'layout-user'
+    });
+  }
+  else{
+    res.render('home', {
+      name: username
   });
+ }
 };
 
 
@@ -33,5 +50,3 @@ var prikaz = (req, res) => {
 module.exports = {
     prikaz
 };
-
-
