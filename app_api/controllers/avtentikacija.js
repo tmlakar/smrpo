@@ -14,6 +14,7 @@ const registracija = (req, res) => {
     uporabnik.nastaviGeslo(req.body.password);
     uporabnik.save((napaka) => {
       if (napaka) res.status(500).json(napaka);
+      //tukaj manjka še da generiramo in odjemalcu vrnemo jwt žeton?
       else res.status(200).json({ });
     });
   };
@@ -24,8 +25,9 @@ const registracija = (req, res) => {
     passport.authenticate("local", (napaka, uporabnik, informacije) => {
       if (napaka) return res.status(500).json(napaka);
       if (uporabnik) {
+        //generiramo jwt žeton
         var zeton = uporabnik.generirajJwt();
-        res.status(200).json({žeton: zeton});
+        res.status(200).json({žeton: zeton}); //vrne žeton nazaj serverju
         } else res.status(401).json(informacije);
     })(req, res);
   };

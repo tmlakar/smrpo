@@ -1,10 +1,11 @@
-
+const { vrniUporabnika } = require("../../app_api/controllers/home");
+const jwt = require("express-jwt");
 
 var apiParametri = {
     streznik: "http://localhost:" + (process.env.PORT || 3000),
   };
   if (process.env.NODE_ENV === "production") {
-    
+
   }
   const axios = require("axios").create({
     baseURL: apiParametri.streznik,
@@ -15,7 +16,7 @@ var apiParametri = {
 var prikaz = (req, res) => {
     res.render('login', {
         layout: 'layout-noNavbar'
-        
+
     });
 };
 
@@ -30,26 +31,31 @@ const prijava = (req, res) => {
       });
     } else {
       axios({
+        //se pošljejo prijavni podatki na api, kjer bo v bazi preveril če uporabnik obstaja, če se ujema geslo in tam zgeneriral webtoken in ga poslal nazaj na strežnik
         method: 'post',
         url: apiParametri.streznik + '/api/prijava',
         data: {
           username: req.body.username,
           password: req.body.password,
         },
-        
-      }).then(() => {
-          res.redirect('/home');
-        
+
+      }).then((response) => {
+        //v response.data je shranjen žeton v obliki: {'žeton': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjMwOGY5MGEwOGY3YmE3ZTU3NTgzMzciLCJuYW1lIjoixaBwZWxhIiwic3VybmFtZSI6IlZpZG1hciIsInVzZXJuYW1lIjoic3BlbHZpZCIsImVtYWlsIjoic3BlbGxhLnZpZEBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImV4cCI6MTY0ODI5MzY2MSwiaWF0IjoxNjQ3Njg4ODYxfQ.j-IQvL63E8DmcsIMXaD-LSMOyP_PfNetpGfomJDPjvE'}
+        console.log(response.data);
+        res.cookie('authcookie', response.data, {maxAge:900000,httpOnly:true});
+        console.log("secret key", process.env.JWT_GESLO)
+        //žeton je zdaj shranjen v cookie in se ga lahko dostopa z req.cookies.authcookie
+        res.redirect('/home');
       }).catch((napaka) => {
         prikaziNapako(req, res, napaka);
-        
-        
+
+
       });
     }
   };
 
   const token = (req, res) => {
-    
+
   };
 
 
@@ -72,5 +78,3 @@ module.exports = {
     prijava,
     token
 };
-
-

@@ -3,7 +3,7 @@ var apiParametri = {
     streznik: "http://localhost:" + (process.env.PORT || 3000),
   };
   if (process.env.NODE_ENV === "production") {
-    
+
   }
   const axios = require("axios").create({
     baseURL: apiParametri.streznik,
@@ -16,14 +16,20 @@ var users = require("../models/user.json");
 
 /* Seznam vseh uporabnikov */
 var seznam = (req, res) => {
-    
   axios
       .get (apiParametri.streznik + '/api/users', {})
       .then((odgovor) => {
-          res.render('users', {
-          users: odgovor.data});
-      });
+          prikaziStran(req, res, odgovor.data)
+        })
 };
+
+const prikaziStran = (req, res, uporabniki) => {
+  console.log("dobim cookie delaaaa", req.cookies.authcookie)
+  res.render('users', {
+    users: uporabniki
+  });
+};
+
 
 
 
@@ -71,7 +77,7 @@ var podrobnostiUser = (req, res) => {
 
 
 const posodobiUserja = (req, res) => {
-  
+
   var userId = req.params.id;
 
   if (!req.body.name || !req.body.surname || !req.body.username || !req.body.email ||  !req.body.role ||  !req.body.password) {
@@ -115,7 +121,7 @@ const pridobiUserjaZaIzbris = (req, res) => {
 };
 
 const izbrisiUserja = (req, res) => {
-  
+
   var userId = req.params.id;
   axios({
     method: 'delete',
@@ -126,7 +132,7 @@ const izbrisiUserja = (req, res) => {
     }).catch((napaka) => {
     prikaziNapako(req, res, napaka);
     });
-  
+
 
 };
 
@@ -151,5 +157,3 @@ module.exports = {
     posodobiUserja,
     pridobiUserjaZaIzbris
 };
-
-

@@ -5,12 +5,30 @@ const ctrlAvtentikacija = require("../controllers/avtentikacija");
 const ctrlHome = require("../controllers/home");
 const ctrlProjects = require("../controllers/projects");
 
+
 const jwt = require("express-jwt");
 const avtentikacija = jwt({
   secret: process.env.JWT_GESLO,
   userProperty: "payload",
   algorithms: ["HS256"],
 });
+
+const avtorizacija = (req,res,next) => {
+  const token = req.cookies.authcookie;
+  console.log("dobim cookie", token)
+  if(!token){
+    return res.sendStatus(403);
+  }
+  try{
+    //če imamo žeton moramo preveriti token da pridobimo podatke
+    const data = jwt.verify(token, process.env.JWT_GESLO);
+    req.userId = data.id;
+    req.userRole = data.role;
+    return next();
+  } catch {
+    return res.sendStatus(403);
+  }
+};
 
 
 /* Users */
@@ -24,6 +42,8 @@ router.get("/users/:idUser", ctrlUser.userInfo);
 router.put("/users/:idUser", ctrlUser.userUpdate);
 //brisanje userja
 router.delete("/users/:idUser", ctrlUser.userDelete);
+//primer uporabe preverjanja avtentikacije:
+//router.delete("/users/:idUser", avtentikacija, ctrlUser.userDelete);
 
 /* Projects */
 /* List of projects */
