@@ -179,6 +179,10 @@ body, html {
     
 }
 
+.bold-item {
+    font-weight: 800 !important;
+}
+
 table {
     border: 0px solid #EEEEEE;
     border-radius: 15px !important;
@@ -196,6 +200,12 @@ thead > tr {
     border: 0px solid !important;
     color: white !important;
     border-radius: 15px 15px 0px 0px !important;
+}
+
+thead {
+    border: 0px solid !important;
+    background-color: #FFB703  !important;
+    border-radius: 30px !important;
 }
 
 tbody {

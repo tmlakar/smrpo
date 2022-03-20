@@ -47,17 +47,10 @@ const prijava = (req, res) => {
         //žeton je zdaj shranjen v cookie in se ga lahko dostopa z req.cookies.authcookie
         res.redirect('/home');
       }).catch((napaka) => {
-<<<<<<< HEAD
-        res.redirect('/');
-        //prikaziNapako(req, res, napaka);
-        
-        
-=======
+
 
         prikaziNapako(req, res, napaka);
 
-
->>>>>>> 29851afa976306fde8876862f6f106e8135d692c
       });
     }
   };

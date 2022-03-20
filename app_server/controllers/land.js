@@ -18,7 +18,8 @@ var prikaz = (req, res) => {
   console.log("dobim cookie", req.cookies.authcookie)
   var tokenParts = req.cookies.authcookie['žeton'].split('.');
   var encodedPayload = tokenParts[1];
-  var rawPayload = atob(encodedPayload);
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
   var user = JSON.parse(rawPayload);
   var username = user.username;
   var vloga = user.role;
