@@ -14,10 +14,19 @@ var apiParametri = {
 
 
 var prikaz = (req, res) => {
+  var x = req.query.error;
+  if(x == "napaka"){
     res.render('login', {
-        layout: 'layout-noNavbar'
-
+        layout: 'layout-noNavbar',
+        napaka: true
     });
+  }
+  else{
+    res.render('login', {
+        layout: 'layout-noNavbar',
+        napaka: false
+    });
+  }
 };
 
 const prijava = (req, res) => {
@@ -47,10 +56,9 @@ const prijava = (req, res) => {
         //žeton je zdaj shranjen v cookie in se ga lahko dostopa z req.cookies.authcookie
         res.redirect('/home');
       }).catch((napaka) => {
-
-        prikaziNapako(req, res, napaka);
-
-
+        var string = "napaka";
+        res.redirect('/?error=' + string);
+        //prikaziNapako(req, res, napaka);
       });
     }
   };
