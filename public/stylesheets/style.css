@@ -46,6 +46,15 @@ body, html {
     padding-right: 3% !important;
 }
 
+@media screen and (max-width:1000px) {
+    .hbses {
+        padding-top: 13% !important;
+        padding-bottom: 17% !important;
+        padding-left: 3% !important;
+        padding-right: 3% !important;
+    }
+}
+
 
 .row {
     max-width: 100% !important;
@@ -57,6 +66,10 @@ body, html {
 }
 
 /* navbar */
+
+a:link {
+    color: none !important;
+}
 
 .navbar-brand {
     color: #FFB703 !important;
@@ -175,41 +188,40 @@ body, html {
 
 .users-table {
     padding: 30px !important;
-    
-    
 }
 
 .bold-item {
-    font-weight: 800 !important;
+    font-style: bold !important;
+    font-weight: bolder !important;
 }
 
 table {
-    border: 0px solid #EEEEEE;
-    border-radius: 15px !important;
-    background-color: #EEEEEE;
-    border-collapse: collapse !important;
+    border: 1px solid #FFB703;
+    background-color: transparent !important;
+    border-color: #E5E5E5  !important;
 }
 
 thead {
-    border: 0px solid !important;
-    color: white !important;
-    border-radius: 15px 15px 0px 0px !important;
+    border-color: inherit !important;
+    border: 0px solid #FFB703 !important;
+    background-color: #FFB703 !important;
 }
 
-thead > tr {
-    border: 0px solid !important;
-    color: white !important;
-    border-radius: 15px 15px 0px 0px !important;
+tr {
+    border-color: #FFB703 !important;
+    
 }
 
-thead {
-    border: 0px solid !important;
-    background-color: #FFB703  !important;
-    border-radius: 30px !important;
-}
 
 tbody {
     font-size: 13px !important;
+}
+
+.uredi-uporabnika {
+    font-size: 14px !important;
+    border-radius: 15px !important;
+    background-color: #219EBC !important;
+    border: 3px solid #219EBC;
 }
 
 .dodaj-uporabnika {
@@ -319,3 +331,38 @@ p {
 
 
 /* labels & badges */
+
+
+/* account info */
+
+.account-info {
+    background-color: #8ECAE6 !important;
+    border: 0px solid !important;
+    color: white !important;
+}
+
+.account-info>div>h5 {
+    color:var(--c3) !important;
+    margin: 10px !important;
+    padding-bottom: 30px!important
+} 
+
+.account-info>div>p>span {
+    color: #EEEEEE !important;
+    font-style: italic !important;
+} 
+
+.account-info>div>p {
+    margin-top: -15px !important;
+} 
+
+.account-update {
+    border: 1px solid var(--c3) !important;
+    
+}
+
+.account-update>div>h5 {
+    color:var(--c3) !important;
+    margin: 10px !important;
+    padding-bottom: 30px!important
+} 

@@ -4,6 +4,7 @@ const ctrlUser = require("../controllers/users");
 const ctrlAvtentikacija = require("../controllers/avtentikacija");
 const ctrlHome = require("../controllers/home");
 const ctrlProjects = require("../controllers/projects");
+const ctrlAccount = require("../controllers/account");
 
 
 const jwt = require("express-jwt");
@@ -61,6 +62,10 @@ router.post("/prijava", ctrlAvtentikacija.prijava);
 
 /* Home page */
 router.get("/home", ctrlHome.izpisiPodatke);
+
+/* Account */
+router.get('/account/:idUser', ctrlAccount.userInfo);
+router.post('/account/:idUser', ctrlAccount.userUpdate);
 
 
 module.exports = router;

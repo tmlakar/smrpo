@@ -34,7 +34,9 @@ router.get('/projects/:id', ctrlProjects.podrobnostiProject);
 router.post('/projects/:id', ctrlProjects.posodobiProject);
 
 
-
-
+// account
+var ctrlAccount = require("../controllers/account");
+router.get('/account', ctrlAccount.prikaz);
+router.post('/account', ctrlAccount.posodobiUserja);
 
 module.exports = router;

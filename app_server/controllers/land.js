@@ -18,23 +18,30 @@ var prikaz = (req, res) => {
   console.log("dobim cookie", req.cookies.authcookie)
   var tokenParts = req.cookies.authcookie['žeton'].split('.');
   var encodedPayload = tokenParts[1];
-<<<<<<< HEAD
-=======
   //var rawPayload = window.atob(encodedPayload);
->>>>>>> 30fa2606a12042d5448269afb9337a8c62f46d0e
   var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
   var user = JSON.parse(rawPayload);
+  var name = user.name;
+  var surname = user.surname;
+  var id = user._id;
   var username = user.username;
+  var email = user.email;
   var vloga = user.role;
   if(vloga == "user"){
     res.render('home', {
-        name: username,
+        name: name,
+        surname: surname,
+        username: username,
+        email: email,
         layout: 'layout-user'
     });
   }
   else{
     res.render('home', {
-      name: username
+      name: name,
+      surname: surname,
+      username: username,
+      email: email,
   });
  }
 };

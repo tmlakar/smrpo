@@ -47,20 +47,21 @@
 <div class="navbarFoot">
 <ul class="d-flex navbar-nav mb-lg-0">
 
-
+        
         <li class="nav-item">
           <a class="nav-link" href=""><i class="fa-solid fa-bell font-awesome"></i></a>
          </li>
+         
 
-          {{!-- logout gumb --}}
-         <li class="nav-item">
-          <a class="nav-link" href=""><i class="fa-solid fa-gear font-awesome"></i></a>
+         {{!-- logout gumb --}}
+         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="fa-solid fa-gear font-awesome"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/account">My account</a>
+          <a class="dropdown-item" href="/">Logout</a>
           </li>
-
-          {{!-- posodobi podatke gumb / profil --}}
-          <li class="nav-item">
-          <a class="nav-link" href=""><i class="fa-solid fa-user-ninja font-awesome"></i></a>
-          </li>
+          
 
       </ul>
 

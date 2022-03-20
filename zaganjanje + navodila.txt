@@ -132,6 +132,12 @@ curl -X POST \
        -d "name=Building a wall - how to" \
        -H "Content-Type: application/x-www-form-urlencoded" \
        http://localhost:3000/api/project-new
+
+
+curl -X PUT \
+       -d "name=Helena&surname=BlagneKosar&username=blagneh&email=helenb@helena.si” \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       "http://localhost:3000/api/account/623308b6ac0417e865ad0a6e"
 _______________________________________________________
 
 

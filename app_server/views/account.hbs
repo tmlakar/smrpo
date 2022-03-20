@@ -1,0 +1,75 @@
+{{!-- account details --}}
+
+
+<div class="hbses">
+<br>
+
+<div class="row">
+  <div class="col-sm-6" style="padding-bottom: 30px !important">
+    <div class="card account-info">
+      <div class="card-body">
+        <h5 class="card-title">Account information</h5>
+        <p class="card-text"><span>Full name:</span>
+          <br>
+          {{name}} {{surname}}
+          
+        </p>
+        <p class="card-text"><span>Username:</span>
+          <br>
+          {{username}}
+        </p>
+        <p class="card-text"><span>Email:</span>
+          <br>
+          {{email}}
+        </p>
+
+        
+        
+      </div>
+    </div>
+  </div>
+
+
+{{!-- spremeni podatke --}}
+
+  <div class="col-sm-6">
+    <div class="card account-update">
+      <div class="card-body">
+        <h5 class="card-title">Edit your account information</h5>
+        <form id="posodobi" method="post">
+                           <div class="mb-3" hidden="true">
+                            <label class="form-label">Id</label>
+                            <input class="form-control input-form" name="id" placeholder="name" value="{{id}}" id="id" aria-describedby="emailHelp" required>
+
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input class="form-control input-form" name="name" placeholder="name" value="{{name}}" id="name" aria-describedby="emailHelp" required>
+
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Surname</label>
+                            <input class="form-control input-form" name="surname"  placeholder="surname" value="{{surname}}" id="surname" aria-describedby="emailHelp" required>
+
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input class="form-control input-form" name="username" placeholder="username" value="{{username}}" id="username" aria-describedby="emailHelp" required>
+
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input class="form-control input-form" name="email" placeholder="email" type="email" value="{{email}}" id="email" aria-describedby="emailHelp" required>
+
+                          </div>
+
+                        <button type="submit" class="btn submit-form">Submit</button>
+                        <button type="" class="btn submit-form" style="background-color: var(--c4) !important; width: 200px !important">Change password</button>
+                        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{!--  --}}

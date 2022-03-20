@@ -1,86 +1,51 @@
-{{!-- osnovni podatki uporabnika, urejanje podatkov, logout --}}
+
 <div class="hbses"><br>
-<script>localStorage.setItem("uporabnisko ime", "nekineki");</script>
+{{!-- some info about user --}}
 <h4 class="card-title">Hello, {{name}} {{surname}}!</h5>
-<br>
-<div class="card" >
-  <div class="card-body">
-    <h5 class="card-title">My user data</h5>
-    
-    <div><button id="posodobitev" type="button" data-toggle="modal"
-                data-target="#modalnoOknoPosodobi" class="btn btn-dark">Edit my user info</button></div><br>
 
-{{!-- modalno okno za posodobitev podatkov --}}
-    <div class="modal fade" id="modalnoOknoPosodobi" tabindex="-1" role="dialog"
-                   aria-labelledby="exampleModalLabel" aria-hidden="true">
-                   <div class="modal-dialog" role="document">
-                     <div class="modal-content">
-                      <div class="modal-header">
-                         <h5 class="modal-title" id="exampleModalLabel">Edit my info</h5>
-                         <button type="button" class="close" data-dismiss="modal"
-                           aria-label="Close">
-                           <span aria-hidden="true">&times;</span>
-                         </button>
-                      </div>
-                      <div class="modal-body">
-                        
-                        <form id="posodobiUporabnika" method="post" style="padding-top: 60px  !important;">
+{{!-- maybe priljubljeni projekti? --}}
+<h5 class="card-title" style="padding-bottom: 20px !important">Account information</h5>
+<div class="col-sm-6" style="padding-bottom: 30px !important; margin-left 0px !important; padding-left: 0px !important;">
+    <div class="card account-info" style="background-color: var(--c1) !important; margin-left 0px !important">
+      <div class="card-body">
+        <p class="card-text"><span>Full name:</span>
+          <br>
+          {{name}} {{surname}}
+          
+        </p>
+        <p class="card-text"><span>Username:</span>
+          <br>
+          {{username}}
+        </p>
+        <p class="card-text"><span>Email:</span>
+          <br>
+          {{email}}
+        </p>
 
-                          <div class="mb-3">
-                            <label class="form-label">Name</label>
-                          <input class="form-control" name="name" value="{{name}}" id="name" aria-describedby="emailHelp">
-                            
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Surname</label>
-                            <input class="form-control" name="surname" value="{{surname}}" id="surname" aria-describedby="emailHelp">
-                            
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Username</label>
-                            <input class="form-control" name="username" value="{{username}}" id="username" aria-describedby="emailHelp">
-                            
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input class="form-control" name="email" value="{{email}}" id="email" aria-describedby="emailHelp">
-                            
-                          </div>
-                          <div class="mb-3">
-                            
-                          </div>
-                        <button type="submit" id="posodobiUporabnika" class="btn btn-primary" onclick="posodobiUserja()">Potrdi</button>
-                        <br>
-                            <div><button id="posodobitev" type="button" data-toggle="modal"
-                      data-target="#modalnoOknoPosodobiGeslo" class="btn btn-dark">Edit password</button></div><br>
-                        </form>
-                        </div>
-                        
-                      </div>
-                      <form>
-                      <div class="modal-footer">
-                         
-                         
-                         </form>
-                      </div>
-                      </div>
-                      </div>
-                      
-                      
-                     
-    {{!-- logout ga preusmeri na '/' (login page) in odstrani zeton oz. flag, ki nakazuje, da je prijavljen --}}
-    <button class="btn btn-dark">Logout</button>
+        <a href="/account"><button type="" class="btn submit-form" style="background-color: var(--c4) !important; width: 200px !important">Edit information</button></a>
+        
+      </div>
+    </div>
   </div>
-</div>
-
-
-
-<br>
-<br>
-<br>
+                      
 
 {{!-- projekti uporabnika --}}
 
-<h4 class="card-title">My projects</h5>
+<h5 class="card-title" style="padding-bottom: 20px !important">Your projects</h5>
+<a href="" style="text-decoration: none !important; "><div class="card" style="margin-top: 20px !important; background-color: #8ECAE6; border: 0px !important">
+          <div class="card-body">
+            <h6>Project 1</h6>
+            <br>
+
+          </div>
+        </div></a>
+
+  <a href="" style="text-decoration: none !important"><div class="card" style="margin-top: 20px !important; background-color: #8ECAE6; border: 0px !important">
+          <div class="card-body">
+            <h6>Project 2</h6>
+            <br>
+
+          </div>
+        </div></a>
 
 </div>
