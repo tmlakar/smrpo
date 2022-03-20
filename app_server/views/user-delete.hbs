@@ -2,7 +2,30 @@
 
 <div class="hbses">
 
+<div class="table-responsive users-table">
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Surname</th>
+      <th scope="col">Email</th>
+      <th scope="col">Username</th>
+      <th scope="col">Role</th>
 
+  </thead>
+  <tbody>
+
+    <tr>
+      <th scope="row">{{name}}</th>
+      <td>{{surname}}</td>
+      <td>{{username}}</td>
+      <td>{{email}}</td>
+      <td>{{role}}</td>
+
+    </tr>
+  </tbody>
+</table>
+</div>
 {{!-- gumb za izbris uporabnika --}}
 <div><button id="izbris" type="button" data-toggle="modal"
                 data-target="#modalnoOknoIzbrisi" class="btn btn-dark">Delete user</button></div>
@@ -23,19 +46,15 @@
                       <div class="modal-body">
                         <form id="izbrisiUporabnika" method="post">
                          <p>
-                           Ste prepričani da želite izbrisati tega uporabnika?
+                           Are you sure you want to delete this user?
                          </p>
                          <p class="text-secondary">
-                           <small>Če izbrišete uporabnika, bo ta trajno odstranjen iz podatkovne baze.</small>
+                           <small>The user will be permanently deleted from the database.</small>
                          </p>
                       </div>
-                      <button type="submit" class="btn btn-primary btn-lg" onClick="izbrisiUserja()">Potrdi</button>
+                      <button type="submit" class="btn submit-form">Delete user</button>
                       
-                      <div class="modal-footer">
-                        
-                         
-                         
-                      </div>
+                  
                       </form>
                      </div>
                    </div>

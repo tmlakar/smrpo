@@ -42,8 +42,8 @@ const prijava = (req, res) => {
           res.redirect('/home');
         
       }).catch((napaka) => {
-        
-        prikaziNapako(req, res, napaka);
+        res.redirect('/');
+        //prikaziNapako(req, res, napaka);
         
         
       });

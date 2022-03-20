@@ -1,6 +1,5 @@
 <div class="hbses">
 
-<h3>Users</h3>
 
 {{!-- uporabniki -> dinamično iz baze s pomočjo REST API --}}
 <div class="table-responsive users-table">
@@ -46,32 +45,32 @@
                       </div>
                       <div class="modal-body">
 
-                        <form id="posodobiUporabnika" method="post" style="padding-top: 60px  !important;">
+                        <form id="posodobiUporabnika" method="post">
                           <div class="mb-3">
                             <label class="form-label">Name</label>
-                            <input class="form-control" name="name" placeholder="{{name}}" value="{{name}}" id="name" aria-describedby="emailHelp">
+                            <input class="form-control input-form" name="name" placeholder="{{name}}" value="{{name}}" id="name" aria-describedby="emailHelp">
 
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Surname</label>
-                            <input class="form-control" name="surname"  placeholder="{{surname}}" value="{{surname}}" id="surname" aria-describedby="emailHelp">
+                            <input class="form-control input-form" name="surname"  placeholder="{{surname}}" value="{{surname}}" id="surname" aria-describedby="emailHelp">
 
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Username</label>
-                            <input class="form-control" name="username" placeholder="{{username}}" value="{{username}}" id="username" aria-describedby="emailHelp">
+                            <input class="form-control input-form" name="username" placeholder="{{username}}" value="{{username}}" id="username" aria-describedby="emailHelp">
 
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input class="form-control" name="email" placeholder="{{email}}" value="{{email}}" id="email" aria-describedby="emailHelp">
+                            <input class="form-control input-form" name="email" placeholder="{{email}}" value="{{email}}" id="email" aria-describedby="emailHelp">
 
                           </div>
 
                           <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input class="form-control" name="password" id="password" value="{{password}}" type="password"  pattern=".{12,128}" title="The password must be at least 12 characters long!" aria-describedby="emailHelp">
-                            <input id="prikazi" value="{{password}}" type="checkbox" onClick="myFunction()">Show Password
+                            <input class="form-control input-form" name="password" id="password" value="{{password}}" type="password"  pattern=".{12,128}" title="The password must be at least 12 characters long!" aria-describedby="emailHelp">
+                            <input id="prikazi" value="{{password}}" style="margin-right: 10px;margin-top:20px;" type="checkbox" onClick="myFunction()">Show Password
                             <script>
                               function myFunction() {
                                 var x = document.getElementById("password");
@@ -93,18 +92,14 @@
                             </select>
 
                           </div>
-                        <button type="submit"id="" class="btn btn-primary btn-lg" onclick="">Potrdi</button>
+                        <button type="submit" class="btn submit-form">Submit</button>
 
                         </form>
                         </div>
 
                       </div>
-                      <form>
-                      <div class="modal-footer">
-
-
-                         </form>
-                      </div>
+                      
+                  
                      </div>
                    </div>
                  </div>
