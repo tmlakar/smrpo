@@ -37,8 +37,7 @@ const userInfo = (req, res) => {
         user.surname = req.body.surname;
         user.username = req.body.username;
         user.email = req.body.email;
-       
-
+        console.log(user.name, user.surname, user.username, user.email)
         user.save((napaka, user) => {
           if (napaka) {
             res.status(404).json("Nekaj je narobe.");

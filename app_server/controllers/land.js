@@ -12,8 +12,31 @@ var apiParametri = {
   });
 
 
+var podrobnostiUser = (req, res) => {
+  // dobim podatke od userja iz idja, ki je v cookiju -> ce uporabnik posodobi svoje podatke
+  // se ne pokazejo posodobljeni, kr je za zdej se vedno crpu vn iz cookie-ja
+    var tokenParts = req.cookies.authcookie['žeton'].split('.');
+    var encodedPayload = tokenParts[1];
+    var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+    var user = JSON.parse(rawPayload);
+
+    var id = user._id;
+    var role = user.role;
+    var layout2 = "layout";
+    if (role == user) {
+      layout2 = "layout-user";
+    }
+    var userId = id;
+    axios
+        .get (apiParametri.streznik + '/api/account/' + userId)
+        .then((user, layout) => {
+            res.render('home', user.data);
+        });
+  };
 
 
+
+  // ne dela v primeru, ko uporabnik posodobi svoje podatke, pa mu se vedno kaze tastare
 var prikaz = (req, res) => {
   console.log("dobim cookie", req.cookies.authcookie)
   var tokenParts = req.cookies.authcookie['žeton'].split('.');
@@ -58,6 +81,13 @@ var prikaz = (req, res) => {
     });
 };
 
+const logout = (req, res) => {
+  cookies.set('authcookie', {expires: new Date(0)});
+  res.redirect('/');
+};
+
 module.exports = {
-    prikaz
+    prikaz,
+    logout,
+    podrobnostiUser
 };

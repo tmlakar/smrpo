@@ -10,7 +10,11 @@ router.post('/', ctrlLogin.prijava);
 
 //home page
 var ctrlHome = require("../controllers/land");
+// tale dela z uporabniskimi podatki
+//router.get('/home', ctrlHome.podrobnostiUser);
+// tale dela z cookiji -> torej ce je posodobitev, se ne bo posodobil, se bo mogu najprej odjavit pa prijavit spet
 router.get('/home', ctrlHome.prikaz);
+router.get('/logout', ctrlHome.logout);
 
 
 // users
@@ -36,6 +40,8 @@ router.post('/projects/:id', ctrlProjects.posodobiProject);
 
 // account
 var ctrlAccount = require("../controllers/account");
+// ista fora
+// router.get('/account', ctrlAccount.podrobnostiUser);
 router.get('/account', ctrlAccount.prikaz);
 router.post('/account', ctrlAccount.posodobiUserja);
 

@@ -65,7 +65,7 @@ router.get("/home", ctrlHome.izpisiPodatke);
 
 /* Account */
 router.get('/account/:idUser', ctrlAccount.userInfo);
-router.post('/account/:idUser', ctrlAccount.userUpdate);
+router.put('/account/:idUser', ctrlAccount.userUpdate);
 
 
 module.exports = router;

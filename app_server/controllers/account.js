@@ -49,17 +49,28 @@ var apiParametri = {
 
 
   var podrobnostiUser = (req, res) => {
-    var userId = req.params.id;
+    var tokenParts = req.cookies.authcookie['žeton'].split('.');
+    var encodedPayload = tokenParts[1];
+    var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+    var user = JSON.parse(rawPayload);
+
+    var id = user._id;
+    
+    var userId = id;
     axios
-        .get (apiParametri.streznik + '/api/users/' + userId)
+        .get (apiParametri.streznik + '/api/account/' + userId)
         .then((odgovor) => {
-            res.render('user-edit', odgovor.data);
+            res.render('account', odgovor.data);
         });
   };
 
   const posodobiUserja = (req, res) => {
-
-    var userId = req.body.id;
+    var tokenParts = req.cookies.authcookie['žeton'].split('.');
+    var encodedPayload = tokenParts[1];
+    var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+    var user = JSON.parse(rawPayload);
+    var id = user._id;
+    console.log(id);
   
     if (!req.body.name || !req.body.surname || !req.body.username || !req.body.email ) {
       res.render('error', {
@@ -72,18 +83,20 @@ var apiParametri = {
     } else {
     axios({
       method: 'put',
-      url: apiParametri.streznik + '/api/account/' + userId,
+      url: apiParametri.streznik + '/api/account/' + id,
       data: {
            name: req.body.name,
            surname: req.body.surname,
            username: req.body.username,
            email: req.body.email,
+  
        }
       })
       .then(() => {
-          res.redirect('/account');
+        
+          res.redirect('/home');
       }).catch((napaka) => {
-          res.redirect('error');
+          res.send(napaka);
       });
     }
   };
