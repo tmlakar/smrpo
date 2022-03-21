@@ -19,7 +19,8 @@ const projectsList = (req, res) => {
 const projectCreate = (req, res) => {
     Project.create({
 
-      name: req.body.name
+      name: req.body.name,
+      info: req.body.info
       
   }, (napaka, project) => {
       if(napaka) {
@@ -65,6 +66,7 @@ const projectUpdate = (req, res) => {
           return res.status(500).json(napaka);
         }
         project.name = req.body.name;
+        project.info = req.body.info;
 
         project.save((napaka, project) => {
           if (napaka) {

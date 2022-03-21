@@ -59,7 +59,7 @@ var podrobnostiProject = (req, res) => {
 
 
   const createProject = (req, res) => {
-    if (!req.body.name) {
+    if (!req.body.name || !req.body.info) {
       res.render('error', {
            message: "Prišlo je do napake.",
            error: {
@@ -72,7 +72,8 @@ var podrobnostiProject = (req, res) => {
         method: 'post',
         url: apiParametri.streznik + '/api/project-new',
         data: {
-          name: req.body.name
+          name: req.body.name,
+          info: req.body.info
         }
       }).then(() => {
         res.redirect('/projects', );
@@ -102,12 +103,15 @@ var podrobnostiProject = (req, res) => {
       method: 'put',
       url: apiParametri.streznik + '/api/projects/' + projectId,
       data: {
-           name: req.body.name
+           name: req.body.name,
+           info: req.body.info
        }
       })
       .then(() => {
           res.redirect('/projects');
       }).catch((napaka) => {
+      //   var string = "napaka";
+      // res.redirect('/projects/' + projectId + '?error=' + string);
       prikaziNapako(req, res, napaka);
       });
     }
