@@ -191,6 +191,7 @@ a:link {
     padding: 0px !important;
     background-color: transparent !important;
     border-radius: 30px  !important;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .bold-item {
@@ -402,4 +403,15 @@ p {
 .modal-title {
     padding-left: 13px !important;
     color: var(--c3) !important;
+}
+
+/* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */
+
+.projekt-card {
+    color: white !important;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.projekt-card>div>h4 {
+    color: var(--c2) !important
 }

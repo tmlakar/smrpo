@@ -16,6 +16,11 @@ var users = require("../models/user.json");
 
 /* Seznam vseh uporabnikov */
 var seznam = (req, res) => {
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
   axios
       .get (apiParametri.streznik + '/api/users', {})
       .then((odgovor) => {
@@ -24,6 +29,11 @@ var seznam = (req, res) => {
 };
 
 const prikaziStran = (req, res, uporabniki) => {
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
   console.log("dobim cookie delaaaa", req.cookies.authcookie)
   res.render('users', {
     users: uporabniki
@@ -32,6 +42,11 @@ const prikaziStran = (req, res, uporabniki) => {
 
 
 const dodaj = (req, res) => {
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
     var x = req.query.error;
     var isError = true;
     if(x == "napaka"){
@@ -76,6 +91,11 @@ const shraniUserja = (req, res) => {
 
 /* Prikazi stran s podrobnostmi uporabnika */
 var podrobnostiUser = (req, res) => {
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
   var x = req.query.error;
     var isError = true;
     if(x == "napaka"){

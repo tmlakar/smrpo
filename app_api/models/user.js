@@ -57,7 +57,7 @@ userShema.methods.generirajJwt = function () {
       username: this.username,
       email: this.email,
       role: this.role,
-      exp: parseInt(datumPoteka.getTime() / 1000),
+      exp: parseInt(datumPoteka.getTime() / 100),
     },
     process.env.JWT_GESLO); 
     

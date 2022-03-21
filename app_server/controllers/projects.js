@@ -12,6 +12,11 @@ var apiParametri = {
 
 
 var seznam = (req, res) => {
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
     axios
       .get (apiParametri.streznik + '/api/projects', {})
       .then((odgovor) => {
@@ -22,6 +27,11 @@ var seznam = (req, res) => {
 
 /* Details project */
 var podrobnostiProject = (req, res) => {
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
     var projectId = req.params.id;
     axios
         .get (apiParametri.streznik + '/api/projects/' + projectId)
@@ -29,6 +39,23 @@ var podrobnostiProject = (req, res) => {
             res.render('project-edit', odgovor.data);
         });
   };
+
+  var prikaz = (req, res) => {
+    var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
+    var x = req.query.error;
+    var isError = true;
+    if(x == "napaka"){
+      isError = true;
+    }
+    else{
+      isError = false;
+    }
+  res.render('project-new', {napaka: isError});
+};
 
 
   const createProject = (req, res) => {
@@ -50,7 +77,9 @@ var podrobnostiProject = (req, res) => {
       }).then(() => {
         res.redirect('/projects', );
       }).catch((napaka) => {
-        prikaziNapako(req, res, napaka);
+        var string = "napaka";
+      res.redirect('/project-new?error=' + string);
+        //prikaziNapako(req, res, napaka);
       });
   }
   };
@@ -101,6 +130,7 @@ const prikaziNapako = (req, res, napaka) => {
 
 module.exports = {
     seznam,
+    prikaz,
     podrobnostiProject,
     posodobiProject,
     createProject
