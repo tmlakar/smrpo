@@ -97,18 +97,24 @@ var podrobnostiUser = (req, res) => {
   var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
   var user = JSON.parse(rawPayload);
   var x = req.query.error;
-    var isError = true;
-    if(x == "napaka"){
-      isError = true;
-    }
-    else{
-      isError = false;
-    }
+
   var userId = req.params.id;
+  var napaka = req.query.error;
+  var jeNapaka = false;
+  if(napaka == "napaka"){
+    jeNapaka = true;
+  }
   axios
       .get (apiParametri.streznik + '/api/users/' + userId)
       .then((user) => {
-          res.render('user-edit', user.data);
+          res.render('user-edit',  { name: user.data.name,
+              surname: user.data.surname,
+              username: user.data.username,
+              email: user.data.email,
+              password: user.data.password,
+              role: user.data.role,
+              napaka: jeNapaka
+            });
       });
 };
 
@@ -145,9 +151,9 @@ const posodobiUserja = (req, res) => {
     .then(() => {
         res.redirect('/users');
     }).catch((napaka) => {
-      // var string = "napaka";
-      // res.redirect('/users/userId?error=' + string);
-    prikaziNapako(req, res, napaka);
+      var string = "napaka";
+      res.redirect('/users/' + userId + '?error=' + string);
+    //prikaziNapako(req, res, napaka);
     });
   }
 };
