@@ -76,13 +76,23 @@ const shraniUserja = (req, res) => {
 
 /* Prikazi stran s podrobnostmi uporabnika */
 var podrobnostiUser = (req, res) => {
+  var x = req.query.error;
+    var isError = true;
+    if(x == "napaka"){
+      isError = true;
+    }
+    else{
+      isError = false;
+    }
   var userId = req.params.id;
   axios
       .get (apiParametri.streznik + '/api/users/' + userId)
-      .then((odgovor) => {
-          res.render('user-edit', odgovor.data);
+      .then((user) => {
+          res.render('user-edit', user.data);
       });
 };
+
+
 
 /* Posodobitev uporabnika */
 
@@ -115,6 +125,8 @@ const posodobiUserja = (req, res) => {
     .then(() => {
         res.redirect('/users');
     }).catch((napaka) => {
+      // var string = "napaka";
+      // res.redirect('/users/userId?error=' + string);
     prikaziNapako(req, res, napaka);
     });
   }

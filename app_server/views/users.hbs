@@ -4,7 +4,7 @@
 
 {{!-- uporabniki -> dinamično iz baze s pomočjo REST API --}}
 <div class="table-responsive users-table">
-  <table class="table table-striped">
+  <table class="table">
   <thead>
     <tr>
       <th scope="col">Name</th>
@@ -25,7 +25,8 @@
       <td>{{user.role}}</td>
 
       {{!-- gumba za edit in delete uporabnikov --}}
-      <td><a href="/users/{{user._id}}"><button type="button" class="btn uredi-uporabika btn-dark btn-small ">Edit user </button></a></td>
+      <td><a href="/users/{{user._id}}"><button type="button" 
+      class="btn uredi-uporabika btn-dark btn-small " style="border-radius: 15px !important; background-color: var(--c5) !important; border: 0px !important">Edit user </button></a></td>
 
     </tr>
     {{/each}}

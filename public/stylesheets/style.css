@@ -187,7 +187,10 @@ a:link {
 /* admin - users view (table) */
 
 .users-table {
-    padding: 30px !important;
+    margin: 30px !important;
+    padding: 0px !important;
+    background-color: transparent !important;
+    border-radius: 30px  !important;
 }
 
 .bold-item {
@@ -196,25 +199,33 @@ a:link {
 }
 
 table {
-    border: 1px solid #FFB703;
-    background-color: transparent !important;
-    border-color: #E5E5E5  !important;
+    border: 1px solid #EEEEEE !important;
+    background-color: #EEEEEE !important;
+    border-color: #EEEEEE !important;
+    border-radius: 30px !important;
+    margin-bottom: -5px !important;
 }
 
 thead {
     border-color: inherit !important;
     border: 0px solid #FFB703 !important;
     background-color: #FFB703 !important;
+    border-radius: 30px !important;
+    font-size: 18px !important;
+    font-style: oblique !important;
+    font-weight: bolder !important;
 }
 
 tr {
     border-color: #FFB703 !important;
+    border-radius: 30px !important;
     
 }
 
 
 tbody {
-    font-size: 13px !important;
+    font-size: 15px !important;
+    border-radius: 30px !important;
 }
 
 .uredi-uporabnika {
@@ -233,10 +244,11 @@ tbody {
     float: right;
     font-size: 50px !important;
     margin-bottom: 50px;
-    margin-left: 88%;
+    margin-left: 92%;
     
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
 }
+/* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */
 
 .submit-form {
     /* button for submitting the form */
@@ -371,4 +383,23 @@ p {
     background-color: #EEEEEE !important;
     border: 0px solid !important;
     
+}
+
+.modal {
+    background-color: #F8F9FA !important;
+}
+
+.modal-content {
+    background-color: var(--c1) !important;
+    color: white !important;
+}
+
+.modal-header {
+    background-color: var(--c1) !important;
+    color: white !important;
+}
+
+.modal-title {
+    padding-left: 13px !important;
+    color: var(--c3) !important;
 }

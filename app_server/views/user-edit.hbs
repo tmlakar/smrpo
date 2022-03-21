@@ -2,48 +2,44 @@
 
 
 {{!-- uporabniki -> dinamično iz baze s pomočjo REST API --}}
-<div class="table-responsive users-table">
-  <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Email</th>
-      <th scope="col">Username</th>
-      <th scope="col">Role</th>
-    </tr>
-  </thead>
-  <tbody>
 
-    <tr>
-      <th scope="row" class="bold-item">{{name}}</th>
-      <td class="bold-item">{{surname}}</td>
-      <td>{{username}}</td>
-      <td>{{email}}</td>
-      <td>{{role}}</td>
+<div class="row">
+  <div class="col-sm-3" style="padding-bottom: 30px !important">
+    <div class="card account-info" style="background-color: var(--c3) !important;">
+      <div class="card-body">
+        <h5 class="card-title" style="color: var(--c5) !important;">User information</h5>
+        <p class="card-text"><span>Name and surname:</span>
+          <br>
+          {{name}} {{surname}}
+          
+        </p>
+        <p class="card-text"><span>Username:</span>
+          <br>
+          {{username}}
+        </p>
+        <p class="card-text"><span>Email:</span>
+          <br>
+          {{email}}
+        </p>
+        <p class="card-text"><span>Role:</span>
+          <br>
+          {{role}}
+        </p>
 
-    </tr>
-  </tbody>
-</table>
-</div>
 
-<div>
+        
+        
+      </div>
+    </div>
+  </div>
+
+
+
   {{!-- vnosna polja za spremembo uporabniskih podatkov s strani admina --}}
-  <div><button id="posodobitev" type="button" data-toggle="modal"
-                data-target="#modalnoOknoPosodobi" class="btn btn-dark">Edit user</button></div><br>
-
-<div class="modal fade" id="modalnoOknoPosodobi" tabindex="-1" role="dialog"
-                   aria-labelledby="exampleModalLabel" aria-hidden="true">
-                   <div class="modal-dialog" role="document">
-                     <div class="modal-content">
-                      <div class="modal-header">
-                         <h5 class="modal-title" id="exampleModalLabel">Update user settings</h5>
-                         <button type="button" class="close" data-dismiss="modal"
-                           aria-label="Close">
-                           <span aria-hidden="true">&times;</span>
-                         </button>
-                      </div>
-                      <div class="modal-body">
+ <div class="col-sm-9">
+        <div class="card user-add">
+        <div class="card-body">
+            <h5 class="card-title">Edit user</h5>    
 
                         <form id="posodobiUporabnika" method="post">
                           <div class="mb-3">
@@ -92,20 +88,26 @@
                             </select>
 
                           </div>
+
+                          {{#if napaka}}
+                          <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 10px; border-radius: 18px; margin-top: 10px !important">
+                          <span style="font-size: 14px !important">Account with this username and / or email already exists!</span>
+                          </div>
+                        {{/if}}
+                        
                         <button type="submit" class="btn submit-form">Submit</button>
 
                         </form>
                         </div>
+        </div>
+        {{!-- gumb za izbris uporabnika --}}
+  <div style="padding-top: 20px !important"><a href="/users/{{_id}}/izbrisi"><button id="izbris" type="button" class="btn btn-dark submit-form" style="background-color: var(--c4) !important;">Delete user</button></a></div>
 
-                      </div>
-                      
+  </div>
+        </div>
+        
+                        
                   
-                     </div>
-                   </div>
-                 </div>
-
-{{!-- gumb za izbris uporabnika --}}
-<div><a href="/users/{{_id}}/izbrisi"><button id="izbris" type="button" data-toggle="modal"
-                data-target="#modalnoOknoIzbrisi" class="btn btn-dark">Delete user</button></a></div>
-
 </div>
+
+</div
