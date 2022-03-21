@@ -10,6 +10,7 @@ const userShema = new mongoose.Schema({
 
 const projectShema = new mongoose.Schema({
     name: { type: String, unique: true  },
+    info: {type: String},
     users: [userShema]
 });
 

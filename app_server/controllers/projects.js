@@ -3,7 +3,7 @@ var apiParametri = {
     streznik: "http://localhost:" + (process.env.PORT || 3000),
   };
   if (process.env.NODE_ENV === "production") {
-    
+
   }
   const axios = require("axios").create({
     baseURL: apiParametri.streznik,
@@ -12,6 +12,11 @@ var apiParametri = {
 
 
 var seznam = (req, res) => {
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
     axios
       .get (apiParametri.streznik + '/api/projects', {})
       .then((odgovor) => {
@@ -22,17 +27,49 @@ var seznam = (req, res) => {
 
 /* Details project */
 var podrobnostiProject = (req, res) => {
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
     var projectId = req.params.id;
+    var napaka = req.query.error;
+    var jeNapaka = false;
+    if(napaka == "napaka"){
+      jeNapaka = true;
+    }
     axios
         .get (apiParametri.streznik + '/api/projects/' + projectId)
         .then((odgovor) => {
-            res.render('project-edit', odgovor.data);
+            res.render('project-edit',
+            { name: odgovor.data.name,
+              info: odgovor.data.info,
+              collaborators: odgovor.data.users,
+              napaka: jeNapaka
+            });
         });
   };
 
+  var prikaz = (req, res) => {
+    var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
+    var x = req.query.error;
+    var isError = true;
+    if(x == "napaka"){
+      isError = true;
+    }
+    else{
+      isError = false;
+    }
+  res.render('project-new', {napaka: isError});
+};
+
 
   const createProject = (req, res) => {
-    if (!req.body.name) {
+    if (!req.body.name || !req.body.info) {
       res.render('error', {
            message: "Prišlo je do napake.",
            error: {
@@ -45,21 +82,24 @@ var podrobnostiProject = (req, res) => {
         method: 'post',
         url: apiParametri.streznik + '/api/project-new',
         data: {
-          name: req.body.name
+          name: req.body.name,
+          info: req.body.info
         }
       }).then(() => {
         res.redirect('/projects', );
       }).catch((napaka) => {
-        prikaziNapako(req, res, napaka);
+        var string = "napaka";
+      res.redirect('/project-new?error=' + string);
+        //prikaziNapako(req, res, napaka);
       });
   }
   };
 
 
   const posodobiProject = (req, res) => {
-  
+
     var projectId = req.params.id;
-  
+
     if (!req.body.name) {
       res.render('error', {
            message: "Prišlo je do napake.",
@@ -73,13 +113,15 @@ var podrobnostiProject = (req, res) => {
       method: 'put',
       url: apiParametri.streznik + '/api/projects/' + projectId,
       data: {
-           name: req.body.name
+           name: req.body.name,
+           info: req.body.info
        }
       })
       .then(() => {
           res.redirect('/projects');
       }).catch((napaka) => {
-      prikaziNapako(req, res, napaka);
+        var string = "napaka";
+        res.redirect('/projects/' + projectId + '?error=' + string);
       });
     }
   };
@@ -101,6 +143,7 @@ const prikaziNapako = (req, res, napaka) => {
 
 module.exports = {
     seznam,
+    prikaz,
     podrobnostiProject,
     posodobiProject,
     createProject

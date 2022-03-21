@@ -1,0 +1,35 @@
+<div class="hbses">
+
+<div class="col-sm-12">
+        <div class="card user-add">
+        <div class="card-body">
+            <h5 class="card-title">Add new project</h5>  
+
+                        <form id="posodobiUporabnika" method="post" style="">
+                          <div class="mb-3" style="padding-bottom: 10px !important">
+                            <label class="form-label" style="padding-top: 10px !important">Name</label>
+                            <input class="form-control input-form" name="name" id="name" aria-describedby="emailHelp" required>
+                        </div>
+
+                        <div class="mb-3" style="padding-bottom: 10px !important">
+                            <label class="form-label" style="padding-top: 10px !important">Project description</label>
+                            <input class="form-control input-form" name="info" id="name" aria-describedby="emailHelp" required>
+                        </div>
+                        
+                        {{#if napaka}}
+                          <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 10px; border-radius: 18px; margin-top: 10px !important">
+                          <span style="font-size: 14px !important">Project with this name already exists!</span>
+                          </div>
+                        {{/if}}
+                        <div style="padding-top: 10px !important">
+                        <button type="submit" class="btn submit-form">Submit</button>
+                        </div>
+                        </form>
+                        </div>
+
+                      </div>
+
+
+
+    
+</div>

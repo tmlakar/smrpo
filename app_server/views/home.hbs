@@ -1,86 +1,44 @@
-{{!-- osnovni podatki uporabnika, urejanje podatkov, logout --}}
+
 <div class="hbses"><br>
-<script>localStorage.setItem("uporabnisko ime", "nekineki");</script>
-<h4 class="card-title">Hello, {{name}} {{surname}}!</h5>
-<br>
-<div class="card" >
-  <div class="card-body">
-    <h5 class="card-title">My user data</h5>
+{{!-- some info about user --}}
+<h4 class="card-title">Hello, <span style="color: var(--c1) !important">{{name}} {{surname}}</span></h5>
+
+
+
+
+      <div class="" style="padding: 30px 0px 30px 0px !important">
+        <a href="/account"><button type="" class="btn submit-form" 
+        style="background-color: var(--c4) !important; width: 250px !important; margin: 0px !important">Edit account information</button></a>
+        
+      </div>
     
-    <div><button id="posodobitev" type="button" data-toggle="modal"
-                data-target="#modalnoOknoPosodobi" class="btn btn-dark">Edit my user info</button></div><br>
-
-{{!-- modalno okno za posodobitev podatkov --}}
-    <div class="modal fade" id="modalnoOknoPosodobi" tabindex="-1" role="dialog"
-                   aria-labelledby="exampleModalLabel" aria-hidden="true">
-                   <div class="modal-dialog" role="document">
-                     <div class="modal-content">
-                      <div class="modal-header">
-                         <h5 class="modal-title" id="exampleModalLabel">Edit my info</h5>
-                         <button type="button" class="close" data-dismiss="modal"
-                           aria-label="Close">
-                           <span aria-hidden="true">&times;</span>
-                         </button>
-                      </div>
-                      <div class="modal-body">
-                        
-                        <form id="posodobiUporabnika" method="post" style="padding-top: 60px  !important;">
-
-                          <div class="mb-3">
-                            <label class="form-label">Name</label>
-                          <input class="form-control" name="name" value="{{name}}" id="name" aria-describedby="emailHelp">
-                            
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Surname</label>
-                            <input class="form-control" name="surname" value="{{surname}}" id="surname" aria-describedby="emailHelp">
-                            
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Username</label>
-                            <input class="form-control" name="username" value="{{username}}" id="username" aria-describedby="emailHelp">
-                            
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input class="form-control" name="email" value="{{email}}" id="email" aria-describedby="emailHelp">
-                            
-                          </div>
-                          <div class="mb-3">
-                            
-                          </div>
-                        <button type="submit" id="posodobiUporabnika" class="btn btn-primary" onclick="posodobiUserja()">Potrdi</button>
-                        <br>
-                            <div><button id="posodobitev" type="button" data-toggle="modal"
-                      data-target="#modalnoOknoPosodobiGeslo" class="btn btn-dark">Edit password</button></div><br>
-                        </form>
-                        </div>
-                        
-                      </div>
-                      <form>
-                      <div class="modal-footer">
-                         
-                         
-                         </form>
-                      </div>
-                      </div>
-                      </div>
                       
-                      
-                     
-    {{!-- logout ga preusmeri na '/' (login page) in odstrani zeton oz. flag, ki nakazuje, da je prijavljen --}}
-    <button class="btn btn-dark">Logout</button>
-  </div>
-</div>
-
-
-
-<br>
-<br>
-<br>
 
 {{!-- projekti uporabnika --}}
+<h4 class="card-title">Your projects</h5>
+<div class="card-group">
+<div class="row">
+    {{#each projects as |project|}}
+    
+      
+        <div class="card projekt-card col-sm-3" style="margin: 20px !important; 
+        background-color: var(--c4); border: 4px solid var(--c4) !important;">
+          <div class="card-body">
+            <h4><i>{{project.name}}</i></h4>
+            <br>
+            <p>Project info</p>
+            <p>...</p>
+            <a href="/projects/{{project._id}}"><button type="button" class="btn submit-form btn-dark"
+            style="background-color: var(--c5) !important">Edit project</button></a></td>
 
-<h4 class="card-title">My projects</h5>
+          </div>
+        </div>
+      {{!-- gumba za edit projectov --}}
+
+      
+    
+    {{/each}}
+  </div>
+  </div>
 
 </div>

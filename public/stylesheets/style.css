@@ -46,6 +46,15 @@ body, html {
     padding-right: 3% !important;
 }
 
+@media screen and (max-width:1000px) {
+    .hbses {
+        padding-top: 13% !important;
+        padding-bottom: 17% !important;
+        padding-left: 3% !important;
+        padding-right: 3% !important;
+    }
+}
+
 
 .row {
     max-width: 100% !important;
@@ -57,6 +66,10 @@ body, html {
 }
 
 /* navbar */
+
+a:link {
+    color: none !important;
+}
 
 .navbar-brand {
     color: #FFB703 !important;
@@ -174,42 +187,53 @@ body, html {
 /* admin - users view (table) */
 
 .users-table {
-    padding: 30px !important;
-    
-    
+    margin: 30px !important;
+    padding: 0px !important;
+    background-color: transparent !important;
+    border-radius: 30px  !important;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .bold-item {
-    font-weight: 800 !important;
+    font-style: bold !important;
+    font-weight: bolder !important;
 }
 
 table {
-    border: 0px solid #EEEEEE;
-    border-radius: 15px !important;
-    background-color: #EEEEEE;
-    border-collapse: collapse !important;
+    border: 1px solid #EEEEEE !important;
+    background-color: #EEEEEE !important;
+    border-color: #EEEEEE !important;
+    border-radius: 30px !important;
+    margin-bottom: -5px !important;
 }
 
 thead {
-    border: 0px solid !important;
-    color: white !important;
-    border-radius: 15px 15px 0px 0px !important;
+    border-color: inherit !important;
+    border: 0px solid #FFB703 !important;
+    background-color: #FFB703 !important;
+    border-radius: 30px !important;
+    font-size: 18px !important;
+    font-style: oblique !important;
+    font-weight: bolder !important;
 }
 
-thead > tr {
-    border: 0px solid !important;
-    color: white !important;
-    border-radius: 15px 15px 0px 0px !important;
+tr {
+    border-color: #FFB703 !important;
+    border-radius: 30px !important;
+    
 }
 
-thead {
-    border: 0px solid !important;
-    background-color: #FFB703  !important;
+
+tbody {
+    font-size: 15px !important;
     border-radius: 30px !important;
 }
 
-tbody {
-    font-size: 13px !important;
+.uredi-uporabnika {
+    font-size: 14px !important;
+    border-radius: 15px !important;
+    background-color: #219EBC !important;
+    border: 3px solid #219EBC;
 }
 
 .dodaj-uporabnika {
@@ -221,10 +245,11 @@ tbody {
     float: right;
     font-size: 50px !important;
     margin-bottom: 50px;
-    margin-left: 88%;
+    margin-left: 92%;
     
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
 }
+/* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */
 
 .submit-form {
     /* button for submitting the form */
@@ -319,3 +344,74 @@ p {
 
 
 /* labels & badges */
+
+
+/* account info */
+
+.account-info {
+    background-color: #8ECAE6 !important;
+    border: 0px solid !important;
+    color: white !important;
+}
+
+.account-info>div>h5 {
+    color:var(--c3) !important;
+    margin: 10px !important;
+    padding-bottom: 30px!important
+} 
+
+.account-info>div>p>span {
+    color: #EEEEEE !important;
+    font-style: italic !important;
+} 
+
+.account-info>div>p {
+    margin-top: -15px !important;
+} 
+
+.account-update {
+    border: 1px solid var(--c3) !important;
+    
+}
+
+.account-update>div>h5 {
+    color:var(--c3) !important;
+    margin: 10px !important;
+    padding-bottom: 30px!important
+} 
+
+.user-add {
+    background-color: #EEEEEE !important;
+    border: 0px solid !important;
+    
+}
+
+.modal {
+    background-color: #F8F9FA !important;
+}
+
+.modal-content {
+    background-color: var(--c1) !important;
+    color: white !important;
+}
+
+.modal-header {
+    background-color: var(--c1) !important;
+    color: white !important;
+}
+
+.modal-title {
+    padding-left: 13px !important;
+    color: var(--c3) !important;
+}
+
+/* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */ /* */
+
+.projekt-card {
+    color: white !important;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.projekt-card>div>h4 {
+    color: var(--c2) !important
+}

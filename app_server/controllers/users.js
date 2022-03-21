@@ -16,6 +16,11 @@ var users = require("../models/user.json");
 
 /* Seznam vseh uporabnikov */
 var seznam = (req, res) => {
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
   axios
       .get (apiParametri.streznik + '/api/users', {})
       .then((odgovor) => {
@@ -24,6 +29,11 @@ var seznam = (req, res) => {
 };
 
 const prikaziStran = (req, res, uporabniki) => {
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
   console.log("dobim cookie delaaaa", req.cookies.authcookie)
   res.render('users', {
     users: uporabniki
@@ -31,7 +41,22 @@ const prikaziStran = (req, res, uporabniki) => {
 };
 
 
-
+const dodaj = (req, res) => {
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
+    var x = req.query.error;
+    var isError = true;
+    if(x == "napaka"){
+      isError = true;
+    }
+    else{
+      isError = false;
+    }
+  res.render('user-new', {napaka: isError});
+};
 
 /* POST metoda - dodajanje novega uporabika */
 const shraniUserja = (req, res) => {
@@ -58,20 +83,36 @@ const shraniUserja = (req, res) => {
     }).then(() => {
       res.redirect('/users', );
     }).catch((napaka) => {
-      prikaziNapako(req, res, napaka);
+      var string = "napaka";
+      res.redirect('/user-new?error=' + string);
     });
 }
 };
 
 /* Prikazi stran s podrobnostmi uporabnika */
 var podrobnostiUser = (req, res) => {
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
+  var x = req.query.error;
+    var isError = true;
+    if(x == "napaka"){
+      isError = true;
+    }
+    else{
+      isError = false;
+    }
   var userId = req.params.id;
   axios
       .get (apiParametri.streznik + '/api/users/' + userId)
-      .then((odgovor) => {
-          res.render('user-edit', odgovor.data);
+      .then((user) => {
+          res.render('user-edit', user.data);
       });
 };
+
+
 
 /* Posodobitev uporabnika */
 
@@ -104,6 +145,8 @@ const posodobiUserja = (req, res) => {
     .then(() => {
         res.redirect('/users');
     }).catch((napaka) => {
+      // var string = "napaka";
+      // res.redirect('/users/userId?error=' + string);
     prikaziNapako(req, res, napaka);
     });
   }
@@ -152,6 +195,7 @@ const prikaziNapako = (req, res, napaka) => {
 module.exports = {
     seznam,
     podrobnostiUser,
+    dodaj,
     shraniUserja,
     izbrisiUserja,
     posodobiUserja,

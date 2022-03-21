@@ -1,0 +1,96 @@
+<div class="hbses">
+
+
+<br>
+
+<div class="row">
+  <div class="col-sm-3" style="padding-bottom: 30px !important">
+    <div class="card account-info">
+      <div class="card-body">
+        <h5 class="card-title">Account information</h5>
+        <p class="card-text"><span>Full name:</span>
+          <br>
+          {{name}} {{surname}}
+          
+        </p>
+        <p class="card-text"><span>Username:</span>
+          <br>
+          {{username}}
+        </p>
+        <p class="card-text"><span>Email:</span>
+          <br>
+          {{email}}
+        </p>
+
+        
+        
+      </div>
+    </div>
+    </div>
+    {{!-- zamenjava gesla zahteva staro in novo geslo --}}
+    <div class="col-sm-9">
+    <div class="card account-update">
+      <div class="card-body">
+        <h5 class="card-title">Change your password</h5>
+        <form id="posodobi" method="post">
+          
+                            <div class="mb-3" hidden="true">
+                            <label class="form-label">Id</label>
+                            <input class="form-control input-form" name="username" placeholder="name" value="{{username}}" id="id" aria-describedby="emailHelp" required>
+
+                          </div>
+                           <div class="mb-3">
+                            <label class="form-label">Old password</label>
+                            <input class="form-control input-form" name="password" id="oldpassword" type="password" pattern=".{12,128}" title="The password must be at least 12 characters long!" aria-describedby="emailHelp" required>
+                            <input id="prikazi" style="margin-right: 10px;margin-top:20px;" type="checkbox" onClick="myFunction2()">Show Password
+                            <script>
+                              function myFunction2() {
+                                var x = document.getElementById("oldpassword");
+                                if (x.type === "password") {
+                                  x.type = "text";
+                                } else {
+                                  x.type = "password";
+                                }
+                              }
+                              </script>
+                          </div>
+                          
+                              
+                          <div class="mb-3">
+                            <label class="form-label">New password</label>
+                            <input class="form-control input-form" name="newpassword" id="newpassword" type="password" pattern=".{12,128}" title="The password must be at least 12 characters long!" aria-describedby="emailHelp" required>
+                            <input id="prikazi" style="margin-right: 10px;margin-top:20px;" type="checkbox" onClick="myFunction1()">Show Password
+                            <script>
+                              function myFunction1() {
+                                var x = document.getElementById("newpassword");
+                                if (x.type === "password") {
+                                  x.type = "text";
+                                } else {
+                                  x.type = "password";
+                                }
+                              }
+                              </script>
+                          </div>
+
+                          {{#if napaka}}
+                          <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 8px; border-radius: 18px">
+                          <span style="font-size: 14px !important">Wrong password!</span>
+                          </div>
+                        {{/if}}
+
+
+                        <button type="submit" class="btn submit-form">Submit</button>
+                
+
+                        
+                        </form>
+
+                        
+      </div>
+      
+    </div>
+  </div>
+
+
+
+</div>
