@@ -81,7 +81,21 @@ var prikaz = (req, res) => {
 };
 
 const logout = (req, res) => {
-  //cookies.set('authcookie', {expires: new Date(0)});
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
+  var name = user.name;
+  var surname = user.surname;
+  var id = user._id;
+  var username = user.username;
+  var email = user.email;
+  var vloga = user.role;
+  if (req.cookies.authcookie) {
+    
+    console.log(req.cookies.authcookie);
+    res.clearCookie("authcookie")
+  }
   res.redirect('/');
 };
 

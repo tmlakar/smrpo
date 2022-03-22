@@ -11,6 +11,8 @@ var apiParametri = {
   });
 
 
+  /* GET metoda (prikaz) - Seznam vseh ustvarjenih projektov (s strani admina) na /projects */
+
 var seznam = (req, res) => {
   var tokenParts = req.cookies.authcookie['žeton'].split('.');
   var encodedPayload = tokenParts[1];
@@ -25,7 +27,8 @@ var seznam = (req, res) => {
       });
 };
 
-/* Details project */
+/* GET metoda (prikaz) - Prikaz informacij projekta na /projects/unikaten_id_projekta */
+
 var podrobnostiProject = (req, res) => {
   var tokenParts = req.cookies.authcookie['žeton'].split('.');
   var encodedPayload = tokenParts[1];
@@ -50,10 +53,11 @@ var podrobnostiProject = (req, res) => {
         });
   };
 
+/* GET metoda (prikaz) - Ustvarjanje novega projekta (s strani admina) na /project-new */
+
   var prikaz = (req, res) => {
     var tokenParts = req.cookies.authcookie['žeton'].split('.');
   var encodedPayload = tokenParts[1];
-  //var rawPayload = window.atob(encodedPayload);
   var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
   var user = JSON.parse(rawPayload);
     var x = req.query.error;
@@ -67,6 +71,7 @@ var podrobnostiProject = (req, res) => {
   res.render('project-new', {napaka: isError});
 };
 
+  /* PUT metoda - Ustvarjanje novega projekta (s strani admina) na /project-new */
 
   const createProject = (req, res) => {
     if (!req.body.name || !req.body.info) {
@@ -90,11 +95,12 @@ var podrobnostiProject = (req, res) => {
       }).catch((napaka) => {
         var string = "napaka";
       res.redirect('/project-new?error=' + string);
-        //prikaziNapako(req, res, napaka);
+        
       });
   }
   };
 
+  /* PUT metoda - Posodobitev informacij projekta (s strani admina) na /projects/unikaten_id_projekta */
 
   const posodobiProject = (req, res) => {
 
@@ -137,8 +143,31 @@ const prikaziNapako = (req, res, napaka) => {
     });
 };
 
+/* Add project collaborators */
+
+/* GET metoda (prikaz) - Dodajanje uporabnikov na projekt in določitev projektnih vlog 
+  s strani admina na /projects/unikaten_id_projekta/add-collaborators */
+  // prikazovanje vseh userjev z role user iz sistema, med katerimi lahko admin izbere
 
 
+/* PUT metoda - Dodajanje uporabnikov na projekt in določitev projektnih vlog 
+s strani admina na /projects/unikaten_id_projekta/add-collaborators */
+
+/* Edit project collaborators */
+
+/* GET metoda (prikaz) - Urejanje uporabnikov oziroma njihovih projektnih vlog 
+  s strani admina na /projects/unikaten_id_projekta/edit-collaborator-roles */
+
+  /* PUT metoda  - Urejanje uporabnikov oziroma njihovih projektnih vlog 
+  s strani admina na /projects/unikaten_id_projekta/edit-collaborator-roles */
+
+/* Delete project collaborators */
+
+/* GET metoda (prikaz) - Brisanje uporabnikov s projekta
+  s strani admina na /projects/unikaten_id_projekta/delete-collaborators */
+
+  /* PUT metoda  - Brisanje uporabnikov s projekta
+  s strani admina na /projects/unikaten_id_projekta/delete-collaborators */
 
 
 module.exports = {

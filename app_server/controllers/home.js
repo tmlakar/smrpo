@@ -14,19 +14,55 @@ var apiParametri = {
 
 
 var prikaz = (req, res) => {
-  var x = req.query.error;
-  if(x == "napaka"){
-    res.render('login', {
-        layout: 'layout-noNavbar',
-        napaka: true
-    });
+
+  if (!req.cookies.authcookie) {
+    var x = req.query.error;
+    if(x == "napaka"){
+      res.render('login', {
+          layout: 'layout-noNavbar',
+          napaka: true
+      });
+    }
+    else{
+      res.render('login', {
+          layout: 'layout-noNavbar',
+          napaka: false
+      });
+    }
+  } else {
+    var tokenParts = req.cookies.authcookie['žeton'].split('.');
+    var encodedPayload = tokenParts[1];
+    var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+    var user = JSON.parse(rawPayload);
+    var name = user.name;
+    var surname = user.surname;
+    var id = user._id;
+    var username = user.username;
+    var email = user.email;
+    var vloga = user.role;
+
+    if(vloga == "user"){
+          res.render('home', {
+              name: name,
+              surname: surname,
+              username: username,
+              email: email,
+              layout: 'layout-user'
+          });
+        }
+        else{
+          res.render('home', {
+            name: name,
+            surname: surname,
+            username: username,
+            email: email,
+        }); 
+      }
+
   }
-  else{
-    res.render('login', {
-        layout: 'layout-noNavbar',
-        napaka: false
-    });
-  }
+  
+  
+
 };
 
 const prijava = (req, res) => {
@@ -51,7 +87,7 @@ const prijava = (req, res) => {
       }).then((response) => {
         //v response.data je shranjen žeton v obliki: {'žeton': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjMwOGY5MGEwOGY3YmE3ZTU3NTgzMzciLCJuYW1lIjoixaBwZWxhIiwic3VybmFtZSI6IlZpZG1hciIsInVzZXJuYW1lIjoic3BlbHZpZCIsImVtYWlsIjoic3BlbGxhLnZpZEBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImV4cCI6MTY0ODI5MzY2MSwiaWF0IjoxNjQ3Njg4ODYxfQ.j-IQvL63E8DmcsIMXaD-LSMOyP_PfNetpGfomJDPjvE'}
         console.log(response.data);
-        res.cookie('authcookie', response.data, {maxAge:900000,httpOnly:true});
+        res.cookie('authcookie', response.data, {maxAge:9000000000,httpOnly:true});
         console.log("secret key", process.env.JWT_GESLO)
         //žeton je zdaj shranjen v cookie in se ga lahko dostopa z req.cookies.authcookie
         res.redirect('/home');
