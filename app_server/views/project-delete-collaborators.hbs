@@ -1,0 +1,92 @@
+<div class="hbses">
+<div class="row">
+
+
+    <div class="col-sm-5 ">
+        <div class="card account-info" style="background-color: var(--c4) !important;">
+            <div class="card-body">
+                <h5 class="card-title">Project information</h5>
+            <p class="card-text"><span style="color: var(--c2) !important;">Project name:</span>
+                    <br>
+                    {{name}}
+
+                    </p>
+                    <p class="card-text"><span style="color: var(--c2) !important;">Project description:</span>
+                    <br>
+                    {{info}}
+                    </p>
+                    <a href="/projects/{{id}}"><button type="submit" class="btn submit-form" style="width: 240px !important; margin:5px !important; background-color: var(--c2) !important">Edit project information</button></a>
+            </div>
+
+        </div>
+        <br>
+
+
+        <div class="card account-info" style="background-color: var(--c4) !important;">
+            <div class="card-body">
+                <h5 class="card-title">Project collaborators</h5>
+                {{#each collaborators as |collaborator|}}
+                    <p class="card-text"><span style="color: var(--c2) !important;">{{collaborator.name}} {{collaborator.surname}}</span>
+                    <br>
+                    Username: {{collaborator.username}}<br>
+                    Project role: {{collaborator.project_role}}
+                    <br>
+
+                    </p>
+                    {{/each}}
+
+                    <a href="/projects/{{id}}/add-collaborators"><button type="submit" class="btn submit-form" style="width: 240px !important; margin:5px !important; background-color: var(--c3) !important">Add collaborators</button></a>
+                    <a href="/projects/{{id}}/edit-collaborator-roles"><button type="submit" class="btn submit-form" style="width: 220px !important; margin:5px !important; background-color: var(--c5) !important">Edit collaborator roles</button></a>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+<div class="col-sm-7">
+        <div class="card user-add" style="background-color: var(--c5) !important;">
+        <div class="card-body">
+            <h5 class="card-title">Remove collaborators</h5>
+
+
+                        <form id="posodobiUporabnika" method="post" style="">
+
+                          <table class="table">
+                          <thead>
+                            <tr>
+                              <th scope="col">Username</th>
+                              <th scope="col">Project role</th>
+                              <th scope="col"></th>
+                              
+                            </tr>
+                          </thead>
+                                  <tbody>
+                                    {{#each collaborators as |collaborator|}}
+                                    <tr>
+                                      <th scope="row" class="bold-item">{{collaborator.username}}</th>
+                                      <td class="bold-item">{{collaborator.project_role}}</td>
+                                      
+                                      
+
+                                        {{!-- gumb za removat collaboratorja --}}
+                                        <td><button type="button" 
+                                        class="btn uredi-uporabika btn-dark btn-small " style="border-radius: 15px !important; background-color: var(--c5) !important; border: 0px !important">Sumbit </button></td>
+
+                                          </tr>
+                                          {{/each}}
+
+                          </tbody>
+                          </table>
+                          </form>
+                          </div>
+
+
+                      </div>
+
+</div>
+</div>
+
+
+</div>

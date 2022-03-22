@@ -48,6 +48,10 @@ var prikaz = (req, res) => {
   var id = user._id;
   var username = user.username;
   var email = user.email;
+  var date = user.date;
+  // parsanje datuma
+  var date_parsed = Date.parse(date);
+  var d = new Date(date_parsed);
   var vloga = user.role;
   if(vloga == "user"){
     res.render('home', {
@@ -55,6 +59,7 @@ var prikaz = (req, res) => {
         surname: surname,
         username: username,
         email: email,
+        date: d,
         layout: 'layout-user'
     });
   }
@@ -64,6 +69,7 @@ var prikaz = (req, res) => {
       surname: surname,
       username: username,
       email: email,
+      date: d
   });
  }
 };

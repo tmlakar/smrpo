@@ -29,7 +29,7 @@
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input class="form-control input-form" name="password" id="password" type="password" pattern=".{12,128}" title="The password must be at least 12 characters long!" aria-describedby="emailHelp" required>
+                            <input class="form-control input-form" name="password" id="password" type="password" pattern="(?!.* ).{12,128}" title="The password must be at least 12 characters long and shouldn't contain whitespaces!" aria-describedby="emailHelp" required>
                             <input id="prikazi" style="margin-right: 10px;margin-top:20px;" type="checkbox" onClick="myFunction()">Show Password
                             <script>
                               function myFunction() {

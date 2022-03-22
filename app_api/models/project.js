@@ -1,17 +1,17 @@
 const mongoose = require("mongoose");
 
-const userShema = new mongoose.Schema({
-    ime: { type: String },
-    role: { type: String,
-        default: 'član razvojne skupine',
-        enum: ["član razvojne skupine", "produktni vodja", "skrbnik metodologije"]
+const collaboratorShema = new mongoose.Schema({
+    username: { type: String },
+    project_role: { type: String,
+        default: 'Team Member',
+        enum: ["Team Member", "Product Manager", "Scrum Master"]
       }
 });
 
 const projectShema = new mongoose.Schema({
     name: { type: String, unique: true  },
     info: {type: String},
-    users: [userShema]
+    collaborators: [collaboratorShema]
 });
 
 

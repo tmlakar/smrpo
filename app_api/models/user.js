@@ -47,6 +47,7 @@ var zeton;
 
 userShema.methods.generirajJwt = function () {
   const datumPoteka = new Date();
+  const date1 = new Date();
   datumPoteka.setDate(datumPoteka.getDate() + 7);
   
   zeton = jwt.sign(
@@ -57,6 +58,7 @@ userShema.methods.generirajJwt = function () {
       username: this.username,
       email: this.email,
       role: this.role,
+      date: date1,
       exp: parseInt(datumPoteka.getTime() / 10),
     },
     process.env.JWT_GESLO); 

@@ -34,6 +34,10 @@ var apiParametri = {
     var username = user.username;
     var email = user.email;
     var vloga = user.role;
+    var date = user.date;
+  // parsanje datuma
+  var date_parsed = Date.parse(date);
+  var d = new Date(date_parsed);
     if(vloga == "user"){
       res.render('account', {
           name: name,
@@ -42,7 +46,8 @@ var apiParametri = {
           email: email,
           id: id,
           layout: 'layout-user',
-          napaka: isError
+          napaka: isError,
+          date: d
       });
     
     }
@@ -53,7 +58,8 @@ var apiParametri = {
         username: username,
         id: id,
         email: email,
-        napaka: isError
+        napaka: isError,
+        date: d
     });
    }
   };
@@ -79,6 +85,10 @@ var apiParametri = {
     var username = user.username;
     var email = user.email;
     var vloga = user.role;
+    var date = user.date;
+  // parsanje datuma
+  var date_parsed = Date.parse(date);
+  var d = new Date(date_parsed);
     if(vloga == "user"){
       res.render('account-pass', {
           name: name,
@@ -87,6 +97,7 @@ var apiParametri = {
           email: email,
           id: id,
           layout: 'layout-user',
+          date: d,
           napaka: isError
       });
     }
@@ -97,7 +108,8 @@ var apiParametri = {
         username: username,
         id: id,
         email: email,
-        napaka: isError
+        napaka: isError,
+        date: d
     });
    }
   };

@@ -22,7 +22,7 @@
 
             <div class="form-outline form-outline-bottom mb-4">
 
-              <input name="password" id="password" type="password" class="form-control form-control-lg login-form-input placeholder-text" placeholder="Password" required>
+              <input name="password" id="password" type="password" type="password" pattern="(?!.* ).{12,128}" title="The password must be at least 12 characters long and shouldn't contain whitespaces!" class="form-control form-control-lg login-form-input placeholder-text" placeholder="Password" required>
               <input id="prikazi" style="margin-right: 10px;margin-top:30px;" type="checkbox" onClick="myFunction()">Show Password
               <script>
                 function myFunction() {

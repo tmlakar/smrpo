@@ -21,6 +21,10 @@
           <br>
           {{email}}
         </p>
+        <p class="card-text"><span>Last login:</span>
+          <br>
+          {{date}}
+        </p>
 
         
         
@@ -41,7 +45,7 @@
                           </div>
                            <div class="mb-3">
                             <label class="form-label">Old password</label>
-                            <input class="form-control input-form" name="password" id="oldpassword" type="password" pattern=".{12,128}" title="The password must be at least 12 characters long!" aria-describedby="emailHelp" required>
+                            <input class="form-control input-form" name="password" id="oldpassword" type="password" type="password" pattern="(?!.* ).{12,128}" title="The password must be at least 12 characters long and shouldn't contain whitespaces!" aria-describedby="emailHelp" required>
                             <input id="prikazi" style="margin-right: 10px;margin-top:20px;" type="checkbox" onClick="myFunction2()">Show Password
                             <script>
                               function myFunction2() {
@@ -58,7 +62,7 @@
                               
                           <div class="mb-3">
                             <label class="form-label">New password</label>
-                            <input class="form-control input-form" name="newpassword" id="newpassword" type="password" pattern=".{12,128}" title="The password must be at least 12 characters long!" aria-describedby="emailHelp" required>
+                            <input class="form-control input-form" name="newpassword" id="newpassword" type="password" type="password" pattern="(?!.* ).{12,128}" title="The password must be at least 12 characters long and shouldn't contain whitespaces!" aria-describedby="emailHelp" required>
                             <input id="prikazi" style="margin-right: 10px;margin-top:20px;" type="checkbox" onClick="myFunction1()">Show Password
                             <script>
                               function myFunction1() {
