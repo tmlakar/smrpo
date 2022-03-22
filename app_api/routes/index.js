@@ -45,6 +45,9 @@ router.put("/users/:idUser", ctrlUser.userUpdate);
 router.delete("/users/:idUser", ctrlUser.userDelete);
 //primer uporabe preverjanja avtentikacije:
 //router.delete("/users/:idUser", avtentikacija, ctrlUser.userDelete);
+router.get("/users/:idUser/edit-username", ctrlUser.userInfo);
+router.put("/users/:idUser/edit-username", ctrlUser.userUpdateUsername);
+
 
 /* Projects */
 /* List of projects */

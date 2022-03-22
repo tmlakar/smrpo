@@ -26,6 +26,8 @@ router.get('/users/:id/izbrisi', ctrlUsers.pridobiUserjaZaIzbris);
 router.post('/users/:id/izbrisi', ctrlUsers.izbrisiUserja);
 router.get('/user-new', ctrlUsers.dodaj);
 router.post('/user-new', ctrlUsers.shraniUserja);
+router.get('/users/:id/edit-username', ctrlUsers.pridobiUserjaZaUsernamePosodobitev);
+router.post('/users/:id/edit-username', ctrlUsers.posodobiUsername);
   
 
 
