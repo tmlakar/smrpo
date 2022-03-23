@@ -57,10 +57,12 @@
                             <input class="form-control input-form" name="surname"  placeholder="surname" value="{{surname}}" id="surname" aria-describedby="emailHelp" required>
 
                           </div>
+                          
                           <div class="mb-3">
                             <label class="form-label">Username</label>
-                            <input class="form-control input-form" name="username" placeholder="username" value="{{username}}" id="username" aria-describedby="emailHelp" required>
-
+                            <div class="row" style="padding: 0px !important">
+                            <div class="col-lg-10"><input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="" placeholder="{{username}}" value="{{username}}" id="" aria-describedby="emailHelp" readonly></div>
+                            <div class="col-lg-2"><a href="/account/edit-username" style=" color: var(--c3) !important; height: 50px !important; width: 100% !important;">Change username</a></div></div>
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Email</label>
@@ -69,7 +71,7 @@
                           </div>
 
 
-                        <p><i>Please note: After editing your account information, please log out and log back in for the changes to be visible. </i></p>
+                        
 
                           {{#if napaka}}
                           <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 8px; border-radius: 18px">

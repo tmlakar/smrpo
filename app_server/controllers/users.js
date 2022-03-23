@@ -145,6 +145,7 @@ const posodobiUserja = (req, res) => {
     data: {
          name: req.body.name,
          surname: req.body.surname,
+         email: req.body.email,
          password: req.body.password,
          role: req.body.role
      }

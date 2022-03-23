@@ -70,6 +70,8 @@ router.post("/prijava", ctrlAvtentikacija.prijava);
 router.get('/account/:idUser', ctrlAccount.userInfo);
 router.put('/account/:idUser', ctrlAccount.userUpdate);
 router.put('/account/pass/:idUser', ctrlAccount.userUpdatePass);
+router.put('/account/username/:idUser', ctrlAccount.userUpdateUsername);
+
 
 
 module.exports = router;

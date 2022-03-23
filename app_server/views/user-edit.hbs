@@ -63,6 +63,12 @@
                           </div>
 
                           <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input class="form-control input-form" name="email"  placeholder="{{email}}" value="{{email}}" id="email" aria-describedby="emailHelp" required>
+
+                          </div>
+
+                          <div class="mb-3">
                             <label class="form-label">Password</label>
                             <input class="form-control input-form" name="password" id="password" value="{{password}}" type="password"  type="password" pattern="(?!.* ).{12,128}" title="The password must be at least 12 characters long and shouldn't contain whitespaces!"  aria-describedby="emailHelp">
                             <input id="prikazi" value="{{password}}" style="margin-right: 10px;margin-top:20px;" type="checkbox" onClick="myFunction()">Show Password
@@ -87,7 +93,7 @@
                             </select>
 
                           </div>
-
+                          
                           {{#if napaka}}
                           <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 10px; border-radius: 18px; margin-top: 10px !important">
                           <span style="font-size: 14px !important">Account with this username and / or email already exists!</span>

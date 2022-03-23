@@ -1,0 +1,76 @@
+{{!-- account details --}}
+
+
+<div class="hbses">
+<br>
+
+<div class="row">
+  <div class="col-sm-3" style="padding-bottom: 30px !important">
+    <div class="card account-info">
+      <div class="card-body">
+        <h5 class="card-title">Account information</h5>
+        <p class="card-text"><span>Full name:</span>
+          <br>
+          {{name}} {{surname}}
+          
+        </p>
+        <p class="card-text"><span>Username:</span>
+          <br>
+          {{username}}
+        </p>
+        <p class="card-text"><span>Email:</span>
+          <br>
+          {{email}}
+        </p>
+        <p class="card-text"><span>Last login:</span>
+          <br>
+          {{date}}
+        </p>
+
+        
+        
+      </div>
+    </div>
+  </div>
+
+
+{{!-- spremeni podatke --}}
+
+  <div class="col-sm-9">
+    <div class="card account-update">
+      <div class="card-body">
+        <h5 class="card-title">Change your username</h5>
+        <form id="posodobi" method="post">
+          
+                          <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input class="form-control input-form" name="username" placeholder="username" value="{{username}}" id="username" aria-describedby="emailHelp" required>
+
+                          </div>
+                          
+
+
+                       
+
+                          {{#if napaka}}
+                          <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 8px; border-radius: 18px">
+                          <span style="font-size: 14px !important">Account with this username and / or email already exists!</span>
+                          </div>
+                        {{/if}}
+
+                        <button type="submit" class="btn submit-form">Submit</button>
+                
+                          
+                        
+                        </form>
+
+                        
+      </div>
+      
+    </div>
+    <a href="/account/edit-password"><button  class="btn submit-form" style="background-color: var(--c4) !important; width: 200px !important; margin-top: 30px !important">Change password</button></a>
+  </div>
+  
+</div>
+
+

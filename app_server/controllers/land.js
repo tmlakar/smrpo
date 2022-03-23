@@ -43,34 +43,51 @@ var prikaz = (req, res) => {
   var encodedPayload = tokenParts[1];
   var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
   var user = JSON.parse(rawPayload);
-  var name = user.name;
-  var surname = user.surname;
+
+  // var name = user.name;
+  // var surname = user.surname;
   var id = user._id;
-  var username = user.username;
-  var email = user.email;
+  var userId = id;
+  // var username = user.username;
+  // var email = user.email;
   var date = user.date;
   // parsanje datuma
   var date_parsed = Date.parse(date);
   var d = new Date(date_parsed);
   var vloga = user.role;
   if(vloga == "user"){
-    res.render('home', {
-        name: name,
-        surname: surname,
-        username: username,
-        email: email,
-        date: d,
-        layout: 'layout-user'
+
+    axios
+    .get (apiParametri.streznik + '/api/account/' + userId)
+    .then((odgovor) => {
+        res.render('home', 
+        {
+          name: odgovor.data.name,
+          surname: odgovor.data.surname,
+          username: odgovor.data.username,
+          email: odgovor.data.email,
+          id: odgovor.data._id,
+          layout: 'layout-user',
+          date: d
+        });
     });
+
   }
   else{
-    res.render('home', {
-      name: name,
-      surname: surname,
-      username: username,
-      email: email,
-      date: d
-  });
+    axios
+    .get (apiParametri.streznik + '/api/account/' + userId)
+    .then((odgovor) => {
+        res.render('home', 
+        {
+          name: odgovor.data.name,
+          surname: odgovor.data.surname,
+          username: odgovor.data.username,
+          email: odgovor.data.email,
+          id: odgovor.data._id,
+          layout: 'layout',
+          date: d
+        });
+    });
  }
 };
 

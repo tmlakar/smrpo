@@ -63,6 +63,7 @@ const userCreate = (req, res) => {
         }
         user.name = req.body.name;
         user.surname = req.body.surname;
+        user.email = req.body.email;
         user.role = req.body.role;
         user.password = req.body.password;
 

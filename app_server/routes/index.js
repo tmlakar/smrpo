@@ -52,4 +52,8 @@ router.post('/account', ctrlAccount.posodobiUserja);
 router.get('/account/edit-password', ctrlAccount.prikaz2);
 router.post('/account/edit-password', ctrlAccount.posodobiGeslo);
 
+router.get('/account/edit-username', ctrlAccount.prikaz3);
+router.post('/account/edit-username', ctrlAccount.posodobiUsername);
+
+
 module.exports = router;
