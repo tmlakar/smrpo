@@ -1,35 +1,54 @@
-<section class="vh-100">
+<section class="vh-100" style="padding: 0px !important">
 
   <div class="container py-5 h-100">
-      
+
     <div class="row d-flex justify-content-center align-items-center h-100">
-        
+
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          
+
         <div class="card shadow-2-strong login-card">
 
         <h1 class="brand-logo">scrumly</h1>
 
           <div class="card-body p-5 text-center">
 
-            
+
+            <form method="post">
 
             <div class="form-outline mb-4 ">
-              <input type="email" id="typeEmailX-2" class="form-control form-control-lg login-form-input placeholder-text"  placeholder="Username"/>
-              
+              <input name="username" id="username" class="form-control form-control-lg login-form-input placeholder-text"  placeholder="Username" required>
+
             </div>
 
             <div class="form-outline form-outline-bottom mb-4">
-               
-              <input type="password" id="typePasswordX-2" class="form-control form-control-lg login-form-input placeholder-text" placeholder="Password"/>
-              
+
+              <input name="password" id="password" type="password" type="password" pattern="(?!.* ).{12,128}" title="The password must be at least 12 characters long and shouldn't contain whitespaces!" class="form-control form-control-lg login-form-input placeholder-text" placeholder="Password" required>
+              <input id="prikazi" style="margin-right: 10px;margin-top:30px;" type="checkbox" onClick="myFunction()">Show Password
+              <script>
+                function myFunction() {
+                  var x = document.getElementById("password");
+                  if (x.type === "password") {
+                    x.type = "text";
+                  } else {
+                    x.type = "password";
+                  }
+                }
+                </script>
             </div>
 
-        
 
-            <a href="/projects"><button class="btn btn-primary btn-lg btn-block button-login w-50" type="submit">Login</button></a>
+            {{!-- ce pride do tega, da streznik sporoci, da sta uporabnisko ime in geslo napacno, se izpise alert --}}
+            {{#if napaka}}
+              <div class="alert alert-warning" id="wrongUsername" role="alert" style=" padding-top: 8px; border-radius: 18px">
+              <span style="font-size: 14px !important">Wrong username or password!</span>
+              </div>
+            {{/if}}
 
-        
+            <button type="submit" id="login" class="btn btn-primary btn-lg btn-block button-login w-50">Login</button>
+            </a>
+
+            </form>
+
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 
-<div>
+<div class="hbses">
 <h3>Users</h3>
-</div>
+
 {{!-- uporabniki -> dinamično iz baze s pomočjo REST API --}}
 <div class="table-responsive users-table">
   <table class="table">
@@ -9,25 +9,25 @@
     <tr>
       <th scope="col">Name</th>
       <th scope="col">Surname</th>
-      <th scope="col">Email</th>
       <th scope="col">Username</th>
+      <th scope="col">Email</th>
       <th scope="col">Role</th>
       <th scope="col"></th>
-      <th scope="col"></th>
+    </tr>
   </thead>
   <tbody>
     {{#each users as |user|}}
     <tr>
-      <th scope="row">{{user.name}}</th>
-      <td>{{user.surname}}</td>
+      <th scope="row" class="bold-item">{{user.name}}</th>
+      <td class="bold-item">{{user.surname}}</td>
       <td>{{user.username}}</td>
       <td>{{user.email}}</td>
       <td>{{user.role}}</td>
 
       {{!-- gumba za edit in delete uporabnikov --}}
+      <td><a href="/users/{{user._id}}"><button type="button" 
+      class="btn uredi-uporabika btn-dark btn-small " style="border-radius: 15px !important; background-color: var(--c5) !important; border: 0px !important">Edit user </button></a></td>
 
-      <td><a href="/users/{{user._id}}"><button type="button" class="btn btn-dark">Edit user</button></a></td>
-      <td><a href=""><button type="button" class="btn btn-dark">Delete user</button></a></td>
     </tr>
     {{/each}}
   </tbody>
@@ -36,4 +36,7 @@
 
 {{!-- gumb za dodajanje novega uporabnika --}}
 
-<a href="/user-new"><button class="btn btn-dark" style="position: float !important; margin-bottom: 40px !important; margin-left: 40px !important; padding: 10px  !important">+ dodaj novega uporabnika</button></a>
+<div><a href="/user-new"><button id="" type="button" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right"><i class="fa-solid fa-plus dodaj"></i></button></a></div><br>
+
+
+</div>

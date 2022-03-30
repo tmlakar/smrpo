@@ -1,0 +1,97 @@
+{{!-- account details --}}
+
+
+<div class="hbses">
+<br>
+
+<div class="row">
+  <div class="col-sm-3" style="padding-bottom: 30px !important">
+    <div class="card account-info">
+      <div class="card-body">
+        <h5 class="card-title">Account information</h5>
+        <p class="card-text"><span>Full name:</span>
+          <br>
+          {{name}} {{surname}}
+          
+        </p>
+        <p class="card-text"><span>Username:</span>
+          <br>
+          {{username}}
+        </p>
+        <p class="card-text"><span>Email:</span>
+          <br>
+          {{email}}
+        </p>
+        <p class="card-text"><span>Last login:</span>
+          <br>
+          {{date}}
+        </p>
+
+        
+        
+      </div>
+    </div>
+  </div>
+
+
+{{!-- spremeni podatke --}}
+
+  <div class="col-sm-9">
+    <div class="card account-update">
+      <div class="card-body">
+        <h5 class="card-title">Edit your account information</h5>
+        <form id="posodobi" method="post">
+          
+                           <div class="mb-3" hidden="true">
+                            <label class="form-label">Id</label>
+                            <input class="form-control input-form" name="id" placeholder="name" value="{{id}}" id="id" aria-describedby="emailHelp" required>
+
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input class="form-control input-form" name="name" placeholder="name" value="{{name}}" id="name" aria-describedby="emailHelp" required>
+
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Surname</label>
+                            <input class="form-control input-form" name="surname"  placeholder="surname" value="{{surname}}" id="surname" aria-describedby="emailHelp" required>
+
+                          </div>
+                          
+                          <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <div class="row" style="padding: 0px !important">
+                            <div class="col-lg-10"><input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="" placeholder="{{username}}" value="{{username}}" id="" aria-describedby="emailHelp" readonly></div>
+                            <div class="col-lg-2"><a href="/account/edit-username" style=" color: var(--c3) !important; height: 50px !important; width: 100% !important;">Change username</a></div></div>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input class="form-control input-form" name="email" placeholder="email" type="email" value="{{email}}" id="email" aria-describedby="emailHelp" required>
+
+                          </div>
+
+
+                        
+
+                          {{#if napaka}}
+                          <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 8px; border-radius: 18px">
+                          <span style="font-size: 14px !important">Account with this username and / or email already exists!</span>
+                          </div>
+                        {{/if}}
+
+                        <button type="submit" class="btn submit-form">Submit</button>
+                
+                          
+                        
+                        </form>
+
+                        
+      </div>
+      
+    </div>
+    <a href="/account/edit-password"><button  class="btn submit-form" style="background-color: var(--c4) !important; width: 200px !important; margin-top: 30px !important">Change password</button></a>
+  </div>
+  
+</div>
+
+

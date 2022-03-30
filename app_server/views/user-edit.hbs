@@ -1,33 +1,118 @@
+<div class="hbses">
 
-<div>
-<h3>Users</h3>
-</div>
+
 {{!-- uporabniki -> dinamično iz baze s pomočjo REST API --}}
-<div class="table-responsive users-table">
-  <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Surname</th>
-      <th scope="col">Email</th>
-      <th scope="col">Username</th>
-      <th scope="col">Role</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-  </thead>
-  <tbody>
-    
-    <tr>
-      <th scope="row">{{name}}</th>
-      <td>{{surname}}</td>
-      <td>{{username}}</td>
-      <td>{{email}}</td>
-      <td>{{role}}</td>
 
-      {{!-- gumba za edit in delete uporabnikov --}}
-      <td><a href="/users/{{_id}}"></a><button type="button" class="btn btn-dark">Edit user</button></a></td>
-      <td><a href=""><button type="button" class="btn btn-dark">Delete user</button></a></td>
-    </tr>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-sm-3" style="padding-bottom: 30px !important">
+    <div class="card account-info" style="background-color: var(--c3) !important;">
+      <div class="card-body">
+        <h5 class="card-title" style="color: var(--c5) !important;">User information</h5>
+        <p class="card-text"><span>Name and surname:</span>
+          <br>
+          {{name}} {{surname}}
+          
+        </p>
+        <p class="card-text"><span>Username:</span>
+          <br>
+          {{username}}
+        </p>
+        <p class="card-text"><span>Email:</span>
+          <br>
+          {{email}}
+        </p>
+        <p class="card-text"><span>Role:</span>
+          <br>
+          {{role}}
+        </p>
+
+
+        
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  {{!-- vnosna polja za spremembo uporabniskih podatkov s strani admina --}}
+ <div class="col-sm-9">
+        <div class="card user-add">
+        <div class="card-body">
+            <h5 class="card-title">Edit user</h5>    
+
+                        <form id="posodobiUporabnika" method="post">
+                        
+                          <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input class="form-control input-form" name="name" placeholder="{{name}}" value="{{name}}" id="name" aria-describedby="emailHelp" required>
+                            
+
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Surname</label>
+                            <input class="form-control input-form" name="surname"  placeholder="{{surname}}" value="{{surname}}" id="surname" aria-describedby="emailHelp" required>
+
+                          </div>
+                          
+                          <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <div class="row" style="padding: 0px !important">
+                            <div class="col-lg-10"><input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="" placeholder="{{username}}" value="{{username}}" id="" aria-describedby="emailHelp" readonly></div>
+                            <div class="col-lg-2"><a href="/users/{{_id}}/edit-username" style=" color: var(--c3) !important; height: 50px !important; width: 100% !important;">Change username</a></div></div>
+                          </div>
+
+                          <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input class="form-control input-form" name="email"  placeholder="{{email}}" value="{{email}}" id="email" aria-describedby="emailHelp" required>
+
+                          </div>
+
+                          <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input class="form-control input-form" name="password" id="password" value="{{password}}" type="password"  type="password" pattern="(?!.* ).{12,128}" title="The password must be at least 12 characters long and shouldn't contain whitespaces!"  aria-describedby="emailHelp">
+                            <input id="prikazi" value="{{password}}" style="margin-right: 10px;margin-top:20px;" type="checkbox" onClick="myFunction()">Show Password
+                            <script>
+                              function myFunction() {
+                                var x = document.getElementById("password");
+                                if (x.type === "password") {
+                                  x.type = "text";
+                                } else {
+                                  x.type = "password";
+                                }
+                              }
+                              </script>
+                          </div>
+
+                          <div class="mb-3">
+                            <label class="form-label">Role</label>
+                            <select name="role" id="role" value="{{role}}">
+                              <option value="user">User</option>
+                              <option value="admin">Admin</option>
+
+                            </select>
+
+                          </div>
+                          
+                          {{#if napaka}}
+                          <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 10px; border-radius: 18px; margin-top: 10px !important">
+                          <span style="font-size: 14px !important">Account with this username and / or email already exists!</span>
+                          </div>
+                        {{/if}}
+                        
+                        <button type="submit" class="btn submit-form">Submit</button>
+
+                        </form>
+                        </div>
+        </div>
+        {{!-- gumb za izbris uporabnika --}}
+  <div style="padding-top: 20px !important"><a href="/users/{{_id}}/izbrisi"><button id="izbris" type="button" class="btn btn-dark submit-form" style="background-color: var(--c4) !important;">Delete user</button></a></div>
+
+  </div>
+        </div>
+        
+                        
+                  
 </div>
+
+</div

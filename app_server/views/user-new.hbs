@@ -1,34 +1,71 @@
-<form id="dodajUporabnika" method="post" style="padding-top: 60px  !important;">
-  <div class="mb-3">
-    <label class="form-label">Name</label>
-    <input class="form-control" name="name" id="name" aria-describedby="emailHelp">
-    
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Surname</label>
-    <input class="form-control" name="surname" id="surname" aria-describedby="emailHelp">
-    
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Username</label>
-    <input class="form-control" name="username" id="username" aria-describedby="emailHelp">
-    
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Email</label>
-    <input class="form-control" name="email" id="email" aria-describedby="emailHelp">
-    
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Password</label>
-    <input class="form-control" name="password" id="password" aria-describedby="emailHelp">
-    
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Role</label>
-    <input class="form-control" name="role" id="role" aria-describedby="emailHelp">
-    
-  </div>
-  
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<div class="hbses">
+
+    <div class="col-sm-12">
+        <div class="card user-add">
+        <div class="card-body">
+            <h5 class="card-title">Add new user</h5>    
+                    
+
+                        <form id="posodobiUporabnika" method="post" style="">
+                          <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input class="form-control input-form" name="name" id="name" aria-describedby="emailHelp" required>
+
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Surname</label>
+                            <input class="form-control input-form" name="surname" id="surname" aria-describedby="emailHelp" required>
+
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input class="form-control input-form" name="username" id="username" aria-describedby="emailHelp" required>
+
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input class="form-control input-form" name="email" id="email" type="email" aria-describedby="emailHelp" required>
+
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input class="form-control input-form" name="password" id="password" type="password" pattern="(?!.* ).{12,128}" title="The password must be at least 12 characters long and shouldn't contain whitespaces!" aria-describedby="emailHelp" required>
+                            <input id="prikazi" style="margin-right: 10px;margin-top:20px;" type="checkbox" onClick="myFunction()">Show Password
+                            <script>
+                              function myFunction() {
+                                var x = document.getElementById("password");
+                                if (x.type === "password") {
+                                  x.type = "text";
+                                } else {
+                                  x.type = "password";
+                                }
+                              }
+                              </script>
+                          </div>
+                          <div class="mb-3 form-select">
+                            <label class="form-label ">Role</label><br>
+                            <select class="" name="role" id="role">
+                              <option value="user">User</option>
+                              <option value="admin">Admin</option>
+
+                            </select>
+
+                          </div>
+
+                          {{#if napaka}}
+                          <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 10px; border-radius: 18px; margin-top: 10px !important">
+                          <span style="font-size: 14px !important">Account with this username and / or email already exists!</span>
+                          </div>
+                        {{/if}}
+                        <div style="">
+                        <button type="submit" class="btn submit-form">Submit</button>
+                        </div>
+                        </form>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        
+                        
+</div>

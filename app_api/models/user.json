@@ -3,23 +3,23 @@
     "surname": "Mlakar",
     "username": "tmlakar1",
     "email": "tjasamlakar111@gmail.com",
-    "password": "scrumly001",
-    "role": "administrator"
+    "password": "scrumly00123456789",
+    "role": "admin"
 },
 {
     "name": "Anja",
     "surname": "Brelih",
     "username": "abrelih1",
     "email": "ab@gmail.com",
-    "password": "scrumly002",
-    "role": "administrator"
+    "password": "scrumly002345678",
+    "role": "admin"
 },
 {
     "name": "Eva",
     "surname": "Vidmar",
     "username": "evavid1",
     "email": "ev@gmail.com",
-    "password": "scrumly001",
+    "password": "scrumly001123456",
     "role": "user"
 },
 {
@@ -27,7 +27,7 @@
     "surname": "Knafelc",
     "username": "anakna",
     "email": "ak@gmail.com",
-    "password": "scrumly001",
+    "password": "scrumly0012234567",
     "role": "user"
 }
 ]

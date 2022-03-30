@@ -1,0 +1,75 @@
+
+
+<div class="hbses">
+
+<div class="row">
+  <div class="col-sm-3" style="padding-bottom: 30px !important">
+    <div class="card account-info" style="background-color: var(--c3) !important;">
+      <div class="card-body">
+        <h5 class="card-title" style="color: var(--c5) !important;">User information</h5>
+        <p class="card-text"><span>Name and surname:</span>
+          <br>
+          {{name}} {{surname}}
+          
+        </p>
+        <p class="card-text"><span>Username:</span>
+          <br>
+          {{username}}
+        </p>
+        <p class="card-text"><span>Email:</span>
+          <br>
+          {{email}}
+        </p>
+        <p class="card-text"><span>Role:</span>
+          <br>
+          {{role}}
+        </p>
+
+
+        
+        
+      </div>
+    </div>
+    {{!-- gumb za izbris uporabnika --}}
+    <div style="padding-top: 20px !important"><button id="izbris" type="button"data-toggle="modal"
+            data-target="#modalnoOknoIzbrisi" class="btn btn-dark submit-form" style="background-color: var(--c4) !important;">Delete user</button></div>
+
+      </div>
+  </div>
+</div>
+
+
+{{!-- modalno okno za potrditev izbrisa uporabika --}}
+
+<div class="modal fade" id="modalnoOknoIzbrisi" tabindex="-1" role="dialog"
+                   aria-labelledby="exampleModalLabel" aria-hidden="true">
+                   <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                         <h5 class="modal-title" id="exampleModalLabel">Deleting existing user</h5>
+                         <button type="button" class="close" data-dismiss="modal"
+                           aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                         </button>
+                      </div>
+                      <div class="modal-body">
+                        <form id="izbrisiUporabnika" method="post">
+                         <p>
+                           Are you sure you want to delete {{name}} {{surname}} from the database?<br>
+                           <small><i>The user will be permanently removed from the system.</i></small>
+                         </p>
+                         
+                           
+                         
+                      </div>
+                      <div style="padding: 25px !important">
+                      <button type="submit" class="btn submit-form" style="background-color: var(--c4) !important">Delete user</button>
+                      </div>
+                  
+                      </form>
+                     </div>
+                   </div>
+                 </div>
+                 </div>
+
+</div>

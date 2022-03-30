@@ -1,38 +1,9 @@
+const passport = require("passport");
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
 
-const usersList = (req, res) => {
-    User.find().exec(function (err, users) {
-        if (err) {
-            console.log(err);
-            res.status(404).json({"sporočilo": "Napaka pri poizvedbi: " + err});
-        } else {
-            res.status(200).json(users);
-        }
-    });
-  };
-
-const userCreate = (req, res) => {
-      User.create({
-
-        name: req.body.name,
-        surname: req.body.surname,
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-        role: req.body.role,
-        
-    }, (napaka, user) => {
-        if(napaka) {
-            res.status(400).json(napaka);
-        }  else {
-            res.status(201).json(user);
-        }
-    }
-  );
-};
-
-  const userInfo = (req, res) => {
+const userInfo = (req, res) => {
+    
     User.findById(req.params.idUser).exec((napaka, user) => {
       if (!user) {
         return res
@@ -61,15 +32,14 @@ const userCreate = (req, res) => {
         } else if (napaka) {
           return res.status(500).json(napaka);
         }
+        
         user.name = req.body.name;
         user.surname = req.body.surname;
         user.email = req.body.email;
-        user.role = req.body.role;
-        user.password = req.body.password;
-
+        
         user.save((napaka, user) => {
           if (napaka) {
-            res.status(404).json(napaka);
+            res.status(404).json("Nekaj je narobe.");
           } else {
             res.status(200).json(user);
           }
@@ -77,6 +47,45 @@ const userCreate = (req, res) => {
       });
   };
 
+
+  /* update password - param - old pass in new pass
+  1. avtentikacija ce username pa pass sta ok
+  2. shrani novo geslo */
+  const userUpdatePass = (req, res) => {
+    
+    if (!req.body.username || !req.body.password || !req.body.newpassword)
+    return res.status(400).json({ sporočilo: "Zahtevani so vsi podatki." });
+  passport.authenticate("local", (napaka, uporabnik, informacije) => {
+    if (napaka) return res.status(500).json(napaka);
+    if (uporabnik) {
+      // shranimo novo geslo
+      if (!req.params.idUser) {
+        return res.status(404).json({
+          sporočilo: "Ne najdem uporabnika, idUser je obvezen parameter.",
+        });
+      }
+      User.findById(req.params.idUser)
+        .exec((napaka, user) => {
+          if (!user) {
+            return res.status(404).json({ sporočilo: "Ne najdem uporabnika." });
+          } else if (napaka) {
+            return res.status(500).json(napaka);
+          }
+          
+          user.nastaviGeslo(req.body.newpassword);
+          user.save((napaka, user) => {
+            if (napaka) {
+              res.status(404).json("Nekaj je narobe.");
+            } else {
+              res.status(200).json(user);
+              
+            }
+          });
+        });
+      } else res.status(401).json(informacije);
+  })(req, res);
+
+  };
 
   const userUpdateUsername = (req, res) => {
     if (!req.params.idUser) {
@@ -92,11 +101,12 @@ const userCreate = (req, res) => {
           return res.status(500).json(napaka);
         }
         
+        
         user.username = req.body.username;
         
         user.save((napaka, user) => {
           if (napaka) {
-            res.status(404).json(napaka);
+            res.status(404).json("Nekaj je narobe.");
           } else {
             res.status(200).json(user);
           }
@@ -104,30 +114,10 @@ const userCreate = (req, res) => {
       });
   };
 
-  const userDelete = (req, res) => {
-    const { idUser } = req.params;
-    if (idUser) {
-      User.findByIdAndRemove(idUser).exec((napaka) => {
-        if (napaka) {
-          return res.status(500).json(napaka);
-        }
-        res.status(204).json(null);
-      });
-    } else {
-      res.status(404).json({
-        sporočilo: "Ne najdem uporabnika, idUser je obvezen parameter.",
-      });
-    }
-  };
 
-
-
-module.exports = {
-    usersList,
-    userCreate,
+  module.exports = {
     userInfo,
     userUpdate,
-    userDelete,
+    userUpdatePass,
     userUpdateUsername
-
-};
+  };

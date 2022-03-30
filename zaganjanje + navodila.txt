@@ -2,11 +2,17 @@ Scrumly aplikacija
 
 ________________________________________________
 
+1. v root directory ustvari fajl .env in vanj shrani
+JWT_GESLO=toleNašeGeslo
+
+
 Navodila za zagon:
 $ cd smrpo
 $ npm install
 $ npm install -g nodemon
 $ nodemon
+
+
 
 (ce pri kaksnem ukazu vrze error, das pred ukaz sudo, in zahteva tvoje uporabniskovo geslo (administrator pravice))
 
@@ -15,6 +21,8 @@ $ sudo npm install bootstrap
 
 Aplikacijo odpremo v brskalniku na naslovu:
 localhost:3000
+
+
 
 __________________________________________________
 
@@ -75,8 +83,7 @@ Admins: mongoimport app_server/models/admin.json -d mongodb-community --jsonArra
 
 
 2. moznost: iz ukazne vrstice uporabi ukaza za izvajanje skript iz package.json:
-	1. npm run-script admini-uvoz
-	2. npm run-script uporabniki-uvoz
+	1. npm run-script uporabniki-uvoz
 
 _______________________________________________________
 
@@ -93,15 +100,44 @@ Primeri za testiranje s CURL za pravilno delovanje rest api metod (bili potrebni
        -H "Content-Type: application/x-www-form-urlencoded" \
        http://localhost:3000/api/user-new
 
+// registracija zeton
+curl -X POST \
+       -d "name=Neli&surname=Potokar&username=nelip&email=neli@helena.si&password=testtesttest1&role=admin&accessToken=xxxx" \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       http://localhost:3000/api/registracija
+
+//avtentikacija prijava
+curl -X POST \
+       -d "username=tjasamlakar1&password=test1" \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       http://localhost:3000/api/prijava	   
+
 -> CURL PUT:
 	curl -X PUT \
 		-d "name=Neli&surname=Blagne&username=helenabg&email=helena@blagne.si&role=user" \
 		-H "Content-Type: application/x-www-form-urlencoded" \
 		"http://localhost:3000/api/users/622b3f756e765042fa49227f"
 
+// posodobitev
+	curl -X PUT \
+		-d "name=This one was updated" \
+		-H "Content-Type: application/x-www-form-urlencoded" \
+		"http://localhost:3000/api/projects/62346721332caaac0e351133"
+
 -> CURL DELETE:
 	curl -X DELETE \
-		"http://localhost:3000/api/users/622b3fdde8403c0d26471320"
+		"http://localhost:3000/api/users/622c5e83c89db7682bcee73e"
+
+curl -X POST \
+       -d "name=Building a wall - how to" \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       http://localhost:3000/api/project-new
+
+
+curl -X PUT \
+       -d "name=Helena&surname=BlagneKosar&username=blagneh&email=helenb@helena.si” \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       "http://localhost:3000/api/account/623308b6ac0417e865ad0a6e" \
 _______________________________________________________
 
 
