@@ -42,6 +42,21 @@
                               }
                               </script>
                           </div>
+                          <div class="mb-3">
+                            <label class="form-label">Retype password</label>
+                            <input class="form-control input-form" name="password_retype" id="password1" type="password" pattern="(?!.* ).{12,128}" title="The password must be at least 12 characters long and shouldn't contain whitespaces!" aria-describedby="emailHelp" required>
+                            <input id="prikazi" style="margin-right: 10px;margin-top:20px;" type="checkbox" onClick="myFunction1()">Show Password
+                            <script>
+                              function myFunction1() {
+                                var x = document.getElementById("password1");
+                                if (x.type === "password") {
+                                  x.type = "text";
+                                } else {
+                                  x.type = "password";
+                                }
+                              }
+                              </script>
+                          </div>
                           <div class="mb-3 form-select">
                             <label class="form-label ">Role</label><br>
                             <select class="" name="role" id="role">
@@ -55,6 +70,11 @@
                           {{#if napaka}}
                           <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 10px; border-radius: 18px; margin-top: 10px !important">
                           <span style="font-size: 14px !important">Account with this username and / or email already exists!</span>
+                          </div>
+                        {{/if}}
+                        {{#if napaka1}}
+                          <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 10px; border-radius: 18px; margin-top: 10px !important">
+                          <span style="font-size: 14px !important">The passwords don't match!</span>
                           </div>
                         {{/if}}
                         <div style="">

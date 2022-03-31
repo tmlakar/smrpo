@@ -24,10 +24,16 @@ router.get('/users/:id', ctrlUsers.podrobnostiUser);
 router.post('/users/:id', ctrlUsers.posodobiUserja);
 router.get('/users/:id/izbrisi', ctrlUsers.pridobiUserjaZaIzbris);
 router.post('/users/:id/izbrisi', ctrlUsers.izbrisiUserja);
+
+router.get('/users/:id/izbrisi-permanent', ctrlUsers.pridobiUserjaZaIzbrisPermanent);
+router.post('/users/:id/izbrisi-permanent', ctrlUsers.izbrisiUserjaPermanent);
+
 router.get('/user-new', ctrlUsers.dodaj);
 router.post('/user-new', ctrlUsers.shraniUserja);
 router.get('/users/:id/edit-username', ctrlUsers.pridobiUserjaZaUsernamePosodobitev);
 router.post('/users/:id/edit-username', ctrlUsers.posodobiUsername);
+router.get('/users/:id/edit-password', ctrlUsers.pridobiUserjaZaPosodobitevGesla);
+router.post('/users/:id/edit-password', ctrlUsers.posodobitevGesla);
   
 
 

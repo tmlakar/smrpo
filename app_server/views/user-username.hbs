@@ -43,10 +43,15 @@
 
                         <form id="posodobiUporabnika" method="post">
                           
+                          <div class="mb-3">
+                            <label class="form-label">Current username</label>
+                            <input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" placeholder="{{username}}" value="{{username}}" id="username" aria-describedby="emailHelp" disabled>
+
+                          </div>
                           
                           <div class="mb-3">
-                            <label class="form-label">Username</label>
-                            <input class="form-control input-form" name="username" placeholder="{{username}}" value="{{username}}" id="username" aria-describedby="emailHelp">
+                            <label class="form-label">New username</label>
+                            <input class="form-control input-form" name="username" placeholder="New username" value="" id="username" aria-describedby="emailHelp" required>
 
                           </div>
 

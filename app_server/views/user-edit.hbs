@@ -69,22 +69,6 @@
                           </div>
 
                           <div class="mb-3">
-                            <label class="form-label">Password</label>
-                            <input class="form-control input-form" name="password" id="password" value="{{password}}" type="password"  type="password" pattern="(?!.* ).{12,128}" title="The password must be at least 12 characters long and shouldn't contain whitespaces!"  aria-describedby="emailHelp">
-                            <input id="prikazi" value="{{password}}" style="margin-right: 10px;margin-top:20px;" type="checkbox" onClick="myFunction()">Show Password
-                            <script>
-                              function myFunction() {
-                                var x = document.getElementById("password");
-                                if (x.type === "password") {
-                                  x.type = "text";
-                                } else {
-                                  x.type = "password";
-                                }
-                              }
-                              </script>
-                          </div>
-
-                          <div class="mb-3">
                             <label class="form-label">Role</label>
                             <select name="role" id="role" value="{{role}}">
                               <option value="user">User</option>
@@ -106,9 +90,11 @@
                         </div>
         </div>
         {{!-- gumb za izbris uporabnika --}}
-  <div style="padding-top: 20px !important"><a href="/users/{{_id}}/izbrisi"><button id="izbris" type="button" class="btn btn-dark submit-form" style="background-color: var(--c4) !important;">Delete user</button></a></div>
+  <div style="padding-top: 20px !important; padding-right: 10px !important"><a href="/users/{{_id}}/izbrisi"><button id="izbris" type="button" class="btn btn-dark submit-form" style="background-color: var(--c4) !important;">Delete user</button></a>
+<a href="/users/{{_id}}/edit-password" style=><button id="izbris" type="button" class="btn btn-dark submit-form" style="background-color: var(--c5) !important;">Edit password</button></a></div>
 
   </div>
+  
         </div>
         
                         

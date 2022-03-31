@@ -1,4 +1,3 @@
-
 var apiParametri = {
     streznik: "http://localhost:" + (process.env.PORT || 3000),
   };
@@ -11,11 +10,13 @@ var apiParametri = {
   });
 
 
-var users = require("../models/user.json");
+
+
 
 
 /* Seznam vseh uporabnikov */
 var seznam = (req, res) => {
+
   var tokenParts = req.cookies.authcookie['žeton'].split('.');
   var encodedPayload = tokenParts[1];
   //var rawPayload = window.atob(encodedPayload);
@@ -34,9 +35,13 @@ const prikaziStran = (req, res, uporabniki) => {
   //var rawPayload = window.atob(encodedPayload);
   var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
   var user = JSON.parse(rawPayload);
+  var usernameC = user.username;
+  
   console.log("dobim cookie delaaaa", req.cookies.authcookie)
   res.render('users', {
-    users: uporabniki
+    users: uporabniki,
+    usernameC: usernameC,
+
   });
 };
 
@@ -49,26 +54,42 @@ const dodaj = (req, res) => {
   var user = JSON.parse(rawPayload);
     var x = req.query.error;
     var isError = true;
+    var notAmatch = true;
     if(x == "napaka"){
       isError = true;
     }
     else{
       isError = false;
     }
-  res.render('user-new', {napaka: isError});
+    if(x == "napaka1"){
+      notAmatch = true;
+    }
+    else{
+      notAmatch = false;
+    }
+  res.render('user-new', {napaka: isError,
+  napaka1: notAmatch});
 };
 
 /* POST metoda - dodajanje novega uporabika */
 const shraniUserja = (req, res) => {
-  if (!req.body.name || !req.body.surname || !req.body.username || !req.body.email || !req.body.password || !req.body.role) {
+
+  // preverjanje, ce se oba gesla matchata (retyping password)
+  if (req.body.password != req.body.password_retype) {
+      var string = "napaka1";
+      res.redirect('/user-new?error=' + string);
+   }
+  
+   // preverjanje, ce so vsa vnosna polja izpolnjena
+  if (!req.body.name || !req.body.surname || !req.body.username || !req.body.email || !req.body.password || !req.body.password_retype || !req.body.role) {
     res.render('error', {
          message: "Prišlo je do napake.",
          error: {
-              status: "Niste izpolnili vseh zahtevanih polj!",
-              stack: "Pri urejanju članka niste izpolnili enega izmed polj: name, surname, username, email, password, role. Prosimo izpolnite manjkajoča polja."
+              status: "Niste izpolnili vseh zahtevanih polj!"
          }
     });
-  } else {
+  } 
+  else {
     axios({
       method: 'post',
       url: apiParametri.streznik + '/api/registracija',
@@ -82,6 +103,7 @@ const shraniUserja = (req, res) => {
       }
     }).then(() => {
       res.redirect('/users', );
+      // feedback -> user was created
     }).catch((napaka) => {
       var string = "napaka";
       res.redirect('/user-new?error=' + string);
@@ -113,6 +135,7 @@ var podrobnostiUser = (req, res) => {
               username: user.data.username,
               email: user.data.email,
               password: user.data.password,
+              isDeleted: user.data.isDeleted,
               role: user.data.role,
               _id: user.data._id,
               napaka: jeNapaka
@@ -122,20 +145,17 @@ var podrobnostiUser = (req, res) => {
 
 
 
-/* Posodobitev uporabnika */
-
+/* PUT - Posodobitev uporabnika */
 
 const posodobiUserja = (req, res) => {
 
   var userId = req.params.id;
-
-
+  // preverimo, ce so izpolnjena vsa polja
   if (!req.body.name || !req.body.surname ||  !req.body.role ||  !req.body.password) {
     res.render('error', {
          message: "Prišlo je do napake.",
          error: {
-              status: "Niste izpolnili vseh zahtevanih polj!",
-              stack: "Pri urejanju članka niste izpolnili enega izmed polj: name, surname, username, email, password, role. Prosimo izpolnite manjkajoča polja."
+              status: "Niste izpolnili vseh zahtevanih polj!"
          }
     });
   } else { 
@@ -160,8 +180,7 @@ const posodobiUserja = (req, res) => {
   }
 };
 
-/* Brisanje uporabnika */
-
+/* Brisanje uporabnika - prikaz*/
 const pridobiUserjaZaIzbris = (req, res) => {
   var userId = req.params.id;
   axios
@@ -172,6 +191,31 @@ const pridobiUserjaZaIzbris = (req, res) => {
 };
 
 const izbrisiUserja = (req, res) => {
+
+  var userId = req.params.id;
+  axios({
+    method: 'put',
+    url: apiParametri.streznik + '/api/users/' + userId + "/delete"
+    })
+    .then(() => {
+        res.redirect('/users');
+    }).catch((napaka) => {
+    prikaziNapako(req, res, napaka);
+    });
+
+
+};
+
+const pridobiUserjaZaIzbrisPermanent = (req, res) => {
+  var userId = req.params.id;
+  axios
+      .get (apiParametri.streznik + '/api/users/' + userId)
+      .then((odgovor) => {
+          res.render('user-delete-permanent', odgovor.data);
+      });
+};
+
+const izbrisiUserjaPermanent = (req, res) => {
 
   var userId = req.params.id;
   axios({
@@ -213,6 +257,7 @@ const pridobiUserjaZaUsernamePosodobitev = (req, res) => {
               username: user.data.username,
               email: user.data.email,
               password: user.data.password,
+              isDeleted: user.data.isDeleted,
               role: user.data.role,
               _id: user.data._id,
               napaka: jeNapaka
@@ -250,6 +295,86 @@ const posodobiUsername = (req, res) => {
   }
 };
 
+
+
+const pridobiUserjaZaPosodobitevGesla = (req, res) => {
+  var x = req.query.error;
+  var isError = true;
+  var notAmatch = true;
+  if(x == "napaka"){
+    isError = true;
+  }
+  else{
+    isError = false;
+  }
+  if(x == "napaka1"){
+    notAmatch = true;
+  }
+  else{
+    notAmatch = false;
+  }
+
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
+  
+  var userId = req.params.id;
+  
+  axios
+      .get (apiParametri.streznik + '/api/users/' + userId)
+      .then((user) => {
+          res.render('user-pass',  { name: user.data.name,
+            
+              surname: user.data.surname,
+              username: user.data.username,
+              email: user.data.email,
+              role: user.data.role,
+              isDeleted: user.data.isDeleted,
+              _id: user.data._id,
+              napaka: isError,
+              napaka1: notAmatch,
+            });
+      });
+};
+
+const posodobitevGesla = (req, res) => {
+
+  var userId = req.params.id;
+
+  if (req.body.newpassword != req.body.password_retype) {
+    var string = "napaka1";
+    res.redirect('/users/' + userId + '/edit-password?error=' + string);
+ }
+
+  if (!req.body.username) {
+    res.render('error', {
+         message: "Prišlo je do napake.",
+         error: {
+              status: "Niste izpolnili vseh zahtevanih polj!",
+              stack: "Pri urejanju članka niste izpolnili enega izmed polj: name, surname, username, email, password, role. Prosimo izpolnite manjkajoča polja."
+         }
+    });
+  } else { 
+  axios({
+    method: 'put',
+    url: apiParametri.streznik + '/api/users/' + userId + '/edit-password',
+    data: {
+        username: req.body.username,
+         password: req.body.newpassword,
+     }
+    })
+    .then(() => {
+        res.redirect('/users/' + userId);
+    }).catch((napaka) => {
+      var string = "napaka";
+      res.redirect('/users/' + userId + '/edit-password?error=' + string);
+    //prikaziNapako(req, res, napaka);
+    });
+  }
+};
+
 const prikaziNapako = (req, res, napaka) => {
   let naslov = "Nekaj je šlo narobe!";
   let vsebina = napaka.response.data["sporočilo"] ?
@@ -272,5 +397,9 @@ module.exports = {
     posodobiUserja,
     pridobiUserjaZaIzbris,
     pridobiUserjaZaUsernamePosodobitev,
-    posodobiUsername
+    posodobiUsername,
+    pridobiUserjaZaPosodobitevGesla,
+    posodobitevGesla,
+    izbrisiUserjaPermanent,
+    pridobiUserjaZaIzbrisPermanent
 };

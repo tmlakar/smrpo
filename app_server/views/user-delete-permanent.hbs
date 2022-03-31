@@ -32,7 +32,7 @@
     </div>
     {{!-- gumb za izbris uporabnika --}}
     <div style="padding-top: 20px !important"><button id="izbris" type="button"data-toggle="modal"
-            data-target="#modalnoOknoIzbrisi" class="btn btn-dark submit-form" style="background-color: var(--c4) !important;">Delete user</button></div>
+            data-target="#modalnoOknoIzbrisi" class="btn btn-dark submit-form" style="background-color: var(--c1) !important; width: 300px !important">Permanently delete user</button></div>
 
       </div>
   </div>
@@ -55,8 +55,8 @@
                       <div class="modal-body">
                         <form id="izbrisiUporabnika" method="post">
                          <p>
-                           Are you sure you want to remove {{name}} {{surname}}?<br>
-                           <small><i>The user will be removed from the existing user list.</i></small>
+                           Are you sure you want to delete {{name}} {{surname}} from the database?<br>
+                           <small><i>The user will be permanently removed from the system.</i></small>
                          </p>
                          
                            
