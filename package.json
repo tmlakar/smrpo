@@ -8,9 +8,9 @@
     "admini-uvoz": "mongoimport app_server/models/admin.json -d mongodb-community --jsonArray -c Admins"
   },
   "engines": {
-   "node": ">=16.14.0",
-   "npm": ">=8.3.1"
- },
+    "node": ">=16.14.0",
+    "npm": ">=8.3.1"
+  },
   "dependencies": {
     "axios": "^0.26.1",
     "bootstrap": "^5.1.3",
