@@ -36,9 +36,32 @@ var apiParametri = {
     var userId = id;
     var vloga = user.role;
     var date = user.date;
+    console.log(date);
     // parsanje datuma
     var date_parsed = Date.parse(date);
+    
     var d = new Date(date_parsed);
+    var month = d.getUTCMonth() + 1; //months from 1-12
+    if (month < 10) {
+      month = "0" + month;
+    }
+    var day = d.getUTCDate();
+    if (day < 10) {
+      day = "0" + day;
+    }
+    var year = d.getUTCFullYear();
+    
+    var hour = d.getUTCHours()+2;
+    if (hour < 10) {
+      hour = "0" + hour;
+    }
+    var minute = d.getUTCMinutes();
+    if (minute < 10) {
+      minute = "0" + minute;
+    }
+
+    var datum = day+ '/' + month + '/' + year +"  " + hour +":"+ minute;
+    
     if(vloga == "user"){
       axios
         .get (apiParametri.streznik + '/api/account/' + userId)
@@ -52,7 +75,7 @@ var apiParametri = {
               id: odgovor.data._id,
               layout: 'layout-user',
               napaka: isError,
-              date: d
+              date: datum
             });
         });
       
@@ -71,22 +94,29 @@ var apiParametri = {
               id: odgovor.data._id,
               layout: 'layout',
               napaka: isError,
-              date: d
+              date: datum
             });
         });
    }
   };
 
   
-  /* prikaz za editing gesla */
+  /* GET prikaz za editing gesla */
   var prikaz2 = (req, res) => {
     var x = req.query.error;
   var isError = true;
+    var notAmatch = true;
   if(x == "napaka"){
     isError = true;
   }
   else{
     isError = false;
+  }
+  if(x == "napaka1"){
+    notAmatch = true;
+  }
+  else{
+    notAmatch = false;
   }
     console.log("dobim cookie", req.cookies.authcookie)
     var tokenParts = req.cookies.authcookie['žeton'].split('.');
@@ -102,7 +132,29 @@ var apiParametri = {
     var date = user.date;
     // parsanje datuma
     var date_parsed = Date.parse(date);
+    
     var d = new Date(date_parsed);
+    var month = d.getUTCMonth() + 1; //months from 1-12
+    if (month < 10) {
+      month = "0" + month;
+    }
+    var day = d.getUTCDate();
+    if (day < 10) {
+      day = "0" + day;
+    }
+    var year = d.getUTCFullYear();
+    
+    var hour = d.getUTCHours()+2;
+    if (hour < 10) {
+      hour = "0" + hour;
+    }
+    var minute = d.getUTCMinutes();
+    if (minute < 10) {
+      minute = "0" + minute;
+    }
+
+    var datum = day+ '/' + month + '/' + year +"  " + hour +":"+ minute;
+    
     if(vloga == "user"){
       axios
         .get (apiParametri.streznik + '/api/account/' + userId)
@@ -116,7 +168,8 @@ var apiParametri = {
               id: odgovor.data._id,
               layout: 'layout-user',
               napaka: isError,
-              date: d
+              napaka1: notAmatch,
+              date: datum
             });
         });
       
@@ -135,7 +188,8 @@ var apiParametri = {
               id: odgovor.data._id,
               layout: 'layout',
               napaka: isError,
-              date: d
+              napaka1: notAmatch,
+              date: datum
             });
         });
    }
@@ -174,7 +228,7 @@ var apiParametri = {
        }
       })
       .then(() => {
-        
+      
           res.redirect('/home');
       }).catch((napaka) => {
         var string = "napaka";
@@ -183,8 +237,7 @@ var apiParametri = {
     }
   };
 
-  /* Posodobitev gesla  na /account/edit-password*/
-
+  /* Posodobitev gesla  na /account/edit-password */
 const posodobiGeslo = (req, res) => {
     var tokenParts = req.cookies.authcookie['žeton'].split('.');
     var encodedPayload = tokenParts[1];
@@ -194,12 +247,18 @@ const posodobiGeslo = (req, res) => {
     var username = user.username;
     console.log(id);
     console.log(req.body.username, req.body.password, req.body.newpassword)
-    if (!req.body.username || !req.body.password || !req.body.newpassword) {
+
+    // preverjanje ce se oba gesla matchata
+  if (req.body.newpassword  != req.body.password_retype) {
+    var string = "napaka1";
+    res.redirect('/account/edit-password?error=' + string);
+ }
+
+    if (!req.body.username || !req.body.password || !req.body.newpassword || !req.body.password_retype) {
       res.render('error', {
            message: "Prišlo je do napake.",
            error: {
-                status: "Niste izpolnili vseh zahtevanih polj!",
-                stack: "Pri urejanju članka niste izpolnili enega izmed polj: name, surname, username, email, password, role. Prosimo izpolnite manjkajoča polja."
+                status: "Niste izpolnili vseh zahtevanih polj!"
            }
       });
     } else {
@@ -250,7 +309,29 @@ const posodobiGeslo = (req, res) => {
     var date = user.date;
     // parsanje datuma
     var date_parsed = Date.parse(date);
+    
     var d = new Date(date_parsed);
+    var month = d.getUTCMonth() + 1; //months from 1-12
+    if (month < 10) {
+      month = "0" + month;
+    }
+    var day = d.getUTCDate();
+    if (day < 10) {
+      day = "0" + day;
+    }
+    var year = d.getUTCFullYear();
+    
+    var hour = d.getUTCHours()+2;
+    if (hour < 10) {
+      hour = "0" + hour;
+    }
+    var minute = d.getUTCMinutes();
+    if (minute < 10) {
+      minute = "0" + minute;
+    }
+
+    var datum = day+ '/' + month + '/' + year +"  " + hour +":"+ minute;
+    
     if(vloga == "user"){
       axios
         .get (apiParametri.streznik + '/api/account/' + userId)
@@ -264,7 +345,7 @@ const posodobiGeslo = (req, res) => {
               id: odgovor.data._id,
               layout: 'layout-user',
               napaka: isError,
-              date: d
+              date: datum
             });
         });
       
@@ -283,7 +364,7 @@ const posodobiGeslo = (req, res) => {
               id: odgovor.data._id,
               layout: 'layout',
               napaka: isError,
-              date: d
+              date: datum
             });
         });
    }

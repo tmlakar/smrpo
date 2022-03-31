@@ -1,14 +1,15 @@
+
 <div class="hbses">
 
 
-<br>
+{{!-- uporabniki -> dinamično iz baze s pomočjo REST API --}}
 
 <div class="row">
   <div class="col-sm-3" style="padding-bottom: 30px !important">
-    <div class="card account-info">
+    <div class="card account-info" style="background-color: var(--c3) !important;">
       <div class="card-body">
-        <h5 class="card-title">Account information</h5>
-        <p class="card-text"><span>Full name:</span>
+        <h5 class="card-title" style="color: var(--c5) !important;">User information</h5>
+        <p class="card-text"><span>Name and surname:</span>
           <br>
           {{name}} {{surname}}
           
@@ -21,44 +22,32 @@
           <br>
           {{email}}
         </p>
-        <p class="card-text"><span>Last login:</span>
+        <p class="card-text"><span>Role:</span>
           <br>
-          {{date}}
+          {{role}}
         </p>
+
 
         
         
       </div>
     </div>
-    </div>
-    {{!-- zamenjava gesla zahteva staro in novo geslo --}}
-    <div class="col-sm-9">
-    <div class="card account-update">
-      <div class="card-body">
-        <h5 class="card-title">Change your password</h5>
-        <form id="posodobi" method="post">
-          
-                            <div class="mb-3" hidden="true">
+  </div>
+
+
+
+  {{!-- vnosna polja za spremembo gesla s strani admina --}}
+ <div class="col-sm-9">
+        <div class="card user-add">
+        <div class="card-body">
+            <h5 class="card-title">Edit username</h5>    
+
+                        <form id="posodobiUporabnika" method="post">
+                          
+                          <div class="mb-3" hidden="true">
                             <label class="form-label">Id</label>
                             <input class="form-control input-form" name="username" placeholder="name" value="{{username}}" id="id" aria-describedby="emailHelp" required>
-
                           </div>
-                           <div class="mb-3">
-                            <label class="form-label">Old password</label>
-                            <input class="form-control input-form" name="password" id="oldpassword" type="password" value="{{password}}" pattern="(?!.* ).{12,128}" title="The password must be at least 12 characters long and shouldn't contain whitespaces!" aria-describedby="emailHelp" required>
-                            <input id="prikazi" style="margin-right: 10px;margin-top:20px;" type="checkbox" onClick="myFunction2()">Show Password
-                            <script>
-                              function myFunction2() {
-                                var x = document.getElementById("oldpassword");
-                                if (x.type === "password") {
-                                  x.type = "text";
-                                } else {
-                                  x.type = "password";
-                                }
-                              }
-                              </script>
-                          </div>
-                          
                               
                           <div class="mb-3">
                             <label class="form-label">New password</label>
@@ -91,30 +80,26 @@
                               </script>
                           </div>
 
-                          {{#if napaka}}
-                          <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 8px; border-radius: 18px">
-                          <span style="font-size: 14px !important">Wrong password!</span>
-                          </div>
-                        {{/if}}
+                          
                         {{#if napaka1}}
                           <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 10px; border-radius: 18px; margin-top: 10px !important">
                           <span style="font-size: 14px !important">The re-typed password doesn't match!</span>
                           </div>
                         {{/if}}
-
-
+                        
+                        <div>
                         <button type="submit" class="btn submit-form">Submit</button>
-                
+                        </div>
 
-                        
                         </form>
-
+                        </div>
+              </div>
+        
+             </div>
+       </div>
+        
                         
-      </div>
-      
-    </div>
-  </div>
+                  
 
 
-
-</div>
+</div

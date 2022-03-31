@@ -72,7 +72,7 @@ var podrobnostiProject = (req, res) => {
   res.render('project-new', {napaka: isError});
 };
 
-  /* PUT metoda - Ustvarjanje novega projekta (s strani admina) na /project-new */
+  /* POST metoda - Ustvarjanje novega projekta (s strani admina) na /project-new */
 
   const createProject = (req, res) => {
     if (!req.body.name || !req.body.info) {
@@ -161,6 +161,10 @@ const addCollaboratorsDisplay = (req, res) => {
     if(napaka == "napaka"){
       jeNapaka = true;
     }
+
+    var users;
+    
+
     axios
         .get (apiParametri.streznik + '/api/projects/' + projectId)
         .then((odgovor) => {
@@ -169,7 +173,8 @@ const addCollaboratorsDisplay = (req, res) => {
               info: odgovor.data.info,
               collaborators: odgovor.data.users,
               id: odgovor.data._id,
-              napaka: jeNapaka
+              napaka: jeNapaka,
+              users: users
             });
         });
   

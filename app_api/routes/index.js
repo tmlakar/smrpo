@@ -42,11 +42,15 @@ router.get("/users/:idUser", ctrlUser.userInfo);
 //posodabljanje dolocenega userja
 router.put("/users/:idUser", ctrlUser.userUpdate);
 //brisanje userja
-router.delete("/users/:idUser", ctrlUser.userDelete);
+router.put("/users/:idUser/delete", ctrlUser.userDelete);
+router.delete("/users/:idUser", ctrlUser.userDeletePermanent);
 //primer uporabe preverjanja avtentikacije:
 //router.delete("/users/:idUser", avtentikacija, ctrlUser.userDelete);
 router.get("/users/:idUser/edit-username", ctrlUser.userInfo);
 router.put("/users/:idUser/edit-username", ctrlUser.userUpdateUsername);
+
+router.get("/users/:idUser/edit-password", ctrlUser.userInfo);
+router.put("/users/:idUser/edit-password", ctrlUser.userUpdatePassword);
 
 
 /* Projects */
@@ -58,6 +62,8 @@ router.post("/project-new", ctrlProjects.projectCreate);
 router.get("/projects/:idProject", ctrlProjects.projectInfo);
 /* Updating a particular project */
 router.put("/projects/:idProject", ctrlProjects.projectUpdate);
+
+router.get("/projects/:idProject/add-collaborators", ctrlProjects.projectInfo);
 
 /* Avtentikacija */
 router.post("/registracija", ctrlAvtentikacija.registracija);
