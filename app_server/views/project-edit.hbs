@@ -34,6 +34,7 @@
 
                     </p>
                     {{/each}}
+                <button id="ekipa" type="button" data-toggle="modal" data-target="#modalnoOknoEkipa" class="btn btn-dark dodaj-vekipo" style="background-color: var(--c1) !important; border: 3px solid var(--c1) !important"><i class="fa-solid fa-plus dodaj"></i></button>
 
 
             </div>
@@ -56,7 +57,7 @@
 
                         <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Project description</label>
-                            <input class="form-control input-form" value="{{info}}" name="info" id="name" aria-describedby="emailHelp" required>
+                            <textarea class="form-control input-form-lg" name="info" id="info" aria-describedby="emailHelp" required>{{info}}</textarea>
                         </div>
 
                         {{#if napaka}}
@@ -72,11 +73,49 @@
 
                       </div>
                       <div style="padding-top: 10px !important">
-<a href="/projects/{{id}}/add-collaborators"><button type="submit" class="btn submit-form" style="width: 200px !important; margin:5px !important; background-color: var(--c3) !important">Add collaborators</button></a>
+<!--<a href="/projects/{{id}}/add-collaborators"><button type="submit" class="btn submit-form" style="width: 200px !important; margin:5px !important; background-color: var(--c3) !important">Add collaborators</button></a>
 <a href="/projects/{{id}}/edit-collaborator-roles"><button type="submit" class="btn submit-form" style="width: 240px !important; margin:5px !important; background-color: var(--c4) !important">Edit collaborator roles</button></a>
-<a href="/projects/{{id}}/delete-collaborators"><button type="submit" class="btn submit-form" style="width: 220px !important; margin:5px !important; background-color: var(--c5) !important">Remove collaborators</button></a>
+<a href="/projects/{{id}}/delete-collaborators"><button type="submit" class="btn submit-form" style="width: 220px !important; margin:5px !important; background-color: var(--c5) !important">Remove collaborators</button></a>-->
 </div>
 </div>
 
 
+</div>
+
+<div class="modal fade" id="modalnoOknoEkipa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-content-ekipa"> 
+            <div class="modal-header modal-header-ekipa">
+                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Add project collaborators</h5>
+                <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> 
+            <div class="modal-body">
+                <div class="card collaborator-card">
+                    <br>
+
+                </div>
+                
+                <!-- FORM START -->                
+                <!--<form id="dodajEkipo" method="post">
+
+                    Ko izbereš userje in pa njihove naloge
+                    
+
+                </form>   zaključek forma je na koncu gumba!-->
+                <div style="padding: 10px !important">
+                      <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
+                </div>
+                <!-- FORM STOP -->
+            </div>
+        </div>
+        <br>
+        <div class="modal-content modal-content-ekipa">
+            <div class="modal-header modal-header-ekipa">
+                <h5 class="modal-title" id="exampleModalLabel">Available collaborators</h5>
+            
+            </div>
+        </div>
+    </div>
 </div>
