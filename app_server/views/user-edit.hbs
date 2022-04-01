@@ -40,9 +40,15 @@
         <div class="card user-add">
         <div class="card-body">
             <h5 class="card-title">Edit user</h5>    
+            
+            {{#if (isTheSameAsLoggedIn username currentUser)}}
+
+        <a href="/account"><button  type="button" class="btn btn-dark submit-form" style="background-color: var(--c4) !important; width: 300px !important">Edit your account information</button></a>
+            {{/if}}
 
                         <form id="posodobiUporabnika" method="post">
                         
+                        {{#if (isTheSame username currentUser)}}
                           <div class="mb-3">
                             <label class="form-label">Name</label>
                             <input class="form-control input-form" name="name" placeholder="{{name}}" value="{{name}}" id="name" aria-describedby="emailHelp" required>
@@ -59,7 +65,11 @@
                             <label class="form-label">Username</label>
                             <div class="row" style="padding: 0px !important">
                             <div class="col-lg-10"><input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="" placeholder="{{username}}" value="{{username}}" id="" aria-describedby="emailHelp" readonly></div>
-                            <div class="col-lg-2"><a href="/users/{{_id}}/edit-username" style=" color: var(--c3) !important; height: 50px !important; width: 100% !important;">Change username</a></div></div>
+                            
+                            <div class="col-lg-2"><a href="/users/{{_id}}/edit-username" style=" color: var(--c3) !important; height: 50px !important; width: 100% !important;">Change username</a></div>
+                            
+                            </div>
+                         
                           </div>
 
                           <div class="mb-3">
@@ -77,21 +87,28 @@
                             </select>
 
                           </div>
-                          
+                          {{/if}}
                           {{#if napaka}}
                           <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 10px; border-radius: 18px; margin-top: 10px !important">
                           <span style="font-size: 14px !important">Account with this username and / or email already exists!</span>
                           </div>
                         {{/if}}
-                        
+                        {{#if (isTheSame username currentUser)}}
                         <button type="submit" class="btn submit-form">Submit</button>
-
+                      {{/if}}
                         </form>
                         </div>
         </div>
         {{!-- gumb za izbris uporabnika --}}
-  <div style="padding-top: 20px !important; padding-right: 10px !important"><a href="/users/{{_id}}/izbrisi"><button id="izbris" type="button" class="btn btn-dark submit-form" style="background-color: var(--c4) !important;">Delete user</button></a>
+        
+  <div style="padding-top: 20px !important; padding-right: 10px !important">
+    {{#if (isTheSame username currentUser)}}
+    <a href="/users/{{_id}}/izbrisi"><button id="izbris" type="button" class="btn btn-dark submit-form" style="background-color: var(--c4) !important;">Delete user</button></a>
+  {{/if}}
+  {{#if (isTheSame username currentUser)}}
 <a href="/users/{{_id}}/edit-password" style=><button id="izbris" type="button" class="btn btn-dark submit-form" style="background-color: var(--c5) !important;">Edit password</button></a></div>
+{{/if}}
+
 
   </div>
   

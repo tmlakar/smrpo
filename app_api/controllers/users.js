@@ -118,7 +118,7 @@ const userCreate = (req, res) => {
         }
         
 
-        user.isDeleted = "true";
+        user.isNotDeleted = false;
         
         user.save((napaka, user) => {
           if (napaka) {

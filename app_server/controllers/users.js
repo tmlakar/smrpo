@@ -22,6 +22,7 @@ var seznam = (req, res) => {
   //var rawPayload = window.atob(encodedPayload);
   var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
   var user = JSON.parse(rawPayload);
+
   axios
       .get (apiParametri.streznik + '/api/users', {})
       .then((odgovor) => {
@@ -36,7 +37,7 @@ const prikaziStran = (req, res, uporabniki) => {
   var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
   var user = JSON.parse(rawPayload);
   var usernameC = user.username;
-  
+  console.log(usernameC);
   console.log("dobim cookie delaaaa", req.cookies.authcookie)
   res.render('users', {
     users: uporabniki,
@@ -45,6 +46,7 @@ const prikaziStran = (req, res, uporabniki) => {
   });
 };
 
+/* Obrazec za dodavanje novega uporabnika */
 
 const dodaj = (req, res) => {
   var tokenParts = req.cookies.authcookie['žeton'].split('.');
@@ -71,7 +73,6 @@ const dodaj = (req, res) => {
   napaka1: notAmatch});
 };
 
-/* POST metoda - dodajanje novega uporabika */
 const shraniUserja = (req, res) => {
 
   // preverjanje, ce se oba gesla matchata (retyping password)
@@ -111,7 +112,8 @@ const shraniUserja = (req, res) => {
 }
 };
 
-/* Prikazi stran s podrobnostmi uporabnika */
+/* Posodobitev uporabnikovih osnovnih atributov */
+
 var podrobnostiUser = (req, res) => {
   var tokenParts = req.cookies.authcookie['žeton'].split('.');
   var encodedPayload = tokenParts[1];
@@ -119,6 +121,7 @@ var podrobnostiUser = (req, res) => {
   var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
   var user = JSON.parse(rawPayload);
   var x = req.query.error;
+  var currentUser = user.username;
 
   var userId = req.params.id;
   var napaka = req.query.error;
@@ -135,17 +138,14 @@ var podrobnostiUser = (req, res) => {
               username: user.data.username,
               email: user.data.email,
               password: user.data.password,
-              isDeleted: user.data.isDeleted,
+              isNotDeleted: user.data.isNotDeleted,
+              currentUser: currentUser,
               role: user.data.role,
               _id: user.data._id,
               napaka: jeNapaka
             });
       });
 };
-
-
-
-/* PUT - Posodobitev uporabnika */
 
 const posodobiUserja = (req, res) => {
 
@@ -180,7 +180,7 @@ const posodobiUserja = (req, res) => {
   }
 };
 
-/* Brisanje uporabnika - prikaz*/
+/* Brisanje uporabnika - zastavica isDeleted */
 const pridobiUserjaZaIzbris = (req, res) => {
   var userId = req.params.id;
   axios
@@ -206,6 +206,7 @@ const izbrisiUserja = (req, res) => {
 
 };
 
+/* Brisanje uporabnika - iz baze */
 const pridobiUserjaZaIzbrisPermanent = (req, res) => {
   var userId = req.params.id;
   axios
@@ -232,7 +233,7 @@ const izbrisiUserjaPermanent = (req, res) => {
 };
 
 
-// username posodobitev
+/* Posodobitev uporabniskega imena */
 
 const pridobiUserjaZaUsernamePosodobitev = (req, res) => {
   var tokenParts = req.cookies.authcookie['žeton'].split('.');
@@ -257,7 +258,7 @@ const pridobiUserjaZaUsernamePosodobitev = (req, res) => {
               username: user.data.username,
               email: user.data.email,
               password: user.data.password,
-              isDeleted: user.data.isDeleted,
+              isNotDeleted: user.data.isNotDeleted,
               role: user.data.role,
               _id: user.data._id,
               napaka: jeNapaka
@@ -295,7 +296,7 @@ const posodobiUsername = (req, res) => {
   }
 };
 
-
+/* Posodobitev uporabniskega gesla */
 
 const pridobiUserjaZaPosodobitevGesla = (req, res) => {
   var x = req.query.error;
@@ -325,13 +326,14 @@ const pridobiUserjaZaPosodobitevGesla = (req, res) => {
   axios
       .get (apiParametri.streznik + '/api/users/' + userId)
       .then((user) => {
-          res.render('user-pass',  { name: user.data.name,
+          res.render('user-pass',  {
             
+            name: user.data.name,
               surname: user.data.surname,
               username: user.data.username,
               email: user.data.email,
               role: user.data.role,
-              isDeleted: user.data.isDeleted,
+              isNotDeleted: user.data.isNotDeleted,
               _id: user.data._id,
               napaka: isError,
               napaka1: notAmatch,

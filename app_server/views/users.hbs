@@ -18,24 +18,27 @@
   </thead>
   <tbody>
     {{#each users as |user|}}
-    
+    {{#if user.isNotDeleted}}
+
+    {{usernameC}}
     <tr>
       
       <td class="bold-item">{{@index}}</td>
       <th scope="row" class="bold-item">{{user.name}}</th>
       <td class="bold-item">{{user.surname}}</td>
-      {{#if true}}
-      <td>{{user.username}} Deleted:{{user.isDeleted}}</td>
-      {{/if}}
+      <td>{{user.username}}</td>
       <td>{{user.email}}</td>
       <td>{{user.role}}</td>
 
       {{!-- gumba za edit in delete uporabnikov (ce je admin prjavljen nima gumba pr seb) --}}
-      {{!-- {{#if}} --}}
+      {{#if (isTheSame user.username usernameC)}}
+      
       <td><a href="/users/{{user._id}}"><button type="button" 
       class="btn uredi-uporabika btn-dark btn-small " style="border-radius: 15px !important; background-color: var(--c5) !important; border: 0px !important">Edit user </button></a></td>
-      {{!-- {{/if}} --}}
+      {{/if}}
+      
     </tr>
+    {{/if}}
     {{/each}}
   </tbody>
 </table>

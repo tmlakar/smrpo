@@ -15,7 +15,7 @@ const userShema = new mongoose.Schema({
         enum: ["user", "admin"]
       },
     accessToken: {type: String},
-    isDeleted: {type: String, default: "false"}
+    isNotDeleted: {type: Boolean, default: true}
 });
 
 
