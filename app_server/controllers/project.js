@@ -12,7 +12,14 @@ var apiParametri = {
 
 
   var prikaz = (req, res) => {
-    res.render('project');
+    var projectId = req.params.id;
+    axios
+        .get (apiParametri.streznik + '/api/projects/' + projectId)
+        .then((odgovor) => {
+            res.render('project',
+            { name: odgovor.data.name,
+            });
+        });
   };
 
 

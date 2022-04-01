@@ -2,15 +2,15 @@
 
 <div class="hbses">
 
-<h3>Project</h3>
+<h3>{{name}}</h3>
 
 
 <div class="">
   <ul class="nav nav-tabs">
-    
+
     <li class="active"><a class="nav-link" data-toggle="tab" href="#backlog" onclick="location.href='#backlog'">Product backlog</a></li>
     <li><a class="nav-link" data-toggle="tab" href="#sprints" onclick="location.href='#sprints'">Sprints</a></li>
-    
+
   </ul>
 
   <div class="tab-content">
@@ -19,10 +19,10 @@
       <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     </div>
     <div id="sprints" class="tab-pane fade">
-      <h3>Sprints</h3>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+      {{!-- gumb za dodajanje novega sprinta - se pokaže le če je prijavljen admin--}}
+      <div><a href="/sprint-new"><button id="" type="button" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right"><i class="fa-solid fa-plus dodaj"></i></button></a></div><br>
     </div>
-    
+
   </div>
 </div>
 <script type="text/javascript">

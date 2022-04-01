@@ -6,12 +6,12 @@
 <div class="card-group">
 <div class="row">
     {{#each projects as |project|}}
-    
-      
-        <div class="card projekt-card col-sm-3" style="margin: 20px !important; 
+
+
+        <div class="card projekt-card col-sm-3" style="margin: 20px !important;
         background-color: var(--c4); border: 4px solid var(--c4) !important;">
           <div class="card-body">
-            <h4><i>{{project.name}}</i></h4>
+            <a href="/project/{{project._id}}" style="color: orange"><h4><i>{{project.name}}</i></h4></a>
             <br>
             <p>{{project.info}}</p>
             <p></p>
@@ -22,8 +22,8 @@
         </div>
       {{!-- gumba za edit projectov --}}
 
-      
-    
+
+
     {{/each}}
   </div>
   </div>
@@ -33,5 +33,5 @@
     <div><a href="/project-new"><button id="" type="button" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right" style="background-color: var(--c1) !important; border: 3px solid var(--c1) !important"><i class="fa-solid fa-plus dodaj"></i></button></a></div><br>
 
     </div>
-    
+
 </div>

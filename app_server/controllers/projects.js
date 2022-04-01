@@ -96,7 +96,7 @@ var podrobnostiProject = (req, res) => {
       }).catch((napaka) => {
         var string = "napaka";
       res.redirect('/project-new?error=' + string);
-        
+
       });
   }
   };
@@ -146,7 +146,7 @@ const prikaziNapako = (req, res, napaka) => {
 
 /* Add project collaborators */
 
-/* GET metoda (prikaz) - Dodajanje uporabnikov na projekt in določitev projektnih vlog 
+/* GET metoda (prikaz) - Dodajanje uporabnikov na projekt in določitev projektnih vlog
   s strani admina na /projects/unikaten_id_projekta/add-collaborators */
   // prikazovanje vseh userjev z role user iz sistema, med katerimi lahko admin izbere
 const addCollaboratorsDisplay = (req, res) => {
@@ -163,7 +163,7 @@ const addCollaboratorsDisplay = (req, res) => {
     }
 
     var users;
-    
+
 
     axios
         .get (apiParametri.streznik + '/api/projects/' + projectId)
@@ -177,15 +177,15 @@ const addCollaboratorsDisplay = (req, res) => {
               users: users
             });
         });
-  
+
 }
 
-/* PUT metoda - Dodajanje uporabnikov na projekt in določitev projektnih vlog 
+/* PUT metoda - Dodajanje uporabnikov na projekt in določitev projektnih vlog
 s strani admina na /projects/unikaten_id_projekta/add-collaborators */
 
 /* Edit project collaborators */
 
-/* GET metoda (prikaz) - Urejanje uporabnikov oziroma njihovih projektnih vlog 
+/* GET metoda (prikaz) - Urejanje uporabnikov oziroma njihovih projektnih vlog
   s strani admina na /projects/unikaten_id_projekta/edit-collaborator-roles */
   const editCollaboratorsDisplay = (req, res) => {
     var tokenParts = req.cookies.authcookie['žeton'].split('.');
@@ -210,10 +210,10 @@ s strani admina na /projects/unikaten_id_projekta/add-collaborators */
                 napaka: jeNapaka
               });
           });
-    
+
   }
 
-  /* PUT metoda  - Urejanje uporabnikov oziroma njihovih projektnih vlog 
+  /* PUT metoda  - Urejanje uporabnikov oziroma njihovih projektnih vlog
   s strani admina na /projects/unikaten_id_projekta/edit-collaborator-roles */
 
 /* Delete project collaborators */
@@ -243,7 +243,7 @@ s strani admina na /projects/unikaten_id_projekta/add-collaborators */
                 napaka: jeNapaka
               });
           });
-    
+
   }
 
   /* PUT metoda  - Brisanje uporabnikov s projekta

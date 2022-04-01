@@ -34,7 +34,7 @@ router.get('/users/:id/edit-username', ctrlUsers.pridobiUserjaZaUsernamePosodobi
 router.post('/users/:id/edit-username', ctrlUsers.posodobiUsername);
 router.get('/users/:id/edit-password', ctrlUsers.pridobiUserjaZaPosodobitevGesla);
 router.post('/users/:id/edit-password', ctrlUsers.posodobitevGesla);
-  
+
 
 
 // projects
@@ -51,8 +51,12 @@ router.get('/projects/:id/delete-collaborators', ctrlProjects.deleteCollaborator
 
 /* Project -> Sprint -> User stories */
 var ctrlProject = require("../controllers/project");
-router.get('/project', ctrlProject.prikaz);
-
+//router.get('/project', ctrlProject.prikaz);
+router.get('/project/:id', ctrlProject.prikaz);
+//Sprints
+var ctrlSprint = require("../controllers/sprints");
+router.get('/sprint-new', ctrlSprint.prikaz);
+//router.post('/sprint-new', ctrlSprint.dodaj);
 // account
 var ctrlAccount = require("../controllers/account");
 // ista fora
