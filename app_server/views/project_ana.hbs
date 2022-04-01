@@ -1,0 +1,83 @@
+{{!-- Product backlog / sprints zavihka --}}
+
+<div class="hbses">
+
+<h3>Project</h3>
+
+
+<div class="">
+  <ul class="nav nav-tabs">
+    
+    <li class="active"><a class="nav-link" data-toggle="tab" href="#backlog" onclick="location.href='#backlog'">Product backlog</a></li>
+    <li><a class="nav-link" data-toggle="tab" href="#sprintlog" onclick="location.href='#sprintlog'">Sprint backlog</a></li>
+    <li><a class="nav-link" data-toggle="tab" href="#sprints" onclick="location.href='#sprints'">Sprints</a></li>
+    
+  </ul>
+
+  <div class="tab-content">
+    <div id="backlog" class=" active tab-pane fade">
+      {{!<-- <h3>Product backlog</h3> -->}}
+
+        <br>
+        <br>
+        <div class="row">
+
+          <div class="col-sm-4" style="color:var(--spanish-gray);">Finished user stories                
+            <div class="card projekt-card col-sm-8" style="margin: 20px !important; 
+            background-color: var(--c4); border: 4px solid var(--c4) !important;">
+            <p>#340 Naša prva uporabniška zgodba.</p>
+            </div>
+          </div>
+
+          <div class="col-sm-4" style="color:var(--spanish-gray);">Unfinished user stories
+            <div class="card projekt-card col-sm-8" style="margin: 20px !important; 
+            background-color: var(--c1); border: 4px solid var(--c1) !important;">
+            <p>#341 Naša prva nedokončana uporabniška zgodba.</p>
+            </div>
+          </div>
+
+          <div class="col-sm-4" style="color:var(--spanish-gray);">Future release
+            <div class="card projekt-card col-sm-8" style="margin: 20px !important; 
+            background-color: var(--c5); border: 4px solid var(--c5) !important;">
+            <p>#342 Naša prva zgodba, ki je ne bomo dokončali.</p>
+            </div>
+          </div>
+
+        </div> 
+        
+
+  
+    </div>
+
+
+    <div id="sprintlog" class="tab-pane fade">
+     {{!--  <h3>Sprint backlog</h3> --}}
+      <p>Delo osvobaja.</p>
+      <br>
+      <p>Sprint backlog je namenjen razvijalcem in omogoča pregled nad delom. Tu lahko dodajamo taske v zgodbe, za katere je odgovoren trenutni uporabnik</p>
+    </div>
+
+
+    <div id="sprints" class="tab-pane fade">
+     {{!--  <h3>Sprint backlog</h3> --}}
+      <p>Tukaj bojo sprinti + dodajanje sprintov? Zgodbe ki so vključene v trenutni sprint? Pretekli sprinti? </p>
+    </div>
+    
+    </div>
+  </div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    var anchorHash = window.location.href.toString();
+    if( anchorHash.lastIndexOf('#') != -1 ) {
+        anchorHash = anchorHash.substr(anchorHash.lastIndexOf('#'));
+        if( $('a[href="'+ anchorHash +'"]').length > 0 ) {
+            $('a[href="'+ anchorHash +'"]').trigger('click');
+        }
+    }
+});
+</script>
+
+
+
+</div>
