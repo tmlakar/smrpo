@@ -49,6 +49,10 @@ router.get('/projects/:id/add-collaborators', ctrlProjects.addCollaboratorsDispl
 router.get('/projects/:id/edit-collaborator-roles', ctrlProjects.editCollaboratorsDisplay);
 router.get('/projects/:id/delete-collaborators', ctrlProjects.deleteCollaboratorsDisplay);
 
+/* Project -> Sprint -> User stories */
+var ctrlProject = require("../controllers/project");
+router.get('/project', ctrlProject.prikaz);
+
 // account
 var ctrlAccount = require("../controllers/account");
 // ista fora

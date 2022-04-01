@@ -1,0 +1,42 @@
+{{!-- Product backlog / sprints zavihka --}}
+
+<div class="hbses">
+
+<h3>Project</h3>
+
+
+<div class="">
+  <ul class="nav nav-tabs">
+    
+    <li class="active"><a class="nav-link" data-toggle="tab" href="#backlog" onclick="location.href='#backlog'">Product backlog</a></li>
+    <li><a class="nav-link" data-toggle="tab" href="#sprints" onclick="location.href='#sprints'">Sprints</a></li>
+    
+  </ul>
+
+  <div class="tab-content">
+    <div id="backlog" class=" active tab-pane fade">
+      <h3>Product backlog</h3>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div id="sprints" class="tab-pane fade">
+      <h3>Sprints</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+    
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var anchorHash = window.location.href.toString();
+    if( anchorHash.lastIndexOf('#') != -1 ) {
+        anchorHash = anchorHash.substr(anchorHash.lastIndexOf('#'));
+        if( $('a[href="'+ anchorHash +'"]').length > 0 ) {
+            $('a[href="'+ anchorHash +'"]').trigger('click');
+        }
+    }
+});
+</script>
+
+
+
+</div>
