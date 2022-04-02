@@ -45,9 +45,12 @@ router.post('/project-new', ctrlProjects.createProject);
 router.get('/projects/:id', ctrlProjects.podrobnostiProject);
 router.post('/projects/:id', ctrlProjects.posodobiProject);
 
-router.get('/projects/:id/add-collaborators', ctrlProjects.addCollaboratorsDisplay);
-router.get('/projects/:id/edit-collaborator-roles', ctrlProjects.editCollaboratorsDisplay);
-router.get('/projects/:id/delete-collaborators', ctrlProjects.deleteCollaboratorsDisplay);
+// collaborators add/edit/remove
+
+
+// router.get('/projects/:id/add-collaborators', ctrlProjects.addCollaboratorsDisplay);
+// router.get('/projects/:id/edit-collaborator-roles', ctrlProjects.editCollaboratorsDisplay);
+// router.get('/projects/:id/delete-collaborators', ctrlProjects.deleteCollaboratorsDisplay);
 
 /* Project -> Sprint -> User stories */
 var ctrlProject = require("../controllers/project");
