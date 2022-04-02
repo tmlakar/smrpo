@@ -8,11 +8,33 @@ const collaboratorShema = new mongoose.Schema({
       }
 });
 
+const userStoriesShema = new mongoose.Schema({
+    name: {type: String},
+    aboutText: {type: String},
+    priority: {type: String,
+        default: "Must have",
+        enum: ["Must have", "Should have", "Could have", "Won't have this time"]
+    },
+    tests: [{type: String}],
+    businessValue: {type: String},
+    flags: [{type: String}]
+
+});
+
+const sprintShema = new mongoose.Schema({
+    sprintSize: {type: Number},
+    sprintStartDate: {type: Date},
+    sprintEndDate: {type: Date}
+});
+
 const projectShema = new mongoose.Schema({
     name: { type: String, unique: true  },
     info: {type: String},
     projectID: {type: Number},
-    collaborators: [collaboratorShema]
+    collaborators: [collaboratorShema],
+    userStories: [userStoriesShema],
+    sprints: [sprintShema]
+
 });
 
 
