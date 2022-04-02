@@ -6,6 +6,7 @@ const ctrlHome = require("../controllers/home");
 const ctrlProjects = require("../controllers/projects");
 const ctrlAccount = require("../controllers/account");
 const ctrlSprints = require("../controllers/sprints");
+const ctrlCollaborators = require("../controllers/collaborators");
 
 
 const jwt = require("express-jwt");
@@ -64,7 +65,11 @@ router.get("/projects/:idProject", ctrlProjects.projectInfo);
 /* Updating a particular project */
 router.put("/projects/:idProject", ctrlProjects.projectUpdate);
 
-router.get("/projects/:idProject/add-collaborators", ctrlProjects.projectInfo);
+
+/* Collaborators on a project */
+/* Adding collaborators */
+router.post("/projects/:idProject/add-collaborators", ctrlCollaborators.addCollaboratorToAProject);
+
 
 /*Sprints */
 /* Adding new sprint */

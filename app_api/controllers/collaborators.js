@@ -34,9 +34,47 @@ const projectInfo = (req, res) => {
     });
 };
  
+
  /* Adding a collaborator to a project */
 
- 
+ const addCollaboratorToAProject = (req, res) => {
+    const idProject = req.params.idProject;
+    if (idProject) {
+      Project.findById(idProject)
+        .select("collaborators")
+        .exec((napaka, project) => {
+          if (napaka) {
+            res.status(400).json(napaka);
+          } else {
+            addCollaborator(req, res, project);
+            //res.status(200).json({ status: "uspešno" });
+          }
+        });
+    } else {
+      res.status(400).json({
+        sporočilo: "Ne najdem projekta, idProject je obvezen parameter.",
+      });
+    }
+  };
+
+  const addCollaborator = (req, res, project) => {
+    if (!project) {
+      res.status(404).json({ sporočilo: "Ne najdem projekta." });
+    } else {
+      project.collaborators.push({
+        username: req.body.username,
+        project_role: req.body.project_role,
+      });
+      project.save((napaka, project) => {
+        if (napaka) {
+          res.status(400).json(napaka);
+        } else {
+          const addedCollaborator = project.collaborators.slice(-1).pop();
+          res.status(201).json(addedCollaborator);
+        }
+      });
+    }
+  };
 
 
 
@@ -82,5 +120,6 @@ const projectInfo = (req, res) => {
 
    module.exports = {
        projectInfo,
-       usersList
+       usersList,
+       addCollaboratorToAProject
 };

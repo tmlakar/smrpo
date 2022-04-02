@@ -162,3 +162,9 @@ public - src za vse javascript in stylesheets datoteke + slike itd.
 
 
 ________________________________________________
+
+
+curl -X POST \
+       -d "username=evavid&project_role=Team Member" \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       "http://localhost:3000/api/projects/6245c5a2dffb182d9243b872/add-collaborators"
