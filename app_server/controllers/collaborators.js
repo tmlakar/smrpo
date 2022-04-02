@@ -9,6 +9,21 @@ var apiParametri = {
     timeout: 5000,
   });
 
+  /* seznam userjev */
+  var availableCollaboratorsList = (req, res) => {
+
+    var tokenParts = req.cookies.authcookie['žeton'].split('.');
+    var encodedPayload = tokenParts[1];
+    //var rawPayload = window.atob(encodedPayload);
+    var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+    var user = JSON.parse(rawPayload);
+  
+    axios
+        .get (apiParametri.streznik + '/api/users', {})
+        .then((odgovor) => {
+            prikaziStran(req, res, odgovor.data)
+          })
+  };
 
 
 /* Add project collaborators */
@@ -117,6 +132,7 @@ var apiParametri = {
     s strani admina na /projects/unikaten_id_projekta/delete-collaborators */
   
     module.exports = {
+      availableCollaboratorsList
         
     };
     

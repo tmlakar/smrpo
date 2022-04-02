@@ -46,11 +46,9 @@ router.get('/projects/:id', ctrlProjects.podrobnostiProject);
 router.post('/projects/:id', ctrlProjects.posodobiProject);
 
 // collaborators add/edit/remove
+var ctrlCollaborators = require("../controllers/collaborators");
+router.get('/projects/:id#add-collaborators', ctrlCollaborators.availableCollaboratorsList);
 
-
-// router.get('/projects/:id/add-collaborators', ctrlProjects.addCollaboratorsDisplay);
-// router.get('/projects/:id/edit-collaborator-roles', ctrlProjects.editCollaboratorsDisplay);
-// router.get('/projects/:id/delete-collaborators', ctrlProjects.deleteCollaboratorsDisplay);
 
 /* Project -> Sprint -> User stories */
 var ctrlProject = require("../controllers/project");
