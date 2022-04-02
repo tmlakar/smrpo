@@ -69,6 +69,11 @@ router.put("/projects/:idProject", ctrlProjects.projectUpdate);
 /* Collaborators on a project */
 /* Adding collaborators */
 router.post("/projects/:idProject/add-collaborators", ctrlCollaborators.addCollaboratorToAProject);
+/* Updating their roles */
+router.put("/projects/:idProject/:idCollaborator/edit-role", ctrlCollaborators.updateCollaboratorsRoleProject);
+/* Deleting collaborators from a project */
+router.delete("/projects/:idProject/:idCollaborator/delete", ctrlCollaborators.deleteCollaborator);
+
 
 
 /*Sprints */
