@@ -111,22 +111,39 @@
                 </button>
             </div> 
             <div class="modal-body">
-                <div class="card collaborator-card">
-                    <br>
-
-                </div>
                 
-                <!-- FORM START -->                
-                <!--<form id="dodajEkipo" method="post">
 
-                    Ko izbereš userje in pa njihove naloge
-                    
+                {{!-- Anja, tlele ured se mal stile, dodajanje uporabnika deluje 
+                iz tega (direkt prek username, ne se da bi izbrau iz seznama) :D --}}
 
-                </form>   zaključek forma je na koncu gumba!-->
+                <form action="/projects/{{id}}/add-collaborators" method="post">
+                <div class="mb-3 form-select">
+                        <label class="form-label" style="padding-top: 5px !important">Collaborator</label>
+                          <input class="form-control input-form" type="text" name="username" list="exampleList" required>
+                            <datalist id="exampleList">
+                                {{#each users as |user|}}
+                            <option value="{{user.username}}"> 
+                            </option>
+                            {{/each}}
+                            </datalist>
+                            </div>
+
+
+                <div class="mb-3 form-select">
+                        <label class="form-label" style="padding-top: 30px !important">Project role</label>
+                          <input class="form-control input-form" type="text" name="project_role" list="exampleList1" required>
+                            <datalist id="exampleList1">
+                            <option value="Team Member">  </option>
+                            <option value="Product Manager"></option>
+                            <option value="Scrum Master"></option>
+                            </datalist>
+                            </div>
                 <div style="padding: 10px !important">
                       <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
                 </div>
-                <!-- FORM STOP -->
+                </form>
+                
+
             </div>
         </div>
         <br>
