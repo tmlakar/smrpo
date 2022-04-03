@@ -601,11 +601,13 @@ p {
 }
 
 .card-user-preview {
-    background-color: var(--c2);
+    background-color: var(--c6);
     border: none !important;
-    padding-left: 0px !important;
+    padding: 5px !important;
     height: 200px !important;
     width: 250px !important;
+    margin: 10px !important;
+    color: var(--c3) !important
 
 }
 

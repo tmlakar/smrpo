@@ -16,15 +16,17 @@
 
 {{!-- projekti uporabnika --}}
 
-<h4 class="card-title">Your projects</h5>
-<div class="card-group">
+<h4 class="card-title">Your projects</h4>
+<br>
+<div class="card-group" style="margin-left: -25px !important">
   <div class="row">
+    
     {{#each activeProjects as |activeProject|}}
 
         <a href="/project/{{activeProject.idOfProject}}">
-        <div class="card projekt-card" style="padding: 30px !important; background-color: var(--c6) !important">
+        <div class="card card-user-preview" style="">
           <div class="card-body">
-          <h4>{{activeProject.name}}</h4>
+          <h5>{{activeProject.name}}</h5>
           </div>
         </div>
 
