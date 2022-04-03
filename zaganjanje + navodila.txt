@@ -165,9 +165,9 @@ ________________________________________________
 
 
 curl -X POST \
-       -d "username=evavid&project_role=Team Member" \
+       -d "username=tajaz&project_role=Product Manager" \
        -H "Content-Type: application/x-www-form-urlencoded" \
-       "http://localhost:3000/api/projects/6245c5a2dffb182d9243b872/add-collaborators"
+       "http://localhost:3000/api/projects/623a31d0291073825bbdf050/add-collaborators"
 
 
 curl -X PUT \

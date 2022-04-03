@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 
+const activeProjects = new mongoose.Schema({
+  name: {type: String},
+  idOfProject: {type: String}
+});
 
 const userShema = new mongoose.Schema({
     name: { type: String },
@@ -15,7 +19,8 @@ const userShema = new mongoose.Schema({
         enum: ["user", "admin"]
       },
     accessToken: {type: String},
-    isNotDeleted: {type: Boolean, default: true}
+    isNotDeleted: {type: Boolean, default: true},
+    activeProjects: [activeProjects]
 });
 
 
@@ -59,6 +64,8 @@ userShema.methods.generirajJwt = function () {
       username: this.username,
       email: this.email,
       role: this.role,
+      isNotDeleted: this.isNotDeleted,
+      activeProjects: this.activeProjects,
       date: date1,
       exp: parseInt(datumPoteka.getTime() / 10),
     },

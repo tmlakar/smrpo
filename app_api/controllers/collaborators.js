@@ -41,7 +41,6 @@ const projectInfo = (req, res) => {
     const idProject = req.params.idProject;
     if (idProject) {
       Project.findById(idProject)
-        .select("collaborators")
         .exec((napaka, project) => {
           if (napaka) {
             res.status(400).json(napaka);
@@ -61,6 +60,7 @@ const projectInfo = (req, res) => {
     if (!project) {
       res.status(404).json({ sporočilo: "Ne najdem projekta." });
     } else {
+      var userUsername = req.body.username;
       project.collaborators.push({
         username: req.body.username,
         project_role: req.body.project_role,
@@ -70,6 +70,38 @@ const projectInfo = (req, res) => {
           res.status(400).json(napaka);
         } else {
           const addedCollaborator = project.collaborators.slice(-1).pop();
+          /* project se shrani se uporabniku v podatkovno bazo: 
+          njegovo ime + njegov id, ki se bo uporabljal za prikazovanje in navigiranje na same uporabniske zgodbe projekta */
+          
+          // najprej poiscemo userja glede na njegov username - userUsername
+          User.findOne({username: userUsername})
+           // nato pridobimo od userja njegovo tabelo aktivnih projektov
+          .select("activeProjects")
+          .exec((napaka, user) => {
+            if (!user) {
+              return res.status(404).json({
+                sporočilo:
+                  "Ne najdem uporabnika z uporabniskim imenom userUsername",
+              });
+            } else if (napaka) {
+              return res.status(500).json(napaka);
+            }  
+            // shranimo notr ime od projekta + idprojekta
+            user.activeProjects.push({
+              name: project.name,
+              idOfProject: project._id,
+            });
+
+            user.save((napaka, user) => {
+              if (napaka) {
+                res.status(400).json(napaka);
+              } else {
+                //res.status(201).json(user);
+              }
+            });
+          });
+
+          
           res.status(201).json(addedCollaborator);
         }
       });

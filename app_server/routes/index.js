@@ -58,10 +58,13 @@ router.get('/project/:id', ctrlProject.prikaz);
 var ctrlSprint = require("../controllers/sprints");
 router.get('/sprint-new', ctrlSprint.prikaz);
 //router.post('/sprint-new', ctrlSprint.dodaj);
+
+
+
 // account
+
+
 var ctrlAccount = require("../controllers/account");
-// ista fora
-// router.get('/account', ctrlAccount.podrobnostiUser);
 router.get('/account', ctrlAccount.prikaz);
 router.post('/account', ctrlAccount.posodobiUserja);
 router.get('/account/edit-password', ctrlAccount.prikaz2);
