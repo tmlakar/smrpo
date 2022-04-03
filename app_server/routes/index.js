@@ -45,9 +45,10 @@ router.post('/project-new', ctrlProjects.createProject);
 router.get('/projects/:id', ctrlProjects.podrobnostiProject);
 router.post('/projects/:id', ctrlProjects.posodobiProject);
 
-router.get('/projects/:id/add-collaborators', ctrlProjects.addCollaboratorsDisplay);
-router.get('/projects/:id/edit-collaborator-roles', ctrlProjects.editCollaboratorsDisplay);
-router.get('/projects/:id/delete-collaborators', ctrlProjects.deleteCollaboratorsDisplay);
+// collaborators add/edit/remove
+var ctrlCollaborators = require("../controllers/collaborators");
+router.get('/projects/:id#add-collaborators', ctrlCollaborators.availableCollaboratorsList);
+
 
 /* Project -> Sprint -> User stories */
 var ctrlProject = require("../controllers/project");
@@ -57,10 +58,13 @@ router.get('/project/:id', ctrlProject.prikaz);
 var ctrlSprint = require("../controllers/sprints");
 router.get('/sprint-new', ctrlSprint.prikaz);
 //router.post('/sprint-new', ctrlSprint.dodaj);
+
+
+
 // account
+
+
 var ctrlAccount = require("../controllers/account");
-// ista fora
-// router.get('/account', ctrlAccount.podrobnostiUser);
 router.get('/account', ctrlAccount.prikaz);
 router.post('/account', ctrlAccount.posodobiUserja);
 router.get('/account/edit-password', ctrlAccount.prikaz2);

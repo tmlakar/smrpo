@@ -55,6 +55,7 @@ var prikaz = (req, res) => {
   var date_parsed = Date.parse(date);
   var d = new Date(date_parsed);
   var vloga = user.role;
+  var activeProjects = user.activeProjects;
   if(vloga == "user"){
 
     axios
@@ -67,6 +68,7 @@ var prikaz = (req, res) => {
           username: odgovor.data.username,
           email: odgovor.data.email,
           id: odgovor.data._id,
+          activeProjects: odgovor.data.activeProjects,
           layout: 'layout-user',
           date: d
         });
@@ -84,6 +86,7 @@ var prikaz = (req, res) => {
           username: odgovor.data.username,
           email: odgovor.data.email,
           id: odgovor.data._id,
+          activeProjects: odgovor.data.activeProjects,
           layout: 'layout',
           date: d
         });

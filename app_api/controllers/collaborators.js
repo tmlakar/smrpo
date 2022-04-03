@@ -41,7 +41,6 @@ const projectInfo = (req, res) => {
     const idProject = req.params.idProject;
     if (idProject) {
       Project.findById(idProject)
-        .select("collaborators")
         .exec((napaka, project) => {
           if (napaka) {
             res.status(400).json(napaka);
@@ -61,6 +60,7 @@ const projectInfo = (req, res) => {
     if (!project) {
       res.status(404).json({ sporočilo: "Ne najdem projekta." });
     } else {
+      var userUsername = req.body.username;
       project.collaborators.push({
         username: req.body.username,
         project_role: req.body.project_role,
@@ -70,6 +70,38 @@ const projectInfo = (req, res) => {
           res.status(400).json(napaka);
         } else {
           const addedCollaborator = project.collaborators.slice(-1).pop();
+          /* project se shrani se uporabniku v podatkovno bazo: 
+          njegovo ime + njegov id, ki se bo uporabljal za prikazovanje in navigiranje na same uporabniske zgodbe projekta */
+          
+          // najprej poiscemo userja glede na njegov username - userUsername
+          User.findOne({username: userUsername})
+           // nato pridobimo od userja njegovo tabelo aktivnih projektov
+          .select("activeProjects")
+          .exec((napaka, user) => {
+            if (!user) {
+              return res.status(404).json({
+                sporočilo:
+                  "Ne najdem uporabnika z uporabniskim imenom userUsername",
+              });
+            } else if (napaka) {
+              return res.status(500).json(napaka);
+            }  
+            // shranimo notr ime od projekta + idprojekta
+            user.activeProjects.push({
+              name: project.name,
+              idOfProject: project._id,
+            });
+
+            user.save((napaka, user) => {
+              if (napaka) {
+                res.status(400).json(napaka);
+              } else {
+                //res.status(201).json(user);
+              }
+            });
+          });
+
+          
           res.status(201).json(addedCollaborator);
         }
       });
@@ -77,49 +109,122 @@ const projectInfo = (req, res) => {
   };
 
 
-
   /* Editing a collaborator role on a project */
 
-  // const collaboratorPreberiIzbranega = (req, res) => {
-  //   Project.findById(req.params.idProject)
-  //     .select("collaborators")
-  //     .exec((napaka, projekt) => {
-  //       if (!projekt) {
-  //         return res.status(404).json({
-  //           sporočilo:
-  //             "Ne najdem projekta s podanim enoličnim identifikatorjem idProjekt.",
-  //         });
-  //       } else if (napaka) {
-  //         return res.status(500).json(napaka);
-  //       }
-  //       if (projekt.collaborators && projekt.collaborators.length > 0) {
-  //         const collaborator = projekt.collaborators.id(req.params.idCollaborator);
-  //         if (!collaborator) {
-  //           return res.status(404).json({
-  //             sporočilo:
-  //               "Ne najdem collaboratorja s podanim enoličnim identifikatorjem idCollaborator.",
-  //           });
-  //         } else {
-  //           res.status(200).json({
-  //             projekt: { naziv: lokacija.naziv, id: req.params.idLokacije },
-  //             collaborator: collaborator,
-  //             "status": "uspešno"
-  //           });
-  //         }
-  //       } else {
-  //         return res
-  //           .status(404)
-  //           .json({ sporočilo: "Ne najdem nobenega collaboratorja." });
-  //       }
-  //     });
-  // };
+  const collaboratorInfo = (req, res) => {
+    Project.findById(req.params.idProject)
+      .select("collaborators")
+      .exec((napaka, project) => {
+        if (!project) {
+          return res.status(404).json({
+            sporočilo:
+              "Ne najdem projekta s podanim enoličnim identifikatorjem idProject.",
+          });
+        } else if (napaka) {
+          return res.status(500).json(napaka);
+        }
+        if (project.collaborators && project.collaborators.length > 0) {
+          const collaborator = project.collaborators.id(req.params.idCollaborator);
+          if (!collaborator) {
+            return res.status(404).json({
+              sporočilo:
+                "Ne najdem collaboratorja s podanim enoličnim identifikatorjem idCollaborator.",
+            });
+          } else {
+            res.status(200).json({
+              project: { ime: project.name, id: req.params.idProject },
+              collaborator: collaborator,
+              "status": "uspešno"
+            });
+          }
+        } else {
+          return res
+            .status(404)
+            .json({ sporočilo: "Ne najdem nobenega collaboratorja." });
+        }
+      });
+  };
+
+  const updateCollaboratorsRoleProject = (req, res) => {
+    if (!req.params.idProject || !req.params.idCollaborator) {
+      return res.status(404).json({
+        sporočilo:
+          "Ne najdem projekta oziroma kolaboratorja, " +
+          "idProject in idCollaborator sta obvezna parametra.",
+      });
+    }
+    Project.findById(req.params.idProject)
+      .select("collaborators")
+      .exec((napaka, project) => {
+        if (!project) {
+          return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+        } else if (napaka) {
+          return res.status(500).json(napaka);
+        }
+        if (project.collaborators && project.collaborators.length > 0) {
+          const currentCollaborator = project.collaborators.id(
+            req.params.idCollaborator
+          );
+          if (!currentCollaborator) {
+            res.status(404).json({ sporočilo: "Ne najdem kolaboratorja." });
+          } else {
+            currentCollaborator.project_role = req.body.project_role;
+            project.save((napaka, project) => {
+              if (napaka) {
+                res.status(404).json(napaka);
+              } else {
+                res.status(200).json(project);
+              }
+            });
+          }
+        }
+      });
+  };
 
    /* Removing collaborator from the project */
 
+   const deleteCollaborator = (req, res) => {
+    const { idProject, idCollaborator } = req.params;
+    if (!idProject || !idCollaborator) {
+      return res.status(404).json({
+        sporočilo:
+          "Ne najdem projekta oz. kolaboratorja, " +
+          "idProject in idCollaborator sta obvezna parametra.",
+      });
+    }
+    Project.findById(idProject)
+      .select("collaborators")
+      .exec((napaka, project) => {
+        if (!project) {
+          return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+        } else if (napaka) {
+          return res.status(500).json(napaka);
+        }
+        if (project.collaborators && project.collaborators.length > 0) {
+          if (!project.collaborators.id(idCollaborator)) {
+            return res.status(404).json({ sporočilo: "Ne najdem collaboratorja." });
+          } else {
+            project.collaborators.id(idCollaborator).remove();
+            project.save((napaka) => {
+              if (napaka) {
+                return res.status(500).json(napaka);
+              } else {
+                res.status(204).json(null);
+              }
+            });
+          }
+        } else {
+          res.status(404).json({ sporočilo: "Ni collaboratorja za brisanje." });
+        }
+      });
+  };
 
 
    module.exports = {
        projectInfo,
        usersList,
-       addCollaboratorToAProject
+       addCollaboratorToAProject,
+       collaboratorInfo,
+       updateCollaboratorsRoleProject,
+       deleteCollaborator
 };

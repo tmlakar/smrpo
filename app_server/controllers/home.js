@@ -40,13 +40,14 @@ var prikaz = (req, res) => {
     var username = user.username;
     var email = user.email;
     var vloga = user.role;
-
+    var activeProjects = user.activeProjects;
     if(vloga == "user"){
           res.render('home', {
               name: name,
               surname: surname,
               username: username,
               email: email,
+              activeProjects: activeProjects,
               layout: 'layout-user'
           });
         }
@@ -55,6 +56,7 @@ var prikaz = (req, res) => {
             name: name,
             surname: surname,
             username: username,
+            activeProjects: activeProjects,
             email: email,
         }); 
       }

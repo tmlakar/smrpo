@@ -32,6 +32,11 @@
     display: none;
 }
 
+a {
+    text-decoration: none !important;
+    
+}
+
 body,
 html {
     font-family: 'Montserrat' !important;
@@ -583,4 +588,27 @@ p {
     width: 170px !important;
     height: 120px !important;
     margin-left: 20px !important;
+}
+
+#collaborator_circle {
+    border: 2px solid var(--c2) !important;
+    height: 50px;
+    width: 50px;
+    border-radius: 25px !important;
+    margin: 5px !important;
+    color: #333333 !important;
+    font-size: 20px !important;
+}
+
+.card-user-preview {
+    background-color: var(--c2);
+    border: none !important;
+    padding-left: 0px !important;
+    height: 200px !important;
+    width: 250px !important;
+
+}
+
+.card-group-userProj a {
+    color: #000000 !important;
 }
