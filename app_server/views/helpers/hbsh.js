@@ -29,3 +29,33 @@ hbs.registerHelper('isTheSameAsLoggedIn', function (value, value2) {
   return false;
 });
 
+/* showing project collaborators as circles with different colors, depending on project_role */
+
+hbs.registerHelper('isTeamMember', function (value) {
+  if (value == "Team Member") {
+    return true;
+  } 
+  return false;
+});
+
+hbs.registerHelper('isScrumMaster', function (value) {
+  if (value == "Scrum Master") {
+    return true;
+  } 
+  return false;
+});
+
+hbs.registerHelper('isProductManager', function (value) {
+  if (value == "Product Manager") {
+    return true;
+  } 
+  return false;
+});
+
+hbs.registerHelper('firstLetterOfUsername', function (value) {
+  let letter = value.charAt(0);
+  letter = letter.toUpperCase();
+  return letter;
+});
+
+
