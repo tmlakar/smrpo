@@ -18,30 +18,30 @@ var apiParametri = {
     var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
     var user = JSON.parse(rawPayload);
 
-    // axios.all([ 
-    //   axios.get (apiParametri.streznik + '/api/users'),
-    //   axios.get (apiParametri.streznik + '/api/projects/' + projectId)
-    //   ])
-    //   .catch((error) => {
-    //     console.log(error);
-    //   })
-    //   .then(axios.spread((object1, object2) => {
-    //       console.log(object1, object2);
-    // }))
-  
-    axios
-        .get (apiParametri.streznik + '/api/users', {})
-        .then((odgovor) => {
-          res.render('project-edit', {
-            users: odgovor.data
-          });
-          })
 
+          let URL1 = apiParametri.streznik + '/api/users';
+          let URL2 = apiParametri.streznik + '/api/projects/' + projectId;
           
 
-    
+          const promise1 = axios.get(URL1);
+          const promise2 = axios.get(URL2);
+          
+
+          Promise.all([promise1, promise2]).then(function(values) {
+            console.log(values[0]);
+            console.log("working?");
+            console.log(values[1]);
+            res.render("project-edit", {
+              name: values[1].data.name,
+              info: values[1].data.info,
+              collaborators: values[1].data.collaborators,
+              id: values[1].data._id,
+              users: values[0].data
+            });
+          });
   };
 
+  
   /* Podrobnosti projekta */
   var podrobnostiProject = (req, res) => {
     var tokenParts = req.cookies.authcookie['žeton'].split('.');
