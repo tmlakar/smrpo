@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const collaboratorShema = new mongoose.Schema({
-    username: { type: String },
+    username: { type: String, unique: true},
     project_role: { type: String,
         default: 'Team Member',
         enum: ["Team Member", "Product Manager", "Scrum Master"]

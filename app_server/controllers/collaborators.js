@@ -42,18 +42,76 @@ var apiParametri = {
 
 /* POST - Add project collaborators */
 const addProjectCollaborators = (req, res) => {
-  const idProject = req.params.idProject;
-  
+  var projectId = req.params.id;
+  if (!req.body.username || !req.body.project_role) {
+
+  } else {
+    axios({
+      method: 'post',
+      url: apiParametri.streznik + '/api/projects/' + projectId + '/add-collaborators',
+      data: {
+        username: req.body.username,
+        project_role: req.body.project_role
+      }
+    }).then(() => {
+      res.redirect('/projects/' + projectId);
+    }).catch((napaka) => {
+      var string = "napaka";
+    res.redirect('/projects/' + projectId + '?error=' + string);
+
+    });
+  }
 };
 
 /* PUT - Edit collaborators roles */
 
+const editProjectCollaboratorRole = (req, res) => {
+  var projectId = req.params.id;
+  var collaboratorId = req.params.idC;
+  if (!req.body.username || !req.body.project_role) {
+
+  } else {
+    axios({
+      method: 'put',
+      url: apiParametri.streznik + '/api/projects/' + projectId + '/' + collaboratorId + '/edit-role',
+      data: {
+        username: req.body.username,
+        project_role: req.body.project_role
+      }
+    }).then(() => {
+      res.redirect('/projects/' + projectId);
+    }).catch((napaka) => {
+      var string = "napaka";
+    res.redirect('/projects/' + projectId + '?error=' + string);
+
+    });
+  }
+};
+
 /* DELETE - Remove collaborators from a projects */
+
+const deleteProjectCollaborator = (req, res) => {
+  var projectId = req.params.id;
+  var collaboratorId = req.params.idC;
+  axios({
+      method: 'delete',
+      url: apiParametri.streznik + '/api/projects/' + projectId + '/' + collaboratorId + '/delete',
+      
+    }).then(() => {
+      res.redirect('/projects/' + projectId);
+    }).catch((napaka) => {
+      var string = "napaka";
+    res.redirect('/projects/' + projectId + '?error=' + string);
+
+    });
+  
+};
 
 module.exports = {
   availableCollaboratorsList,
   podrobnostiProject,
-  addProjectCollaborators
+  addProjectCollaborators,
+  editProjectCollaboratorRole,
+  deleteProjectCollaborator
         
 };
-    
