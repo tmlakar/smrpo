@@ -28,9 +28,9 @@ var apiParametri = {
           
 
           Promise.all([promise1, promise2]).then(function(values) {
-            console.log(values[0]);
+            //console.log(values[0]);
             console.log("working?");
-            console.log(values[1]);
+            //console.log(values[1]);
             res.render("project-edit", {
               name: values[1].data.name,
               info: values[1].data.info,
@@ -98,14 +98,13 @@ const addProjectCollaborators = (req, res) => {
 const editProjectCollaboratorRole = (req, res) => {
   var projectId = req.params.id;
   var collaboratorId = req.params.idC;
-  if (!req.body.username || !req.body.project_role) {
+  if (!req.body.project_role) {
 
   } else {
     axios({
       method: 'put',
-      url: apiParametri.streznik + '/api/projects/' + projectId + '/' + collaboratorId + '/edit-role',
+      url: apiParametri.streznik + '/api/projects/' + projectId + '/edit-collaborator/' + collaboratorId,
       data: {
-        username: req.body.username,
         project_role: req.body.project_role
       }
     }).then(() => {
@@ -125,7 +124,7 @@ const deleteProjectCollaborator = (req, res) => {
   var collaboratorId = req.params.idC;
   axios({
       method: 'delete',
-      url: apiParametri.streznik + '/api/projects/' + projectId + '/' + collaboratorId + '/delete',
+      url: apiParametri.streznik + '/api/projects/' + projectId + '/delete-collaborator/' + collaboratorId,
       
     }).then(() => {
       res.redirect('/projects/' + projectId);

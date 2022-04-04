@@ -58,4 +58,11 @@ hbs.registerHelper('firstLetterOfUsername', function (value) {
   return letter;
 });
 
+/* if available collaborator is user, not admin */
+hbs.registerHelper('isUser', function (value) {
+  if (value == "user") {
+    return true;
+  } 
+  return false;
+});
 

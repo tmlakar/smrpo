@@ -69,10 +69,11 @@ router.put("/projects/:idProject", ctrlProjects.projectUpdate);
 /* Collaborators on a project */
 /* Adding collaborators */
 router.post("/projects/:idProject/add-collaborators", ctrlCollaborators.addCollaboratorToAProject);
+router.get("/projects/:idProject/collaborator/:idCollaborator", ctrlCollaborators.collaboratorInfo);
 /* Updating their roles */
-router.put("/projects/:idProject/:idCollaborator/edit-role", ctrlCollaborators.updateCollaboratorsRoleProject);
+router.put("/projects/:idProject/edit-collaborator/:idCollaborator", ctrlCollaborators.updateCollaboratorsRoleProject);
 /* Deleting collaborators from a project */
-router.delete("/projects/:idProject/:idCollaborator/delete", ctrlCollaborators.deleteCollaborator);
+router.delete("/projects/:idProject/delete-collaborator/:idCollaborator", ctrlCollaborators.deleteCollaborator);
 
 
 
