@@ -58,6 +58,7 @@ router.put("/users/:idUser/edit-password", ctrlUser.userUpdatePassword);
 /* Projects */
 /* List of projects */
 router.get("/projects", ctrlProjects.projectsList);
+router.delete("/project/:idProject/delete", ctrlProjects.deleteProject);
 /* Adding new project */
 router.post("/project-new", ctrlProjects.projectCreate);
 /* Info of a particular project */
