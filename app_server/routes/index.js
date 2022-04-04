@@ -58,11 +58,13 @@ router.post('/projects/:id/delete-collaborator/:idC', ctrlCollaborators.deletePr
 /* Project -> Sprint -> User stories */
 var ctrlProject = require("../controllers/project");
 //router.get('/project', ctrlProject.prikaz);
+
+//osnovna stran za sprinte in product backlog
 router.get('/project/:id', ctrlProject.prikaz);
 //Sprints
 var ctrlSprint = require("../controllers/sprints");
-router.get('/sprint-new', ctrlSprint.prikaz);
-//router.post('/sprint-new', ctrlSprint.dodaj);
+router.get('/sprint-new/:id', ctrlSprint.prikaz);
+router.post('/sprint-new/:id', ctrlSprint.sprintCreate);
 
 
 

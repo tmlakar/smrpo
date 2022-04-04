@@ -21,7 +21,7 @@ const projectCreate = (req, res) => {
 
       name: req.body.name,
       info: req.body.info
-      
+
   }, (napaka, project) => {
       if(napaka) {
           res.status(400).json(napaka);

@@ -22,9 +22,9 @@ const userStoriesShema = new mongoose.Schema({
 });
 
 const sprintShema = new mongoose.Schema({
-    sprintSize: {type: Number},
-    sprintStartDate: {type: Date},
-    sprintEndDate: {type: Date}
+    startDate: {type: Date},
+    endDate: {type: Date},
+    sprintSize: {type: Number}
 });
 
 const projectShema = new mongoose.Schema({
