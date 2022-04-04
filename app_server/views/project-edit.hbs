@@ -9,7 +9,6 @@
             <p class="card-text"><span style="color: var(--c2) !important;">Project name:</span>
                     <br>
                     {{name}}
-
                     </p>
                     <p class="card-text"><span style="color: var(--c2) !important;">Project description:</span>
                     <br>
@@ -27,35 +26,136 @@
                 <h5 class="card-title">Project collaborators</h5>
 
                     {{!-- circles collaborators --}}
-
                     {{#each collaborators as |collaborator|}}
                     {{!-- ce je Team Member se krogec obarva s sivo --}}
                     {{#if (isTeamMember collaborator.project_role)}}
-                    <a href="" onclick="">
-                    <button id="collaborator_circle" type="button" class="btn btn-dark" style="background-color: var(--c6) !important; ">
+                    
+                    <button  id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
+                    data-target="#modalnoOknoColl" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c6) !important; ">
                     {{firstLetterOfUsername collaborator.username}}
-                    </button></a>
+                    
+                    </button>
                     {{/if}}
                     
+
                     {{!-- ce je Scrum Master se krogec obarva z modro  --}}
                     {{#if (isScrumMaster collaborator.project_role)}}
-                    <a href="" onclick="">
-                    <button id="collaborator_circle" type="button" class="btn btn-dark" style="background-color: var(--c5) !important; ">
+                    
+                    <button id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}" data-target="#modalnoOknoColl" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c5) !important; ">
                     {{firstLetterOfUsername collaborator.username}}
-                    </button></a>
+                    
+                    </button>
                     {{/if}}
 
                     {{!-- ce je Product Manager se krogec obarva s oranzno --}}
                     {{#if (isProductManager collaborator.project_role)}}
-                    <a href="" onclick="">
-                    <button id="collaborator_circle" type="button" class="btn btn-dark" style="background-color: var(--c1) !important; ">
+                    
+                    <button id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}" data-target="#modalnoOknoColl" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c1) !important; ">
                     {{firstLetterOfUsername collaborator.username}}
-                    </button></a>
+                    
+                    </button>
                     {{/if}}
+                    <script>
+                            $(document).on("click", ".open-collaboratorEdit", function () {
+                                var projectId = $(this).data('proj');
+                                var eventId = $(this).data('id');
+                                var eventUsr = $(this).data('usr');
+                                var eventRole = $(this).data('role');
+                                console.log(eventId);
+                                console.log(projectId);
+                                $('#idHolder0').html( projectId );
+                                $('#idHolder').html( eventId );
+                                $('#idHolder2').html( eventUsr );
+                                $('#idHolder3').html( eventRole );
+                                
+                                $('#inputUsr').val(eventUsr);
+                                $('#inputRole').val(eventRole);
+                                var str = '/projects/' + projectId + '/edit-collaborator/' + eventId;
+                                console.log(str);
+                                var strD = '/projects/' + projectId + '/delete-collaborator/' + eventId;
+                               
+                                $('#collaboratorEdit').attr("action", str);
+                                $('#collaboratorRemove').attr("action", strD);
+                                
+
+                            });
+                    </script>
+
+                    
+                    {{!-- modalno okno za spreminjanje nastavitev uporabnika --}}
+                    <div class="modal fade" id="modalnoOknoColl" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content modal-content-ekipa"> 
+                                <div class="modal-header modal-header-ekipa">
+                                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit project collaborator</h5>
+                                <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="collaboratorEdit" action="url">
+                                    <!--form start-->
+                                    <!-- Username -->
+                                    
+                                    <input type="hidden" name="eventId" id="eventId"/ hidden>
+                                    <span id="idHolder0" hidden></span>	
+        	                        <span id="idHolder" hidden></span>	
+                                    <span id="idHolder2" hidden></span>	
+                                    <span id="idHolder3" hidden></span>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">Username</label>
+                                        <div class="row" style="padding: 0px !important">
+                                            <div class="col-lg-10"><input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="" id="inputUsr" aria-describedby="emailHelp" readonly></div>
+                                        </div>
+                                    </div>
+                                    <!-- Role -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Project role</label>
+                                        <div class="row" style="padding: 0px !important">
+                                            <div class="col-lg-10"><input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important;" name=""  id="inputRole" aria-describedby="emailHelp" readonly></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- New role -->
+                                    <div class="mb-3 form-select">
+                                    <label class="form-label" style="padding-top: 30px !important">New project role</label>
+                                    <input class="form-control input-form" type="text" name="project_role" list="exampleList1" required>
+                                        <datalist id="exampleList1">
+                                            <option value="Team Member">  </option>
+                                            <option value="Product Manager"></option>
+                                            <option value="Scrum Master"></option>
+                                        </datalist>
+                                    </div>
+                                    <br><br>
+                                    <div style="padding: 10px !important">
+                                        <!-- save changes -->
+                                    <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
+                                    </form>
+                                    <!-- remove collaborator -->
+                                    <form action="url" method="post" id="collaboratorRemove">
+                                    <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: left; !important">Remove</button>
+                                    </form>
+                                    </div>
+                                    <!--form stop-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     {{/each}}
+                     
+
+
+                <!-- Legenda -->
+                <br><br>
+                <div>
+                <button id="collaborator_circle_legend" style="background-color: var(--c6) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 10px !important; padding-right: 20px !important;">Team Member</span>
+                <button id="collaborator_circle_legend" style="background-color: var(--c5) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 10px !important; padding-right: 20px !important;">Scrum master</span>
+                <button id="collaborator_circle_legend" style="background-color: var(--c1) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 10px !important; padding-right: 20px !important;">Product Manager</span>
                 <a href="#add" onclick="location.href='#add'"><button id="ekipa" type="button" data-toggle="modal" data-target="#modalnoOknoEkipa" class="btn btn-dark dodaj-vekipo" style="background-color: var(--c1) !important; border: 3px solid var(--c1) !important"><i class="fa-solid fa-plus dodaj"></i></button></a>
-
-
+                </div>
+                
             </div>
 
         </div>
@@ -101,6 +201,7 @@
 
 </div>
 
+
 <div class="modal fade" id="modalnoOknoEkipa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content modal-content-ekipa"> 
@@ -119,11 +220,15 @@
                 <form action="/projects/{{id}}/add-collaborators" method="post">
                 <div class="mb-3 form-select">
                         <label class="form-label" style="padding-top: 5px !important">Collaborator</label>
-                          <input class="form-control input-form" type="text" name="username" list="exampleList" required>
-                            <datalist id="exampleList">
+                          <input class="form-control input-form" type="text" name="username" list="exampleList" style="width: 400px !important"  placeholder="Select collaborator from users list" required>
+                            <datalist id="exampleList" >
                                 {{#each users as |user|}}
+                                {{#if user.isNotDeleted}}
+                                {{#if (isUser user.role)}}
                             <option value="{{user.username}}"> 
                             </option>
+                            {{/if}}
+                            {{/if}}
                             {{/each}}
                             </datalist>
                             </div>
@@ -131,7 +236,7 @@
 
                 <div class="mb-3 form-select">
                         <label class="form-label" style="padding-top: 30px !important">Project role</label>
-                          <input class="form-control input-form" type="text" name="project_role" list="exampleList1" required>
+                          <input class="form-control input-form" type="text" placeholder="Select project role from roles list" style="width: 400px !important" name="project_role" list="exampleList1" required>
                             <datalist id="exampleList1">
                             <option value="Team Member">  </option>
                             <option value="Product Manager"></option>
@@ -144,14 +249,6 @@
                 </form>
                 
 
-            </div>
-        </div>
-        <br>
-        <div class="modal-content modal-content-ekipa">
-            <div class="modal-header modal-header-ekipa">
-                <h5 class="modal-title" id="exampleModalLabel">Available collaborators</h5>
-                
-            
             </div>
         </div>
     </div>

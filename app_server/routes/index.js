@@ -42,12 +42,13 @@ var ctrlProjects = require("../controllers/projects");
 router.get('/projects', ctrlProjects.seznam);
 router.get('/project-new', ctrlProjects.prikaz);
 router.post('/project-new', ctrlProjects.createProject);
-router.get('/projects/:id', ctrlProjects.podrobnostiProject);
+//router.get('/projects/:id', ctrlProjects.podrobnostiProject);
 router.post('/projects/:id', ctrlProjects.posodobiProject);
 
 // collaborators add/edit/remove
 var ctrlCollaborators = require("../controllers/collaborators");
-router.get('/projects/:id?add-collaborators', ctrlCollaborators.availableCollaboratorsList);
+router.get('/projects/:id', ctrlCollaborators.availableCollaboratorsList);
+//router.get('/projects/:id', ctrlCollaborators.podrobnostiProject);
 router.post('/projects/:id/add-collaborators', ctrlCollaborators.addProjectCollaborators);
 router.post('/projects/:id/edit-collaborator/:idC', ctrlCollaborators.editProjectCollaboratorRole);
 router.post('/projects/:id/delete-collaborator/:idC', ctrlCollaborators.deleteProjectCollaborator);

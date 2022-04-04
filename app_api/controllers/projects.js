@@ -31,6 +31,24 @@ const projectCreate = (req, res) => {
     });
 };
 
+/* Just for developing purposes - deleting a project */
+const deleteProject = (req, res) => {
+  const { idProject } = req.params;
+    if (idProject) {
+      Project.findByIdAndRemove(idProject).exec((napaka) => {
+        if (napaka) {
+          return res.status(500).json(napaka);
+        }
+        res.status(204).json("uspešno");
+      });
+    } else {
+      res.status(404).json({
+        sporočilo: "Ne najdem projekta, idProject je obvezen parameter.",
+      });
+    }
+};
+
+
 /* D E T A I L S */
 
 /* Particular project info */
@@ -82,6 +100,7 @@ module.exports = {
     projectsList,
     projectCreate,
     projectInfo,
-    projectUpdate
+    projectUpdate,
+    deleteProject
 
 };

@@ -23,14 +23,23 @@
     
     {{#each activeProjects as |activeProject|}}
 
-        <a href="/project/{{activeProject.idOfProject}}">
-        <div class="card card-user-preview" style="">
+        
+        <div class="card card-user-preview card-group-userProj" style="">
           <div class="card-body">
-          <h5>{{activeProject.name}}</h5>
+          <h5><a href="/project/{{activeProject.idOfProject}}">{{activeProject.name}}</a></h5>
+          
           </div>
+          
+          {{#if (isScrumMaster activeProject.p_role)}}
+          <div style="padding: 20px !important">
+            
+          <a href="/projects/{{activeProject.idOfProject}}" style="color: gray !important; text-decoration: none !important"><button type="button" class="btn submit-form btn-dark"
+            style="background-color: var(--c3) !important">Edit project</button></a>
+            </div>
+            {{/if}}
         </div>
 
-        </a>
+        
       
 
 
