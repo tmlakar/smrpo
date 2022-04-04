@@ -89,6 +89,7 @@ const projectInfo = (req, res) => {
             // shranimo notr ime od projekta + idprojekta
             user.activeProjects.push({
               name: project.name,
+              p_role: req.body.project_role,
               idOfProject: project._id,
             });
 
@@ -169,15 +170,48 @@ const projectInfo = (req, res) => {
             res.status(404).json({ sporočilo: "Ne najdem kolaboratorja." });
           } else {
             currentCollaborator.project_role = req.body.project_role;
-            project.save((napaka, project) => {
-              if (napaka) {
-                res.status(404).json(napaka);
-              } else {
-                res.status(200).json(project);
+            // update user
+            // get username
+            // from username, get his other info
+            // update p_role
+            var userUsername = currentCollaborator.username;
+            //console.log(userUsername);
+            User.findOne({username: userUsername})
+            .select("activeProjects")
+            .exec((napaka, user) => {
+              if (!user) {
+                return res.status(404).json({
+                  sporočilo:
+                    "Ne najdem uporabnika z uporabniskim imenom userUsername",
+                });
+              } else if (napaka) {
+                return res.status(500).json(napaka);
+              }  
+              
+              //lets find the right activeProject
+              let activeP = user.activeProjects.find(o => o.idOfProject === req.params.idProject);
+              //console.log(activeP)
+              let projectIdActive = activeP.id;
+              console.log(projectIdActive);
+              user.activeProjects.id(projectIdActive).p_role = req.body.project_role;
+
+              user.save((napaka, user) => {
+                if (napaka) {
+                res.status(400).json(napaka);
+                } else {
+                //res.status(201).json(user);
               }
-            });
-          }
-        }
+          });
+              
+              project.save((napaka, project) => {
+                if (napaka) {
+                  res.status(404).json(napaka);
+                } else {
+                  res.status(200).json(project);
+                }
+              });
+          });
+        }}
       });
   };
 
@@ -249,10 +283,7 @@ const projectInfo = (req, res) => {
   };
 
 
-  const deleteCollaboratorsActiveProject = (req, res, project) => {
   
-  
-  };
 
    module.exports = {
        projectInfo,
@@ -260,6 +291,5 @@ const projectInfo = (req, res) => {
        addCollaboratorToAProject,
        collaboratorInfo,
        updateCollaboratorsRoleProject,
-       deleteCollaborator,
-       deleteCollaboratorsActiveProject
+       deleteCollaborator
 };

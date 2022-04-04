@@ -55,7 +55,6 @@ var prikaz = (req, res) => {
   var date_parsed = Date.parse(date);
   var d = new Date(date_parsed);
   var vloga = user.role;
-  var activeProjects = user.activeProjects;
   if(vloga == "user"){
 
     axios

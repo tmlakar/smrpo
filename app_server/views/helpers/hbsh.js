@@ -66,3 +66,7 @@ hbs.registerHelper('isUser', function (value) {
   return false;
 });
 
+/* if scrum master, can edit project */
+
+
+
