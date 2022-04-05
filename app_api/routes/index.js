@@ -82,6 +82,9 @@ router.delete("/projects/:idProject/delete-collaborator/:idCollaborator", ctrlCo
 /* Adding new sprint */
 router.post("/sprint-new/:id", ctrlSprints.addSprintToAProject);
 
+
+/* User stories */
+
 /* Avtentikacija */
 router.post("/registracija", ctrlAvtentikacija.registracija);
 router.post("/prijava", ctrlAvtentikacija.prijava);
