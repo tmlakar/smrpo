@@ -17,18 +17,39 @@ const projectsList = (req, res) => {
 /* Creating new project */
 
 const projectCreate = (req, res) => {
+  var collaboratorsR = [{username: "anja", project_role: "Team Member"}];
+  console.log(req.body.name, req.body.info);
+  console.log(collaboratorsR);
     Project.create({
 
       name: req.body.name,
-      info: req.body.info
+      info: req.body.info,
       
   }, (napaka, project) => {
       if(napaka) {
+        console.log("Prislo je do napake");
           res.status(400).json(napaka);
       }  else {
           res.status(201).json(project);
       }
     });
+};
+
+/* Just for developing purposes */
+const deleteProject = (req, res) => {
+  const { idProject } = req.params;
+    if (idProject) {
+      Project.findByIdAndRemove(idProject).exec((napaka) => {
+        if (napaka) {
+          return res.status(500).json(napaka);
+        }
+        res.status(204).json("uspešno");
+      });
+    } else {
+      res.status(404).json({
+        sporočilo: "Ne najdem projekta, idProject je obvezen parameter.",
+      });
+    }
 };
 
 /* D E T A I L S */
@@ -81,6 +102,7 @@ const projectUpdate = (req, res) => {
 module.exports = {
     projectsList,
     projectCreate,
+    deleteProject,
     projectInfo,
     projectUpdate
 

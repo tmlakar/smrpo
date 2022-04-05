@@ -165,9 +165,9 @@ ________________________________________________
 
 
 curl -X POST \
-       -d "username=tajaz&project_role=Product Manager" \
+       -d "name=Recommendio&info=Recommendio is a collaborative recommending engine." \
        -H "Content-Type: application/x-www-form-urlencoded" \
-       "http://localhost:3000/api/projects/623a31d0291073825bbdf050/add-collaborators"
+       "http://localhost:3000/project-new"
 
 
 curl -X PUT \
@@ -178,4 +178,4 @@ curl -X PUT \
 
 
 curl -X DELETE \
-       "http://localhost:3000/api/projects/623a31d0291073825bbdf050/delete-collaborator/6249879e1735851abd7654b8"
+       "http://localhost:3000/api/projects/624b53c5d3c1f2cdc59720dc/delete"

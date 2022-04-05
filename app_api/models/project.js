@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const collaboratorShema = new mongoose.Schema({
-    username: { type: String, unique: true},
+    username: { type: String},
     project_role: { type: String,
         default: 'Team Member',
         enum: ["Team Member", "Product Manager", "Scrum Master"]
@@ -22,14 +22,14 @@ const userStoriesShema = new mongoose.Schema({
 });
 
 const sprintShema = new mongoose.Schema({
-    sprintName: {type: String},
+
     sprintSize: {type: Number},
     sprintStartDate: {type: Date},
     sprintEndDate: {type: Date}
 });
 
 const projectShema = new mongoose.Schema({
-    name: { type: String, unique: true  },
+    name: { type: String, unique: true},
     info: {type: String},
     projectID: {type: Number},
     collaborators: [collaboratorShema],

@@ -74,33 +74,33 @@ const projectInfo = (req, res) => {
           /* project se shrani se uporabniku v podatkovno bazo: 
           njegovo ime + njegov id, ki se bo uporabljal za prikazovanje in navigiranje na same uporabniske zgodbe projekta */
           
-          // najprej poiscemo userja glede na njegov username - userUsername
-          User.findOne({username: userUsername})
-          .select("activeProjects")
-          .exec((napaka, user) => {
-            if (!user) {
-              return res.status(404).json({
-                sporočilo:
-                  "Ne najdem uporabnika z uporabniskim imenom userUsername",
-              });
-            } else if (napaka) {
-              return res.status(500).json(napaka);
-            }  
-            // shranimo notr ime od projekta + idprojekta
-            user.activeProjects.push({
-              name: project.name,
-              p_role: req.body.project_role,
-              idOfProject: project._id,
-            });
+          // // najprej poiscemo userja glede na njegov username - userUsername
+          // User.findOne({username: userUsername})
+          // .select("activeProjects")
+          // .exec((napaka, user) => {
+          //   if (!user) {
+          //     return res.status(404).json({
+          //       sporočilo:
+          //         "Ne najdem uporabnika z uporabniskim imenom userUsername",
+          //     });
+          //   } else if (napaka) {
+          //     return res.status(500).json(napaka);
+          //   }  
+          //   // shranimo notr ime od projekta + idprojekta
+          //   user.activeProjects.push({
+          //     name: project.name,
+          //     p_role: req.body.project_role,
+          //     idOfProject: project._id,
+          //   });
 
-            user.save((napaka, user) => {
-              if (napaka) {
-                res.status(400).json(napaka);
-              } else {
-                //res.status(201).json(user);
-              }
-            });
-          });
+          //   user.save((napaka, user) => {
+          //     if (napaka) {
+          //       res.status(400).json(napaka);
+          //     } else {
+          //       //res.status(201).json(user);
+          //     }
+          //   });
+          // });
 
           
           res.status(201).json(addedCollaborator);
@@ -109,6 +109,7 @@ const projectInfo = (req, res) => {
     }
   };
 
+ 
 
   /* Editing a collaborator role on a project */
 
@@ -176,32 +177,32 @@ const projectInfo = (req, res) => {
             // update p_role
             var userUsername = currentCollaborator.username;
             //console.log(userUsername);
-            User.findOne({username: userUsername})
-            .select("activeProjects")
-            .exec((napaka, user) => {
-              if (!user) {
-                return res.status(404).json({
-                  sporočilo:
-                    "Ne najdem uporabnika z uporabniskim imenom userUsername",
-                });
-              } else if (napaka) {
-                return res.status(500).json(napaka);
-              }  
+            // User.findOne({username: userUsername})
+            // .select("activeProjects")
+            // .exec((napaka, user) => {
+            //   if (!user) {
+            //     return res.status(404).json({
+            //       sporočilo:
+            //         "Ne najdem uporabnika z uporabniskim imenom userUsername",
+            //     });
+            //   } else if (napaka) {
+            //     return res.status(500).json(napaka);
+            //   }  
               
-              //lets find the right activeProject
-              let activeP = user.activeProjects.find(o => o.idOfProject === req.params.idProject);
-              //console.log(activeP)
-              let projectIdActive = activeP.id;
-              console.log(projectIdActive);
-              user.activeProjects.id(projectIdActive).p_role = req.body.project_role;
+            //   //lets find the right activeProject
+            //   let activeP = user.activeProjects.find(o => o.idOfProject === req.params.idProject);
+            //   //console.log(activeP)
+            //   let projectIdActive = activeP.id;
+            //   console.log(projectIdActive);
+            //   user.activeProjects.id(projectIdActive).p_role = req.body.project_role;
 
-              user.save((napaka, user) => {
-                if (napaka) {
-                res.status(400).json(napaka);
-                } else {
-                //res.status(201).json(user);
-              }
-          });
+            //   user.save((napaka, user) => {
+            //     if (napaka) {
+            //     res.status(400).json(napaka);
+            //     } else {
+            //     //res.status(201).json(user);
+            //   }
+            // });
               
               project.save((napaka, project) => {
                 if (napaka) {
@@ -210,14 +211,19 @@ const projectInfo = (req, res) => {
                   res.status(200).json(project);
                 }
               });
-          });
-        }}
+            }
+
+          }
+         else {
+          return res.status(404).json({ sporočilo: "Ni obstojecih collaboratorjev." });
+        }
       });
   };
 
+  
    /* Removing collaborator from the project + removing the project from users list of activeProjects */
 
-   const deleteCollaborator = (req, res) => {
+  const deleteCollaborator = (req, res) => {
     const { idProject, idCollaborator } = req.params;
     if (!idProject || !idCollaborator) {
       return res.status(404).json({
@@ -247,31 +253,31 @@ const projectInfo = (req, res) => {
               if (napaka) {
                 return res.status(500).json(napaka);
               } else {
-                User.findOne({username: currentUserUsername})
-                .select("activeProjects")
-                .exec((napaka, user) => {
-                  if (!user) {
-                      return res.status(404).json({
-                          sporočilo:
-                          "Ne najdem uporabnika z uporabniskim imenom currentUserUsername",
-                        });
-                      } else if (napaka) {
-                        return res.status(500).json(napaka);
-                      }  
-                    // odstranimo projekt z idjem 
-                    let activeP = user.activeProjects.find(o => o.idOfProject === idProject);
-                    console.log(activeP)
-                    let projectIdActive = activeP.id;
-                    console.log(projectIdActive);
-                    user.activeProjects.id(projectIdActive).remove();
-                    user.save((napaka, user) => {
-                        if (napaka) {
-                        res.status(400).json(napaka);
-                        } else {
-                        //res.status(201).json(user);
-                      }
-                  });
-              });
+              //   User.findOne({username: currentUserUsername})
+              //   .select("activeProjects")
+              //   .exec((napaka, user) => {
+              //     if (!user) {
+              //         return res.status(404).json({
+              //             sporočilo:
+              //             "Ne najdem uporabnika z uporabniskim imenom currentUserUsername",
+              //           });
+              //         } else if (napaka) {
+              //           return res.status(500).json(napaka);
+              //         }  
+              //       // odstranimo projekt z idjem 
+              //       let activeP = user.activeProjects.find(o => o.idOfProject === idProject);
+              //       console.log(activeP)
+              //       let projectIdActive = activeP.id;
+              //       console.log(projectIdActive);
+              //       user.activeProjects.id(projectIdActive).remove();
+              //       user.save((napaka, user) => {
+              //           if (napaka) {
+              //           res.status(400).json(napaka);
+              //           } else {
+              //           //res.status(201).json(user);
+              //         }
+              //     });
+              // });
                 res.status(204).json(project);
               }
             });
@@ -283,7 +289,6 @@ const projectInfo = (req, res) => {
   };
 
 
-  
 
    module.exports = {
        projectInfo,

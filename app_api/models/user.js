@@ -3,7 +3,7 @@ const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 
 const activeProjects = new mongoose.Schema({
-  name: {type: String, unique: true},
+  name: {type: String},
   p_role: {type: String, 
     default: 'Team Member',
     enum: ["Team Member", "Product Manager", "Scrum Master"]

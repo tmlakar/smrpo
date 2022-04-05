@@ -64,6 +64,7 @@ router.post("/project-new", ctrlProjects.projectCreate);
 router.get("/projects/:idProject", ctrlProjects.projectInfo);
 /* Updating a particular project */
 router.put("/projects/:idProject", ctrlProjects.projectUpdate);
+router.delete("/projects/:idProject/delete", ctrlProjects.deleteProject);
 
 
 /* Collaborators on a project */
