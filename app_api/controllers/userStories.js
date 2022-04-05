@@ -52,6 +52,7 @@ const projectInfo = (req, res) => {
         aboutText: req.body.aboutText,
         priority: req.body.priority,
         businessValue: req.body.priority,
+        size: req.body.size,
       });
       project.save((napaka, project) => {
         if (napaka) {
@@ -99,17 +100,368 @@ const projectInfo = (req, res) => {
       });
   };
 
-  /* Updating basic userStory info */
+  /* Updating basic userStory info - name, description, priority, bussiness value */
+
+  const updateUserStoryInfo = (req, res) => {
+    if (!req.params.idProject || !req.params.idUserStory) {
+      return res.status(404).json({
+        sporočilo:
+          "Ne najdem projekta oziroma uporabniske zgodbe, " +
+          "idProject in idUserStory sta obvezna parametra.",
+      });
+    }
+    Project.findById(req.params.idProject)
+      .select("userStories")
+      .exec((napaka, project) => {
+        if (!project) {
+          return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+        } else if (napaka) {
+          return res.status(500).json(napaka);
+        }
+        if (project.userStories && project.userStories.length > 0) {
+          const currentUserStory = project.userStories.id(
+            req.params.idUserStory
+          );
+          if (!currentUserStory) {
+            res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
+          } else {
+            currentUserStory.name = req.body.name;
+            currentUserStory.aboutText = req.body.aboutText;
+            currentUserStory.priority = req.body.priority;
+            currentUserStory.businessValue = req.body.businessValue;
+            currentUserStory.size = req.body.size;
+              
+              project.save((napaka, project) => {
+                if (napaka) {
+                  res.status(404).json(napaka);
+                } else {
+                  res.status(200).json(project);
+                }
+              });
+            }
+
+          }
+         else {
+          return res.status(404).json({ sporočilo: "Ni obstojecih uporabniskih zgodb." });
+        }
+      });
+  };
 
 /* Adding subtaks to userStory */
 
+const updateUserStoryAddSubtask = (req, res) => {
+  if (!req.params.idProject || !req.params.idUserStory) {
+    return res.status(404).json({
+      sporočilo:
+        "Ne najdem projekta oziroma uporabniske zgodbe, " +
+        "idProject in idUserStory sta obvezna parametra.",
+    });
+  }
+  Project.findById(req.params.idProject)
+    .select("userStories")
+    .exec((napaka, project) => {
+      if (!project) {
+        return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+      } else if (napaka) {
+        return res.status(500).json(napaka);
+      }
+      if (project.userStories && project.userStories.length > 0) {
+        const currentUserStory = project.userStories.id(
+          req.params.idUserStory
+        );
+        if (!currentUserStory) {
+          res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
+        } else {
+          //tle pushas na
+          currentUserStory.subtasks.push({
+            name: req.body.name,
+            subtaskOwnerUsername: req.body.subtaskOwnerUsername,
+          });
+            
+          project.save((napaka, project) => {
+              if (napaka) {
+                res.status(404).json(napaka);
+              } else {
+                res.status(200).json(project);
+              }
+            });
+          }
+
+        }
+       else {
+        return res.status(404).json({ sporočilo: "Ni obstojecih uporabniskih zgodb." });
+      }
+    });
+};
+
+/* */
+const updateUserStoryAddOwnerToSubtask = (req, res) => {
+  if (!req.params.idProject || !req.params.idUserStory) {
+    return res.status(404).json({
+      sporočilo:
+        "Ne najdem projekta oziroma uporabniske zgodbe, " +
+        "idProject in idUserStory sta obvezna parametra.",
+    });
+  }
+  Project.findById(req.params.idProject)
+    .select("userStories")
+    .exec((napaka, project) => {
+      if (!project) {
+        return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+      } else if (napaka) {
+        return res.status(500).json(napaka);
+      }
+      if (project.userStories && project.userStories.length > 0) {
+        const currentUserStory = project.userStories.id(
+          req.params.idUserStory
+        );
+        if (!currentUserStory) {
+          res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
+        } else {
+          //tle pushas na
+          currentUserStory.subtasks.push({
+            subtaskOwnerUsername: req.body.subtaskOwnerUsername,
+          });
+            
+          project.save((napaka, project) => {
+              if (napaka) {
+                res.status(404).json(napaka);
+              } else {
+                res.status(200).json(project);
+              }
+            });
+          }
+
+        }
+       else {
+        return res.status(404).json({ sporočilo: "Ni obstojecih uporabniskih zgodb." });
+      }
+    });
+};
+
 /* Adding acceptance tests to userStory */
 
+const updateUserStoryAddAcceptanceTests = (req, res) => {
+  if (!req.params.idProject || !req.params.idUserStory) {
+    return res.status(404).json({
+      sporočilo:
+        "Ne najdem projekta oziroma uporabniske zgodbe, " +
+        "idProject in idUserStory sta obvezna parametra.",
+    });
+  }
+  Project.findById(req.params.idProject)
+    .select("userStories")
+    .exec((napaka, project) => {
+      if (!project) {
+        return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+      } else if (napaka) {
+        return res.status(500).json(napaka);
+      }
+      if (project.userStories && project.userStories.length > 0) {
+        const currentUserStory = project.userStories.id(
+          req.params.idUserStory
+        );
+        if (!currentUserStory) {
+          res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
+        } else {
+          //tle dodas en acceptance task
+          currentUserStory.tests.push(req.body.tests);
+          project.save((napaka, project) => {
+              if (napaka) {
+                res.status(404).json(napaka);
+              } else {
+                res.status(200).json(project);
+              }
+            });
+          }
+
+        }
+       else {
+        return res.status(404).json({ sporočilo: "Ni obstojecih uporabniskih zgodb." });
+      }
+    });
+};
+
 /* Adding a footnote / comment from specific collaborator to userStory */
+const updateUserStoryAddAComment = (req, res) => {
+  if (!req.params.idProject || !req.params.idUserStory) {
+    return res.status(404).json({
+      sporočilo:
+        "Ne najdem projekta oziroma uporabniske zgodbe, " +
+        "idProject in idUserStory sta obvezna parametra.",
+    });
+  }
+  Project.findById(req.params.idProject)
+    .select("userStories")
+    .exec((napaka, project) => {
+      if (!project) {
+        return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+      } else if (napaka) {
+        return res.status(500).json(napaka);
+      }
+      if (project.userStories && project.userStories.length > 0) {
+        const currentUserStory = project.userStories.id(
+          req.params.idUserStory
+        );
+        if (!currentUserStory) {
+          res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
+        } else {
+          //tle dodas comment
+          currentUserStory.comments.push({
+            comment: req.body.comment,
+            commentOwnerUsername: req.body.commentOwnerUsername
+          });
+          project.save((napaka, project) => {
+              if (napaka) {
+                res.status(404).json(napaka);
+              } else {
+                res.status(200).json(project);
+              }
+            });
+          }
+
+        }
+       else {
+        return res.status(404).json({ sporočilo: "Ni obstojecih uporabniskih zgodb." });
+      }
+    });
+};
+
+/* Adding a flag (dodeljena/nedodeljena, v katerem sprintu je, ...) */
+const updateUserStoryAddFlags = (req, res) => {
+  if (!req.params.idProject || !req.params.idUserStory) {
+    return res.status(404).json({
+      sporočilo:
+        "Ne najdem projekta oziroma uporabniske zgodbe, " +
+        "idProject in idUserStory sta obvezna parametra.",
+    });
+  }
+  Project.findById(req.params.idProject)
+    .select("userStories")
+    .exec((napaka, project) => {
+      if (!project) {
+        return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+      } else if (napaka) {
+        return res.status(500).json(napaka);
+      }
+      if (project.userStories && project.userStories.length > 0) {
+        const currentUserStory = project.userStories.id(
+          req.params.idUserStory
+        );
+        if (!currentUserStory) {
+          res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
+        } else {
+          //tle dodas en acceptance task
+          currentUserStory.flags.push(req.body.tests);
+          project.save((napaka, project) => {
+              if (napaka) {
+                res.status(404).json(napaka);
+              } else {
+                res.status(200).json(project);
+              }
+            });
+          }
+
+        }
+       else {
+        return res.status(404).json({ sporočilo: "Ni obstojecih uporabniskih zgodb." });
+      }
+    });
+};
+
+/* Adding owner  */
+const updateUserStoryAddOwner = (req, res) => {
+  if (!req.params.idProject || !req.params.idUserStory) {
+    return res.status(404).json({
+      sporočilo:
+        "Ne najdem projekta oziroma uporabniske zgodbe, " +
+        "idProject in idUserStory sta obvezna parametra.",
+    });
+  }
+  Project.findById(req.params.idProject)
+    .select("userStories")
+    .exec((napaka, project) => {
+      if (!project) {
+        return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+      } else if (napaka) {
+        return res.status(500).json(napaka);
+      }
+      if (project.userStories && project.userStories.length > 0) {
+        const currentUserStory = project.userStories.id(
+          req.params.idUserStory
+        );
+        if (!currentUserStory) {
+          res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
+        } else {
+          //tle dodas en acceptance task
+          currentUserStory.userStorieOwnerUsername = req.body.userStorieOwnerUsername;
+          project.save((napaka, project) => {
+              if (napaka) {
+                res.status(404).json(napaka);
+              } else {
+                res.status(200).json(project);
+              }
+            });
+          }
+
+        }
+       else {
+        return res.status(404).json({ sporočilo: "Ni obstojecih uporabniskih zgodb." });
+      }
+    });
+};
+
+
+/* Delete userStory - at least for developing purposes  */
+const deleteUserStory = (req, res) => {
+  const { idProject, idUserStory } = req.params;
+  if (!idProject || !idUserStory) {
+    return res.status(404).json({
+      sporočilo:
+        "Ne najdem projekta oz. uporabniske zgodbe, " +
+        "idProject in idUserStory sta obvezna parametra.",
+    });
+  }
+  Project.findById(idProject)
+    .select("userStories")
+    .exec((napaka, project) => {
+      if (!project) {
+        return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+      } else if (napaka) {
+        return res.status(500).json(napaka);
+      }
+      if (project.userStories && project.userStories.length > 0) {
+        if (!project.userStories.id(idUserStory)) {
+          return res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
+        } else {
+          
+          project.userStories.id(idUserStory).remove();
+          project.save((napaka) => {
+            if (napaka) {
+              return res.status(500).json(napaka);
+            } else {
+              res.status(204).json(project);
+            }
+          });
+        }
+      } else {
+        res.status(404).json({ sporočilo: "Ni uporabniske zgodbe za brisanje." });
+      }
+    });
+};
+
 
 module.exports = {
     projectInfo,
     addUserStory,
-    userStoryInfo
+    userStoryInfo,
+    updateUserStoryInfo,
+    updateUserStoryAddSubtask,
+    updateUserStoryAddOwnerToSubtask,
+    updateUserStoryAddAcceptanceTests,
+    updateUserStoryAddAComment,
+    updateUserStoryAddFlags,
+    updateUserStoryAddOwner,
+    deleteUserStory
 
 };

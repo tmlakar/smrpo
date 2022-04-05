@@ -19,7 +19,7 @@ const projectsList = (req, res) => {
 const projectCreate = (req, res) => {
   //var collaboratorsR = [{username: "anja", project_role: "Team Member"}];
   console.log(req.body.name, req.body.info);
-  console.log(collaboratorsR);
+  
     Project.create({
 
       name: req.body.name,

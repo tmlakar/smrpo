@@ -179,3 +179,17 @@ curl -X PUT \
 
 curl -X DELETE \
        "http://localhost:3000/api/projects/624b53c5d3c1f2cdc59720dc/delete"
+
+
+________ user story _______
+
+curl -X POST \
+       -d "name=#1 Dodajanje uporabnikov&aboutText=Dodas uporabnike.&priority=Must have&businessValue=10&size=3" \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       "http://localhost:3000/project/624c1edb3cde86253fe03767/userStory-new"
+
+       name: req.body.name,
+        aboutText: req.body.aboutText,
+        priority: req.body.priority,
+        businessValue: req.body.priority,
+        size: req.body.size,

@@ -8,6 +8,16 @@ const collaboratorShema = new mongoose.Schema({
       }
 });
 
+const subtaskShema = new mongoose.Schema({
+    name: {type: String},
+    subtaskOwnerUsername: {type: String, default: null}
+});
+
+const userStoryCommentsShema = new mongoose.Schema({
+    comment: {type: String},
+    commentOwnerUsername: {type: String}
+});
+
 const userStoriesShema = new mongoose.Schema({
     name: {type: String},
     aboutText: {type: String},
@@ -15,9 +25,13 @@ const userStoriesShema = new mongoose.Schema({
         default: "Must have",
         enum: ["Must have", "Should have", "Could have", "Won't have this time"]
     },
-    tests: [{type: String}],
+    size: {type: Number},
     businessValue: {type: String},
-    flags: [{type: String}]
+    tests: [{type: String}],
+    subtasks: [subtaskShema],
+    comments: [userStoryCommentsShema],
+    userStorieOwnerUsername: {type: String, default: null},
+    flags: [{type: String}],
 
 });
 
