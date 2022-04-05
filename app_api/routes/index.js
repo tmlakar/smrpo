@@ -5,9 +5,8 @@ const ctrlAvtentikacija = require("../controllers/avtentikacija");
 const ctrlHome = require("../controllers/home");
 const ctrlProjects = require("../controllers/projects");
 const ctrlAccount = require("../controllers/account");
-const ctrlSprints = require("../controllers/sprints");
 const ctrlCollaborators = require("../controllers/collaborators");
-
+const ctrlSprints = require("../controllers/sprints");
 
 const jwt = require("express-jwt");
 const avtentikacija = jwt({
@@ -58,6 +57,7 @@ router.put("/users/:idUser/edit-password", ctrlUser.userUpdatePassword);
 /* Projects */
 /* List of projects */
 router.get("/projects", ctrlProjects.projectsList);
+router.delete("/project/:idProject/delete", ctrlProjects.deleteProject);
 /* Adding new project */
 router.post("/project-new", ctrlProjects.projectCreate);
 /* Info of a particular project */
@@ -80,7 +80,7 @@ router.delete("/projects/:idProject/delete-collaborator/:idCollaborator", ctrlCo
 
 /*Sprints */
 /* Adding new sprint */
-//router.post("/sprint-new", ctrlSprints.sprintCreate);
+router.post("/sprint-new/:id", ctrlSprints.addSprintToAProject);
 
 /* Avtentikacija */
 router.post("/registracija", ctrlAvtentikacija.registracija);

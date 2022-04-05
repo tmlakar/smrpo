@@ -23,8 +23,13 @@ const projectCreate = (req, res) => {
     Project.create({
 
       name: req.body.name,
+<<<<<<< HEAD
       info: req.body.info,
       
+=======
+      info: req.body.info
+
+>>>>>>> ee871adb8feab0136d856c3415ca7c387e418dd2
   }, (napaka, project) => {
       if(napaka) {
         console.log("Prislo je do napake");
@@ -35,7 +40,11 @@ const projectCreate = (req, res) => {
     });
 };
 
+<<<<<<< HEAD
 /* Just for developing purposes */
+=======
+/* Just for developing purposes - deleting a project */
+>>>>>>> ee871adb8feab0136d856c3415ca7c387e418dd2
 const deleteProject = (req, res) => {
   const { idProject } = req.params;
     if (idProject) {
@@ -52,6 +61,10 @@ const deleteProject = (req, res) => {
     }
 };
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ee871adb8feab0136d856c3415ca7c387e418dd2
 /* D E T A I L S */
 
 /* Particular project info */
@@ -104,6 +117,7 @@ module.exports = {
     projectCreate,
     deleteProject,
     projectInfo,
-    projectUpdate
+    projectUpdate,
+    deleteProject
 
 };

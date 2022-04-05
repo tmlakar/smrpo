@@ -18,6 +18,8 @@ var apiParametri = {
         .then((odgovor) => {
             res.render('project',
             { name: odgovor.data.name,
+              id: projectId,
+              sprints: odgovor.data.sprints 
             });
         });
   };

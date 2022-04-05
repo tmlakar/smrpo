@@ -22,10 +22,17 @@ const userStoriesShema = new mongoose.Schema({
 });
 
 const sprintShema = new mongoose.Schema({
+<<<<<<< HEAD
 
     sprintSize: {type: Number},
     sprintStartDate: {type: Date},
     sprintEndDate: {type: Date}
+=======
+  //tukaj manjka sprint name, če kje uporabljaš
+    startDate: {type: Date},
+    endDate: {type: Date},
+    sprintSize: {type: Number}
+>>>>>>> ee871adb8feab0136d856c3415ca7c387e418dd2
 });
 
 const projectShema = new mongoose.Schema({
