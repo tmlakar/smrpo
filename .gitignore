@@ -62,3 +62,4 @@ typings/
 
 # json files
 package-lock.json
+package.json
