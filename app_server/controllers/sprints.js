@@ -27,6 +27,20 @@ var apiParametri = {
       return true;
     }
   }
+
+  function isSprintSizeTooBig(newSprintStart, newSprintEnd, sprintSize){
+    var tooBig = false;
+    //izračunaj čas izvajanja iz izbranih datumov sprinta - v urah
+    var diff = (newSprintEnd - newSprintStart) / 3600000;
+    // //izračunaj čas iz izbrane sprint size
+    var steviloUrSprintSize = sprintSize * 6;
+    //primerjaj če se ujema in vrni true ali false
+    if(steviloUrSprintSize > diff){
+      tooBig = true;
+    }
+    return tooBig;
+  }
+
   /* POST metoda - Ustvarjanje novega sprinta */
   const sprintCreate = (req, res) => {
     var projectId = req.params.id;
@@ -72,34 +86,82 @@ var apiParametri = {
            napaka1: napaka
       });
     }
+    //preverimo ustreznost velikosti sprinta glede na vnesena datume
+    else if(isSprintSizeTooBig(new Date(req.body.startDate), new Date(req.body.endDate), req.body.sprintSize)){
+      var napaka = true;
+      console.log("prevelk size")
+      res.render('sprint-new', {
+           napaka6: napaka
+      });
+    }
     //če so datumi in velikost sprinta uredu, pošljemo na api in ustvarimo nov sprint
     else {
       //tukaj pride in dela, dobi podatke iz ustvarjanja novega sprinta in id projekta
-      console.log("server")
       //številka sprinta -- če še ni nobenga da 1
       let steviloSprintov = 0;
+      var prekrivanje = false;
       console.log(projectId)
       let URL1 = apiParametri.streznik + '/api/projects/' + projectId;
       const promise1 = axios.get(URL1);
       Promise.all([promise1]).then(function(values) {
         steviloSprintov = values[0].data.sprints.length;
-        axios({
-          method: 'post',
-          url: apiParametri.streznik + '/api/sprint-new/' + projectId,
-          data: {
-            number: steviloSprintov+1,
-            startDate: req.body.startDate,
-            endDate: req.body.endDate,
-            sprintSize: req.body.sprintSize
+        var sprinti = values[0].data.sprints;
+        let newSprintStart = new Date(req.body.startDate);
+        let newSprintEnd = new Date(req.body.endDate);
+        //preverimo če se prekriva
+        for(let i=0; i< steviloSprintov; i++){
+          let sprintStart = new Date(sprinti[i].startDate);
+          let sprintEnd = new Date(sprinti[i].endDate);
+          //1.scenarij - nek sprint v bazi ima end date znotraj intervala novega sprinta
+          if((sprintEnd > newSprintStart) && (sprintEnd <= newSprintEnd)){
+            console.log("se prekriva");
+            prekrivanje = true;
+            number = sprinti[i].number;
+            break;
           }
-        }).then(() => {
-          console.log("uspešno dodan")
-          var string = "#sprints";
-          res.redirect('/project/' + projectId + string);
-        }).catch((napaka) => {
-          var string = "napaka";
-          res.redirect('/sprint-new/:id?error=' + string);
-        });
+          //2.scenarij - nek sprint v bazi ima start date znotraj intervala novega sprinta
+          if((sprintStart >= newSprintStart) && (sprintStart < newSprintStart)){
+            console.log("se prekriva");
+            prekrivanje = true;
+            number = sprinti[i].number;
+            break;
+          }
+          //3.scenarij - nov sprint ima interval znotraj intervala nekega sprinta v bazi
+          if((newSprintStart >= sprintStart) && (newSprintStart <= sprintEnd)){
+            console.log("se prekriva");
+            prekrivanje = true;
+            number = sprinti[i].number;
+            break;
+          }
+        }
+        if(prekrivanje){
+            console.log("prekrivanje");
+            var napaka = true;
+            res.render('sprint-new', {
+                 napaka5: napaka,
+                 number: number
+            });
+        }
+        else{
+            //ni prekrivanj, sprint je ustrezen in ga shranimo
+            axios({
+              method: 'post',
+              url: apiParametri.streznik + '/api/sprint-new/' + projectId,
+              data: {
+                number: steviloSprintov+1,
+                startDate: req.body.startDate,
+                endDate: req.body.endDate,
+                sprintSize: req.body.sprintSize
+              }
+            }).then(() => {
+              console.log("uspešno dodan")
+              var string = "#sprints";
+              res.redirect('/project/' + projectId + string);
+            }).catch((napaka) => {
+              var string = "napaka";
+              res.redirect('/sprint-new/:id?error=' + string);
+            });
+          }
       });
   }
   };

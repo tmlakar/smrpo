@@ -43,6 +43,16 @@
                           <span style="font-size: 14px !important">Start and end date must be in the future!</span>
                           </div>
                         {{/if}}
+                        {{#if napaka5}}
+                          <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 10px; border-radius: 18px; margin-top: 10px !important">
+                          <span style="font-size: 14px !important">In this time Sprint {{number}} is already running!</span>
+                          </div>
+                        {{/if}}
+                        {{#if napaka6}}
+                          <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 10px; border-radius: 18px; margin-top: 10px !important">
+                          <span style="font-size: 14px !important">The sprint size is too big for the number of days for this sprint!</span>
+                          </div>
+                        {{/if}}
                         <div style="padding-top: 10px !important">
                         <button type="submit" class="btn submit-form">Add new sprint</button>
                         </div>
