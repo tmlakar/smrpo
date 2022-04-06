@@ -18,11 +18,28 @@ var apiParametri = {
     var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
     var user = JSON.parse(rawPayload);
 
+    // je napaka?
+    var napaka = req.query.error;
+    var jeNapaka = false;
+    if(napaka == "napakaPriDodajanjuUserja"){
+      jeNapaka = true;
+    }
+   // je succesfully removed
+   var success = req.query.error;
+   var uspesnoRemoved = false;
+   if(success == "success"){
+    uspesnoRemoved = true;
+  }
+  // je successfully added
+  var success = req.query.error;
+  var uspesnoAdded = false;
+  if(success == "successfully added"){
+   uspesnoAdded = true;
+ }
 
           let URL1 = apiParametri.streznik + '/api/users';
           let URL2 = apiParametri.streznik + '/api/projects/' + projectId;
-          
-
+        
           const promise1 = axios.get(URL1);
           const promise2 = axios.get(URL2);
           
@@ -36,7 +53,10 @@ var apiParametri = {
               info: values[1].data.info,
               collaborators: values[1].data.collaborators,
               id: values[1].data._id,
-              users: values[0].data
+              users: values[0].data,
+              napaka1: jeNapaka,
+              success: uspesnoRemoved,
+              successfullyAdded: uspesnoAdded,
             });
           });
   };
@@ -52,9 +72,12 @@ var apiParametri = {
       var projectId = req.params.id;
       var napaka = req.query.error;
       var jeNapaka = false;
+      
       if(napaka == "napaka"){
         jeNapaka = true;
       }
+
+      console.log(jeNapaka);
       axios
           .get (apiParametri.streznik + '/api/projects/' + projectId)
           .then((odgovor) => {
@@ -84,9 +107,10 @@ const addProjectCollaborators = (req, res) => {
         project_role: req.body.project_role
       }
     }).then(() => {
-      res.redirect('/projects/' + projectId);
+      var string = "successfully added";
+      res.redirect('/projects/' + projectId + '?error=' + string);
     }).catch((napaka) => {
-      var string = "napaka";
+      var string = "napakaPriDodajanjuUserja";
     res.redirect('/projects/' + projectId + '?error=' + string);
 
     });
@@ -127,7 +151,8 @@ const deleteProjectCollaborator = (req, res) => {
       url: apiParametri.streznik + '/api/projects/' + projectId + '/delete-collaborator/' + collaboratorId,
       
     }).then(() => {
-      res.redirect('/projects/' + projectId);
+      var string = "success";
+      res.redirect('/projects/' + projectId + '?error=' + string);
     }).catch((napaka) => {
       var string = "napaka";
     res.redirect('/projects/' + projectId + '?error=' + string);
