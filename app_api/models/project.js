@@ -37,6 +37,7 @@ const userStoriesShema = new mongoose.Schema({
 
 const sprintShema = new mongoose.Schema({
   //tukaj manjka sprint name, če kje uporabljaš
+    number: {type: Number},
     startDate: {type: Date},
     endDate: {type: Date},
     sprintSize: {type: Number}

@@ -7,12 +7,12 @@
 
 
       <div class="" style="padding: 30px 0px 30px 0px !important">
-        <a href="/account"><button type="" class="btn submit-form" 
+        <a href="/account"><button type="" class="btn submit-form"
         style="background-color: var(--c4) !important; width: 250px !important; margin: 0px !important">Edit account information</button></a>
-        
+
       </div>
-    
-                      
+
+
 
 {{!-- projekti uporabnika --}}
 
@@ -20,27 +20,27 @@
 <br>
 <div class="card-group" style="margin-left: -25px !important">
   <div class="row">
-    
+
     {{#each activeProjects as |activeProject|}}
 
-        
+
         <div class="card card-user-preview card-group-userProj" style="">
           <div class="card-body">
           <h5><a href="/project/{{activeProject.idOfProject}}">{{activeProject.name}}</a></h5>
           
           </div>
-          
+
           {{#if (isScrumMaster activeProject.p_role)}}
           <div style="padding: 20px !important">
-            
+
           <a href="/projects/{{activeProject.idOfProject}}" style="color: gray !important; text-decoration: none !important"><button type="button" class="btn submit-form btn-dark"
             style="background-color: var(--c3) !important">Edit project</button></a>
             </div>
             {{/if}}
         </div>
 
-        
-      
+
+
 
 
     {{/each}}

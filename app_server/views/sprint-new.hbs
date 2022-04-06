@@ -16,14 +16,31 @@
                             <input class="form-control input-form" name="endDate" id="enddate" type="date" id="end" name="trip-end">
                         </div>
 
+
+
                         <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Sprint size</label>
-                            <input class="form-control input-form" name="sprintSize" id="sprintsize" aria-describedby="emailHelp" required>
+                            <input class="form-control input-form" type="number" name="sprintSize" id="sprintsize" aria-describedby="emailHelp" required>
                         </div>
 
-                        {{#if napaka}}
+                        {{#if napaka1}}
                           <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 10px; border-radius: 18px; margin-top: 10px !important">
-                          <span style="font-size: 14px !important">Project with this name already exists!</span>
+                          <span style="font-size: 14px !important">End date cannot be before start date!</span>
+                          </div>
+                        {{/if}}
+                        {{#if napaka2}}
+                          <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 10px; border-radius: 18px; margin-top: 10px !important">
+                          <span style="font-size: 14px !important">Start date must be in the future!</span>
+                          </div>
+                        {{/if}}
+                        {{#if napaka3}}
+                          <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 10px; border-radius: 18px; margin-top: 10px !important">
+                          <span style="font-size: 14px !important">End date must be in the future!</span>
+                          </div>
+                        {{/if}}
+                        {{#if napaka4}}
+                          <div class="alert alert-warning" id="wrongPass" role="alert" style=" padding-top: 10px; border-radius: 18px; margin-top: 10px !important">
+                          <span style="font-size: 14px !important">Start and end date must be in the future!</span>
                           </div>
                         {{/if}}
                         <div style="padding-top: 10px !important">

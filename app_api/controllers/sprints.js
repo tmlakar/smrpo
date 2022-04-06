@@ -35,7 +35,9 @@ const Project = mongoose.model("Project");
       //za sprint size je uredu in se tudi shrnai in ga tuki prikaže, za startDate je pa undefined
       console.log(req.body.sprintSize)
       console.log(req.body.startDate)
+      console.log(req.body.number)
       project.sprints.push({
+        number: req.body.number,
         startDate: req.body.startDate,
         endDate: req.body.endDate,
         sprintSize: req.body.sprintSize,

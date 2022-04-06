@@ -24,7 +24,7 @@
           <div class="card projekt-card col-sm-3" style="margin: 20px !important;
           background-color: var(--c4); border: 4px solid var(--c4) !important;">
             <div class="card-body">
-              <h4 style="color: white">Sprint</h4>
+              <h4 style="color: white">Sprint {{sprint.number}}</h4>
               <p>{{sprint.startDate}}-{{sprint.endDate}}</p>
               <br>
               <p>Sprint size:</p>
@@ -36,9 +36,10 @@
           </div>
         {{!-- gumba za edit projectov --}}
       {{/each}}
-
-      {{!-- gumb za dodajanje novega sprinta - se pokaže le če je prijavljen admin--}}
-      <div><a href="/sprint-new/{{id}}"><button id="" type="button" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right"><i class="fa-solid fa-plus dodaj"></i></button></a></div><br>
+      {{#if admin}}
+        {{!-- gumb za dodajanje novega sprinta - se pokaže le če je prijavljen admin--}}
+        <div><a href="/sprint-new/{{id}}"><button id="" type="button" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right"><i class="fa-solid fa-plus dodaj"></i></button></a></div><br>
+      {{/if}}
     </div>
 
   </div>
