@@ -126,7 +126,7 @@ var podrobnostiProject = (req, res) => {
       })
       .then(() => {
           res.redirect('/projects');
-      }).catch((napaka) => {
+      }).catch((error) => {
         var string = "napaka";
         res.redirect('/projects/' + projectId + '?error=' + string);
       });
