@@ -54,7 +54,7 @@ var apiParametri = {
            }
       });
     }
-    //preverimo, da je start date v prihodnosti
+    // //preverimo, da je start date v prihodnosti
     else if(isFutureDate(new Date(req.body.startDate))==false) {
       console.log("napaka")
       var napaka = true;
@@ -112,15 +112,15 @@ var apiParametri = {
         for(let i=0; i< steviloSprintov; i++){
           let sprintStart = new Date(sprinti[i].startDate);
           let sprintEnd = new Date(sprinti[i].endDate);
-          //1.scenarij - nek sprint v bazi ima end date znotraj intervala novega sprinta
-          if((sprintEnd > newSprintStart) && (sprintEnd <= newSprintEnd)){
+          //1.scenarij - nov sprint ima start date znotraj intervala sprinta v bazi
+          if((newSprintStart >= sprintStart) && (newSprintStart < sprintEnd)){
             console.log("se prekriva");
             prekrivanje = true;
             number = sprinti[i].number;
             break;
           }
-          //2.scenarij - nek sprint v bazi ima start date znotraj intervala novega sprinta
-          if((sprintStart >= newSprintStart) && (sprintStart < newSprintStart)){
+          //2.scenarij - end novega sprinta je znotraj intervala sprinta v bazi
+          if((newSprintEnd > sprintStart) && (newSprintEnd <= sprintEnd)){
             console.log("se prekriva");
             prekrivanje = true;
             number = sprinti[i].number;
