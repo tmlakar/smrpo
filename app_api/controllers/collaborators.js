@@ -204,7 +204,7 @@ const projectInfo = (req, res) => {
             // from username, get his other info
             // update p_role
             var userUsername = currentCollaborator.username;
-            console.log(userUsername);
+            //console.log(userUsername);
             User.findOne({username: userUsername})
             .select("activeProjects")
             .exec((napaka, user) => {
@@ -221,7 +221,7 @@ const projectInfo = (req, res) => {
               let activeP = user.activeProjects.find(o => o.idOfProject === req.params.idProject);
               //console.log(activeP)
               let projectIdActive = activeP.id;
-              console.log(projectIdActive);
+              //console.log(projectIdActive);
               user.activeProjects.id(projectIdActive).p_role = req.body.project_role;
 
               user.save((napaka, user) => {
@@ -274,7 +274,7 @@ const projectInfo = (req, res) => {
             return res.status(404).json({ sporočilo: "Ne najdem collaboratorja." });
           } else {
             var currentUserUsername = project.collaborators.id(idCollaborator).username;
-            console.log(project.collaborators.id(idCollaborator).username);
+            //console.log(project.collaborators.id(idCollaborator).username);
             //izbrisi se njemu iz podatkovne baze tole
 
             project.collaborators.id(idCollaborator).remove();
@@ -295,9 +295,9 @@ const projectInfo = (req, res) => {
                       }  
                     // odstranimo projekt z idjem 
                     let activeP = user.activeProjects.find(o => o.idOfProject === idProject);
-                    console.log(activeP)
+                    //console.log(activeP)
                     let projectIdActive = activeP.id;
-                    console.log(projectIdActive);
+                    //console.log(projectIdActive);
                     user.activeProjects.id(projectIdActive).remove();
                     user.save((napaka, user) => {
                         if (napaka) {

@@ -21,15 +21,29 @@ var apiParametri = {
     if(user.role == "admin"){
       nivoDostopa = true;
     }
+    var vloga = user.role;
+
     var projectId = req.params.id;
     axios
         .get (apiParametri.streznik + '/api/projects/' + projectId)
         .then((odgovor) => {
+          if (vloga == "user") {
             res.render('project',
             { name: odgovor.data.name,
               id: projectId,
               sprints: odgovor.data.sprints,
-              admin: nivoDostopa
+              admin: nivoDostopa,
+              layout: 'layout-user'
+            });
+          } else {
+
+          }
+            res.render('project',
+            { name: odgovor.data.name,
+              id: projectId,
+              sprints: odgovor.data.sprints,
+              admin: nivoDostopa,
+              layout: 'layout'
             });
         });
   };
