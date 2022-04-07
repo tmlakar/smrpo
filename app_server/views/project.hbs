@@ -41,31 +41,77 @@
       </div>
       <div><a href="/story-new"><button id="" type="button" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right" style="background-color: var(--c1) !important; border: 3px solid var(--c1) !important"><i class="fa-solid fa-plus dodaj"></i></button></a></div><br>
     </div>
-    <div id="sprints" class="tab-pane fade">
-      {{!---prikaz dodanih sprintov, ki se jih pridobi iz apija --}}
-      {{#each sprints as |sprint|}}
-          <div class="card projekt-card col-sm-3" style="margin: 20px !important;
-          background-color: var(--c4); border: 4px solid var(--c4) !important;">
-            <div class="card-body">
-              <h4 style="color: white">Sprint {{sprint.number}}</h4>
-              <p>{{sprint.startDate}}-{{sprint.endDate}}</p>
-              <br>
-              <p>Sprint size:</p>
-              <p>{{sprint.sprintSize}}</p>
-              <p></p>
-            </td>
 
+
+        <div id="sprints" class="tab-pane fade">
+      <br>
+      {{!--<h3>Sprints</h3>--}}
+      <br>
+      <div class="row">
+        {{!---prikaz dodanih sprintov, ki se jih pridobi iz apija --}}
+        {{#each sprints as |sprint|}}
+            <div class="card projekt-card col-sm-3" style="margin: 20px !important;
+            background-color: var(--c5); border: 4px solid var(--c5) !important;">
+              <div class="card-body">
+                <h2 align="center" style="color: white"><b>Sprint {{number}}</b></h2>
+                <small>From:</small>
+                <h5 class ="cut_text">{{sprint.startDate}}</h5>
+                <small>To:</small>
+                <h5 class ="cut_text">{{sprint.endDate}}</h5>
+                <br>
+                <br>
+                <b style="font-size:1.4vw">Sprint size:&nbsp;&nbsp;&nbsp;</b>
+                <span style="color: #023047;font-size:1.2vw;"><b>{{sprint.sprintSize}}</b></span>
+
+              </div>
             </div>
-          </div>
-        {{!-- gumba za edit projectov --}}
-      {{/each}}
+
+          {{!-- gumba za edit projectov --}}
+        {{/each}}
+         {{!---prikaz dodanih sprintov, ki se jih pridobi iz apija --}}
+        {{#each inProcessSprints as |sprint|}}
+            <div class="card projekt-card col-sm-3" style="margin: 20px !important;
+            background-color: var(--c5); border: 4px solid var(--c5) !important;">
+              <div class="card-body">
+                <h2 align="center" style="color: white"><b>Sprint {{number}}</b></h2>
+                <small>From:</small>
+                <h5 class ="cut_text">{{sprint.startDate}}</h5>
+                <small>To:</small>
+                <h5 class ="cut_text">{{sprint.endDate}}</h5>
+                <br>
+                <br>
+                <b style="font-size:1.4vw">Sprint size:&nbsp;&nbsp;&nbsp;</b>
+                <span style="color: #023047;font-size:1.2vw;"><b>{{sprint.sprintSize}}</b></span>
+
+              </div>
+            </div>
+          {{!-- gumba za edit projectov --}}
+        {{/each}}
+        {{#each futureSprints as |sprint|}}
+            <div class="card projekt-card col-sm-3" style="margin: 20px !important;
+            background-color: var(--c5); border: 4px solid var(--c5) !important;">
+              <div class="card-body">
+                <h2 align="center" style="color: white"><b>Sprint {{number}}</b></h2>
+                <small>From:</small>
+                <h5 class ="cut_text">{{sprint.startDate}}</h5>
+                <small>To:</small>
+                <h5 class ="cut_text">{{sprint.endDate}}</h5>
+                <br>
+                <br>
+                <b style="font-size:1.4vw">Sprint size:&nbsp;&nbsp;&nbsp;</b>
+                <span style="color: #023047;font-size:1.2vw;"><b>{{sprint.sprintSize}}</b></span>
+
+              </div>
+            </div>
+          {{!-- gumba za edit projectov --}}
+        {{/each}} -->
+      </div>
       {{#if admin}}
         {{!-- gumb za dodajanje novega sprinta - se pokaže le če je prijavljen admin--}}
         <div><a href="/sprint-new/{{id}}"><button id="" type="button" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right"><i class="fa-solid fa-plus dodaj"></i></button></a></div><br>
       {{/if}}
     </div>
-
-  </div>
+</div>
 </div>
 <script type="text/javascript">
 $(document).ready(function(){

@@ -27,11 +27,41 @@ var apiParametri = {
     axios
         .get (apiParametri.streznik + '/api/projects/' + projectId)
         .then((odgovor) => {
+          //ločimo sprinte v pretekle, v teku in v prihodnosti
+          const finishedSprints = [];
+          var i1 = 0;
+          const inProcessSprints = [];
+          var i2 = 0;
+          const futureSprints = [];
+          var i3 = 0;
+          var sprinti = odgovor.data.sprints;
+          var now = new Date();
+          for(let i=0; i< sprinti.length; i++){
+            //če je finished
+            if((new Date(sprinti[i].startDate) < now) && (new Date(sprinti[i].endDate) < now)){
+              finishedSprints[i1] = sprinti[i];
+              i1 = i1 +1;
+            }
+            //če je in process
+            if((new Date(sprinti[i].startDate) <= now) && (new Date(sprinti[i].endDate) > now)){
+              inProcessSprints[i2] = sprinti[i];
+              i2 = i2 +1;
+            }
+            //če je v prihodnosti
+            if((new Date(sprinti[i].startDate) >= now) && (new Date(sprinti[i].endDate) > now)){
+              inProcessSprints[i3] = sprinti[i];
+              i3 = i3 +1;
+            }
+          }
+
           if (vloga == "user") {
             res.render('project',
             { name: odgovor.data.name,
               id: projectId,
-              sprints: odgovor.data.sprints,
+              sprints: sprinti,
+              // finishedSprints: finishedSprints,
+              // inProcessSprints: inProcessSprints,
+              // futureSprints: futureSprints,
               admin: nivoDostopa,
               layout: 'layout-user'
             });
@@ -41,7 +71,10 @@ var apiParametri = {
             res.render('project',
             { name: odgovor.data.name,
               id: projectId,
-              sprints: odgovor.data.sprints,
+              sprints: sprinti,
+              // finishedSprints: finishedSprints,
+              // inProcessSprints: inProcessSprints,
+              // futureSprints: futureSprints,
               admin: nivoDostopa,
               layout: 'layout'
             });

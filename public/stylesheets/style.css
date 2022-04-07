@@ -627,14 +627,22 @@ p {
 /* feedback when updating, adding, deleting */
 
 .alert-s-400 {
-    margin-bottom: 120px !important; 
+    margin-bottom: 120px !important;
     text-align: center;
     border-radius: 20px !important;
 }
 
 .alert-s-200 {
-    margin-bottom: 120px !important; 
+    margin-bottom: 120px !important;
     text-align: center;
     border-radius: 20px !important;
     background-color: var(--c5) !important;
 }
+
+
+
+.cut_text {
+    white-space: nowrap;
+    width: 9ch;
+    overflow: hidden;
+  }
