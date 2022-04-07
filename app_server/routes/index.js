@@ -67,12 +67,28 @@ var ctrlSprint = require("../controllers/sprints");
 router.get('/sprint-new/:id', ctrlSprint.prikaz);
 router.post('/sprint-new/:id', ctrlSprint.sprintCreate);
 
-
 /* User stories a.k.a uporabniska zgodba */
 var ctrlUserStories = require("../controllers/userStories");
 /* Adding a new user story to a project */
 router.get('/project/:id/new-user-story', ctrlUserStories.podrobnostiProject);
 router.post('/project/:id/new-user-story', ctrlUserStories.addNewUserStory);
+/* Updating basic info */
+router.post("/project/:id/userStory/:idStory/edit-info", ctrlUserStories.updateUserStoryInfo);
+/* Adding subtasks */
+router.post("/project/:id/userStory/:idStory/add-subtask", ctrlUserStories.addSubtask);
+/* Updating subtaks owner */
+router.post("/project/:id/userStory/:idStory/subtask/:idSubtask/edit-subtask-owner", ctrlUserStories.addSubtaskOwner);
+/* Add acceptance test */
+router.post("/project/:id/userStory/:idStory/add-test", ctrlUserStories.addAcceptanceTest);
+/* Add comment / footnote */
+router.post("/project/:id/userStory/:idStory/add-comment", ctrlUserStories.addComment);
+/* Add a flag */
+router.post("/project/:id/userStory/:idStory/add-flag", ctrlUserStories.addFlag);
+/* Update userStory owner */
+router.post("/project/:id/userStory/:idStory/edit-owner", ctrlUserStories.updateOwner);
+/* Delete userStory */
+router.post("/project/:id/userStory/:idStory/delete", ctrlUserStories.deleteStory);
+
 
 // account
 

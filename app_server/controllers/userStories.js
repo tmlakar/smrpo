@@ -49,7 +49,7 @@ var apiParametri = {
 const addNewUserStory = (req, res) => {
     var projectId = req.params.id;
     if (!req.body.name || !req.body.aboutText || !req.body.priority || !req.body.businessValue || !req.body.size) {
-        "/projects/:idProject/userStory-new"
+        
     } else {
       axios({
         method: 'post',
@@ -64,17 +64,227 @@ const addNewUserStory = (req, res) => {
       }).then((odgovor) => {
         var name = odgovor.name;
         var string = "successfully added";
-        res.redirect('/projects/' + projectId + '?error=' + string);
+        res.redirect('/project/' + projectId + '?error=' + string);
       }).catch((napaka) => {
-        var string = "napakaPriDodajanjuUserja";
-      res.redirect('/projects/' + projectId + '?error=' + string);
+        var string = "napakaPriDodajanjuUporabniskeZgodbe";
+      res.redirect('/project/' + projectId + '?error=' + string);
   
       });
     }
   };
 
-
-  module.exports = {
-    podrobnostiProject,
-    addNewUserStory 
+  /* PUT - updating user story basic info */
+  const updateUserStoryInfo = (req, res) => {
+    var projectId = req.params.id;
+    var storyId = req.params.idStory;
+    if (!req.body.name || !req.body.aboutText || !req.body.priority || !req.body.businessValue || !req.body.size) {
+        
+    } else {
+      axios({
+        method: 'put',
+        url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/edit-info',
+        data: {
+            name: req.body.name,
+            aboutText: req.body.aboutText,
+            priority: req.body.priority,
+            businessValue: req.body.businessValue,
+            size: req.body.size,
+        }
+      }).then((odgovor) => {
+        var name = odgovor.name;
+        var string = "successfully added";
+        res.redirect('/project/' + projectId + '?error=' + string);
+      }).catch((napaka) => {
+        var string = "napakaPriPosodabljanjuUporabniskeZgodbe";
+      res.redirect('/project/' + projectId + '?error=' + string);
+  
+      });
+    }
   };
+
+  /* POST - Add subtask to a story */
+const addSubtask = (req, res) => {
+  var projectId = req.params.id;
+  var storyId = req.params.idStory;
+  if (!req.body.name || !req.body.subtaskOwnerUsername) {
+      
+  } else {
+    axios({
+      method: 'post',
+      url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/add-subtask',
+      data: {
+        name: req.body.name,
+        subtaskOwnerUsername: req.body.subtaskOwnerUsername,
+      }
+    }).then((odgovor) => {
+      var name = odgovor.name;
+      var string = "successfully added";
+      res.redirect('/project/' + projectId + '?error=' + string);
+    }).catch((napaka) => {
+      var string = "napakaPriDodajanjuSubtaska";
+    res.redirect('/project/' + projectId + '?error=' + string);
+
+    });
+  }
+};
+
+/* PUT - updating subtask owner */
+const addSubtaskOwner = (req, res) => {
+  var projectId = req.params.id;
+  var storyId = req.params.idStory;
+  var subtaskId = req.params.idSubtask;
+  if (!req.body.subtaskOwnerUsername) {
+      
+  } else {
+    axios({
+      method: 'put',
+      url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/subtask/' + subtaskId + '/edit-subtask-owner',
+      data: {
+        subtaskOwnerUsername: req.body.subtaskOwnerUsername,
+      }
+    }).then((odgovor) => {
+      var name = odgovor.name;
+      var string = "successfully added";
+      res.redirect('/project/' + projectId + '?error=' + string);
+    }).catch((napaka) => {
+      var string = "napakaPriPosodabljanjuUporabniskeZgodbe";
+    res.redirect('/project/' + projectId + '?error=' + string);
+
+    });
+  }
+};
+
+/* POST - Add acceptance test to a story */
+const addAcceptanceTest = (req, res) => {
+  var projectId = req.params.id;
+  var storyId = req.params.idStory;
+  if (!req.body.tests) {
+      
+  } else {
+    axios({
+      method: 'post',
+      url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/add-test',
+      data: {
+        tests: req.body.tests,
+      }
+    }).then((odgovor) => {
+      var name = odgovor.name;
+      var string = "successfully added";
+      res.redirect('/project/' + projectId + '?error=' + string);
+    }).catch((napaka) => {
+      var string = "napakaPriDodajanjuSubtaska";
+    res.redirect('/project/' + projectId + '?error=' + string);
+
+    });
+  }
+};
+
+/* POST - Add comment to a story */
+const addComment = (req, res) => {
+  var projectId = req.params.id;
+  var storyId = req.params.idStory;
+  if (!req.body.comment || !req.body.commentOwnerUsername) {
+      
+  } else {
+    axios({
+      method: 'post',
+      url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/add-comment',
+      data: {
+        comment: req.body.comment,
+        commentOwnerUsername: req.body.commentOwnerUsername
+      }
+    }).then((odgovor) => {
+      var name = odgovor.name;
+      var string = "successfully added";
+      res.redirect('/project/' + projectId + '?error=' + string);
+    }).catch((napaka) => {
+      var string = "napakaPriDodajanjuSubtaska";
+    res.redirect('/project/' + projectId + '?error=' + string);
+
+    });
+  }
+};
+
+/* POST - Add a flag to a story */
+const addFlag = (req, res) => {
+  var projectId = req.params.id;
+  var storyId = req.params.idStory;
+  if (!req.body.flag) {
+      
+  } else {
+    axios({
+      method: 'post',
+      url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/add-flag',
+      data: {
+        flag: req.body.flag
+      }
+    }).then((odgovor) => {
+      var name = odgovor.name;
+      var string = "successfully added";
+      res.redirect('/project/' + projectId + '?error=' + string);
+    }).catch((napaka) => {
+      var string = "napakaPriDodajanjuSubtaska";
+    res.redirect('/project/' + projectId + '?error=' + string);
+
+    });
+  }
+};
+
+/* PUT - updating  owner */
+const updateOwner = (req, res) => {
+  var projectId = req.params.id;
+  var storyId = req.params.idStory;
+  if (!req.body.userStorieOwnerUsername) {
+      
+  } else {
+    axios({
+      method: 'put',
+      url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/edit-owner',
+      data: {
+        userStorieOwnerUsername: req.body.userStorieOwnerUsername,
+      }
+    }).then((odgovor) => {
+      var name = odgovor.name;
+      var string = "successfully added";
+      res.redirect('/project/' + projectId + '?error=' + string);
+    }).catch((napaka) => {
+      var string = "napakaPriPosodabljanjuUporabniskeZgodbe";
+    res.redirect('/project/' + projectId + '?error=' + string);
+
+    });
+  }
+};
+
+
+/* DELETE - deleting story */
+const deleteStory = (req, res) => {
+  var projectId = req.params.id;
+  var storyId = req.params.idStory;
+    axios({
+      method: 'delete',
+      url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/delete',
+      
+    }).then((odgovor) => {
+      var name = odgovor.name;
+      var string = "successfully added";
+      res.redirect('/project/' + projectId + '?error=' + string);
+    }).catch((napaka) => {
+      var string = "napakaPriPosodabljanjuUporabniskeZgodbe";
+    res.redirect('/project/' + projectId + '?error=' + string);
+
+    });
+  
+};
+
+module.exports = {
+    podrobnostiProject,
+    addNewUserStory,
+    updateUserStoryInfo,
+    addSubtask,
+    addSubtaskOwner,
+    addAcceptanceTest,
+    addComment,
+    addFlag,
+    updateOwner,
+    deleteStory
+};

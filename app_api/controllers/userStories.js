@@ -201,7 +201,7 @@ const updateUserStoryAddSubtask = (req, res) => {
     });
 };
 
-/* need id of subtaks TO DO */
+/* Updating owner of subtask */
 const updateUserStoryAddOwnerToSubtask = (req, res) => {
   if (!req.params.idProject || !req.params.idUserStory) {
     return res.status(404).json({
@@ -283,7 +283,7 @@ const updateUserStoryAddAcceptanceTests = (req, res) => {
           res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
         } else {
           //tle dodas en acceptance task
-          currentUserStory.tests.push(req.body.tests);
+          currentUserStory.tests.push('#' + req.body.tests);
           project.save((napaka, project) => {
               if (napaka) {
                 res.status(404).json(napaka);
