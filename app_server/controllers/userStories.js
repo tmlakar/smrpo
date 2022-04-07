@@ -31,7 +31,7 @@ var apiParametri = {
       axios
           .get (apiParametri.streznik + '/api/projects/' + projectId)
           .then((odgovor) => {
-              res.render('project-edit',
+              res.render('story-new',
               { name: odgovor.data.name,
                 info: odgovor.data.info,
                 collaborators: odgovor.data.collaborators,
@@ -45,8 +45,36 @@ var apiParametri = {
 
   };
 
+  /* POST - Add new user story */
+const addNewUserStory = (req, res) => {
+    var projectId = req.params.id;
+    if (!req.body.name || !req.body.aboutText || !req.body.priority || !req.body.businessValue || !req.body.size) {
+        "/projects/:idProject/userStory-new"
+    } else {
+      axios({
+        method: 'post',
+        url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory-new',
+        data: {
+            name: req.body.name,
+            aboutText: req.body.aboutText,
+            priority: req.body.priority,
+            businessValue: req.body.businessValue,
+            size: req.body.size,
+        }
+      }).then((odgovor) => {
+        var name = odgovor.name;
+        var string = "successfully added";
+        res.redirect('/projects/' + projectId + '?error=' + string);
+      }).catch((napaka) => {
+        var string = "napakaPriDodajanjuUserja";
+      res.redirect('/projects/' + projectId + '?error=' + string);
+  
+      });
+    }
+  };
+
 
   module.exports = {
-    podrobnostiProject
-          
+    podrobnostiProject,
+    addNewUserStory 
   };

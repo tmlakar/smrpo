@@ -48,8 +48,14 @@ const projectInfo = (req, res) => {
     } else {
       console.log(project);
       // zacetni podatki ko dodajamo user story  
+      //preveri kok je user storijev ze notr za zaporedno stevilko # xx
+      var number = 1;
+      if (project.userStories && project.userStories.length > 0) {
+        var currentLast = project.userStories.length;
+        number = currentLast + 1;
+      }
       project.userStories.push({
-        name: req.body.name,
+        name: "#" + number + " " + req.body.name,
         aboutText: req.body.aboutText,
         priority: req.body.priority,
         businessValue: req.body.businessValue,

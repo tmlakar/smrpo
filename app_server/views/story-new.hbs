@@ -7,7 +7,7 @@
 
                         <!-- uporabniškim zgodbam dodaš zaporedno št. iz baze! -->
 
-                        <form action="/project-new" method="post" style="">
+                        <form  method="post" style="">
                           <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Name</label>
                             <input class="form-control input-form" name="name" id="name" aria-describedby="emailHelp" required>
@@ -15,28 +15,32 @@
 
                         <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Description</label>
-                            <textarea class="form-control input-form-lg" name="info" id="info" aria-describedby="emailHelp" required></textarea>
+                            <textarea class="form-control input-form-lg" name="aboutText" id="info" aria-describedby="emailHelp" required></textarea>
                         </div>
 
                         <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Priority</label>
                             <input class="form-control input-form" name="priority" id="priority" placeholder="Select priority from list" list="priority_list"aria-describedby="emailHelp" required>
                             <datalist id="priority_list">
-                            <option value="High">  </option>
-                            <option value="Medium"></option>
-                            <option value="Low"></option>
+                            <option value="Must have">  </option>
+                            <option value="Should have"></option>
+                            <option value="Could have"></option>
+                            <option value="Won't have this time"></option>
+                            
                             </datalist>   
                         </div>
 
                         <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Business value</label>
-                            <input class="form-control input-form" name="value" id="value" aria-describedby="emailHelp" type="number" required>
+                            <input class="form-control input-form" name="businessValue" id="value" aria-describedby="emailHelp" type="number" min="1" max="10" required>
                             <!-- Preveri business value -->
+                        
+                            
                         </div>
 
                         <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Size</label>
-                            <input class="form-control input-form" name="size" id="size" aria-describedby="emailHelp" type="number" required>
+                            <input class="form-control input-form" name="size" id="size" aria-describedby="emailHelp" type="number" min="1" required>
                         </div>
 
                         <div style="padding-top: 10px !important">

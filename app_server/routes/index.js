@@ -68,9 +68,13 @@ router.get('/sprint-new/:id', ctrlSprint.prikaz);
 router.post('/sprint-new/:id', ctrlSprint.sprintCreate);
 
 
+/* User stories a.k.a uporabniska zgodba */
+var ctrlUserStories = require("../controllers/userStories");
+/* Adding a new user story to a project */
+router.get('/project/:id/new-user-story', ctrlUserStories.podrobnostiProject);
+router.post('/project/:id/new-user-story', ctrlUserStories.addNewUserStory);
 
 // account
-
 
 var ctrlAccount = require("../controllers/account");
 router.get('/account', ctrlAccount.prikaz);
