@@ -31,7 +31,7 @@ const projectInfo = (req, res) => {
             res.status(400).json(napaka);
             console.log("napaka 400");
           } else {
-            addCollaborator(req, res, project);
+            addUserStory(req, res, project);
             //res.status(200).json({ status: "uspešno" });
           }
         });
@@ -46,12 +46,13 @@ const projectInfo = (req, res) => {
     if (!project) {
       res.status(404).json({ sporočilo: "Ne najdem projekta." });
     } else {
+      console.log(project);
       // zacetni podatki ko dodajamo user story  
       project.userStories.push({
         name: req.body.name,
         aboutText: req.body.aboutText,
         priority: req.body.priority,
-        businessValue: req.body.priority,
+        businessValue: req.body.businessValue,
         size: req.body.size,
       });
       project.save((napaka, project) => {
@@ -194,7 +195,7 @@ const updateUserStoryAddSubtask = (req, res) => {
     });
 };
 
-/* */
+/* need id of subtaks TO DO */
 const updateUserStoryAddOwnerToSubtask = (req, res) => {
   if (!req.params.idProject || !req.params.idUserStory) {
     return res.status(404).json({
@@ -218,21 +219,32 @@ const updateUserStoryAddOwnerToSubtask = (req, res) => {
         if (!currentUserStory) {
           res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
         } else {
-          //tle pushas na
-          currentUserStory.subtasks.push({
-            subtaskOwnerUsername: req.body.subtaskOwnerUsername,
-          });
-            
-          project.save((napaka, project) => {
-              if (napaka) {
-                res.status(404).json(napaka);
-              } else {
-                res.status(200).json(project);
-              }
-            });
-          }
 
-        }
+
+          //tle glede na id subtaksa updejtas owner username -> ce je sploh kej subtaskov
+          if (currentUserStory.subtasks && currentUserStory.subtasks.length > 0) {
+            const currentSubtask = currentUserStory.subtasks.id(
+              req.params.idSubtask
+            );
+            if (!currentSubtask) {
+              res.status(404).json({ sporočilo: "Ne najdem subtaksa." });
+            } else {
+              currentSubtask.subtaskOwnerUsername = req.body.subtaskOwnerUsername;
+
+
+              project.save((napaka, project) => {
+                if (napaka) {
+                  res.status(404).json(napaka);
+                } else {
+                  res.status(200).json(project);
+                }
+              });
+            }
+          }
+          
+            
+
+        }}
        else {
         return res.status(404).json({ sporočilo: "Ni obstojecih uporabniskih zgodb." });
       }
@@ -352,7 +364,7 @@ const updateUserStoryAddFlags = (req, res) => {
           res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
         } else {
           //tle dodas en acceptance task
-          currentUserStory.flags.push(req.body.tests);
+          currentUserStory.flags.push(req.body.flag);
           project.save((napaka, project) => {
               if (napaka) {
                 res.status(404).json(napaka);
@@ -453,7 +465,7 @@ const deleteUserStory = (req, res) => {
 
 module.exports = {
     projectInfo,
-    addUserStory,
+    addUserStoryToAProject,
     userStoryInfo,
     updateUserStoryInfo,
     updateUserStoryAddSubtask,

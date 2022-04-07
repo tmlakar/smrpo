@@ -86,25 +86,25 @@ router.post("/sprint-new/:id", ctrlSprints.addSprintToAProject);
 
 /* User stories */
 /* userStory info */
-router.get("/project/:idProject/userStory/:idUserStory", ctrlUserStories.userStoryInfo);
+router.get("/projects/:idProject/userStory/:idUserStory", ctrlUserStories.userStoryInfo);
 /* New user story */
-router.post("/project/:idProject/userStory-new", ctrlUserStories.addUserStory);
+router.post("/projects/:idProject/userStory-new", ctrlUserStories.addUserStoryToAProject);
 /* Updating basic info */
-router.put("/project/:idProject/userStory/:idUserStory/edit-info", ctrlUserStories.updateUserStoryInfo);
+router.put("/projects/:idProject/userStory/:idUserStory/edit-info", ctrlUserStories.updateUserStoryInfo);
 /* Adding subtasks */
-router.post("/project/:idProject/userStory/:idUserStory/add-subtask", ctrlUserStories.updateUserStoryAddSubtask);
+router.post("/projects/:idProject/userStory/:idUserStory/add-subtask", ctrlUserStories.updateUserStoryAddSubtask);
 /* Updating subtaks owner */
-router.put("/project/:idProject/userStory/:idUserStory/edit-subtask-owner", ctrlUserStories.updateUserStoryAddOwnerToSubtask);
+router.put("/projects/:idProject/userStory/:idUserStory/subtask/:idSubtask/edit-subtask-owner", ctrlUserStories.updateUserStoryAddOwnerToSubtask);
 /* Add acceptance test */
-router.post("/project/:idProject/userStory/:idUserStory/add-test", ctrlUserStories.updateUserStoryAddAcceptanceTests);
+router.post("/projects/:idProject/userStory/:idUserStory/add-test", ctrlUserStories.updateUserStoryAddAcceptanceTests);
 /* Add comment / footnote */
-router.post("/project/:idProject/userStory/:idUserStory/add-comment", ctrlUserStories.updateUserStoryAddAComment);
+router.post("/projects/:idProject/userStory/:idUserStory/add-comment", ctrlUserStories.updateUserStoryAddAComment);
 /* Add a flag */
-router.post("/project/:idProject/userStory/:idUserStory/add-flag", ctrlUserStories.updateUserStoryAddFlags);
+router.post("/projects/:idProject/userStory/:idUserStory/add-flag", ctrlUserStories.updateUserStoryAddFlags);
 /* Update userStory owner */
-router.put("/project/:idProject/userStory/:idUserStory/edit-owner", ctrlUserStories.updateUserStoryAddOwner);
+router.put("/projects/:idProject/userStory/:idUserStory/edit-owner", ctrlUserStories.updateUserStoryAddOwner);
 /* Delete userStory */
-router.delete("/project/:idProject/userStory/:idUserStory/delete", ctrlUserStories.deleteUserStory);
+router.delete("/projects/:idProject/userStory/:idUserStory/delete", ctrlUserStories.deleteUserStory);
 
 
 

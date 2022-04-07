@@ -26,7 +26,7 @@ const userStoriesShema = new mongoose.Schema({
         enum: ["Must have", "Should have", "Could have", "Won't have this time"]
     },
     size: {type: Number},
-    businessValue: {type: String},
+    businessValue: {type: Number},
     tests: [{type: String}],
     subtasks: [subtaskShema],
     comments: [userStoryCommentsShema],
