@@ -35,6 +35,7 @@ var apiParametri = {
           const futureSprints = [];
           var i3 = 0;
           var sprinti = odgovor.data.sprints;
+          var uporabniskeZgodbe = odgovor.data.userStories;
           var now = new Date();
           for(let i=0; i< sprinti.length; i++){
             //če je finished
@@ -62,6 +63,7 @@ var apiParametri = {
               // finishedSprints: finishedSprints,
               // inProcessSprints: inProcessSprints,
               // futureSprints: futureSprints,
+              userStories: uporabniskeZgodbe,
               admin: nivoDostopa,
               layout: 'layout-user'
             });
@@ -75,6 +77,7 @@ var apiParametri = {
               // finishedSprints: finishedSprints,
               // inProcessSprints: inProcessSprints,
               // futureSprints: futureSprints,
+              userStories: uporabniskeZgodbe,
               admin: nivoDostopa,
               layout: 'layout'
             });

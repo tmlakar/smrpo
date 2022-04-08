@@ -165,9 +165,9 @@ ________________________________________________
 
 
 curl -X POST \
-       -d "name=Recommendio&info=Recommendio is a collaborative recommending engine." \
+       -d "name=Tjasa&surname=Mlakar&username=tmlakar1&email=tjasamlakar@gmail.com&role=admin&password=zatvojvsakdan." \
        -H "Content-Type: application/x-www-form-urlencoded" \
-       "http://localhost:3000/project-new"
+       "http://localhost:3000/api/user-new"
 
 
 curl -X PUT \
@@ -184,12 +184,51 @@ curl -X DELETE \
 ________ user story _______
 
 curl -X POST \
-       -d "name=#1 Dodajanje uporabnikov&aboutText=Dodas uporabnike.&priority=Must have&businessValue=10&size=3" \
+       -d "name=1 Dodajanje uporabnikov&aboutText=Dodas uporabnike&priority=Must have&businessValue=10&size=3" \
        -H "Content-Type: application/x-www-form-urlencoded" \
-       "http://localhost:3000/project/624c1edb3cde86253fe03767/userStory-new"
+       "http://localhost:3000/api/project/624e92711c36154b522b6286/userStory-new"
+
+
+curl -X PUT \
+       -d "name=1 Dodajanje uporabnikov&aboutText=Dodas uporabnike in jim priredis nekaj.&priority=Must have&businessValue=9&size=3" \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       "http://localhost:3000/api/projects/624e92711c36154b522b6286/userStory/624ec2aacee888e0103ba81d/edit-info"
+
+curl -X POST \
+       -d "name=REST API povezovanje z streznikom. [1h]&subtaskOwnerUsername=tmlakar" \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       "http://localhost:3000/api/projects/624e92711c36154b522b6286/userStory/624ec2aacee888e0103ba81d/add-subtask"
+
+curl -X PUT \
+       -d "subtaskOwnerUsername=evvid" \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       "http://localhost:3000/api/projects/624e92711c36154b522b6286/userStory/624ec2aacee888e0103ba81d/subtask/624ecb4d96fc510d3c4db110/edit-subtask-owner"
+
+curl -X POST \
+       -d "tests=# Preveri delovanje." \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       "http://localhost:3000/api/projects/624e92711c36154b522b6286/userStory/624ec2aacee888e0103ba81d/add-test"
+
+
+curl -X POST \
+       -d "comment=Ni mi jasno kaj pomeni parameter velocity.&commentOwnerUsername=tmlakar" \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       "http://localhost:3000/api/projects/624e92711c36154b522b6286/userStory/624ec2aacee888e0103ba81d/add-comment"
+
+curl -X POST \
+       -d "flag=Unassigned" \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       "http://localhost:3000/api/projects/624e92711c36154b522b6286/userStory/624ec2aacee888e0103ba81d/add-flag"
+
+
+
+curl -X PUT \
+       -d "userStorieOwnerUsername=abrelih" \
+       -H "Content-Type: application/x-www-form-urlencoded" \
+       "http://localhost:3000/api/projects/624e92711c36154b522b6286/userStory/624ec2aacee888e0103ba81d/edit-owner"
+
+       comment: req.body.comment,
+            commentOwnerUsername: req.body.commentOwnerUsername
 
        name: req.body.name,
-        aboutText: req.body.aboutText,
-        priority: req.body.priority,
-        businessValue: req.body.priority,
-        size: req.body.size,
+            subtaskOwnerUsername: req.body.subtaskOwnerUsername,
