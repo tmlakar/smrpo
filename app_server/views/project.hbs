@@ -15,10 +15,10 @@
 
   <div class="tab-content">
     <div id="backlog" class=" active tab-pane fade">
-      <h3>Product backlog</h3>
+      
       <div class="card-group">
       <div class="row">
-    {{#each stories as |story|}}
+    {{#each userStories as |story|}}
 
 
         <div class="card projekt-card" style="margin: 20px !important;
@@ -104,7 +104,7 @@
               </div>
             </div>
           {{!-- gumba za edit projectov --}}
-        {{/each}} -->
+        {{/each}} 
       </div>
       {{#if admin}}
         {{!-- gumb za dodajanje novega sprinta - se pokaže le če je prijavljen admin--}}
