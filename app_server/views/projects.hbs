@@ -4,25 +4,21 @@
 
 {{!-- projekti -> dinamično iz baze s pomočjo REST API --}}
 <div class="card-group">
-<div class="row">
+<div class="row ">
     {{#each projects as |project|}}
 
-
-        <div class="card projekt-card" style="margin: 20px !important;
-        background-color: var(--c4); border: 4px solid var(--c4) !important;">
+        <div class="card col-lg-2 projekt-management-card">
           <div class="card-body">
-            <a href="/project/{{project._id}}#backlog" style="color: orange"><h4><i>{{project.name}}</i></h4></a>
-            <br>
-            <p>{{project.info}}</p>
-            <p></p>
-            <a href="/projects/{{project._id}}"><button type="button" class="btn submit-form btn-dark"
-            style="background-color: var(--c5) !important">Edit project</button></a></td>
+            <h4>{{project.name}}</h4>
+            <p>{{formatirajInfo project.info}}</p>
+            
+            <a href="/projects/{{project._id}}"><button type="button" class="btn projekt-management-button btn-dark"
+            style="background-color: var(--c2) !important">Edit project</button></a>
+            <a href="/project/{{project._id}}#backlog"><button type="button" class="btn projekt-management-button btn-dark"
+            style="background-color: var(--c5) !important">Go to project</button></a>
 
           </div>
         </div>
-      {{!-- gumba za edit projectov --}}
-
-
 
     {{/each}}
   </div>
@@ -35,3 +31,35 @@
     </div>
 
 </div>
+
+
+{{!-- modal window if project was successfully added --}}
+<div id="myModal31" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>New project has been successfully created!</p>
+                </div>
+                
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyAddedProject}}
+<script>
+    $(document).ready(function(){
+        $("#myModal31").modal('show');
+        
+        setTimeout(function() {
+            
+            $('#myModal31').modal('hide');   
+        }, 7000);
+    });
+</script>
+{{/if}}

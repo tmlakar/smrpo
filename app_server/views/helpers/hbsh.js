@@ -98,3 +98,15 @@ hbs.registerHelper('formatirajDatum', function (value) {
           return datum;
 });
 
+
+hbs.registerHelper('formatirajInfo', function (value) {
+  var l = value.length;
+  var trimmedString = value.substring(0, 49);
+  if (l >= 50) {
+    var dots = " ...";
+    var trimmedString = trimmedString.concat(dots);
+  }
+  
+  return trimmedString;
+
+});

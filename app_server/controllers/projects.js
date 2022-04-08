@@ -19,11 +19,22 @@ var seznam = (req, res) => {
   //var rawPayload = window.atob(encodedPayload);
   var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
   var user = JSON.parse(rawPayload);
+
+  var successfullyAdded = req.query.add;
+  var uspesnoDodano = false;
+  if (successfullyAdded == "successfully added") {
+    uspesnoDodano = true;
+  }
+
+  
     axios
       .get (apiParametri.streznik + '/api/projects', {})
       .then((odgovor) => {
           res.render('projects', {
-          projects: odgovor.data});
+          projects: odgovor.data,
+          successfullyAddedProject: uspesnoDodano,
+          
+        });
       });
 };
 
@@ -92,7 +103,8 @@ var podrobnostiProject = (req, res) => {
           info: req.body.info
         }
       }).then(() => {
-        res.redirect('/projects', );
+        var string = "successfully added";
+        res.redirect('/projects?add=' + string);
       }).catch((napaka) => {
         var string = "napaka";
       res.redirect('/project-new?error=' + string);
@@ -125,7 +137,8 @@ var podrobnostiProject = (req, res) => {
        }
       })
       .then(() => {
-          res.redirect('/projects');
+          var string = "success";
+          res.redirect('/projects/' + projectId + '?editp=' + string);
       }).catch((error) => {
         var string = "napaka";
         res.redirect('/projects/' + projectId + '?error=' + string);

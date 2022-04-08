@@ -43,6 +43,12 @@ var apiParametri = {
    uspesnoEdited = true;
  }
 
+ var successfullyEditedP = req.query.editp;
+  var uspesnoPosodobljeno = false;
+  if (successfullyEditedP == "success") {
+    uspesnoPosodobljeno = true;
+  }
+
           let URL1 = apiParametri.streznik + '/api/users';
           let URL2 = apiParametri.streznik + '/api/projects/' + projectId;
         
@@ -63,7 +69,8 @@ var apiParametri = {
               napaka1: jeNapaka,
               success: uspesnoRemoved,
               successfullyAdded: uspesnoAdded,
-              successfullyEdited: uspesnoEdited
+              successfullyEdited: uspesnoEdited,
+              successfullyEditedProject: uspesnoPosodobljeno,
             });
           });
   };

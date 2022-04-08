@@ -759,3 +759,46 @@ p {
 #modalnoOknoStory {
     width: 100% !important
 }
+
+
+.projekt-management-card {
+    margin: 20px !important;
+    background-color: var(--c4) !important; 
+    border: 4px solid var(--c4) !important;
+    box-shadow: rgba(0, 0, 0, 0.24) 8px 8px 5px;
+    height: 320px !important;
+    padding: 5px !important
+}
+
+.projekt-management-card>div>h4 {
+    color: var(--c7) !important;
+    font-size: 19px !important;
+    height: 60px !important;
+}
+
+.projekt-management-card>div>p {
+    padding: 0px !important;
+    padding-top: 10px !important;
+    font-size: 15px !important;
+    height: 60px !important;
+    color: white !important;
+    font-style: italic !important;
+
+}
+
+.projekt-management-card>div>a {
+    padding-top: 16px !important;
+}
+
+.projekt-management-button {
+    
+    border-radius: 20px !important;
+    border: 0px solid !important;
+    height: 50px !important;
+    width: 150px !important;
+    color: white;
+    margin-top: 10px !important;
+    margin-left: 0px !important;
+}
+
+

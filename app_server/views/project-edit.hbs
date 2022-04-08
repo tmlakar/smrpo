@@ -263,8 +263,8 @@
  
 {{!-- ______________________________________________ modal windows _________________________________________________ --}}
 
-{{!-- modal window if user was successfully edited --}}
-<div id="myModal3" class=" modal" tabindex="-1" role="dialog">
+{{!-- modal window if project was successfully edited --}}
+<div id="myModal5" class=" modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content alert-s-200">
                 <div class="modal-header" style="background-color: var(--c5) !important">
@@ -274,7 +274,26 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>User's project role was successfully edited!</p>
+                    <p>Project information were successfully updated!</p>
+                </div>
+                
+                </div>
+            </div>
+        </div>
+
+
+{{!-- modal window if user was successfully edited --}}
+<div id="myModal4" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>User's project role was successfully updated!</p>
                 </div>
                 
                 </div>
@@ -386,11 +405,24 @@
 {{#if successfullyEdited}}
 <script>
     $(document).ready(function(){
-        $("#myModal3").modal('show');
+        $("#myModal4").modal('show');
         
         setTimeout(function() {
             
-            $('#myModal3').modal('hide');   
+            $('#myModal4').modal('hide');   
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+{{#if successfullyEditedProject}}
+<script>
+    $(document).ready(function(){
+        $("#myModal5").modal('show');
+        
+        setTimeout(function() {
+            
+            $('#myModal5').modal('hide');   
         }, 7000);
     });
 </script>
