@@ -131,14 +131,14 @@
                                     <div style="padding: 10px !important">
                                         <!-- save changes -->
                                         
-                                    <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
+                                    <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; !important">Save changes</button>
                                     
                                     </form>
                                     <!-- remove collaborator -->
                                     
                                     <form action="url" method="post" id="collaboratorRemove">
                                     <div>
-                                    <button type="submit" class="btn submit-form" style="background-color: var(--c2)!important; float: left !important">Remove collaborator</button>
+                                    <button type="submit" class="btn submit-form" style="margin-top: -50px !important; background-color: var(--c1)!important; float: right !important; width: 200px !important">Remove collaborator</button>
                                     </div>
                                     </form>
                                     </div>
@@ -260,10 +260,26 @@
 
 
 
+ 
+{{!-- ______________________________________________ modal windows _________________________________________________ --}}
 
-
-
-
+{{!-- modal window if user was successfully edited --}}
+<div id="myModal3" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>User's project role was successfully edited!</p>
+                </div>
+                
+                </div>
+            </div>
+        </div>
 
 {{!-- modal window if user was successfully added --}}
 <div id="myModal3" class=" modal" tabindex="-1" role="dialog">
@@ -354,6 +370,20 @@
 
 
 {{#if successfullyAdded}}
+<script>
+    $(document).ready(function(){
+        $("#myModal3").modal('show');
+        
+        setTimeout(function() {
+            
+            $('#myModal3').modal('hide');   
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{#if successfullyEdited}}
 <script>
     $(document).ready(function(){
         $("#myModal3").modal('show');

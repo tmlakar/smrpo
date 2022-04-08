@@ -36,6 +36,12 @@ var apiParametri = {
   if(success == "successfully added"){
    uspesnoAdded = true;
  }
+ // je successfully edited
+ var successfullyEdited = req.query.edit;
+ var uspesnoEdited = false;
+  if(successfullyEdited == "successfully edited"){
+   uspesnoEdited = true;
+ }
 
           let URL1 = apiParametri.streznik + '/api/users';
           let URL2 = apiParametri.streznik + '/api/projects/' + projectId;
@@ -57,6 +63,7 @@ var apiParametri = {
               napaka1: jeNapaka,
               success: uspesnoRemoved,
               successfullyAdded: uspesnoAdded,
+              successfullyEdited: uspesnoEdited
             });
           });
   };
@@ -132,7 +139,8 @@ const editProjectCollaboratorRole = (req, res) => {
         project_role: req.body.project_role
       }
     }).then(() => {
-      res.redirect('/projects/' + projectId);
+      var string = "successfully edited"
+      res.redirect('/projects/' + projectId + '?edit=' + string);
     }).catch((napaka) => {
       var string = "napaka";
     res.redirect('/projects/' + projectId + '?error=' + string);
