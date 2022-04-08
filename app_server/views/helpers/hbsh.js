@@ -1,4 +1,5 @@
 const hbs = require("hbs");
+const { bus } = require("nodemon/lib/utils");
 
 
 
@@ -53,6 +54,9 @@ hbs.registerHelper('isProductManager', function (value) {
 });
 
 hbs.registerHelper('firstLetterOfUsername', function (value) {
+  if (value == null) {
+    value = "nul";
+  }
   let letter = value.charAt(0);
   letter = letter.toUpperCase();
   return letter;
@@ -66,7 +70,31 @@ hbs.registerHelper('isUser', function (value) {
   return false;
 });
 
-/* if scrum master, can edit project */
+/* formatiranje datuma */
 
+hbs.registerHelper('formatirajDatum', function (value) {
+  var date_parsed = Date.parse(value);
+          var d = new Date(date_parsed);
+          var month = d.getUTCMonth() + 1; //months from 1-12
+          if (month < 10) {
+            month = "0" + month;
+          }
+          var day = d.getUTCDate();
+          if (day < 10) {
+            day = "0" + day;
+          }
+          var year = d.getUTCFullYear();
+          
+          var hour = d.getUTCHours()+2;
+          if (hour < 10) {
+            hour = "0" + hour;
+          }
+          var minute = d.getUTCMinutes();
+          if (minute < 10) {
+            minute = "0" + minute;
+          }
 
+          var datum = day+ '.' + month + '.' + year;
+          return datum;
+});
 

@@ -646,3 +646,116 @@ p {
     width: 9ch;
     overflow: hidden;
   }
+
+
+.projekt-user-card {
+    box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;
+    margin-top: 20px !important;
+    background-color: #f1f1f1 !important;
+    border: 3px solid var(--c2) !important;
+    width: 300px !important;
+    height: 250px !important;
+    margin-top: 30px !important;
+    margin-right: 30px !important;
+    padding: 3px !important;
+}
+
+.projekt-user-card>div>div>div>h4 {
+    font-size: 15px !important;
+    line-height: 20px !important;
+    color: var(--c3) !important;
+    height: 65px !important;
+    
+    
+}
+
+#user-story-info>span {
+    color: var(--c2) !important;
+}
+
+.card-flagss>div>span {
+    color: var(--c4) !important;
+    width: 100px !important;
+    height: 30px !important;
+    font-size: 13px !important;
+    text-align: center !important;
+    border: 1px solid var(--c4) !important;
+    border-radius: 10px !important;
+    padding: 6px !important;
+    margin-top: 5px !important;
+    margin-right: 5px !important
+    
+    
+}
+
+.card-flagss {
+    padding: 0px !important
+}
+
+
+
+#storyOwner_circle {
+    border: 2px solid var(--c2) !important;
+    padding: 2px !important;
+    text-align: center;
+    height: 40px !important;
+    width: 40px !important;
+    border-radius: 20px !important;
+    margin-right: -30px !important;
+    color: #EEEEEE !important;
+    font-size: 15px !important;
+    float: right !important;
+}
+
+.storyOwner_circle-d {
+    margin-bottom: -1px !important;
+    margin-right: -1px !important
+}
+
+.user-card-info>p {
+    font-size: 12px !important;
+    color: var(--c3) !important;
+    margin-bottom: 20px !important;
+    padding: 0px !important;
+}
+
+/* */
+.projekt-sprint {
+    box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;
+    background-color: var(--c5) !important;
+    border: none !important;
+    width: 300px !important;
+    height: 250px !important;
+    margin-top: 30px !important;
+    margin-right: 30px !important;
+    padding: 15px !important;
+}
+
+.projekt-sprint>div>h4 {
+    font-size: 20px !important;
+    line-height: 20px !important;
+    color: var(--c7) !important;
+    height: 30px !important;
+}
+
+.projekt-sprint>div>p {
+    padding: 0px !important;
+    font-size: 14px !important;
+    color: var(--c3) !important;
+}
+
+.projekt-sprint>div>p>span {
+    padding: 0px !important;
+    font-size: 14px !important;
+    color: var(--c7) !important;
+}
+
+.nav-tabs-proj {
+    color: #000000 !important
+}
+
+/* modalno okno za user story */
+
+#modalnoOknoStory {
+    width: 100% !important
+}

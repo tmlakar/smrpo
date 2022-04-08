@@ -5,7 +5,48 @@
 <h3>{{name}}</h3>
 
 
-<div class="">
+<div class="row" style="padding-top:">
+
+  {{!-- additional project infos --}}
+  <div class="col-lg-2" style="padding-top: 20px !important; padding-right: 20px !important">
+    {{!-- par informacij o projektu --}}
+    <div class="card account-info" style="background-color: var(--c4) !important;">
+                <div class="card-body">
+                    <h5 class="card-title">Additional project information</h5>
+                        {{!-- info --}}
+                        <p class="card-text"><span style="color: var(--c2) !important;">Project description:</span>
+                        <br>
+                        {{info}}
+                        </p>
+                        {{!-- produktni vodja --}}
+                        <p class="card-text"><span style="color: var(--c2) !important;">Product manager:</span>
+                        <br>
+                        {{#each productManagers as |productManager|}}
+                          {{productManager.username}}
+                          <br>
+                        {{/each}}
+                        
+                        </p>
+                        {{!-- tean members --}}
+                        <p class="card-text"><span style="color: var(--c2) !important;">Team members:</span>
+                        <br>
+                        {{#each teamMembers as |teamMember|}}
+                          {{teamMember.username}}
+                          <br>
+                        {{/each}}
+                        
+                        </p>
+
+                </div>
+
+            </div>
+
+            
+    
+  </div>
+
+{{!-- product backlog / sprints --}}
+<div class="col-lg-10" style="margin-top: 20px !important">
   <ul class="nav nav-tabs">
 
     <li class="active"><a class="nav-link" data-toggle="tab" href="#backlog" onclick="location.href='#backlog'">Product backlog</a></li>
@@ -13,93 +54,270 @@
 
   </ul>
 
+  {{!-- product backlog -> prikazovanje zgodb + dodajanje novih --}}
   <div class="tab-content">
     <div id="backlog" class=" active tab-pane fade">
+      
       
       <div class="card-group">
       <div class="row">
     {{#each userStories as |story|}}
+        <a type="button"data-toggle="modal" data-target="#modalnoOknoStory">
+        <div class="card projekt-user-card" style="">
+          <div class="card-body user-card-info">
+            <div class="row" style="padding: 0px !important;">
+                <div class=" col-lg-10" >
+                  <h4><i>{{story.name}}</i></h4>
+                </div>
+            
+                <div class="storyOwner_circle-d col-lg-2 " >
+                    <button  id="storyOwner_circle" type="button" 
+                            class="btn btn-dark open-collaboratorEdit" disabled>
+                            {{firstLetterOfUsername story.userStorieOwnerUsername}}
+                    </button>
+                  </div>
+            </div>
 
+            <p id="user-story-info"><span>Priority:</span> {{story.priority}}<br>
+              <span>Business value:</span> {{story.businessValue}}<br>
+              <span>Velocity:</span> {{story.size}}
+            </p>
+            
+            <div class="row" style="padding: 0px !important;">
+              <div class="card-flagss col-lg-12">
+                <div class="row">
+                {{#each story.flags as |flag|}}
+                  <span id="flag-info">
+                  {{flag}}
+                  </span>
+                {{/each}}
+                </div>
+              </div>
+            </div>
+            
+             <!-- ANJA poveži modalno okno -->
 
-        <div class="card projekt-card" style="margin: 20px !important;
-        background-color: var(--c4); border: 4px solid var(--c4) !important;">
-          <div class="card-body">
-            <!-- Zaporedna št tukaj pred imenom? -->
-            <a href="/project/{{story._id}}" style="color: orange"><h4><i>{{story.name}}</i></h4></a>
-            <br>
-            <p>{{story.info}}</p>
-            <p></p>
-            <a href="/projects/{{story._id}}"><button type="button" class="btn submit-form btn-dark"
-            style="background-color: var(--c5) !important">Edit</button></a></td> <!-- ANJA poveži modalno okno -->
-
+            
           </div>
+          
         </div>
-        <!-- modalno okno tukaj? Ja -->
+        </a>
+        <!-- modalno okno tukaj? -->
+
+      
     {{/each}}
 
-      </div>
-      </div>
-      <div><a href=""><button id="" type="button" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right" style="background-color: var(--c1) !important; border: 3px solid var(--c1) !important"><i class="fa-solid fa-plus dodaj"></i></button></a></div><br>
-    </div>
 
 
-        <div id="sprints" class="tab-pane fade">
-      <br>
-      {{!--<h3>Sprints</h3>--}}
-      <br>
-      <div class="row">
+      </div>
+      </div>
+
+      <div class="modal fade" id="modalnoOknoStory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content modal-content-ekipa">
+                <div class="modal-header modal-header-ekipa">
+                  <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">User story - link id no. and name</h5>
+                  <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                {{!-- zavihki za uporabnisko --}}
+              <ul class="nav nav-tabs">
+                  <li class="active"><a class="nav-link" data-toggle="tab" href="#info" onclick="location.href='#info'">Information</a></li>
+                  <li><a class="nav-link" data-toggle="tab" href="#atest" onclick="location.href='#atest'">Acceptance test</a></li>
+                  <li><a class="nav-link" data-toggle="tab" href="#tasks" onclick="location.href='#tasks'">Tasks</a></li>
+                  <li><a class="nav-link" data-toggle="tab" href="#comments" onclick="location.href='#comments'">Comments</a></li>
+                </ul>
+
+                <!-- Tab 1 - Information -->
+                <div class="tab-content">
+                <div id="info" class=" active tab-pane fade">
+                <div class="modal-body">
+                  <form method="post" id="" action="url">
+
+                    <!-- Name -->                
+                    <div class="mb-3" style="padding-bottom: 10px !important">
+                            <label class="form-label" style="padding-top: 10px !important">Name</label>
+                            <input class="form-control input-form" name="name" id="name" aria-describedby="emailHelp" required>
+                    </div>
+
+                      <!-- Description -->
+                    <div class="mb-3" style="padding-bottom: 10px !important">
+                            <label class="form-label" style="padding-top: 10px !important">Description</label>
+                            <textarea class="form-control input-form-lg" name="aboutText" id="info" aria-describedby="emailHelp" required></textarea>
+                    </div>
+
+                      <!-- Priority -->
+                    <div class="mb-3" style="padding-bottom: 10px !important">
+                            <label class="form-label" style="padding-top: 10px !important">Priority</label>
+                            <input class="form-control input-form" name="priority" id="priority" placeholder="Select priority from list" list="priority_list"aria-describedby="emailHelp" required>
+                            <datalist id="priority_list">
+                            <option value="Must have">  </option>
+                            <option value="Should have"></option>
+                            <option value="Could have"></option>
+                            <option value="Won't have this time"></option>
+                            
+                            </datalist>   
+                    </div>
+
+                    <!-- value --->
+                    <div class="mb-3" style="padding-bottom: 10px !important">
+                        <label class="form-label" style="padding-top: 10px !important">Business value</label>
+                        <input class="form-control input-form" name="businessValue" id="value" aria-describedby="emailHelp" type="number" min="1" max="10" required>                          
+                    </div>
+
+                    <!-- Size --->
+                    <div class="mb-3" style="padding-bottom: 10px !important">
+                        <label class="form-label" style="padding-top: 10px !important">Size</label>
+                        <input class="form-control input-form" name="size" id="size" aria-describedby="emailHelp" type="number" min="1" required>
+                    </div>
+
+                    <!-- Sprint - SPRINT LIST --->
+                    <div class="mb-3" style="padding-bottom: 10px !important">
+                        <label class="form-label" style="padding-top: 10px !important">Sprint</label>
+                        <input class="form-control input-form" name="size" id="size" aria-describedby="emailHelp" required>
+                    <!-- kolaboratorji -->
+                    </div>
+
+
+                    <br><br>
+                    
+
+                    <!-- save changes -->           
+                      <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
+                                    
+                </form>
+              </div> <!-- end modal body -->
+              
+            
+                </div>
+
+              <!-- Tab 2 - Acceptance test -->
+              <div id="atest" class="tab-pane fade">
+              <div class="modal-body">
+                  <form method="post" id="" action="url">
+
+                    <!-- Acceptance tests -->
+                    <div class="mb-3" style="padding-bottom: 10px !important">
+                        <input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="" id="" aria-describedby="emailHelp" readonly>All acceptance tests for story
+                        <!-- bom spremenila style kasneje -->
+                    </div>
+
+                      <!-- Add acceptance test -->
+                    <div class="mb-3" style="padding-bottom: 10px !important">
+                            <label class="form-label" style="padding-top: 10px !important">Add acceptance test</label>
+                            <textarea class="form-control input-form-lg" name="aboutText" id="info" aria-describedby="emailHelp" required></textarea>
+                    </div>
+
+                    <!-- save changes -->           
+                      <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Add</button>
+                                    
+                </form>
+              </div> <!-- end modal body -->        
+
+                
+              </div>
+
+              <!-- Tab 3 - Tasks -->
+              <div id="tasks" class="tab-pane fade">
+              <div class="modal-body">
+                  <form method="post" id="" action="url">
+
+                    <!-- Tasks -->
+                    <div class="mb-3" style="padding-bottom: 10px !important">
+                        <input class="form-control input-form" type="checkbox" style="background-color: rgb(196, 196, 196) !important" name="" id="" aria-describedby="emailHelp" readonly>All tasks for story
+                        <!-- bom spremenila style kasneje -->
+                    </div>
+
+                      <!-- Add tasks -->
+                    <div class="mb-3" style="padding-bottom: 10px !important">
+                            <label class="form-label" style="padding-top: 10px !important">Add task</label>
+                            <textarea class="form-control input-form-lg" name="aboutText" id="info" aria-describedby="emailHelp" required></textarea>
+                    </div>
+
+                    <!-- save changes -->           
+                      <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Add</button>
+                                    
+                </form>
+              </div> <!-- end modal body -->
+              </div>
+
+              <!-- Tab 4 - Comments -->
+              <div id="comments" class="tab-pane fade">
+              <div class="modal-body">
+                  <form method="post" id="" action="url">
+
+                    <!-- Comments -->
+                    <div class="mb-3" style="padding-bottom: 10px !important">
+                        <label class="form-label" style="padding-top: 10px !important">Username</label>
+                        <input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="" id="" aria-describedby="emailHelp" readonly>All comments for story
+                        <!-- bom spremenila style kasneje -->
+                    </div>
+
+                      <!-- Add comment -->
+                    <div class="mb-3" style="padding-bottom: 10px !important">
+                            <label class="form-label" style="padding-top: 10px !important">Add comment</label>
+                            <textarea class="form-control input-form-lg" name="aboutText" id="info" aria-describedby="emailHelp" required></textarea>
+                    </div>
+
+                    <!-- save changes -->           
+                      <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Comment</button>
+                                    
+                  </form>
+              </div> <!-- end modal body -->
+              </div>
+
+            </div>
+        </div>
+        </div>
+        </div>
+    
+
+
+
+        <a href="/project/{{id}}/new-user-story"><button id="" type="button" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right" style="background-color: var(--c1) !important; border: 3px solid var(--c1) !important"><i class="fa-solid fa-plus dodaj"></i></button></a></div><br>
+      
+
+
+      {{!-- sprinti --}}
+      <div id="sprints" class="tab-pane fade">
+      
+      
+      <div class="row" style="">
         {{!---prikaz dodanih sprintov, ki se jih pridobi iz apija --}}
         {{#each sprints as |sprint|}}
-            <div class="card projekt-card col-sm-3" style="margin: 20px !important;
-            background-color: var(--c5); border: 4px solid var(--c5) !important;">
+            <div class="card projekt-sprint col-sm-3" style="">
               <div class="card-body">
-                <h2 align="center" style="color: white"><b>Sprint {{number}}</b></h2>
-                <small>From:</small>
-                <h5 class ="cut_text">{{sprint.startDate}}</h5>
-                <small>To:</small>
-                <h5 class ="cut_text">{{sprint.endDate}}</h5>
-                <br>
-                <br>
-                <b style="font-size:1.4vw">Sprint size:&nbsp;&nbsp;&nbsp;</b>
-                <span style="color: #023047;font-size:1.2vw;"><b>{{sprint.sprintSize}}</b></span>
+                <h4 ><b>Sprint {{number}}</b></h4>
+                <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
+                <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
+                <span>Sprint size:</span> {{sprint.sprintSize}}</p>
 
               </div>
             </div>
 
-          {{!-- gumba za edit projectov --}}
         {{/each}}
          {{!---prikaz dodanih sprintov, ki se jih pridobi iz apija --}}
         {{#each inProcessSprints as |sprint|}}
-            <div class="card projekt-card col-sm-3" style="margin: 20px !important;
-            background-color: var(--c5); border: 4px solid var(--c5) !important;">
+            <div class="card projekt-sprint col-sm-3" style="">
               <div class="card-body">
-                <h2 align="center" style="color: white"><b>Sprint {{number}}</b></h2>
-                <small>From:</small>
-                <h5 class ="cut_text">{{sprint.startDate}}</h5>
-                <small>To:</small>
-                <h5 class ="cut_text">{{sprint.endDate}}</h5>
-                <br>
-                <br>
-                <b style="font-size:1.4vw">Sprint size:&nbsp;&nbsp;&nbsp;</b>
-                <span style="color: #023047;font-size:1.2vw;"><b>{{sprint.sprintSize}}</b></span>
+                <h4 ><b>Sprint {{number}}</b></h4>
+                <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
+                <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
+                <span>Sprint size:</span> {{sprint.sprintSize}}</p>
 
               </div>
             </div>
           {{!-- gumba za edit projectov --}}
         {{/each}}
         {{#each futureSprints as |sprint|}}
-            <div class="card projekt-card col-sm-3" style="margin: 20px !important;
-            background-color: var(--c5); border: 4px solid var(--c5) !important;">
+            <div class="card projekt-sprint col-sm-3" style="">
               <div class="card-body">
-                <h2 align="center" style="color: white"><b>Sprint {{number}}</b></h2>
-                <small>From:</small>
-                <h5 class ="cut_text">{{sprint.startDate}}</h5>
-                <small>To:</small>
-                <h5 class ="cut_text">{{sprint.endDate}}</h5>
-                <br>
-                <br>
-                <b style="font-size:1.4vw">Sprint size:&nbsp;&nbsp;&nbsp;</b>
-                <span style="color: #023047;font-size:1.2vw;"><b>{{sprint.sprintSize}}</b></span>
+                <h4 ><b>Sprint {{number}}</b></h4>
+                <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
+                <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
+                <span>Sprint size:</span> {{sprint.sprintSize}}</p>
 
               </div>
             </div>
@@ -110,9 +328,17 @@
         {{!-- gumb za dodajanje novega sprinta - se pokaže le če je prijavljen admin--}}
         <div><a href="/sprint-new/{{id}}"><button id="" type="button" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right"><i class="fa-solid fa-plus dodaj"></i></button></a></div><br>
       {{/if}}
+
+
     </div>
 </div>
 </div>
+
+
+
+
+
+
 <script type="text/javascript">
 $(document).ready(function(){
     var anchorHash = window.location.href.toString();
@@ -124,5 +350,9 @@ $(document).ready(function(){
     }
 });
 </script>
+
+</div>
+
+
 
 </div>
