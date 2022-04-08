@@ -35,7 +35,29 @@ var apiParametri = {
           const futureSprints = [];
           var i3 = 0;
           var sprinti = odgovor.data.sprints;
+
+          // uporabniske zgodbe
           var uporabniskeZgodbe = odgovor.data.userStories;
+
+          // additional project info
+          var info = odgovor.data.info;
+          var collaborators = odgovor.data.collaborators;
+
+          var teamMembers = [];
+          var productManagers = [];
+          var i4 = 0;
+          var i5 = 0;
+          for (let i = 0; i < collaborators.length; i++) {
+            if (collaborators[i].project_role == "Team Member") {
+              teamMembers[i4] = collaborators[i];
+              i4 = i4 + 1;
+            }
+            if (collaborators[i].project_role == "Product Manager") {
+              productManagers[i5] = collaborators[i];
+              i5 = i5 + 1;
+            }
+          }
+
           var now = new Date();
           for(let i=0; i< sprinti.length; i++){
             //če je finished
@@ -55,6 +77,7 @@ var apiParametri = {
             }
           }
 
+        
           if (vloga == "user") {
             res.render('project',
             { name: odgovor.data.name,
@@ -63,8 +86,11 @@ var apiParametri = {
               // finishedSprints: finishedSprints,
               // inProcessSprints: inProcessSprints,
               // futureSprints: futureSprints,
+              teamMembers: teamMembers,
+              productManagers: productManagers,
               userStories: uporabniskeZgodbe,
               admin: nivoDostopa,
+              info: info,
               layout: 'layout-user'
             });
           } else {
@@ -78,7 +104,10 @@ var apiParametri = {
               // inProcessSprints: inProcessSprints,
               // futureSprints: futureSprints,
               userStories: uporabniskeZgodbe,
+              teamMembers: teamMembers,
+              productManagers: productManagers,
               admin: nivoDostopa,
+              info: info,
               layout: 'layout'
             });
         });
