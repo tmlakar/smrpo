@@ -95,14 +95,11 @@
               </div>
             </div>
             
-             <!-- ANJA poveži modalno okno -->
-
             
           </div>
           
         </div>
         </a>
-        <!-- modalno okno tukaj? -->
 
       
     {{/each}}
@@ -113,10 +110,10 @@
       </div>
 
       <div class="modal fade" id="modalnoOknoStory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content modal-content-ekipa">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content modal-content-ekipa" style = "border: 3px solid var(--c2) !important;">
                 <div class="modal-header modal-header-ekipa">
-                  <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">User story - link id no. and name</h5>
+                  <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">{{story.name}}</h5> <!-- ni znotraj each in mi ne dela -->
                   <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </button>
@@ -139,19 +136,19 @@
                     <!-- Name -->                
                     <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Name</label>
-                            <input class="form-control input-form" name="name" id="name" aria-describedby="emailHelp" required>
+                            <input class="form-control input-form" name="name" placeholder="{{name}}" value="{{name}}" id="name" aria-describedby="emailHelp" required>
                     </div>
 
                       <!-- Description -->
                     <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Description</label>
-                            <textarea class="form-control input-form-lg" name="aboutText" id="info" aria-describedby="emailHelp" required></textarea>
+                            <textarea class="form-control input-form-lg" name="aboutText" placeholder="{{info}}" value="{{info}}" id="info" aria-describedby="emailHelp" required></textarea>
                     </div>
 
                       <!-- Priority -->
-                    <div class="mb-3" style="padding-bottom: 10px !important">
+                    <div class="mb-3" style="padding-bottom: 10px !important; width: 49% !important; float: Left;">
                             <label class="form-label" style="padding-top: 10px !important">Priority</label>
-                            <input class="form-control input-form" name="priority" id="priority" placeholder="Select priority from list" list="priority_list"aria-describedby="emailHelp" required>
+                            <input class="form-control input-form" name="priority" id="priority" placeholder="{{priority}}" value="{{priority}}" list="priority_list"aria-describedby="emailHelp" required>
                             <datalist id="priority_list">
                             <option value="Must have">  </option>
                             <option value="Should have"></option>
@@ -160,35 +157,36 @@
                             
                             </datalist>   
                     </div>
-
+                    <div class="clear"></div>
                     <!-- value --->
-                    <div class="mb-3" style="padding-bottom: 10px !important">
+                    <div class="mb-3" style="padding-bottom: 10px !important; width: 49% !important; float: Right">
                         <label class="form-label" style="padding-top: 10px !important">Business value</label>
-                        <input class="form-control input-form" name="businessValue" id="value" aria-describedby="emailHelp" type="number" min="1" max="10" required>                          
+                        <input class="form-control input-form" name="businessValue" placeholder="{{businessValue}}" value="{{businessValue}}" id="value" aria-describedby="emailHelp" type="number" min="1" max="10" required>                          
                     </div>
 
                     <!-- Size --->
-                    <div class="mb-3" style="padding-bottom: 10px !important">
+                    <div class="mb-3" style="padding-bottom: 10px !important; width: 49% !important; float: Left;">
                         <label class="form-label" style="padding-top: 10px !important">Size</label>
-                        <input class="form-control input-form" name="size" id="size" aria-describedby="emailHelp" type="number" min="1" required>
+                        <input class="form-control input-form" name="size" placeholder="{{size}}" value="{{size}}" id="size" aria-describedby="emailHelp" type="number" min="1" required>
                     </div>
-
-                    <!-- Sprint - SPRINT LIST --->
-                    <div class="mb-3" style="padding-bottom: 10px !important">
+                    <div class="clear"></div>
+                    <!-- Sprint -->
+                    <div class="mb-3" style="padding-bottom: 10px !important; width: 49% !important; float: Right">
                         <label class="form-label" style="padding-top: 10px !important">Sprint</label>
-                        <input class="form-control input-form" name="size" id="size" aria-describedby="emailHelp" required>
-                    <!-- kolaboratorji -->
+                        <input class="form-control input-form" name="sprint" id="sprint" type="number" min="1" aria-describedby="emailHelp">
+                        <!-- placeholder sprint if already defined? -->
                     </div>
 
 
                     <br><br>
                     
 
-                    <!-- save changes -->           
-                      <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
+                      <!-- save changes -form-->           
+                      <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save changes</button>
+                      <button type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important">Delete story</button>
                                     
                 </form>
-              </div> <!-- end modal body -->
+              </div>
               
             
                 </div>
@@ -200,17 +198,17 @@
 
                     <!-- Acceptance tests -->
                     <div class="mb-3" style="padding-bottom: 10px !important">
-                        <input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="" id="" aria-describedby="emailHelp" readonly>All acceptance tests for story
-                        <!-- bom spremenila style kasneje -->
+                      <!-- verjetno each -->
+                        <p style="color: var(--c3) !important;"># lojtra hardkodirana zravn pa v zavitih oklepajih backend?</p>
                     </div>
 
-                      <!-- Add acceptance test -->
+                      <!-- Add acceptance test - form -->
                     <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Add acceptance test</label>
-                            <textarea class="form-control input-form-lg" name="aboutText" id="info" aria-describedby="emailHelp" required></textarea>
+                            <input class="form-control input-form" name="aboutText" id="info" aria-describedby="emailHelp" required>
                     </div>
 
-                    <!-- save changes -->           
+                    <!-- Add test -->           
                       <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Add</button>
                                     
                 </form>
@@ -226,18 +224,73 @@
 
                     <!-- Tasks -->
                     <div class="mb-3" style="padding-bottom: 10px !important">
-                        <input class="form-control input-form" type="checkbox" style="background-color: rgb(196, 196, 196) !important" name="" id="" aria-describedby="emailHelp" readonly>All tasks for story
-                        <!-- bom spremenila style kasneje -->
+                       <!-- Each? -->
+                      <div class="row">                    
+                        <div class="col-lg-9">
+                          <label for="tasks" style="color: var(--c3) !important;">
+                          <input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/>
+                          A je smiselno dat druge barve tekst k je narjen?</label>
+                        </div>
+                                           
+                        <div class="col-lg-3">
+
+                          <button type="button" data-toggle="modal" data-target="#modalEditTask" class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button>
+                          
+                          <button  id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="float:right;">
+                            N <!-- N kot Neznam (povezat backenda); A bomo tudi dodale datalist vseh uporabnikov?-->
+                          </button>
+                                                  
+                        </div>
+                        {{!-- modalno okno za spreminjanje nalog --}}
+                        <div class="modal fade" id="modalEditTask" tabindex="-1" role="dialog" aria-hidden="true">
+                          <div class="modal-dialog" style="padding-top: 150px !important;">
+                            <div class="modal-content modal-content-ekipa" style="border: 3px solid var(--c2) !important;"> 
+                                <div class="modal-header modal-header-ekipa">
+                                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit task</h5>
+                                <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                  <!-- Edit existing tasks -->
+                                  <div class="mb-3" style="padding-bottom: 10px !important; width: 84% !important; float: Left;">
+                                    <label class="form-label" style="padding-top: 10px !important;">Task</label>
+                                    <input class="form-control input-form" name="aboutText" id="info" aria-describedby="emailHelp" required> <!-- placeholder in value -->
+                                  </div>
+                                  <div class="clear"></div>
+                                  <div class="mb-3" style="padding-bottom: 10px !important; width: 14% !important; float: Right;">
+                                    <label class="form-label" style="padding-top: 10px !important;">Hours</label>
+                                    <input class="form-control input-form" name="taskHours" id="taskHours" type="number" min="1" aria-describedby="emailHelp" required> <!-- placeholder in value -->
+                                  </div>
+
+                                  <br>
+
+                                  <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save changes</button>
+                                  <button type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important">Delete task</button>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+
+                      <!-- end second modal window -->
+                      </div>
+                      <br>
+
                     </div>
 
-                      <!-- Add tasks -->
-                    <div class="mb-3" style="padding-bottom: 10px !important">
-                            <label class="form-label" style="padding-top: 10px !important">Add task</label>
-                            <textarea class="form-control input-form-lg" name="aboutText" id="info" aria-describedby="emailHelp" required></textarea>
+                    <!-- Add new tasks -form-->
+                    <div class="mb-3" style="padding-bottom: 10px !important; width: 84% !important; float: Left;">
+                            <label class="form-label" style="padding-top: 10px !important;">Add task</label>
+                            <input class="form-control input-form" name="aboutText" id="info" aria-describedby="emailHelp" required>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="mb-3" style="padding-bottom: 10px !important; width: 14% !important; float: Right;">
+                            <label class="form-label" style="padding-top: 10px !important;">Hours</label>
+                            <input class="form-control input-form" name="taskHours" id="taskHours" type="number" min="1" aria-describedby="emailHelp" required>
                     </div>
 
                     <!-- save changes -->           
-                      <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Add</button>
+                    <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Add</button>
                                     
                 </form>
               </div> <!-- end modal body -->
@@ -248,14 +301,23 @@
               <div class="modal-body">
                   <form method="post" id="" action="url">
 
-                    <!-- Comments -->
-                    <div class="mb-3" style="padding-bottom: 10px !important">
-                        <label class="form-label" style="padding-top: 10px !important">Username</label>
-                        <input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="" id="" aria-describedby="emailHelp" readonly>All comments for story
-                        <!-- bom spremenila style kasneje -->
+                    <!-- All comments -->
+                    <!-- datalist? -->
+                    <div class="row">
+                      <div class="col-lg-1">
+                        <button  id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="float:left;" disabled>
+                            N 
+                        </button>
+                        
+                      </div>
+                      <div class="col-lg-11">
+                        <p style="color: var(--c3)!important;">Moj komentar je tukaj :)</p>
+                      </div>
+                      <br>
                     </div>
+                    
 
-                      <!-- Add comment -->
+                      <!-- Add comment -form -->
                     <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Add comment</label>
                             <textarea class="form-control input-form-lg" name="aboutText" id="info" aria-describedby="emailHelp" required></textarea>

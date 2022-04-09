@@ -307,6 +307,17 @@ tbody {
     color: white;
 }
 
+.button-mini {
+    background-color: #FB8500 !important;
+    border-radius: 20px !important;
+    border: 0px solid !important;
+    height: 40px !important;
+    width: 60px !important;
+    color: white;
+    text-align: center;
+    font-size: 15px !important;
+}
+
 @media screen and (max-width:1000px) {
     .dodaj-uporabnika {
         height: 50px;
@@ -639,14 +650,11 @@ p {
     background-color: var(--c5) !important;
 }
 
-
-
 .cut_text {
     white-space: nowrap;
     width: 9ch;
     overflow: hidden;
-  }
-
+}
 
 .projekt-user-card {
     box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;
@@ -665,8 +673,6 @@ p {
     line-height: 20px !important;
     color: var(--c3) !important;
     height: 65px !important;
-    
-    
 }
 
 #user-story-info>span {
@@ -684,15 +690,11 @@ p {
     padding: 6px !important;
     margin-top: 5px !important;
     margin-right: 5px !important
-    
-    
 }
 
 .card-flagss {
     padding: 0px !important
 }
-
-
 
 #storyOwner_circle {
     border: 2px solid var(--c2) !important;
@@ -707,6 +709,17 @@ p {
     float: right !important;
 }
 
+#taskOwner_circle {
+    border: 2px solid var(--c2) !important;
+    padding: 2px !important;
+    text-align: center;
+    height: 40px !important;
+    width: 40px !important;
+    border-radius: 20px !important;
+    color: #EEEEEE !important;
+    font-size: 15px !important;
+}
+
 .storyOwner_circle-d {
     margin-bottom: -1px !important;
     margin-right: -1px !important
@@ -719,7 +732,9 @@ p {
     padding: 0px !important;
 }
 
+
 /* */
+
 .projekt-sprint {
     box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;
     background-color: var(--c5) !important;
@@ -754,16 +769,16 @@ p {
     color: #000000 !important
 }
 
+
 /* modalno okno za user story */
 
 #modalnoOknoStory {
     width: 100% !important
 }
 
-
 .projekt-management-card {
     margin: 20px !important;
-    background-color: var(--c4) !important; 
+    background-color: var(--c4) !important;
     border: 4px solid var(--c4) !important;
     box-shadow: rgba(0, 0, 0, 0.24) 8px 8px 5px;
     height: 320px !important;
@@ -783,7 +798,6 @@ p {
     height: 60px !important;
     color: white !important;
     font-style: italic !important;
-
 }
 
 .projekt-management-card>div>a {
@@ -791,7 +805,6 @@ p {
 }
 
 .projekt-management-button {
-    
     border-radius: 20px !important;
     border: 0px solid !important;
     height: 50px !important;
@@ -801,4 +814,8 @@ p {
     margin-left: 0px !important;
 }
 
-
+.center-block {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
