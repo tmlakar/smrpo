@@ -25,7 +25,7 @@
                           {{productManager.username}}
                           <br>
                         {{/each}}
-                        
+
                         </p>
                         {{!-- tean members --}}
                         <p class="card-text"><span style="color: var(--c2) !important;">Team members:</span>
@@ -34,15 +34,15 @@
                           {{teamMember.username}}
                           <br>
                         {{/each}}
-                        
+
                         </p>
 
                 </div>
 
             </div>
 
-            
-    
+
+
   </div>
 
 {{!-- product backlog / sprints --}}
@@ -57,8 +57,8 @@
   {{!-- product backlog -> prikazovanje zgodb + dodajanje novih --}}
   <div class="tab-content">
     <div id="backlog" class=" active tab-pane fade">
-      
-      
+
+
       <div class="card-group">
       <div class="row">
     {{#each userStories as |story|}}
@@ -69,9 +69,9 @@
                 <div class=" col-lg-10" >
                   <h4><i>{{story.name}}</i></h4>
                 </div>
-            
+
                 <div class="storyOwner_circle-d col-lg-2 " >
-                    <button  id="storyOwner_circle" type="button" 
+                    <button  id="storyOwner_circle" type="button"
                             class="btn btn-dark open-collaboratorEdit" disabled>
                             {{firstLetterOfUsername story.userStorieOwnerUsername}}
                     </button>
@@ -82,7 +82,7 @@
               <span>Business value:</span> {{story.businessValue}}<br>
               <span>Velocity:</span> {{story.size}}
             </p>
-            
+
             <div class="row" style="padding: 0px !important;">
               <div class="card-flagss col-lg-12">
                 <div class="row">
@@ -94,17 +94,17 @@
                 </div>
               </div>
             </div>
-            
+
              <!-- ANJA poveži modalno okno -->
 
-            
+
           </div>
-          
+
         </div>
         </a>
         <!-- modalno okno tukaj? -->
 
-      
+
     {{/each}}
 
 
@@ -136,7 +136,7 @@
                 <div class="modal-body">
                   <form method="post" id="" action="url">
 
-                    <!-- Name -->                
+                    <!-- Name -->
                     <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Name</label>
                             <input class="form-control input-form" name="name" id="name" aria-describedby="emailHelp" required>
@@ -157,14 +157,14 @@
                             <option value="Should have"></option>
                             <option value="Could have"></option>
                             <option value="Won't have this time"></option>
-                            
-                            </datalist>   
+
+                            </datalist>
                     </div>
 
                     <!-- value --->
                     <div class="mb-3" style="padding-bottom: 10px !important">
                         <label class="form-label" style="padding-top: 10px !important">Business value</label>
-                        <input class="form-control input-form" name="businessValue" id="value" aria-describedby="emailHelp" type="number" min="1" max="10" required>                          
+                        <input class="form-control input-form" name="businessValue" id="value" aria-describedby="emailHelp" type="number" min="1" max="10" required>
                     </div>
 
                     <!-- Size --->
@@ -182,15 +182,15 @@
 
 
                     <br><br>
-                    
 
-                    <!-- save changes -->           
+
+                    <!-- save changes -->
                       <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
-                                    
+
                 </form>
               </div> <!-- end modal body -->
-              
-            
+
+
                 </div>
 
               <!-- Tab 2 - Acceptance test -->
@@ -210,13 +210,13 @@
                             <textarea class="form-control input-form-lg" name="aboutText" id="info" aria-describedby="emailHelp" required></textarea>
                     </div>
 
-                    <!-- save changes -->           
+                    <!-- save changes -->
                       <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Add</button>
-                                    
-                </form>
-              </div> <!-- end modal body -->        
 
-                
+                </form>
+              </div> <!-- end modal body -->
+
+
               </div>
 
               <!-- Tab 3 - Tasks -->
@@ -236,9 +236,9 @@
                             <textarea class="form-control input-form-lg" name="aboutText" id="info" aria-describedby="emailHelp" required></textarea>
                     </div>
 
-                    <!-- save changes -->           
+                    <!-- save changes -->
                       <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Add</button>
-                                    
+
                 </form>
               </div> <!-- end modal body -->
               </div>
@@ -261,9 +261,9 @@
                             <textarea class="form-control input-form-lg" name="aboutText" id="info" aria-describedby="emailHelp" required></textarea>
                     </div>
 
-                    <!-- save changes -->           
+                    <!-- save changes -->
                       <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Comment</button>
-                                    
+
                   </form>
               </div> <!-- end modal body -->
               </div>
@@ -272,18 +272,18 @@
         </div>
         </div>
         </div>
-    
+
 
 
 
         <a href="/project/{{id}}/new-user-story"><button id="" type="button" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right" style="background-color: var(--c1) !important; border: 3px solid var(--c1) !important"><i class="fa-solid fa-plus dodaj"></i></button></a></div><br>
-      
+
 
 
       {{!-- sprinti --}}
       <div id="sprints" class="tab-pane fade">
-      
-      
+
+
       <div class="row" style="">
         {{!---prikaz dodanih sprintov, ki se jih pridobi iz apija --}}
         {{#each sprints as |sprint|}}
@@ -322,9 +322,9 @@
               </div>
             </div>
           {{!-- gumba za edit projectov --}}
-        {{/each}} 
+        {{/each}}
       </div>
-      {{#if admin}}
+      {{#if scrumMaster}}
         {{!-- gumb za dodajanje novega sprinta - se pokaže le če je prijavljen admin--}}
         <div><a href="/sprint-new/{{id}}"><button id="" type="button" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right"><i class="fa-solid fa-plus dodaj"></i></button></a></div><br>
       {{/if}}
