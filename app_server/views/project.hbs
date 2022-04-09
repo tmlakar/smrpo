@@ -142,12 +142,22 @@
                 <div class="modal-body">
                   <form method="post" id="" action="url">
 
-                    <!-- Name -->
+                      <!-- Assigned -->
+                    <div class="storyOwner_circle-d" style="padding-right: 50px !important;">
+                        <button  id="storyOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit">
+                            N 
+                        </button>
+                    </div>
+
+                    <br>
+
+                      <!-- Name -->
                     <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Name</label>
                             <input class="form-control input-form" name="name" placeholder="{{name}}" value="{{name}}" id="name" aria-describedby="emailHelp" required>
                     </div>
 
+                    
                       <!-- Description -->
                     <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Description</label>
@@ -313,7 +323,7 @@
                     <!-- datalist? -->
                     <div class="row">
                       <div class="col-lg-1">
-                        <button  id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="float:left;" disabled>
+                        <button  id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="float:left;" disabled> <!-- nism zihr, če je ok tuki id taskOwner? -->
                             N 
                         </button>
                         
