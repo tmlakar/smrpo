@@ -330,6 +330,8 @@
       {{/if}}
 
 
+
+
     </div>
 </div>
 </div>
@@ -356,3 +358,34 @@ $(document).ready(function(){
 
 
 </div>
+
+{{!-- modal window if sprint was successfully added --}}
+<div id="myModal31" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>New sprint has been successfully created!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyAddedSprint}}
+<script>
+    $(document).ready(function(){
+        $("#myModal31").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModal31').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}

@@ -158,7 +158,8 @@ var apiParametri = {
             }).then(() => {
               console.log("uspešno dodan")
               var string = "#sprints";
-              res.redirect('/project/' + projectId + string);
+              var string2 = "successfully added";
+              res.redirect('/project/' + projectId + '?add=' + string2 + string);
             }).catch((napaka) => {
               var string = "napaka";
               res.redirect('/sprint-new/:id?error=' + string);

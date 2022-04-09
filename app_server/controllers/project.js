@@ -11,7 +11,15 @@ var apiParametri = {
   });
 
 
+
+
   var prikaz = (req, res) => {
+    var successfullyAdded = req.query.add;
+    console.log(successfullyAdded)
+    var uspesnoDodano = false;
+    if (successfullyAdded == "successfully added") {
+      uspesnoDodano = true;
+    }
     var tokenParts = req.cookies.authcookie['žeton'].split('.');
     var encodedPayload = tokenParts[1];
     var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
@@ -100,7 +108,8 @@ var apiParametri = {
               admin: nivoDostopa,
               info: info,
               layout: 'layout-user',
-              scrumMaster: scrumMaster
+              scrumMaster: scrumMaster,
+              successfullyAddedSprint: uspesnoDodano
             });
           } else {
 
@@ -118,7 +127,8 @@ var apiParametri = {
               admin: nivoDostopa,
               info: info,
               layout: 'layout',
-              scrumMaster: scrumMaster
+              scrumMaster: scrumMaster,
+              successfullyAddedSprint: uspesnoDodano
             });
         });
   };
