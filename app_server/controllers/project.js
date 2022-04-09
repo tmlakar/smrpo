@@ -14,7 +14,7 @@ var apiParametri = {
 
 
   var prikaz = (req, res) => {
-    var successfullyAdded = req.query.add;
+    var successfullyAdded = req.query.addstory;
     console.log(successfullyAdded)
     var uspesnoDodano = false;
     if (successfullyAdded == "successfully added") {
@@ -30,6 +30,14 @@ var apiParametri = {
       nivoDostopa = true;
     }
     var vloga = user.role;
+
+    //user feedback
+    //uspesno dodana zgodba
+    var successfullyAddedStory = req.query.add;
+    var uspesnoDodanaZgodba = false;
+    if (successfullyAddedStory == "successfully added story") {
+      uspesnoDodanaZgodba = true;
+    }
 
     var username = user.username;
     var projectId = req.params.id;
@@ -52,6 +60,7 @@ var apiParametri = {
           var info = odgovor.data.info;
           var collaborators = odgovor.data.collaborators;
           var scrumMasterUsername;
+          var productManagerUsername;
           var teamMembers = [];
           var productManagers = [];
           var scrumMasters = [];
@@ -64,6 +73,7 @@ var apiParametri = {
               i4 = i4 + 1;
             }
             if (collaborators[i].project_role == "Product Manager") {
+              productManagerUsername = collaborators[i].username;
               productManagers[i5] = collaborators[i];
               i5 = i5 + 1;
             }
@@ -94,6 +104,8 @@ var apiParametri = {
             }
           }
 
+          
+
 
           if (vloga == "user") {
             //ugotovimo kaj je njegova vloga na tem projektu
@@ -101,6 +113,12 @@ var apiParametri = {
             if(scrumMasterUsername == username){
               scrumMaster = true;
             }
+            // isto ugotovimo al je product manager
+            var productManager = false;
+            if(scrumMasterUsername == username){
+              productManager = true;
+            }
+
             res.render('project',
             { name: odgovor.data.name,
               id: projectId,
@@ -116,7 +134,9 @@ var apiParametri = {
               info: info,
               layout: 'layout-user',
               scrumMaster: scrumMaster,
-              successfullyAddedSprint: uspesnoDodano
+              productManager: productManager,
+              successfullyAddedSprint: uspesnoDodano,
+              successfullyAddedStory: uspesnoDodanaZgodba
             });
           } else {
 
@@ -135,7 +155,10 @@ var apiParametri = {
               info: info,
               layout: 'layout',
               scrumMaster: scrumMaster,
-              successfullyAddedSprint: uspesnoDodano
+              productManager: productManager,
+              successfullyAddedSprint: uspesnoDodano,
+              successfullyAddedStory: uspesnoDodanaZgodba
+              
             });
           }
         });

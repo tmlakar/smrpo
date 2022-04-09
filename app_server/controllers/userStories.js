@@ -70,8 +70,8 @@ const addNewUserStory = (req, res) => {
         }
       }).then((odgovor) => {
         var name = odgovor.name;
-        var string = "successfully added";
-        res.redirect('/project/' + projectId + '?error=' + string);
+        var string = "successfully added story";
+        res.redirect('/project/' + projectId + '?addstory=' + string);
       }).catch((napaka) => {
         var string = "napakaPriDodajanjuUporabniskeZgodbe";
       res.redirect('/project/' + projectId + '?error=' + string);
@@ -84,7 +84,7 @@ const addNewUserStory = (req, res) => {
   const updateUserStoryInfo = (req, res) => {
     var projectId = req.params.id;
     var storyId = req.params.idStory;
-    if (!req.body.name || !req.body.aboutText || !req.body.priority || !req.body.businessValue || !req.body.size) {
+    if (!req.body.name || !req.body.aboutText || !req.body.priority || !req.body.businessValue  || !req.body.size || !req.body.sprint) {
         
     } else {
       axios({
@@ -96,6 +96,7 @@ const addNewUserStory = (req, res) => {
             priority: req.body.priority,
             businessValue: req.body.businessValue,
             size: req.body.size,
+            sprint: req.body.sprint,
         }
       }).then((odgovor) => {
         var name = odgovor.name;
