@@ -16,15 +16,16 @@ var apiParametri = {
   var prikaz = (req, res) => {
     var successfullyDeletedSprint = req.query.delete;
     var uspesnoIzbrisan = false;
-    if (successfullyDeletedSprint == "success") {
-      uspesnoIzbrisan = true;
+     if (successfullyDeletedSprint == "success") {
+     uspesnoIzbrisan = true;
     }
     var successfullyUpdated = req.query.update;
     var uspesnoPosodobljeno = false;
     if (successfullyUpdated == "success") {
-      uspesnoPosodobljeno = true;
+     uspesnoPosodobljeno = true;
     }
-    var successfullyAdded = req.query.add;
+    var successfullyAdded = req.query.addstory;
+    console.log(successfullyAdded)
     var uspesnoDodano = false;
     if (successfullyAdded == "successfully added") {
       uspesnoDodano = true;
@@ -39,6 +40,15 @@ var apiParametri = {
       nivoDostopa = true;
     }
     var vloga = user.role;
+
+    //user feedback
+    //uspesno dodana zgodba
+    var successfullyAddedStory = req.query.add;
+    var uspesnoDodanaZgodba = false;
+    if (successfullyAddedStory == "successfully added story") {
+      uspesnoDodanaZgodba = true;
+    }
+
     var username = user.username;
     var projectId = req.params.id;
     axios
@@ -60,21 +70,28 @@ var apiParametri = {
           var info = odgovor.data.info;
           var collaborators = odgovor.data.collaborators;
           var scrumMasterUsername;
+          var productManagerUsername;
           var teamMembers = [];
           var productManagers = [];
+          var scrumMasters = [];
           var i4 = 0;
           var i5 = 0;
+          var i6 = 0;
           for (let i = 0; i < collaborators.length; i++) {
             if (collaborators[i].project_role == "Team Member") {
               teamMembers[i4] = collaborators[i];
               i4 = i4 + 1;
             }
             if (collaborators[i].project_role == "Product Manager") {
+              productManagerUsername = collaborators[i].username;
               productManagers[i5] = collaborators[i];
               i5 = i5 + 1;
             }
             if (collaborators[i].project_role == "Scrum Master") {
               scrumMasterUsername = collaborators[i].username;
+              scrumMasters[i6] = collaborators[i];
+              i6 = i6 + 1;
+
             }
           }
 
@@ -99,12 +116,21 @@ var apiParametri = {
             }
           }
 
+
+
+
           if (vloga == "user") {
             //ugotovimo kaj je njegova vloga na tem projektu
             var scrumMaster = false;
             if(scrumMasterUsername == username){
               scrumMaster = true;
             }
+            // isto ugotovimo al je product manager
+            var productManager = false;
+            if(scrumMasterUsername == username){
+              productManager = true;
+            }
+
             res.render('project',
             { name: odgovor.data.name,
               id: projectId,
@@ -114,18 +140,21 @@ var apiParametri = {
               futureSprints: futureSprints,
               teamMembers: teamMembers,
               productManagers: productManagers,
+              scrumMasters: scrumMasters,
               userStories: uporabniskeZgodbe,
               admin: nivoDostopa,
               info: info,
               layout: 'layout-user',
               scrumMaster: scrumMaster,
+              productManager: productManager,
+              successfullyAddedSprint: uspesnoDodano,
+              successfullyAddedStory: uspesnoDodanaZgodba,
               successfullyAddedSprint: uspesnoDodano,
               successfullyUpdatedSprint: uspesnoPosodobljeno,
               successfullyDeletedSprint: uspesnoIzbrisan
             });
           } else {
 
-          }
             res.render('project',
             { name: odgovor.data.name,
               id: projectId,
@@ -136,13 +165,19 @@ var apiParametri = {
               userStories: uporabniskeZgodbe,
               teamMembers: teamMembers,
               productManagers: productManagers,
+              scrumMasters: scrumMasters,
               admin: nivoDostopa,
               info: info,
               layout: 'layout',
               scrumMaster: scrumMaster,
+              productManager: productManager,
+              successfullyAddedSprint: uspesnoDodano,
+              successfullyAddedStory: uspesnoDodanaZgodba,
               successfullyAddedSprint: uspesnoDodano,
               successfullyDeletedSprint: uspesnoIzbrisan
+
             });
+          }
         });
   };
 

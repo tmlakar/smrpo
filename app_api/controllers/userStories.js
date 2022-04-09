@@ -137,6 +137,7 @@ const projectInfo = (req, res) => {
             currentUserStory.priority = req.body.priority;
             currentUserStory.businessValue = req.body.businessValue;
             currentUserStory.size = req.body.size;
+            currentUserStory.sprint = req.body.sprint;
               
               project.save((napaka, project) => {
                 if (napaka) {

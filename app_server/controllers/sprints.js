@@ -14,7 +14,19 @@ var apiParametri = {
   var prikaz = (req, res) => {
         var projectId = req.params.id;
         console.log(projectId);
-        res.render('sprint-new');
+
+        var tokenParts = req.cookies.authcookie['žeton'].split('.');
+        var encodedPayload = tokenParts[1];
+        var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+        var user = JSON.parse(rawPayload);
+        var vloga = user.role;
+        var layout1 = 'layout';
+        if (vloga == 'user') {
+          layout1 = 'layout-user';
+        }
+        res.render('sprint-new', {
+          layout: layout1
+        });
   };
 
   var prikazEdit = (req, res) => {

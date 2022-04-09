@@ -72,6 +72,11 @@ var podrobnostiProject = (req, res) => {
   var encodedPayload = tokenParts[1];
   var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
   var user = JSON.parse(rawPayload);
+  var vloga = user.role;
+  var layout1 = 'layout';
+  if (vloga == 'user') {
+    layout1 = 'layout-user';
+  }
     var x = req.query.error;
     var isError = true;
     if(x == "napaka"){
@@ -80,7 +85,10 @@ var podrobnostiProject = (req, res) => {
     else{
       isError = false;
     }
-  res.render('project-new', {napaka: isError});
+  res.render('project-new', {
+    napaka: isError,
+    layout: layout1
+  });
 };
 
   /* POST metoda - Ustvarjanje novega projekta (s strani admina) na /project-new */
