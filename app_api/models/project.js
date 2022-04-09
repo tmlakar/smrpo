@@ -10,7 +10,8 @@ const collaboratorShema = new mongoose.Schema({
 
 const subtaskShema = new mongoose.Schema({
     name: {type: String},
-    subtaskOwnerUsername: {type: String, default: null}
+    subtaskOwnerUsername: {type: String, default: null},
+    pending: {type: String, default: true}
 });
 
 const userStoryCommentsShema = new mongoose.Schema({
@@ -32,6 +33,7 @@ const userStoriesShema = new mongoose.Schema({
     comments: [userStoryCommentsShema],
     userStorieOwnerUsername: {type: String, default: null},
     flags: [{type: String}],
+    pending: {type: String, default: true}
 
 });
 

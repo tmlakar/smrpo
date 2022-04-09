@@ -27,7 +27,16 @@
                         {{/each}}
 
                         </p>
-                        {{!-- tean members --}}
+                        {{!-- team members --}}
+                        <p class="card-text"><span style="color: var(--c2) !important;">Scrum master:</span>
+                        <br>
+                        {{#each scrumMasters as |scrumMaster|}}
+                          {{scrumMaster.username}}
+                          <br>
+                        {{/each}}
+
+                        </p>
+                        {{!-- team members --}}
                         <p class="card-text"><span style="color: var(--c2) !important;">Team members:</span>
                         <br>
                         {{#each teamMembers as |teamMember|}}
