@@ -18,6 +18,12 @@ var apiParametri = {
     var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
     var user = JSON.parse(rawPayload);
 
+    var vloga = user.role;
+    var layout1 = 'layout';
+    if (vloga == "user") {
+      layout1 = "layout-user";
+    }
+
     // je napaka?
     var napaka = req.query.error;
     var jeNapaka = false;
@@ -71,6 +77,7 @@ var apiParametri = {
               successfullyAdded: uspesnoAdded,
               successfullyEdited: uspesnoEdited,
               successfullyEditedProject: uspesnoPosodobljeno,
+              layout: layout1
             });
           });
   };

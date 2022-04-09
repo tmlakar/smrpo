@@ -30,6 +30,7 @@ var apiParametri = {
       nivoDostopa = true;
     }
     var vloga = user.role;
+
     var username = user.username;
     var projectId = req.params.id;
     axios
@@ -53,8 +54,10 @@ var apiParametri = {
           var scrumMasterUsername;
           var teamMembers = [];
           var productManagers = [];
+          var scrumMasters = [];
           var i4 = 0;
           var i5 = 0;
+          var i6 = 0;
           for (let i = 0; i < collaborators.length; i++) {
             if (collaborators[i].project_role == "Team Member") {
               teamMembers[i4] = collaborators[i];
@@ -66,6 +69,9 @@ var apiParametri = {
             }
             if (collaborators[i].project_role == "Scrum Master") {
               scrumMasterUsername = collaborators[i].username;
+              scrumMasters[i6] = collaborators[i];
+              i6 = i6 + 1;
+
             }
           }
 
@@ -104,6 +110,7 @@ var apiParametri = {
               // futureSprints: futureSprints,
               teamMembers: teamMembers,
               productManagers: productManagers,
+              scrumMasters: scrumMasters,
               userStories: uporabniskeZgodbe,
               admin: nivoDostopa,
               info: info,
@@ -113,7 +120,6 @@ var apiParametri = {
             });
           } else {
 
-          }
             res.render('project',
             { name: odgovor.data.name,
               id: projectId,
@@ -124,12 +130,14 @@ var apiParametri = {
               userStories: uporabniskeZgodbe,
               teamMembers: teamMembers,
               productManagers: productManagers,
+              scrumMasters: scrumMasters,
               admin: nivoDostopa,
               info: info,
               layout: 'layout',
               scrumMaster: scrumMaster,
               successfullyAddedSprint: uspesnoDodano
             });
+          }
         });
   };
 

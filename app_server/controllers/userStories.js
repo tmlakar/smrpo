@@ -27,6 +27,12 @@ var apiParametri = {
         jeNapaka = true;
       }
 
+      var vloga = user.role;
+      var layout1 = 'layout';
+      if (vloga == 'user') {
+        layout1 = 'layout-user';
+      }
+
       console.log(jeNapaka);
       axios
           .get (apiParametri.streznik + '/api/projects/' + projectId)
@@ -38,7 +44,8 @@ var apiParametri = {
                 userStories: odgovor.data.userStories,
                 sprints: odgovor.data.sprints,
                 id: odgovor.data._id,
-                napaka: jeNapaka
+                napaka: jeNapaka,
+                layout: layout1
               });
           });
     
