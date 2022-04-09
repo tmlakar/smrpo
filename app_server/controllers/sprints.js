@@ -18,12 +18,14 @@ var apiParametri = {
   };
 
   function isFutureDate(selected){
+    selected.setHours(0,0,0,0);
     var now = new Date();
+    now.setHours(0,0,0,0);
     if (selected < now) {
       // selected date is in the past
       return false;
     }
-    else{
+    else if(selected >= now){
       return true;
     }
   }
@@ -156,7 +158,8 @@ var apiParametri = {
             }).then(() => {
               console.log("uspešno dodan")
               var string = "#sprints";
-              res.redirect('/project/' + projectId + string);
+              var string2 = "successfully added";
+              res.redirect('/project/' + projectId + '?add=' + string2 + string);
             }).catch((napaka) => {
               var string = "napaka";
               res.redirect('/sprint-new/:id?error=' + string);
