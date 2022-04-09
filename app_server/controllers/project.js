@@ -14,8 +14,17 @@ var apiParametri = {
 
 
   var prikaz = (req, res) => {
+    var successfullyDeletedSprint = req.query.delete;
+    var uspesnoIzbrisan = false;
+    if (successfullyDeletedSprint == "success") {
+      uspesnoIzbrisan = true;
+    }
+    var successfullyUpdated = req.query.update;
+    var uspesnoPosodobljeno = false;
+    if (successfullyUpdated == "success") {
+      uspesnoPosodobljeno = true;
+    }
     var successfullyAdded = req.query.add;
-    console.log(successfullyAdded)
     var uspesnoDodano = false;
     if (successfullyAdded == "successfully added") {
       uspesnoDodano = true;
@@ -69,25 +78,26 @@ var apiParametri = {
             }
           }
 
-          var now = new Date();
+          var now = new Date().setHours(0,0,0,0);
           for(let i=0; i< sprinti.length; i++){
+            var start = new Date(sprinti[i].startDate).setHours(0,0,0,0);
+            var end = new Date(sprinti[i].endDate).setHours(0,0,0,0);
             //če je finished
-            if((new Date(sprinti[i].startDate) < now) && (new Date(sprinti[i].endDate) < now)){
+            if((start < now) && (end < now)){
               finishedSprints[i1] = sprinti[i];
               i1 = i1 +1;
             }
             //če je in process
-            if((new Date(sprinti[i].startDate) <= now) && (new Date(sprinti[i].endDate) > now)){
+            if((start <= now) && (end >= now)){
               inProcessSprints[i2] = sprinti[i];
               i2 = i2 +1;
             }
             //če je v prihodnosti
-            if((new Date(sprinti[i].startDate) >= now) && (new Date(sprinti[i].endDate) > now)){
-              inProcessSprints[i3] = sprinti[i];
+            if((start > now) && (end > now)){
+              futureSprints[i3] = sprinti[i];
               i3 = i3 +1;
             }
           }
-
 
           if (vloga == "user") {
             //ugotovimo kaj je njegova vloga na tem projektu
@@ -99,9 +109,9 @@ var apiParametri = {
             { name: odgovor.data.name,
               id: projectId,
               sprints: sprinti,
-              // finishedSprints: finishedSprints,
-              // inProcessSprints: inProcessSprints,
-              // futureSprints: futureSprints,
+              finishedSprints: finishedSprints,
+              inProcessSprints: inProcessSprints,
+              futureSprints: futureSprints,
               teamMembers: teamMembers,
               productManagers: productManagers,
               userStories: uporabniskeZgodbe,
@@ -109,7 +119,9 @@ var apiParametri = {
               info: info,
               layout: 'layout-user',
               scrumMaster: scrumMaster,
-              successfullyAddedSprint: uspesnoDodano
+              successfullyAddedSprint: uspesnoDodano,
+              successfullyUpdatedSprint: uspesnoPosodobljeno,
+              successfullyDeletedSprint: uspesnoIzbrisan
             });
           } else {
 
@@ -118,9 +130,9 @@ var apiParametri = {
             { name: odgovor.data.name,
               id: projectId,
               sprints: sprinti,
-              // finishedSprints: finishedSprints,
-              // inProcessSprints: inProcessSprints,
-              // futureSprints: futureSprints,
+              finishedSprints: finishedSprints,
+              inProcessSprints: inProcessSprints,
+              futureSprints: futureSprints,
               userStories: uporabniskeZgodbe,
               teamMembers: teamMembers,
               productManagers: productManagers,
@@ -128,7 +140,8 @@ var apiParametri = {
               info: info,
               layout: 'layout',
               scrumMaster: scrumMaster,
-              successfullyAddedSprint: uspesnoDodano
+              successfullyAddedSprint: uspesnoDodano,
+              successfullyDeletedSprint: uspesnoIzbrisan
             });
         });
   };

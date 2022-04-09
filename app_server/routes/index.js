@@ -66,7 +66,10 @@ router.get('/project/:id', ctrlProject.prikaz);
 var ctrlSprint = require("../controllers/sprints");
 router.get('/sprint-new/:id', ctrlSprint.prikaz);
 router.post('/sprint-new/:id', ctrlSprint.sprintCreate);
-
+router.get("/sprint-edit/:id", ctrlSprint.prikazEdit);
+router.post("/sprints/:projectId/sprint-edit/:sprintId", ctrlSprint.posodobiInprocessSprint)
+router.post("/sprints/:projectId/sprint-edit-all/:sprintId", ctrlSprint.posodobiFutureSprint)
+router.post("/sprints/:projectId/delete-sprint/:sprintId", ctrlSprint.deleteSprint)
 /* User stories a.k.a uporabniska zgodba */
 var ctrlUserStories = require("../controllers/userStories");
 /* Adding a new user story to a project */

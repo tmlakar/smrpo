@@ -17,6 +17,12 @@ var apiParametri = {
         res.render('sprint-new');
   };
 
+  var prikazEdit = (req, res) => {
+        var projectId = req.params.id;
+        console.log(projectId);
+        res.render('sprint-edit');
+  };
+
   function isFutureDate(selected){
     selected.setHours(0,0,0,0);
     var now = new Date();
@@ -171,7 +177,110 @@ var apiParametri = {
 
 
 
+const posodobiInprocessSprint = (req, res) => {
+  console.log("pridemm");
+  var projectId = req.params.projectId;
+  var sprintId = req.params.sprintId;
+  console.log("server")
+  console.log(projectId)
+  console.log(sprintId)
+  if (!req.body.sprintSize) {
+    res.render('error', {
+         message: "Prišlo je do napake.",
+         error: {
+              status: "Niste izpolnili vseh zahtevanih polj!",
+              stack: "Pri urejanju članka niste izpolnili enega izmed polj: name, Prosimo izpolnite manjkajoča polja."
+         }
+    });
+  }
+  //tukaj je spet potrebno narediti vsa preverjanja ustreznosti podatkov novega sprinta
+  else {
+    //tukaj še preverjanja glede prekrivanja sprintov
+  axios({
+    method: 'put',
+    url: apiParametri.streznik + '/api/sprints/' + projectId + '/edit-sprint/' + sprintId,
+    data: {
+         sprintSize: req.body.sprintSize
+     }
+    })
+    .then(() => {
+      console.log("uspešno updejtan sprint in process")
+        var string = "#sprints";
+        var string2 = "success";
+        res.redirect('/project/' + projectId  + '?update=' + string2 +  string);
+    }).catch((error) => {
+      var string = "napaka";
+      res.redirect('/projects/' + projectId + '?error=' + string);
+    });
+  }
+}
+
+const posodobiFutureSprint = (req, res) => {
+  console.log("pridemm v future");
+  var projectId = req.params.projectId;
+  var sprintId = req.params.sprintId;
+  console.log("server")
+  console.log(projectId)
+  console.log(sprintId)
+  if (!req.body.sprintSize) {
+    res.render('error', {
+         message: "Prišlo je do napake.",
+         error: {
+              status: "Niste izpolnili vseh zahtevanih polj!",
+              stack: "Pri urejanju članka niste izpolnili enega izmed polj: name, Prosimo izpolnite manjkajoča polja."
+         }
+    });
+  }
+  //tukaj je spet potrebno narediti vsa preverjanja ustreznosti podatkov novega sprinta
+  else {
+    //tukaj še preverjanja glede prekrivanja sprintov
+  axios({
+    method: 'put',
+    url: apiParametri.streznik + '/api/sprints/' + projectId + '/edit-sprint/' + sprintId,
+    data: {
+         sprintSize: req.body.sprintSize
+     }
+    })
+    .then(() => {
+      console.log("uspešno updejtan sprint in process")
+        var string = "#sprints";
+        var string2 = "success";
+        res.redirect('/project/' + projectId  + '?update=' + string2 +  string);
+    }).catch((error) => {
+      var string = "napaka";
+      res.redirect('/projects/' + projectId + '?error=' + string);
+    });
+  }
+}
+
+const deleteSprint = (req, res) => {
+  var projectId = req.params.projectId;
+  var sprintId = req.params.sprintId;
+  axios({
+      method: 'delete',
+      url: apiParametri.streznik + '/api/sprints/' + projectId + '/delete-sprint/' + sprintId,
+
+    }).then(() => {
+      console.log("uspešno zbrisan")
+      var string = "#sprints";
+      var string2 = "success";
+      res.redirect('/project/' + projectId  + '?delete=' + string2 +  string);
+    }).catch((napaka) => {
+      var string = "napaka";
+    res.redirect('/projects/' + projectId + '?error=' + string);
+
+    });
+
+};
+
+
+
+
   module.exports = {
     prikaz,
-    sprintCreate
+    sprintCreate,
+    prikazEdit,
+    posodobiInprocessSprint,
+    posodobiFutureSprint,
+    deleteSprint
 };
