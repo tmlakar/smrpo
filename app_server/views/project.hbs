@@ -56,7 +56,7 @@
 
                         </p>
 
-                                               
+
 
                 </div>
 
@@ -97,7 +97,7 @@
          data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}"
          data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{story.subtasks}}" data-com="{{story.comments}}" data-pending="{{story.pending}}"
          data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
-         data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}"> 
+         data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}">
         <div class="card projekt-user-card" style="">
           <div class="card-body user-card-info">
             <div class="row" style="padding: 0px !important;">
@@ -182,7 +182,7 @@
                                 {{!-- se pokaze gumb ce kartico lahko urejamo --}}
                                 {{!-- ce lahko urejamo + brisemo --}}
                                 {{!-- ce je user --}}
-                                
+
                                 if (isScrumMaster == true || isProductManager == true) {
                                       if (storyFinished == false && storySprint == 0) {
                                       document.getElementById("editButton").style.display="block";
@@ -196,7 +196,7 @@
                                       document.getElementById("deleteButton").style.display="none";
 
                                     }
-                                  
+
                                 } else if (isTeamMember) {
                                   document.getElementById("editButtonDisabled").style.display="block";
                                   document.getElementById("deleteButtonDisabled").style.display="block";
@@ -208,8 +208,8 @@
                                   document.getElementById("editButton").style.display="none";
                                   document.getElementById("deleteButton").style.display="none";
                                 }
-                                
-                                
+
+
 
                                 {{!-- acceptance tests - to je tabela --}}
 
@@ -336,15 +336,15 @@
 
                     <br><br>
 
-                      
-                      
+
+
                       <!-- se pogoji kdo lahko spreminja pa pod katerimi pogoji-->
-                      
+
                       <button id="editButtonDisabled" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important" disabled>Save changes</button>
                       <button id="editButton" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save changes</button>
-                      
+
                       </form>
-                      
+
                       <form id="urlDelete" method="post" action="">
                       <button id="deleteButtonDisabled" type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important" disabled>Delete story</button>
                       <button id="deleteButton" type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important">Delete story</button>
@@ -399,7 +399,7 @@
 
                         <div class="col-lg-3">
 
-                          
+
 
                           <a href="?edit" onclick="location.href='?edit'"></a><button id="editTask" type="button" data-toggle="modal" data-target="#modalEditTask" class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a>
                           <button  id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="float:right;">
@@ -914,6 +914,70 @@ $(document).ready(function(){
         setTimeout(function() {
 
             $('#myModal44').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if comment was successfully added --}}
+<div id="modalDelete" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Sprint has been successfully deleted!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyDeletedSprint}}
+<script>
+    $(document).ready(function(){
+        $("#modalDelete").modal('show');
+
+        setTimeout(function() {
+
+            $('#modalDelete').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if comment was successfully added --}}
+<div id="modalUpdate" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Sprint has been successfully updated!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyUpdatedSprint}}
+<script>
+    $(document).ready(function(){
+        $("#modalUpdate").modal('show');
+
+        setTimeout(function() {
+
+            $('#modalUpdate').modal('hide');
         }, 7000);
     });
 </script>
