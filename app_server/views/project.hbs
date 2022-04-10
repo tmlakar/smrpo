@@ -93,11 +93,11 @@
       <div class="card-group">
       <div class="row">
     {{#each userStories as |story|}}
-        <a type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-storyid="{{story._id}}"
+        <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-storyid="{{story._id}}"
          data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}"
          data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{story.subtasks}}" data-com="{{story.comments}}" data-pending="{{story.pending}}"
          data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
-         data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}">
+         data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}">
         <div class="card projekt-user-card" style="">
           <div class="card-body user-card-info">
             <div class="row" style="padding: 0px !important;">
@@ -117,7 +117,31 @@
               <span>Business value:</span> {{story.businessValue}}<br>
               <span>Velocity:</span> {{story.size}}
             </p>
+            {{!-- tlele se komentarji dajo v string --}}
+            <p hidden>
+            <script>var commentsArray = "";</script>
+            {{#each story.comments as |comment|}}
 
+            {{comment.comment}}
+            {{comment.commentOwnerUsername}}
+            <script>
+
+              var comment = {}
+              comment.comment = "{{comment.comment}}"
+              comment.commentOwnerUsername = "{{comment.commentOwnerUsername}}"
+              var commentS = JSON.stringify(comment);
+              //console.log(commentS);
+              commentsArray = commentsArray + "," + commentS;
+
+            </script>
+            {{/each}}
+            <script>
+              console.log(commentsArray);
+
+
+
+            </script>
+            </p>
             <div class="row" style="padding: 0px !important;">
               <div class="card-flagss col-lg-12">
                 <div class="row">
@@ -140,6 +164,8 @@
 
                   <script>
                             $(document).on("click", ".modalnoOknoStory", function () {
+
+
                               var projId = $(this).data('projid');
                                 var storyId = $(this).data('storyid');
                                 var storyName = $(this).data('name');
@@ -159,6 +185,10 @@
                                 var isProductManager = $(this).data('projman');
                                 var isTeamMember = $(this).data('team');
                                 var admin = $(this).data('admin');
+                                var commentOwnerUsername = $(this).data('user');
+
+
+                                console.log(commentsArray)
 
                                 {{!-- story name odstranmo prve tri znakce --}}
                                  var nameOfStory = storyName.substring(3, storyName.length);
@@ -221,7 +251,7 @@
 
                                 {{!-- tasks - objekti --}}
 
-                                console.log(storySubtasks)
+
                                 $('#storyTasks').html(storySubtasks);
 
 
@@ -233,6 +263,13 @@
                                 console.log(stringifiedObj)
                                 console.log('Comments: %o', storyComments)
                                 $('#storyComments').html(storyComments);
+
+                                {{!-- commentOwnerUsername --}}
+
+                                {{!-- $('#storyComments').html(commentsArray); --}}
+
+                                {{!-- za input za username od trenutno prijavnega uporabnika --}}
+                                $('#commentOwnerUsername').val(commentOwnerUsername);
 
 
                                 {{!-- $('#inputUsr').val(eventUsr); --}}
@@ -253,6 +290,14 @@
 
                                 var urlAddTests = '/project/'+ projId + '/userStory/'+ storyId + '/add-test';
                                 $('#urlAddTests').attr("action", urlAddTests);
+
+                                var urlAddComment = '/project/'+ projId + '/userStory/'+ storyId + '/add-comment';
+                                 $('#urlAddComment').attr("action", urlAddComment);
+
+
+                                 var urlAddSubtaks = '/project/'+ projId + '/userStory/'+ storyId + '/add-subtask';
+                                 $('#urlAddSubtaks').attr("action", urlAddSubtaks);
+
 
                             });
                     </script>
@@ -393,7 +438,7 @@
               <!-- Tab 3 - Tasks -->
               <div id="tasks" class="tab-pane fade">
               <div class="modal-body">
-                  <form method="post" id="" action="url">
+                  <form method="post" id="urlAddSubtaks" action="url">
 
                     <!-- Tasks -->
                     <div class="mb-3" style="padding-bottom: 10px !important">
@@ -427,7 +472,7 @@
                                 </button></a> -->
                                 </div>
                                 <div class="modal-body">
-                                  <!-- Edit existing tasks -->
+                                  {{!-- <!-- Edit existing tasks -->
                                   <div class="mb-3" style="padding-bottom: 10px !important; width: 84% !important; float: Left;">
                                     <label class="form-label" style="padding-top: 10px !important;">Task</label>
                                     <input class="form-control input-form" name="aboutText" id="info" aria-describedby="emailHelp" required> <!-- placeholder in value -->
@@ -438,10 +483,11 @@
                                     <input class="form-control input-form" name="taskHours" id="taskHours" type="number" min="1" aria-describedby="emailHelp" required> <!-- placeholder in value -->
                                   </div>
 
-                                  <br>
+                                  <br> --}}
 
-                                  <a href="#"><button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save changes</button></a>
+                                  {{!-- <a href="#"><button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save changes</button></a>
                                   <a href="#"><button type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important">Delete task</button></a>
+                               --}}
                                 </div>
                               </div>
                             </div>
@@ -456,12 +502,13 @@
                     <!-- Add new tasks -form-->
                     <div class="mb-3" style="padding-bottom: 10px !important; width: 84% !important; float: Left;">
                             <label class="form-label" style="padding-top: 10px !important;">Add task</label>
-                            <input class="form-control input-form" name="aboutText" id="info" aria-describedby="emailHelp" required>
+                            <input class="form-control input-form" name="name" id="info" aria-describedby="emailHelp" required>
+
                     </div>
                     <div class="clear"></div>
                     <div class="mb-3" style="padding-bottom: 10px !important; width: 14% !important; float: Right;">
                             <label class="form-label" style="padding-top: 10px !important;">Hours</label>
-                            <input class="form-control input-form" name="taskHours" id="taskHours" type="number" min="1" aria-describedby="emailHelp" required>
+                            <input class="form-control input-form" name="hours" id="taskHours" type="number" min="1" aria-describedby="emailHelp" required>
                     </div>
 
                     <!-- save changes -->
@@ -474,7 +521,7 @@
               <!-- Tab 4 - Comments -->
               <div id="comments" class="tab-pane fade">
               <div class="modal-body">
-                  <form method="post" id="" action="url">
+
 
                     <!-- All comments -->
                     <!-- datalist? -->
@@ -486,16 +533,19 @@
 
                       </div>
                       <div class="col-lg-11">
-                        <p style="color: var(--c3)!important;">Moj komentar je tukaj :)</p>
+                        <p style="color: var(--c3)!important;">Moj komentar je tukaj :)
+                        </p>
                       </div>
                       <br>
                     </div>
                     <p id="storyComments"></p>
 
                       <!-- Add comment -form -->
+                       <form method="post" id="urlAddComment" action="">
                     <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Add comment</label>
-                            <textarea class="form-control input-form-lg" name="aboutText" id="info" aria-describedby="emailHelp" required></textarea>
+                            <input class="form-control input-form" name="commentOwnerUsername" id="commentOwnerUsername" aria-describedby="emailHelp" hidden>
+                            <textarea class="form-control input-form-lg" name="comment" id="info" aria-describedby="emailHelp" required></textarea>
                     </div>
 
                     <!-- save changes -->

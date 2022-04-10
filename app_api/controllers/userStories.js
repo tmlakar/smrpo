@@ -234,7 +234,6 @@ const updateUserStoryAddSubtask = (req, res) => {
           //tle pushas na
           currentUserStory.subtasks.push({
             name: req.body.name,
-            subtaskOwnerUsername: req.body.subtaskOwnerUsername,
           });
             
           project.save((napaka, project) => {
