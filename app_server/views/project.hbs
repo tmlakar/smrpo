@@ -216,9 +216,9 @@
                                 let string = storyTests.toString();
                                 let result = string.replace(/,/g, '<br>');
                                 {{!-- console.log(result); --}}
-                              
+
                                 $('#storyAcceptanceTests').html(result);
-                                
+
                                 {{!-- tasks - objekti --}}
 
                                 console.log(storySubtasks)
@@ -226,7 +226,7 @@
 
 
                                 {{!-- comments - objekti --}}
-                                let comments = [{}]; 
+                                let comments = [{}];
                                 console.log(comments)
                                 comments = JSON.stringify(storyComments);
                                 var stringifiedObj = Object.entries(storyComments).map(x=>x.join(":")).join("\n");
@@ -250,7 +250,7 @@
                                 var urlDelete = '/project/'+ projId + '/userStory/'+ storyId + '/delete';
                                 $('#urlDelete').attr("action", urlDelete);
 
-                                
+
                                 var urlAddTests = '/project/'+ projId + '/userStory/'+ storyId + '/add-test';
                                 $('#urlAddTests').attr("action", urlAddTests);
 
@@ -639,6 +639,92 @@
             </div>
         </div>
 
+
+<div id="modalnoOknoCollNapakaStart" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Failed!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Start date can't be in the past!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+<div id="modalnoOknoCollNapakaEnd" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Failed!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>End date can't be in the past!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+<div id="modalnoOknoCollNapakaStartEnd" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Failed!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Start and end date can't be in the past!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+<div id="modalnoOknoCollNapakaDate" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Failed!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Start date must be before end date!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+<div id="modalnoOknoCollSize" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Failed!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>This size is too big for the number of days for this sprint!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
 {{#if prekrivanje}}
 <script>
     $(document).ready(function(){
@@ -651,7 +737,62 @@
     });
 </script>
 {{/if}}
+{{#if startPast}}
+<script>
+    $(document).ready(function(){
+        $("#modalnoOknoCollNapakaStart").modal('show');
+        setTimeout(function() {
 
+            $('#modalnoOknoCollNapaka').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+{{#if endPast}}
+<script>
+    $(document).ready(function(){
+        $("#modalnoOknoCollNapakaEnd").modal('show');
+        setTimeout(function() {
+
+            $('#modalnoOknoCollNapakaEnd').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+{{#if startEndPast}}
+<script>
+    $(document).ready(function(){
+        $("#modalnoOknoCollNapakaStartEnd").modal('show');
+        setTimeout(function() {
+
+            $('#modalnoOknoCollNapakaStartEnd').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+{{#if correctDate}}
+<script>
+    $(document).ready(function(){
+        $("#modalnoOknoCollNapakaDate").modal('show');
+        setTimeout(function() {
+
+            $('#modalnoOknoCollNapakaDate').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+{{#if sizeBig}}
+<script>
+    $(document).ready(function(){
+        $("#modalnoOknoCollSize").modal('show');
+
+        setTimeout(function() {
+
+            $('#modalnoOknoCollSize').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
 
       <div id="sprints" class="tab-pane fade">
 
@@ -693,7 +834,7 @@
                              $('#inputStart').val(eventStart);
                              $('#inputEnd').val(eventEnd);
                              $('#inputSprintSize').val(sprintSize);
-                            var str = '/sprints/' + projectId + '/sprint-edit/' + sprintId;
+                            var str = '/sprints/' + projectId + '/sprint-edit/' + sprintId + '?startDate=' + eventStart + '&endDate=' + eventEnd;
                              $('#sprintEdit').attr("action", str);
                         });
                 </script>

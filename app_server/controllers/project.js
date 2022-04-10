@@ -21,6 +21,29 @@ var prikaz = (req, res) => {
   var number = parseInt(req.query.sprint);
   console.log("stevilka")
   console.log(number)
+  //napake glede datumov
+  var napakaDate = req.query.napakaDate;
+  var startPast = false;
+  if (napakaDate == "start") {
+      startPast = true;
+  }
+  var endPast = false;
+  if (napakaDate == "end") {
+      endPast = true;
+  }
+  var startEndPast = false;
+  if (napakaDate == "startend") {
+      endPast = true;
+  }
+  var correctDate = false;
+  if (napakaDate == "correct") {
+      correctDate = true;
+  }
+  var sizeBig = false;
+  var napakaSize = req.query.napakaSize;
+  if (napakaSize == "tooBig") {
+      sizeBig = true;
+  }
     var successfullyDeletedSprint = req.query.delete;
     var uspesnoIzbrisan = false;
     if (successfullyDeletedSprint == "success") {
@@ -204,7 +227,12 @@ var prikaz = (req, res) => {
                     successfullyAddedAccepTest: uspesnoDodanSprejemniTest,
                     successfullyAddedComment: uspesnoDodanKomenar,
                     number: number,
-                    prekrivanje: sePrekriva
+                    prekrivanje: sePrekriva,
+                    startPast: startPast,
+                    endPast: endPast,
+                    startEndPast: startEndPast,
+                    correctDate: correctDate,
+                    sizeBig: sizeBig
                 });
             } else {
 
@@ -234,7 +262,12 @@ var prikaz = (req, res) => {
                     successfullyAddedAccepTest: uspesnoDodanSprejemniTest,
                     successfullyAddedComment: uspesnoDodanKomenar,
                     number: number,
-                    prekrivanje: sePrekriva
+                    prekrivanje: sePrekriva,
+                    startPast: startPast,
+                    endPast: endPast,
+                    startEndPast: startEndPast,
+                    correctDate: correctDate,
+                    sizeBig: sizeBig
                 });
             }
         });
