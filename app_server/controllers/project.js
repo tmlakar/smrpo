@@ -172,6 +172,7 @@ var prikaz = (req, res) => {
                 res.render('project', {
                     name: odgovor.data.name,
                     id: projectId,
+                    username: username,
                     sprints: sprinti,
                     finishedSprints: finishedSprints,
                     inProcessSprints: inProcessSprints,
@@ -204,6 +205,7 @@ var prikaz = (req, res) => {
                     name: odgovor.data.name,
                     id: projectId,
                     sprints: sprinti,
+                    username: username,
                     finishedSprints: finishedSprints,
                     inProcessSprints: inProcessSprints,
                     futureSprints: futureSprints,

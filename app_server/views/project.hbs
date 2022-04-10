@@ -97,7 +97,7 @@
          data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}"
          data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{story.subtasks}}" data-com="{{story.comments}}" data-pending="{{story.pending}}"
          data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
-         data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}">
+         data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}">
         <div class="card projekt-user-card" style="">
           <div class="card-body user-card-info">
             <div class="row" style="padding: 0px !important;">
@@ -159,6 +159,7 @@
                                 var isProductManager = $(this).data('projman');
                                 var isTeamMember = $(this).data('team');
                                 var admin = $(this).data('admin');
+                                var commentOwnerUsername = $(this).data('username');
 
                                 {{!-- story name odstranmo prve tri znakce --}}
                                  var nameOfStory = storyName.substring(3, storyName.length);
@@ -226,6 +227,7 @@
 
 
                                 {{!-- comments - objekti --}}
+                                {{!-- commentOwnerUsername --}}
                                 let comments = [{}]; 
                                 console.log(comments)
                                 comments = JSON.stringify(storyComments);
@@ -233,6 +235,7 @@
                                 console.log(stringifiedObj)
                                 console.log('Comments: %o', storyComments)
                                 $('#storyComments').html(storyComments);
+                                $('#commentOwnerUsername').val(commentOwnerUsername);
 
 
                                 {{!-- $('#inputUsr').val(eventUsr); --}}
@@ -253,6 +256,10 @@
                                 
                                 var urlAddTests = '/project/'+ projId + '/userStory/'+ storyId + '/add-test';
                                 $('#urlAddTests').attr("action", urlAddTests);
+
+                                var urlAddComment = '/project/'+ projId + '/userStory/'+ storyId + '/add-comment';
+                                 $('#urlAddComment').attr("action", urlAddComment);
+
 
                             });
                     </script>
@@ -474,7 +481,7 @@
               <!-- Tab 4 - Comments -->
               <div id="comments" class="tab-pane fade">
               <div class="modal-body">
-                  <form method="post" id="" action="url">
+                 
 
                     <!-- All comments -->
                     <!-- datalist? -->
@@ -493,9 +500,11 @@
                     <p id="storyComments"></p>
 
                       <!-- Add comment -form -->
+                       <form method="post" id="urlAddComment" action="">
                     <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Add comment</label>
-                            <textarea class="form-control input-form-lg" name="aboutText" id="info" aria-describedby="emailHelp" required></textarea>
+                            <input class="form-control input-form" name="commentOwnerUsername" id="commentOwnerUsername" aria-describedby="emailHelp" hidden>
+                            <textarea class="form-control input-form-lg" name="comment" id="info" aria-describedby="emailHelp" required></textarea>
                     </div>
 
                     <!-- save changes -->
