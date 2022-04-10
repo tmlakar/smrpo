@@ -64,6 +64,8 @@ const projectInfo = (req, res) => {
       var userUsername = req.body.username;
       var projectRole = req.body.project_role;
       //ce je uporabnik ze not, vrni error
+      var scrumMasterExists = false;
+      var productManagerExists = false;
       
       if (project.collaborators && project.collaborators.length > 0) {
         //loop through the object array
@@ -74,22 +76,25 @@ const projectInfo = (req, res) => {
         for (var i in project.collaborators) {
            //console.log(project.collaborators[i]);
            var currentUsername = project.collaborators[i].username;
+           if (project.collaborators[i].project_role == "Scrum Master") {
+             scrumMasterExists = true;
+           } else if (project.collaborators[i].project_role == "Product Manager") {
+            productManagerExists = true;
+           }
+           
            //console.log(project.collaborators[i].username)
            if (project.collaborators[i].username == req.body.username) {
              return res.status(400).json({sporočilo: "Uporabnik je že dodeljen projektu."})
            }
         }
 
-        //preveri se ce mu je dodeljena vloga scrum master al pa product manager, ce ze obstaja na projektu, je isto error
-    
-      //   var user = project.collaborators.id({username: userUsername});
-      //   console.log(user);
-      //   var exists = false;
-      //   console.log(exists);
-      //   if (user != null) {
-      //     exists = true;
-      //     return res.status(404).json({ sporočilo: "Uporabnik ze sodeluje na projektu." });
-      //   } 
+        if (productManagerExists && projectRole == "Product Manager") {
+          return res.status(401).json({sporočilo: "Projekt ze ima Product Managerja."})
+        }
+
+        if (scrumMasterExists && projectRole == "Scrum Master") {
+          return res.status(401).json({sporočilo: "Projekt ze ima Scrum Masterja."})
+        }
       }
       
       project.collaborators.push({
@@ -201,6 +206,41 @@ const projectInfo = (req, res) => {
           if (!currentCollaborator) {
             res.status(404).json({ sporočilo: "Ne najdem kolaboratorja." });
           } else {
+      
+            var projectRole = req.body.project_role;
+            //ce je uporabnik ze not, vrni error
+            var scrumMasterExists = false;
+            var productManagerExists = false;
+            
+            if (project.collaborators && project.collaborators.length > 0) {
+              //loop through the object array
+              // if the username already exists (is same to req.body.username)
+              // return res.status code 400
+
+              
+              for (var i in project.collaborators) {
+                //console.log(project.collaborators[i]);
+                var currentUsername = project.collaborators[i].username;
+                if (project.collaborators[i].project_role == "Scrum Master") {
+                  scrumMasterExists = true;
+                } else if (project.collaborators[i].project_role == "Product Manager") {
+                  productManagerExists = true;
+                }
+                
+                //console.log(project.collaborators[i].username)
+                if (project.collaborators[i].username == req.body.username) {
+                  return res.status(400).json({sporočilo: "Uporabnik je že dodeljen projektu."})
+                }
+              }
+
+              if (productManagerExists && projectRole == "Product Manager") {
+                return res.status(401).json({sporočilo: "Projekt ze ima Product Managerja."})
+              }
+
+              if (scrumMasterExists && projectRole == "Scrum Master") {
+                return res.status(401).json({sporočilo: "Projekt ze ima Scrum Masterja."})
+              }
+            }
             currentCollaborator.project_role = req.body.project_role;
             //preveri se ce mu je dodeljena vloga scrum master al pa product manager, ce ze obstaja na projektu, je isto error
               
