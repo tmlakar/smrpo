@@ -89,13 +89,13 @@
   <div class="tab-content">
     <div id="backlog" class=" active tab-pane fade">
 
-
+      
       <div class="card-group">
       <div class="row">
     {{#each userStories as |story|}}
-        <a type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-storyid="{{story._id}}"
+        <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-storyid="{{story._id}}"
          data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}"
-         data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{story.subtasks}}" data-com="{{story.comments}}" data-pending="{{story.pending}}"
+         data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{story.subtasks}}" data-com="" data-pending="{{story.pending}}"
          data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
          data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}">
         <div class="card projekt-user-card" style="">
@@ -104,7 +104,7 @@
                 <div class=" col-lg-10" >
                   <h4><i>{{story.name}}</i></h4>
                 </div>
-
+                
                 <div class="storyOwner_circle-d col-lg-2 " >
                     <button  id="storyOwner_circle" type="button"
                             class="btn btn-dark open-collaboratorEdit" disabled>
@@ -117,7 +117,30 @@
               <span>Business value:</span> {{story.businessValue}}<br>
               <span>Velocity:</span> {{story.size}}
             </p>
-
+            {{!-- tlele se komentarji dajo v string --}}
+            <p hidden>
+            <script>var commentsArray = "";</script>
+            {{#each story.comments as |comment|}}
+            
+            {{comment.comment}}
+            {{comment.commentOwnerUsername}}
+            <script>
+              
+              var comment = {}
+              comment.comment = "{{comment.comment}}"
+              comment.commentOwnerUsername = "{{comment.commentOwnerUsername}}"
+              var commentS = JSON.stringify(comment);
+              //console.log(commentS);
+              commentsArray = commentsArray + "," + commentS;
+              
+            </script>
+            {{/each}}
+            <script>
+              console.log(commentsArray);
+                $('#storyComments').html(commentsArray);
+             
+            </script>
+            </p>
             <div class="row" style="padding: 0px !important;">
               <div class="card-flagss col-lg-12">
                 <div class="row">
@@ -140,6 +163,8 @@
 
                   <script>
                             $(document).on("click", ".modalnoOknoStory", function () {
+
+
                               var projId = $(this).data('projid');
                                 var storyId = $(this).data('storyid');
                                 var storyName = $(this).data('name');
@@ -160,7 +185,8 @@
                                 var isTeamMember = $(this).data('team');
                                 var admin = $(this).data('admin');
                                 var commentOwnerUsername = $(this).data('user');
-                                console.log(commentOwnerUsername);
+                                
+                                console.log(storyComments)
 
                                 {{!-- story name odstranmo prve tri znakce --}}
                                  var nameOfStory = storyName.substring(3, storyName.length);
@@ -223,19 +249,16 @@
                                 
                                 {{!-- tasks - objekti --}}
 
-                                console.log(storySubtasks)
+                                
                                 $('#storyTasks').html(storySubtasks);
 
 
                                 {{!-- comments - objekti --}}
                                 {{!-- commentOwnerUsername --}}
-                                let comments = [{}]; 
-                                console.log(comments)
-                                comments = JSON.stringify(storyComments);
-                                var stringifiedObj = Object.entries(storyComments).map(x=>x.join(":")).join("\n");
-                                console.log(stringifiedObj)
-                                console.log('Comments: %o', storyComments)
-                                $('#storyComments').html(storyComments);
+                                
+                                {{!-- $('#storyComments').html(storyComments);  --}}
+
+                                {{!-- za input za username od trenutno prijavnega uporabnika --}}
                                 $('#commentOwnerUsername').val(commentOwnerUsername);
 
 
@@ -494,7 +517,8 @@
 
                       </div>
                       <div class="col-lg-11">
-                        <p style="color: var(--c3)!important;">Moj komentar je tukaj :)</p>
+                        <p style="color: var(--c3)!important;">Moj komentar je tukaj :)
+                        </p>
                       </div>
                       <br>
                     </div>
