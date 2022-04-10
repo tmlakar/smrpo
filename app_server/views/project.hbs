@@ -97,7 +97,7 @@
          data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}"
          data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{story.subtasks}}" data-com="{{story.comments}}" data-pending="{{story.pending}}"
          data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
-         data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}">
+         data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}"> 
         <div class="card projekt-user-card" style="">
           <div class="card-body user-card-info">
             <div class="row" style="padding: 0px !important;">
@@ -158,6 +158,7 @@
                                 var isScrumMaster = $(this).data('scrum');
                                 var isProductManager = $(this).data('projman');
                                 var isTeamMember = $(this).data('team');
+                                var admin = $(this).data('admin');
 
                                 {{!-- story name odstranmo prve tri znakce --}}
                                  var nameOfStory = storyName.substring(3, storyName.length);
@@ -180,6 +181,8 @@
 
                                 {{!-- se pokaze gumb ce kartico lahko urejamo --}}
                                 {{!-- ce lahko urejamo + brisemo --}}
+                                {{!-- ce je user --}}
+                                
                                 if (isScrumMaster == true || isProductManager == true) {
                                       if (storyFinished == false && storySprint == 0) {
                                       document.getElementById("editButton").style.display="block";
@@ -199,8 +202,13 @@
                                   document.getElementById("deleteButtonDisabled").style.display="block";
                                   document.getElementById("editButton").style.display="none";
                                   document.getElementById("deleteButton").style.display="none";
+                                } else {
+                                document.getElementById("editButtonDisabled").style.display="block";
+                                  document.getElementById("deleteButtonDisabled").style.display="block";
+                                  document.getElementById("editButton").style.display="none";
+                                  document.getElementById("deleteButton").style.display="none";
                                 }
-                              
+                                
                                 
 
                                 {{!-- acceptance tests - to je tabela --}}

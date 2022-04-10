@@ -62,6 +62,7 @@ const projectInfo = (req, res) => {
       res.status(404).json({ sporočilo: "Ne najdem projekta." });
     } else {
       var userUsername = req.body.username;
+      var projectRole = req.body.project_role;
       //ce je uporabnik ze not, vrni error
       
       if (project.collaborators && project.collaborators.length > 0) {
@@ -79,7 +80,7 @@ const projectInfo = (req, res) => {
            }
         }
 
-        //
+        //preveri se ce mu je dodeljena vloga scrum master al pa product manager, ce ze obstaja na projektu, je isto error
     
       //   var user = project.collaborators.id({username: userUsername});
       //   console.log(user);
@@ -201,6 +202,8 @@ const projectInfo = (req, res) => {
             res.status(404).json({ sporočilo: "Ne najdem kolaboratorja." });
           } else {
             currentCollaborator.project_role = req.body.project_role;
+            //preveri se ce mu je dodeljena vloga scrum master al pa product manager, ce ze obstaja na projektu, je isto error
+              
             // update user
             // get username
             // from username, get his other info
@@ -218,6 +221,7 @@ const projectInfo = (req, res) => {
               } else if (napaka) {
                 return res.status(500).json(napaka);
               }  
+              
               
               //lets find the right activeProject
               let activeP = user.activeProjects.find(o => o.idOfProject === req.params.idProject);
