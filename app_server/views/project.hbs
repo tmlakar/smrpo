@@ -65,11 +65,11 @@
 
     <br>
     {{!-- legenda --}}
-    <div class="card account-info" style="background-color: var(--c5) !important;">
+    <div class="card account-info" style="background-color: var(--c3) !important;">
                 <div class="card-body">
                   <!-- legend for user stories -->
-                        <div><button id="project_circle_legend" style="background-color: var(--c3) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Unfinished</span></div>
-                        <div><button id="project_circle_legend" style="background-color: var(--c4) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Finished</span></div>
+                        <div><button id="project_circle_legend" style="background-color: var(--c4) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Unfinished</span></div>
+                        <div><button id="project_circle_legend" style="background-color: var(--c5) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Finished</span></div>
                         <div><button id="project_circle_legend" style="background-color: var(--c2) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Future relese</span></div>
                 </div>
     </div>
@@ -239,21 +239,22 @@
                 <div class="modal-body">
                   <form method="post" id="editBasicInfo" action="">
 
+                    <div class = "row" style="padding-left: 0px !important;">
+
+                    <!-- Name -->
+                    <div class="mb-3 col-lg-10" style="padding-bottom: 10px !important">
+                            <label class="form-label" style="padding-top: 10px !important">Name</label>
+                            <input class="form-control input-form" name="name" id="StoryName1" aria-describedby="emailHelp" required>
+                    </div>
+
                       <!-- Assigned -->
-                    <div class="storyOwner_circle-d" style="padding-right: 50px !important;">
+                    <div class="storyOwner_circle-d col-lg-2" style="padding-right: 50px !important; padding-top: 40px !important;">
                         <button  id="storyOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit">
                             N
                         </button>
                     </div>
 
-                    <br>
-
-                      <!-- Name -->
-                    <div class="mb-3" style="padding-bottom: 10px !important">
-                            <label class="form-label" style="padding-top: 10px !important">Name</label>
-                            <input class="form-control input-form" name="name" id="StoryName1" aria-describedby="emailHelp" required>
                     </div>
-
 
                       <!-- Description -->
                     <div class="mb-3" style="padding-bottom: 10px !important">
@@ -385,9 +386,9 @@
                             <div class="modal-content modal-content-ekipa" style="border: 3px solid var(--c2) !important;">
                                 <div class="modal-header modal-header-ekipa">
                                 <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit task</h5>
-                                <a href="#" data-dismiss="modal"><button type="button" class="close"> <!--aria-label="Close"-->
+                                <!-- <a href="#" data-dismiss="modal"><button type="button" class="close"> <!--aria-label="Close"
                                 <span aria-hidden="true">&times;</span>
-                                </button></a>
+                                </button></a> -->
                                 </div>
                                 <div class="modal-body">
                                   <!-- Edit existing tasks -->
