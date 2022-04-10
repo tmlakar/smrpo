@@ -335,7 +335,7 @@ const updateUserStoryAddAcceptanceTests = (req, res) => {
           res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
         } else {
           //tle dodas en acceptance task
-          currentUserStory.tests.push('#' + req.body.tests);
+          currentUserStory.tests.push('# ' + req.body.tests);
           project.save((napaka, project) => {
               if (napaka) {
                 res.status(404).json(napaka);

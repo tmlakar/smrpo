@@ -24,7 +24,7 @@
                         {{#each productManagers as |productManager|}}
 
                           <button  id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
-                          data-target="#modalnoOknoColl" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c1) !important; ">
+                           class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c1) !important; " >
                           {{firstLetterOfUsername productManager.username}}
                           </button>
 
@@ -37,7 +37,7 @@
                         {{#each scrumMasters as |scrumMaster|}}
                           <br>
                           <button  id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
-                          data-target="#modalnoOknoColl" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c5) !important; ">
+                           class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c5) !important; " >
                           {{firstLetterOfUsername scrumMaster.username}}
                           </button>
                         {{/each}}
@@ -49,7 +49,7 @@
                         {{#each teamMembers as |teamMember|}}
                           <br>
                           <button  id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
-                          data-target="#modalnoOknoColl" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c6) !important; ">
+                           class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c6) !important; ">
                           {{firstLetterOfUsername teamMember.username}}
                           </button>
                         {{/each}}
@@ -147,12 +147,12 @@
                                 var storyPriority = $(this).data('priority');
                                 var storyBusinessValue = $(this).data('busval');
                                 var storySize = $(this).data('size');
-                                var storyTests = $(this).data('acc');
-                                var storySubtasks = $(this).data('subt');
-                                var storyComments = $(this).data('com');
-                                var storyPendingFlag = $(this).data('pending');
-                                var storyOwner = $(this).data('owner');
-                                var storyFlags = $(this).data('flags');
+                                let storyTests = $(this).data('acc');
+                                let storySubtasks = $(this).data('subt');
+                                let storyComments = $(this).data('com');
+                                let storyPendingFlag = $(this).data('pending');
+                                let storyOwner = $(this).data('owner');
+                                let storyFlags = $(this).data('flags');
                                 var storySprint = $(this).data('sprint1');
                                 var storyFinished = $(this).data('finished');
                                 var isScrumMaster = $(this).data('scrum');
@@ -212,22 +212,26 @@
 
 
                                 {{!-- acceptance tests - to je tabela --}}
-
-                                console.log(storyTests);
-                                var tests = storyTests;
-                                for (var i = 0; i < tests.length; i++) {
-                                    var string = tests[i];
-                                    string = '# ' + string;
-                                    tests[i] = string;
-                                }
-                                $('#storyAcceptanceTests').html(storyTests);
-
+                                {{!-- kjer je , bomo brejkal --}}
+                                let string = storyTests.toString();
+                                let result = string.replace(/,/g, '<br>');
+                                {{!-- console.log(result); --}}
+                              
+                                $('#storyAcceptanceTests').html(result);
+                                
                                 {{!-- tasks - objekti --}}
+
                                 console.log(storySubtasks)
                                 $('#storyTasks').html(storySubtasks);
 
+
                                 {{!-- comments - objekti --}}
-                                console.log(storyComments)
+                                let comments = [{}]; 
+                                console.log(comments)
+                                comments = JSON.stringify(storyComments);
+                                var stringifiedObj = Object.entries(storyComments).map(x=>x.join(":")).join("\n");
+                                console.log(stringifiedObj)
+                                console.log('Comments: %o', storyComments)
                                 $('#storyComments').html(storyComments);
 
 
@@ -245,6 +249,10 @@
                                 $('#editBasicInfo').attr("action", editBasicInfo);
                                 var urlDelete = '/project/'+ projId + '/userStory/'+ storyId + '/delete';
                                 $('#urlDelete').attr("action", urlDelete);
+
+                                
+                                var urlAddTests = '/project/'+ projId + '/userStory/'+ storyId + '/add-test';
+                                $('#urlAddTests').attr("action", urlAddTests);
 
                             });
                     </script>
@@ -267,7 +275,7 @@
               <ul class="nav nav-tabs">
                   <li class="active"><a class="nav-link" data-toggle="tab" href="#info" onclick="location.href='#info'">Edit information</a></li>
                   <li><a class="nav-link" data-toggle="tab" href="#atest" onclick="location.href='#atest'">Add acceptance tests</a></li>
-                  <li><a class="nav-link" data-toggle="tab" href="#tasks" onclick="location.href='#tasks'">Add end edit tasks</a></li>
+                  <li><a class="nav-link" data-toggle="tab" href="#tasks" onclick="location.href='#tasks'">Add and edit tasks</a></li>
                   <li><a class="nav-link" data-toggle="tab" href="#comments" onclick="location.href='#comments'">Add a comment</a></li>
                 </ul>
 
@@ -357,20 +365,20 @@
               <!-- Tab 2 - Acceptance test -->
               <div id="atest" class="tab-pane fade">
               <div class="modal-body">
-                  <form method="post" id="" action="url">
+                  <form method="post" id="urlAddTests" action="">
 
                     <!-- Acceptance tests -->
                     <div  class="mb-3" style="padding-bottom: 10px !important">
                       <!-- verjetno each -->
 
-                        <p  id="storyAcceptanceTests" style="color: var(--c3) !important;"></p>
+                        <p  id="storyAcceptanceTests" style="color: var(--c1) !important;"></p>
 
                     </div>
 
                       <!-- Add acceptance test - form -->
                     <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Add acceptance test</label>
-                            <input class="form-control input-form" name="aboutText" id="info" aria-describedby="emailHelp" required>
+                            <input class="form-control input-form" name="tests" id="info" aria-describedby="emailHelp" required>
                     </div>
 
                     <!-- Add test -->
