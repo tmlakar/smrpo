@@ -133,22 +133,46 @@ pogoji za urejanje in izbris kartic
 - nesme bit realizirana 
 */
 
+// se pokaze, ampak disabled -> seprav mora bit vedno true;
 hbs.registerHelper('karticeNemoresUrejat', function (value1, value2, value3, value4) {
   // value 3 - pripada sprintu
   // value 4 - finished?
+  //je finished
+  console.log(value1, value2, value3, value4);
   if (value4 == true) {
     return true;
   }
-
+  //pripada sprintu
   if (value3 != 0) {
     return true;
   }
-
-  // value1,2 - scrum master ali product manager
-  if (value1 == true || value2 == true) {
-    return false;
+  //nesme bit scrum master al pa 
+  if (value1 != true && value2 != true) {
+    return true;
   }
 
-  return true;
+  
+  return false;
+
+});
+
+hbs.registerHelper('karticaSeLahkoUreja', function (value1, value2, value3, value4) {
+  // value 3 - pripada sprintu
+  // value 4 - finished?
+  //ni finished
+  //ne pripada sprintu
+  //je scrum master al pa product manager
+  console.log(value1, value2, value3, value4);
+  if (value1 == true || value2 == true) {
+    if (value3 == 0 && value4 == false) {
+      return true;
+    } else {
+      return false;
+    }
+    
+
+  }
+
+  return false;
 
 });

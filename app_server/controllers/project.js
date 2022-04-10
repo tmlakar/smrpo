@@ -41,20 +41,20 @@ var apiParametri = {
     }
     var vloga = user.role;
 
-    //user feedback
+    //user feedback uporabniske zgodbe
     //uspesno dodana zgodba
-    var successfullyAddedStory = req.query.add;
+    var successfullyAddedStory = req.query.addstory;
     var uspesnoDodanaZgodba = false;
     if (successfullyAddedStory == "successfully added story") {
       uspesnoDodanaZgodba = true;
     }
-    //uspesno posodobljena
+    //uspesno posodobljena zgodba
     var successfullyEditedStory = req.query.edited;
     var uspesnoPosodobljenaZgodba = false;
     if (successfullyEditedStory == "successfully edited") {
       uspesnoPosodobljenaZgodba = true;
     }
-    //uspesno odstranjena
+    //uspesno odstranjena zgodba
     var successfullyRemovedStory = req.query.removed;
     var uspesnoOdstranjenaZgodba = false;
     if (successfullyRemovedStory == "successfully removed") {
@@ -139,7 +139,7 @@ var apiParametri = {
             }
             // isto ugotovimo al je product manager
             var productManager = false;
-            if(scrumMasterUsername == username){
+            if(productManagerUsername == username){
               productManager = true;
             }
 

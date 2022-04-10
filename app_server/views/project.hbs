@@ -84,7 +84,8 @@
         <a type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-storyid="{{story._id}}"
          data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}"
          data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{story.subtasks}}" data-com="{{story.comments}}" data-pending="{{story.pending}}"
-         data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}">
+         data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
+         data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}">
         <div class="card projekt-user-card" style="">
           <div class="card-body user-card-info">
             <div class="row" style="padding: 0px !important;">
@@ -141,6 +142,9 @@
                                 var storyOwner = $(this).data('owner');
                                 var storyFlags = $(this).data('flags');
                                 var storySprint = $(this).data('sprint1');
+                                var storyFinished = $(this).data('finished');
+                                var isScrumMaster = $(this).data('scrum');
+                                var isProductManager = $(this).data('projman');
 
 
                                 {{!-- posiljanje na modalno okno --}}
@@ -151,7 +155,11 @@
                                 $('#storyPriority').val(storyPriority);
                                 $('#storyBusinessValue').val(storyBusinessValue);
                                 $('#storySize').val(storySize);
-                                $('#storySprint').val(storySprint)
+                                $('#storySprint').val(storySprint);
+                                $('#StoryBelongsToASprint').val(storySprint);
+                                $('#StoryFinished').val(storyFinished);
+                                $('#isScrumMaster').val(isScrumMaster);
+                                $('#isProductManager').val(isProductManager);
 
                                 {{!-- acceptance tests - to je tabela --}}
 
@@ -277,12 +285,28 @@
                     <br><br>
 
                       <!-- save changes -form-->
-
+                      <input class="form-control input-form" name="name" id="StoryFinished" aria-describedby="emailHelp" hidden>
+                      <input class="form-control input-form" name="name" id="StoryBelongsToASprint" aria-describedby="emailHelp" hidden>
+                      <input class="form-control input-form" name="name" id="isScrumMaster" aria-describedby="emailHelp" hidden>
+                      <input class="form-control input-form" name="name" id="isProductManager" aria-describedby="emailHelp" hidden>
+                
+                      
                       <!-- se pogoji kdo lahko spreminja pa pod katerimi pogoji-->
-
-                      <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save changes</button></form>
+                      {{#if (karticeNemoresUrejat isScrumMaster isProductManager storySprint storyFinished)}}
+                      <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important" disabled>Save changes</button>
+                      {{/if}}
+                      {{#if (karticaSeLahkoUreja isScrumMaster isProductManager storySprint storyFinished)}}
+                      <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save changes</button>
+                      {{/if}}
+                      </form>
+                      
                       <form id="urlDelete" method="post" action="">
+                        {{#if (karticeNemoresUrejat isScrumMaster isProductManager storySprint storyFinished)}}
+                      <button type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important" disabled>Delete story</button>
+                      {{/if}}
+                      {{#if (karticaSeLahkoUreja isScrumMaster isProductManager storySprint storyFinished)}}
                       <button type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important">Delete story</button>
+                      {{/if}}
                       </form>
               </div>
 
