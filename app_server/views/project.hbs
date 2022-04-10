@@ -46,11 +46,23 @@
 
                         </p>
 
+                                               
+
                 </div>
 
             </div>
 
 
+    <br>
+    {{!-- legenda --}}
+    <div class="card account-info" style="background-color: var(--c5) !important;">
+                <div class="card-body">
+                  <!-- legend for user stories -->
+                        <div><button id="project_circle_legend" style="background-color: var(--c3) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Unfinished</span></div>
+                        <div><button id="project_circle_legend" style="background-color: var(--c4) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Finished</span></div>
+                        <div><button id="project_circle_legend" style="background-color: var(--c2) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Future relese</span></div>
+                </div>
+    </div>
 
   </div>
 
@@ -252,22 +264,23 @@
                                            
                         <div class="col-lg-3">
 
-                          <button type="button" data-toggle="modal" data-target="#modalEditTask" class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button>
                           
+
+                          <a href="?edit" onclick="location.href='?edit'"></a><button id="editTask" type="button" data-toggle="modal" data-target="#modalEditTask" class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a>
                           <button  id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="float:right;">
                             N <!-- N kot Neznam (povezat backenda); A bomo tudi dodale datalist vseh uporabnikov?-->
                           </button>
                                                   
                         </div>
                         {{!-- modalno okno za spreminjanje nalog --}}
-                        <div class="modal fade" id="modalEditTask" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal" id="modalEditTask" tabindex="-1" role="dialog" aria-hidden="true">
                           <div class="modal-dialog" style="padding-top: 150px !important;">
                             <div class="modal-content modal-content-ekipa" style="border: 3px solid var(--c2) !important;"> 
                                 <div class="modal-header modal-header-ekipa">
                                 <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit task</h5>
-                                <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
+                                <a href="#" data-dismiss="modal"><button type="button" class="close"> <!--aria-label="Close"-->
                                 <span aria-hidden="true">&times;</span>
-                                </button>
+                                </button></a>
                                 </div>
                                 <div class="modal-body">
                                   <!-- Edit existing tasks -->
@@ -283,8 +296,8 @@
 
                                   <br>
 
-                                  <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save changes</button>
-                                  <button type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important">Delete task</button>
+                                  <a href="#"><button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save changes</button></a>
+                                  <a href="#"><button type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important">Delete task</button></a>
                                 </div>
                               </div>
                             </div>

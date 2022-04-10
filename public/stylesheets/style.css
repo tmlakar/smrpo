@@ -620,6 +620,16 @@ p {
     font-size: 20px !important;
 }
 
+#project_circle_legend {
+    border: 1px solid var(--c6) !important;
+    height: 14px;
+    width: 14px;
+    border-radius: 25px !important;
+    margin: 1px !important;
+    color: #333333 !important;
+    font-size: 20px !important;
+}
+
 .card-user-preview {
     background-color: var(--c6);
     border: none !important;
