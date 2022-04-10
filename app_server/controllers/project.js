@@ -101,10 +101,14 @@ var prikaz = (req, res) => {
             var i4 = 0;
             var i5 = 0;
             var i6 = 0;
+            var teamMembersUsernames = [];
+            var iTMUsr = 0;
             for (let i = 0; i < collaborators.length; i++) {
                 if (collaborators[i].project_role == "Team Member") {
                     teamMembers[i4] = collaborators[i];
+                    teamMembersUsernames[iTMUsr] = collaborators[i].username;
                     i4 = i4 + 1;
+                    iTMUsr = iTMUsr + 1;
                 }
                 if (collaborators[i].project_role == "Product Manager") {
                     productManagerUsername = collaborators[i].username;
@@ -118,6 +122,8 @@ var prikaz = (req, res) => {
 
                 }
             }
+            
+
 
             var now = new Date().setHours(0, 0, 0, 0);
             for (let i = 0; i < sprinti.length; i++) {
@@ -154,6 +160,14 @@ var prikaz = (req, res) => {
                 if (productManagerUsername == username) {
                     productManager = true;
                 }
+                // cez tabelo usernamov pa pol ce je katero isto vrnes true
+                var teamMember = false;
+                for (var i = 0; i < teamMembersUsernames.length; i++) {
+                    if (username == teamMembersUsernames[i]) {
+                        teamMember = true;
+                        break;
+                    }
+                }
 
                 res.render('project', {
                     name: odgovor.data.name,
@@ -171,6 +185,7 @@ var prikaz = (req, res) => {
                     layout: 'layout-user',
                     scrumMaster: scrumMaster,
                     productManager: productManager,
+                    teamMember: teamMember,
                     successfullyAddedSprint: uspesnoDodano,
                     successfullyAddedStory: uspesnoDodanaZgodba,
                     successfullyAddedSprint: uspesnoDodano,
@@ -180,6 +195,7 @@ var prikaz = (req, res) => {
                     successfullyRemovedStory: uspesnoOdstranjenaZgodba,
                     successfullyAddedAccepTest: uspesnoDodanSprejemniTest,
                     successfullyAddedComment: uspesnoDodanKomenar,
+                    
 
                 });
             } else {
@@ -200,6 +216,7 @@ var prikaz = (req, res) => {
                     layout: 'layout',
                     scrumMaster: scrumMaster,
                     productManager: productManager,
+                    teamMember: teamMember,
                     successfullyAddedSprint: uspesnoDodano,
                     successfullyAddedStory: uspesnoDodanaZgodba,
                     successfullyAddedSprint: uspesnoDodano,

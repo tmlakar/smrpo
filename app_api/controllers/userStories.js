@@ -132,6 +132,7 @@ const projectInfo = (req, res) => {
           if (!currentUserStory) {
             res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
           } else {
+            console.log(req.body.name, req.body.aboutText, req.body.priority, req.body.businessValue,req.body.size, req.body.sprint);
             currentUserStory.name = req.body.name;
             currentUserStory.aboutText = req.body.aboutText;
             currentUserStory.priority = req.body.priority;

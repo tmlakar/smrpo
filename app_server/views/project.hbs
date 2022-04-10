@@ -97,7 +97,7 @@
          data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}"
          data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{story.subtasks}}" data-com="{{story.comments}}" data-pending="{{story.pending}}"
          data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
-         data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}">
+         data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}">
         <div class="card projekt-user-card" style="">
           <div class="card-body user-card-info">
             <div class="row" style="padding: 0px !important;">
@@ -157,6 +157,7 @@
                                 var storyFinished = $(this).data('finished');
                                 var isScrumMaster = $(this).data('scrum');
                                 var isProductManager = $(this).data('projman');
+                                var isTeamMember = $(this).data('team');
 
 
                                 {{!-- posiljanje na modalno okno --}}
@@ -176,27 +177,26 @@
                                 {{!-- se pokaze gumb ce kartico lahko urejamo --}}
                                 {{!-- ce lahko urejamo + brisemo --}}
                                 if (isScrumMaster == true || isProductManager == true) {
-                                  if (storySprint == 0 && storyFinished == false) {
-                                    document.getElementById("editButton").style.display="block";
-                                    document.getElementById("deleteButton").style.display="block";    
-                                  } else {
-                                    document.getElementById("editButton").style.display="none";
-                                    document.getElementById("deleteButton").style.display="none";
-                                  }
-                                }
-                                {{!-- ne moremo urejat + brisat --}}
-                                // je finished, pripada sprintu
-                                if (storyFinished == true || storySprint != 0) {
+                                      if (storyFinished == false && storySprint == 0) {
+                                      document.getElementById("editButton").style.display="block";
+                                      document.getElementById("deleteButton").style.display="block";
+                                      document.getElementById("editButtonDisabled").style.display="none";
+                                      document.getElementById("deleteButtonDisabled").style.display="none";
+                                    } else {
+                                      document.getElementById("editButtonDisabled").style.display="block";
+                                      document.getElementById("deleteButtonDisabled").style.display="block";
+                                      document.getElementById("editButton").style.display="none";
+                                      document.getElementById("deleteButton").style.display="none";
+
+                                    }
+                                  
+                                } else if (isTeamMember) {
                                   document.getElementById("editButtonDisabled").style.display="block";
                                   document.getElementById("deleteButtonDisabled").style.display="block";
-                                } else {
-                                  document.getElementById("editButtonDisabled").style.display="none";
-                                  document.getElementById("deleteButtonDisabled").style.display="none";
-
+                                  document.getElementById("editButton").style.display="none";
+                                  document.getElementById("deleteButton").style.display="none";
                                 }
-                                
-                                //nesme bit scrum master al pa 
-                                
+                              
                                 
 
                                 {{!-- acceptance tests - to je tabela --}}
@@ -323,12 +323,7 @@
 
                     <br><br>
 
-                      <!-- save changes -form-->
-                      <input class="form-control input-form" name="name" id="StoryFinished" aria-describedby="emailHelp" hidden>
-                      <input class="form-control input-form" name="name" id="StoryBelongsToASprint" aria-describedby="emailHelp" hidden>
-                      <input class="form-control input-form" name="name" id="isScrumMaster" aria-describedby="emailHelp" hidden>
-                      <input class="form-control input-form" name="name" id="isProductManager" aria-describedby="emailHelp" hidden>
-                
+                      
                       
                       <!-- se pogoji kdo lahko spreminja pa pod katerimi pogoji-->
                       

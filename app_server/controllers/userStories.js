@@ -84,6 +84,7 @@ const addNewUserStory = (req, res) => {
   const updateUserStoryInfo = (req, res) => {
     var projectId = req.params.id;
     var storyId = req.params.idStory;
+    console.log(req.body.name);
     if (!req.body.name || !req.body.aboutText || !req.body.priority || !req.body.businessValue  || !req.body.size || !req.body.sprint) {
         
     } else {
