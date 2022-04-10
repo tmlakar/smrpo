@@ -173,6 +173,32 @@
                                 $('#isScrumMaster').val(isScrumMaster);
                                 $('#isProductManager').val(isProductManager);
 
+                                {{!-- se pokaze gumb ce kartico lahko urejamo --}}
+                                {{!-- ce lahko urejamo + brisemo --}}
+                                if (isScrumMaster == true || isProductManager == true) {
+                                  if (storySprint == 0 && storyFinished == false) {
+                                    document.getElementById("editButton").style.display="block";
+                                    document.getElementById("deleteButton").style.display="block";    
+                                  } else {
+                                    document.getElementById("editButton").style.display="none";
+                                    document.getElementById("deleteButton").style.display="none";
+                                  }
+                                }
+                                {{!-- ne moremo urejat + brisat --}}
+                                // je finished, pripada sprintu
+                                if (storyFinished == true || storySprint != 0) {
+                                  document.getElementById("editButtonDisabled").style.display="block";
+                                  document.getElementById("deleteButtonDisabled").style.display="block";
+                                } else {
+                                  document.getElementById("editButtonDisabled").style.display="none";
+                                  document.getElementById("deleteButtonDisabled").style.display="none";
+
+                                }
+                                
+                                //nesme bit scrum master al pa 
+                                
+                                
+
                                 {{!-- acceptance tests - to je tabela --}}
 
                                 console.log(storyTests);
@@ -305,21 +331,15 @@
                 
                       
                       <!-- se pogoji kdo lahko spreminja pa pod katerimi pogoji-->
-                      {{#if (karticeNemoresUrejat isScrumMaster isProductManager storySprint storyFinished)}}
-                      <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important" disabled>Save changes</button>
-                      {{/if}}
-                      {{#if (karticaSeLahkoUreja isScrumMaster isProductManager storySprint storyFinished)}}
-                      <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save changes</button>
-                      {{/if}}
+                      
+                      <button id="editButtonDisabled" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important" disabled>Save changes</button>
+                      <button id="editButton" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save changes</button>
+                      
                       </form>
                       
                       <form id="urlDelete" method="post" action="">
-                        {{#if (karticeNemoresUrejat isScrumMaster isProductManager storySprint storyFinished)}}
-                      <button type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important" disabled>Delete story</button>
-                      {{/if}}
-                      {{#if (karticaSeLahkoUreja isScrumMaster isProductManager storySprint storyFinished)}}
-                      <button type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important">Delete story</button>
-                      {{/if}}
+                      <button id="deleteButtonDisabled" type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important" disabled>Delete story</button>
+                      <button id="deleteButton" type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important">Delete story</button>
                       </form>
               </div>
 
