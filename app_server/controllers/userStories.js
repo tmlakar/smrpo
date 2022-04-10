@@ -74,7 +74,7 @@ const addNewUserStory = (req, res) => {
         res.redirect('/project/' + projectId + '?addstory=' + string);
       }).catch((napaka) => {
         var string = "napakaPriDodajanjuUporabniskeZgodbe";
-      res.redirect('/project/' + projectId + '?error=' + string);
+      res.redirect('/project/' + projectId + '/new-user-story?error=' + string);
   
       });
     }

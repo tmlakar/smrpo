@@ -159,11 +159,14 @@
                                 var isProductManager = $(this).data('projman');
                                 var isTeamMember = $(this).data('team');
 
+                                {{!-- story name odstranmo prve tri znakce --}}
+                                 var nameOfStory = storyName.substring(3, storyName.length);
+
 
                                 {{!-- posiljanje na modalno okno --}}
                                 {{!-- info --}}
                                 $('#StoryName').html( storyName );
-                                $('#StoryName1').val(storyName);
+                                $('#StoryName1').val(nameOfStory);
                                 $('#storyDescription').val(storyAbout);
                                 $('#storyPriority').val(storyPriority);
                                 $('#storyBusinessValue').val(storyBusinessValue);

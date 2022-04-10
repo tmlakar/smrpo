@@ -51,9 +51,19 @@ const projectInfo = (req, res) => {
       //preveri kok je user storijev ze notr za zaporedno stevilko # xx
       var number = 1;
       if (project.userStories && project.userStories.length > 0) {
+        console.log(project.userStories);
+        for (var i = 0; i < project.userStories.length; i++) {
+          var nameOfStory = project.userStories[i].name;
+          nameOfStory = nameOfStory.substring(3, nameOfStory.length);
+          console.log(nameOfStory);
+          if (nameOfStory == req.body.name) {
+            return res.status(401).json("Ime ze obstaja");
+          }
+        }
         var currentLast = project.userStories.length;
         number = currentLast + 1;
       }
+
       project.userStories.push({
         name: "#" + number + " " + req.body.name,
         aboutText: req.body.aboutText,
@@ -126,14 +136,26 @@ const projectInfo = (req, res) => {
           return res.status(500).json(napaka);
         }
         if (project.userStories && project.userStories.length > 0) {
+          var currentName = req.body.name;
+          
+          for (var i = 0; i < project.userStories.length; i++) {
+            var nameOfStory = project.userStories[i].name;
+            nameOfStory = nameOfStory.substring(3, nameOfStory.length);
+            
+            if (nameOfStory == currentName) {
+              return res.status(401).json("Ime ze obstaja");
+            }
+          }
           const currentUserStory = project.userStories.id(
             req.params.idUserStory
           );
           if (!currentUserStory) {
             res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
           } else {
-            console.log(req.body.name, req.body.aboutText, req.body.priority, req.body.businessValue,req.body.size, req.body.sprint);
-            currentUserStory.name = req.body.name;
+            //console.log(req.body.name, req.body.aboutText, req.body.priority, req.body.businessValue,req.body.size, req.body.sprint);
+            var currentUserStoryName = currentUserStory.name;
+            var prefixCurrentUserStory = currentUserStoryName.substring(0, 3);
+            currentUserStory.name = prefixCurrentUserStory + req.body.name;
             currentUserStory.aboutText = req.body.aboutText;
             currentUserStory.priority = req.body.priority;
             currentUserStory.businessValue = req.body.businessValue;

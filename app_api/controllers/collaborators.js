@@ -78,6 +78,8 @@ const projectInfo = (req, res) => {
              return res.status(400).json({sporočilo: "Uporabnik je že dodeljen projektu."})
            }
         }
+
+        //
     
       //   var user = project.collaborators.id({username: userUsername});
       //   console.log(user);
