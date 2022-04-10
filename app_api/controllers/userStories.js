@@ -135,16 +135,42 @@ const projectInfo = (req, res) => {
         } else if (napaka) {
           return res.status(500).json(napaka);
         }
+        // najprej pogledamo index od trenutne zgodbe k jo hocmo uredit
         if (project.userStories && project.userStories.length > 0) {
-          var currentName = req.body.name;
-          
+          var currentName = req.body.originalname;
+          var currentIndex = 0;
+          for (var i = 0; i < project.userStories.length; i++) {
+            var nameOfStory = project.userStories[i].name;
+            if (nameOfStory == currentName) {
+              currentIndex = i;
+            }
+          }
+          console.log(currentIndex);
+
+          //1. moznost: spreminja trenutno pa ne spremeni imena
+          var newName = req.body.name;
+          var oldPrefix = req.body.prefix;
+          var newFullName = oldPrefix + newName;
+          for (var i = 0; i < project.userStories.length; i++) {
+            var nameOfStory = project.userStories[i].name;
+            if (nameOfStory == newFullName) {
+              if (i == currentIndex) {
+
+              } else {
+                return res.status(401).json({ sporočilo: "Ne." });
+              }
+            }
+          }
+          //2. moznost: prefix ostane enak, gledat mors da se sam req.body.name ne podvaja
           for (var i = 0; i < project.userStories.length; i++) {
             var nameOfStory = project.userStories[i].name;
             nameOfStory = nameOfStory.substring(3, nameOfStory.length);
-            
-            if (nameOfStory == currentName) {
-              return res.status(401).json("Ime ze obstaja");
+            if (newName == nameOfStory) {
+              if (i != currentIndex) {
+                return res.status(401).json({ sporočilo: "Ne." });
+              }
             }
+            
           }
           const currentUserStory = project.userStories.id(
             req.params.idUserStory
@@ -152,6 +178,8 @@ const projectInfo = (req, res) => {
           if (!currentUserStory) {
             res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
           } else {
+
+
             //console.log(req.body.name, req.body.aboutText, req.body.priority, req.body.businessValue,req.body.size, req.body.sprint);
             var currentUserStoryName = currentUserStory.name;
             var prefixCurrentUserStory = currentUserStoryName.substring(0, 3);

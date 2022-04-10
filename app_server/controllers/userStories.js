@@ -84,7 +84,10 @@ const addNewUserStory = (req, res) => {
   const updateUserStoryInfo = (req, res) => {
     var projectId = req.params.id;
     var storyId = req.params.idStory;
-    console.log(req.body.name);
+    //console.log(req.body.name);
+    var currName = req.body.nameOrig;
+    var prefix = currName.substring(0,3);
+    //console.log(prefix + req.body.name);
     if (!req.body.name || !req.body.aboutText || !req.body.priority || !req.body.businessValue  || !req.body.size || !req.body.sprint) {
         
     } else {
@@ -92,6 +95,8 @@ const addNewUserStory = (req, res) => {
         method: 'put',
         url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/edit-info',
         data: {
+            originalname: req.body.nameOrig,
+            prefix: prefix,
             name: req.body.name,
             aboutText: req.body.aboutText,
             priority: req.body.priority,

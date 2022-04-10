@@ -167,6 +167,7 @@
                                 {{!-- info --}}
                                 $('#StoryName').html( storyName );
                                 $('#StoryName1').val(nameOfStory);
+                                $('#StoryName2').val(storyName);
                                 $('#storyDescription').val(storyAbout);
                                 $('#storyPriority').val(storyPriority);
                                 $('#storyBusinessValue').val(storyBusinessValue);
@@ -274,6 +275,7 @@
                     <div class="mb-3 col-lg-10" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Name</label>
                             <input class="form-control input-form" name="name" id="StoryName1" aria-describedby="emailHelp" required>
+                            <input class="form-control input-form" name="nameOrig" id="StoryName2" aria-describedby="emailHelp" hidden>
                     </div>
 
                       <!-- Assigned -->
