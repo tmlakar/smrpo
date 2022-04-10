@@ -100,8 +100,8 @@ const addNewUserStory = (req, res) => {
         }
       }).then((odgovor) => {
         var name = odgovor.name;
-        var string = "successfully added";
-        res.redirect('/project/' + projectId + '?error=' + string);
+        var string = "successfully edited";
+        res.redirect('/project/' + projectId + '?edited=' + string);
       }).catch((napaka) => {
         var string = "napakaPriPosodabljanjuUporabniskeZgodbe";
       res.redirect('/project/' + projectId + '?error=' + string);
@@ -274,8 +274,8 @@ const deleteStory = (req, res) => {
       
     }).then((odgovor) => {
       var name = odgovor.name;
-      var string = "successfully added";
-      res.redirect('/project/' + projectId + '?error=' + string);
+      var string = "successfully removed";
+      res.redirect('/project/' + projectId + '?removed=' + string);
     }).catch((napaka) => {
       var string = "napakaPriPosodabljanjuUporabniskeZgodbe";
     res.redirect('/project/' + projectId + '?error=' + string);

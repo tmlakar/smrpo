@@ -48,6 +48,18 @@ var apiParametri = {
     if (successfullyAddedStory == "successfully added story") {
       uspesnoDodanaZgodba = true;
     }
+    //uspesno posodobljena
+    var successfullyEditedStory = req.query.edited;
+    var uspesnoPosodobljenaZgodba = false;
+    if (successfullyEditedStory == "successfully edited") {
+      uspesnoPosodobljenaZgodba = true;
+    }
+    //uspesno odstranjena
+    var successfullyRemovedStory = req.query.removed;
+    var uspesnoOdstranjenaZgodba = false;
+    if (successfullyRemovedStory == "successfully removed") {
+      uspesnoOdstranjenaZgodba = true;
+    }
 
     var username = user.username;
     var projectId = req.params.id;
@@ -151,7 +163,9 @@ var apiParametri = {
               successfullyAddedStory: uspesnoDodanaZgodba,
               successfullyAddedSprint: uspesnoDodano,
               successfullyUpdatedSprint: uspesnoPosodobljeno,
-              successfullyDeletedSprint: uspesnoIzbrisan
+              successfullyDeletedSprint: uspesnoIzbrisan,
+              successfullyEditedStory: uspesnoPosodobljenaZgodba,
+              successfullyRemovedStory: uspesnoOdstranjenaZgodba,
             });
           } else {
 
@@ -174,7 +188,9 @@ var apiParametri = {
               successfullyAddedSprint: uspesnoDodano,
               successfullyAddedStory: uspesnoDodanaZgodba,
               successfullyAddedSprint: uspesnoDodano,
-              successfullyDeletedSprint: uspesnoIzbrisan
+              successfullyDeletedSprint: uspesnoIzbrisan,
+              successfullyEditedStory: uspesnoPosodobljenaZgodba,
+              successfullyRemovedStory: uspesnoOdstranjenaZgodba,
 
             });
           }
