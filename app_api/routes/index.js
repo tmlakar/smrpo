@@ -83,6 +83,7 @@ router.delete("/projects/:idProject/delete-collaborator/:idCollaborator", ctrlCo
 /* Adding new sprint */
 router.post("/sprint-new/:id", ctrlSprints.addSprintToAProject);
 router.put("/sprints/:idProject/edit-sprint/:idSprint", ctrlSprints.updateSprintInProcess);
+router.put("/sprints/:idProject/edit-sprint-all/:idSprint", ctrlSprints.updateFutureSprint);
 router.delete("/sprints/:idProject/delete-sprint/:idSprint", ctrlSprints.deleteSprint);
 /* User stories */
 /* userStory info */

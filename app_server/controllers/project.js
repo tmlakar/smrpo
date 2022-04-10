@@ -13,6 +13,14 @@ const axios = require("axios").create({
 
 
 var prikaz = (req, res) => {
+  var prekrivanje = req.query.prekrivanje;
+  var sePrekriva = false;
+  if (prekrivanje == "se") {
+      sePrekriva = true;
+  }
+  var number = parseInt(req.query.sprint);
+  console.log("stevilka")
+  console.log(number)
     var successfullyDeletedSprint = req.query.delete;
     var uspesnoIzbrisan = false;
     if (successfullyDeletedSprint == "success") {
@@ -23,7 +31,7 @@ var prikaz = (req, res) => {
     if (successfullyUpdated == "success") {
         uspesnoPosodobljeno = true;
     }
-    var successfullyAdded = req.query.addstory;
+    var successfullyAdded = req.query.add;
     console.log(successfullyAdded)
     var uspesnoDodano = false;
     if (successfullyAdded == "successfully added") {
@@ -122,7 +130,7 @@ var prikaz = (req, res) => {
 
                 }
             }
-            
+
 
 
             var now = new Date().setHours(0, 0, 0, 0);
@@ -196,8 +204,8 @@ var prikaz = (req, res) => {
                     successfullyRemovedStory: uspesnoOdstranjenaZgodba,
                     successfullyAddedAccepTest: uspesnoDodanSprejemniTest,
                     successfullyAddedComment: uspesnoDodanKomenar,
-                    
-
+                    number: number,
+                    prekrivanje: sePrekriva
                 });
             } else {
 
@@ -227,7 +235,8 @@ var prikaz = (req, res) => {
                     successfullyRemovedStory: uspesnoOdstranjenaZgodba,
                     successfullyAddedAccepTest: uspesnoDodanSprejemniTest,
                     successfullyAddedComment: uspesnoDodanKomenar,
-
+                    number: number,
+                    prekrivanje: sePrekriva
                 });
             }
         });

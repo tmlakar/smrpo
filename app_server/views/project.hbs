@@ -556,8 +556,14 @@
                           <div class="col-lg-10"><input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="" id="inputEnd" aria-describedby="emailHelp" readonly></div>
                       </div>
                   </div>
+                  <div class="mb-3">
+                      <label class="form-label">Sprint size</label>
+                      <div class="row" style="padding: 0px !important">
+                          <div class="col-lg-10"><input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="" id="inputSprintSize" aria-describedby="emailHelp" readonly></div>
+                      </div>
+                  </div>
                   <div class="mb-3" style="padding-bottom: 10px !important">
-                      <label class="form-label" style="padding-top: 10px !important">Sprint size</label>
+                      <label class="form-label" style="padding-top: 10px !important">New sprint size:</label>
                       <input class="form-control input-form" type="number" min="1" name="sprintSize" id="sprintsize" aria-describedby="emailHelp" required>
                   </div>
                   <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; !important">Save changes</button>
@@ -580,16 +586,34 @@
             </div>
             <div class="modal-body">
               <form method="post" id="sprintEditAll" action="url">
+                <div class="mb-3">
+                    <label class="form-label">From</label>
+                    <div class="row" style="padding: 0px !important">
+                        <div class="col-lg-10"><input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="" id="startDate" aria-describedby="emailHelp" readonly></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">To</label>
+                    <div class="row" style="padding: 0px !important">
+                        <div class="col-lg-10"><input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="" id="endDate" aria-describedby="emailHelp" readonly></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Sprint size</label>
+                    <div class="row" style="padding: 0px !important">
+                        <div class="col-lg-10"><input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="" id="sprintSize" aria-describedby="emailHelp" readonly></div>
+                    </div>
+                </div>
                 <div class="mb-3" style="padding-bottom: 10px !important">
-                  <label class="form-label" style="padding-top: 10px !important">Start date</label>
+                  <label class="form-label" style="padding-top: 10px !important">New start date</label>
                   <input class="form-control input-form" name="startDate" type="date" id="inputStart" name="trip-start">
               </div>
               <div class="mb-3" style="padding-bottom: 10px !important">
-                  <label class="form-label" style="padding-top: 10px !important">End date</label>
+                  <label class="form-label" style="padding-top: 10px !important">New end date</label>
                   <input class="form-control input-form" name="endDate"  type="date" id="inputEnd" name="trip-end">
               </div>
               <div class="mb-3" style="padding-bottom: 10px !important">
-                  <label class="form-label" style="padding-top: 10px !important">Sprint size</label>
+                  <label class="form-label" style="padding-top: 10px !important">New sprint size</label>
                   <input class="form-control input-form" type="number" min="1" name="sprintSize" id="sprintsize" aria-describedby="emailHelp" required>
               </div>
                 <div style="padding: 10px !important">
@@ -606,6 +630,36 @@
         </div>
     </div>
 </div>
+
+<div id="modalnoOknoCollPrekrivanje" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Failed!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>In this time Sprint {{number}} is already running!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if prekrivanje}}
+<script>
+    $(document).ready(function(){
+        $("#modalnoOknoCollPrekrivanje").modal('show');
+
+        setTimeout(function() {
+
+            $('#modalnoOknoCollPrekrivanje').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
 
 
       <div id="sprints" class="tab-pane fade">
@@ -634,7 +688,7 @@
                 <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                 <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                 <span>Sprint size:</span> {{sprint.sprintSize}}</p>
-                <button id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; ">
+                <button id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; ">
                   Edit sprint
                 </button>
 
@@ -644,8 +698,10 @@
                             var sprintId = $(this).data('id');
                             var eventStart = $(this).data('start');
                             var eventEnd = $(this).data('end');
+                            var sprintSize = $(this).data('size');
                              $('#inputStart').val(eventStart);
                              $('#inputEnd').val(eventEnd);
+                             $('#inputSprintSize').val(sprintSize);
                             var str = '/sprints/' + projectId + '/sprint-edit/' + sprintId;
                              $('#sprintEdit').attr("action", str);
                         });
@@ -675,7 +731,7 @@
                 <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                 <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                 <span>Sprint size:</span> {{sprint.sprintSize}}</p>
-                <button id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-target="#modalnoOknoColl" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; ">
+                <button id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; ">
                   Edit sprint
                 </button>
                 <script>
@@ -684,8 +740,10 @@
                           var sprintId = $(this).data('id');
                           var eventStart = $(this).data('start');
                           var eventEnd = $(this).data('end');
-                           $('#inputStart').val(eventStart);
-                           $('#inputEnd').val(eventEnd);
+                          var sprintSize = $(this).data('size');
+                           $('#startDate').val(eventStart);
+                           $('#endDate').val(eventEnd);
+                            $('#sprintSize').val(sprintSize);
                           var str = '/sprints/' + projectId + '/sprint-edit-all/' + sprintId;
                           var strD = '/sprints/' + projectId + '/delete-sprint/' + sprintId;
                            $('#sprintEditAll').attr("action", str);
