@@ -227,14 +227,13 @@ const posodobiInprocessSprint = (req, res) => {
   }
 }
 
+
+
+
 const posodobiFutureSprint = (req, res) => {
-  console.log("pridemm v future");
   var projectId = req.params.projectId;
   var sprintId = req.params.sprintId;
-  console.log("server")
-  console.log(projectId)
-  console.log(sprintId)
-  if (!req.body.sprintSize) {
+  if (!req.body.startDate || !req.body.endDate || !req.body.sprintSize) {
     res.render('error', {
          message: "Prišlo je do napake.",
          error: {
@@ -243,27 +242,128 @@ const posodobiFutureSprint = (req, res) => {
          }
     });
   }
-  //tukaj je spet potrebno narediti vsa preverjanja ustreznosti podatkov novega sprinta
+  //tukaj je spet potrebno narediti vsa preverjanja ustreznosti podatkov novega sprinta - najprej da datumi niso v preteklosti itd.
+  // //preverimo, da je start date v prihodnosti
+  else if(isFutureDate(new Date(req.body.startDate))==false) {
+    console.log("napaka")
+    var napaka = true;
+    res.render('sprint-new', {
+         napaka2: napaka
+    });
+  }
+  //preverimo, da je end date v prihodnosti
+  else if(isFutureDate(new Date(req.body.endDate))==false) {
+    console.log("napaka")
+    var napaka = true;
+    res.render('sprint-new', {
+         napaka3: napaka
+    });
+  }
+  //preverimo, da sta oba datuma v prihodnosti
+  else if(isFutureDate(new Date(req.body.startDate))==false && isFutureDate(new Date(req.body.endDate))==false) {
+    console.log("napaka")
+    var napaka = true;
+    res.render('sprint-new', {
+         napaka4: napaka
+    });
+  }
+  //preverimo da je začetni datum pred končnim
+  else if(req.body.startDate > req.body.endDate){
+    var napaka = true;
+    console.log(typeof req.body.sprintSize)
+    res.render('sprint-new', {
+         napaka1: napaka
+    });
+  }
+  //preverimo ustreznost velikosti sprinta glede na vnesena datume
+  else if(isSprintSizeTooBig(new Date(req.body.startDate), new Date(req.body.endDate), req.body.sprintSize)){
+    var napaka = true;
+    console.log("prevelk size")
+    res.render('sprint-new', {
+         napaka6: napaka
+    });
+  }
   else {
-    //tukaj še preverjanja glede prekrivanja sprintov
-  axios({
-    method: 'put',
-    url: apiParametri.streznik + '/api/sprints/' + projectId + '/edit-sprint/' + sprintId,
-    data: {
-         sprintSize: req.body.sprintSize
-     }
-    })
-    .then(() => {
-      console.log("uspešno updejtan sprint in process")
-        var string = "#sprints";
-        var string2 = "success";
-        res.redirect('/project/' + projectId  + '?update=' + string2 +  string);
-    }).catch((error) => {
-      var string = "napaka";
-      res.redirect('/projects/' + projectId + '?error=' + string);
+    //tukaj še preverjanja glede prekrivanja sprintov - vse isto razen, da ne gledamo prekrivanja s tem sprintom ki ga urejamo
+    let steviloSprintov = 0;
+    var prekrivanje = false;
+    console.log(projectId)
+    let URL1 = apiParametri.streznik + '/api/projects/' + projectId;
+    const promise1 = axios.get(URL1);
+    Promise.all([promise1]).then(function(values) {
+          var sprinti = values[0].data.sprints;
+          steviloSprintov = sprinti.length;
+          let newSprintStart = new Date(req.body.startDate);
+          let newSprintEnd = new Date(req.body.endDate);
+          var number = 0;
+          //preverimo če se prekriva, za vse sprinte, razen tega ki ga urejamo
+          for(let i=0; i< steviloSprintov; i++){
+            console.log("id Sprinta")
+            console.log(sprintId)
+            console.log("id sprinta v bazi")
+            console.log(sprinti[i]._id)
+            if(sprinti[i]._id != sprintId){
+                let sprintStart = new Date(sprinti[i].startDate);
+                let sprintEnd = new Date(sprinti[i].endDate);
+                //1.scenarij - nov sprint ima start date znotraj intervala sprinta v bazi
+                if((newSprintStart >= sprintStart) && (newSprintStart < sprintEnd)){
+                  console.log("se prekriva");
+                  prekrivanje = true;
+                  number = sprinti[i].number;
+                  break;
+                }
+                //2.scenarij - end novega sprinta je znotraj intervala sprinta v bazi
+                if((newSprintEnd > sprintStart) && (newSprintEnd <= sprintEnd)){
+                  console.log("se prekriva");
+                  prekrivanje = true;
+                  number = sprinti[i].number;
+                  break;
+                }
+                //3.scenarij - nov sprint ima interval znotraj intervala nekega sprinta v bazi
+                if((newSprintStart >= sprintStart) && (newSprintStart <= sprintEnd)){
+                  console.log("se prekriva");
+                  prekrivanje = true;
+                  number = sprinti[i].number;
+                  break;
+                }
+            }
+          }
+          if(prekrivanje){
+              console.log("prekrivanje");
+              var napaka = true;
+              var string = "#sprints";
+              var string2 = "se";
+              console.log("stevilka v sprintu")
+              console.log(number)
+              res.redirect('/project/' + projectId  + '?prekrivanje=' + string2 + '&'+'sprint=' + number + string);
+          }
+          else{
+              //ni prekrivanj in datuma ter size so ustrezni, lahko posodobimo sprint
+              axios({
+                method: 'put',
+                url: apiParametri.streznik + '/api/sprints/' + projectId + '/edit-sprint-all/' + sprintId,
+                data: {
+                      startDate: req.body.startDate,
+                      endDate: req.body.endDate,
+                      sprintSize: req.body.sprintSize
+                 }
+                })
+                .then(() => {
+                  console.log("uspešno updejtan sprint in process")
+                    var string = "#sprints";
+                    var string2 = "success";
+                    res.redirect('/project/' + projectId  + '?update=' + string2 +  string);
+                }).catch((error) => {
+                  var string = "napaka";
+                  res.redirect('/project/' + projectId + '?error=' + string);
+                });
+              }
     });
   }
 }
+
+
+
 
 const deleteSprint = (req, res) => {
   var projectId = req.params.projectId;

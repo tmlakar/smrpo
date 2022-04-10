@@ -101,6 +101,56 @@ const Project = mongoose.model("Project");
       });
   };
 
+  //update sprint
+    const updateFutureSprint = (req, res) => {
+      if (!req.params.idProject || !req.params.idSprint) {
+        return res.status(404).json({
+          sporočilo:
+            "Ne najdem projekta oziroma sprinta, " +
+            "idProject in idSprint sta obvezna parametra.",
+        });
+      }
+      Project.findById(req.params.idProject)
+        .select("sprints")
+        .exec((napaka, project) => {
+          if (!project) {
+            return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+          } else if (napaka) {
+            return res.status(500).json(napaka);
+          }
+          if (project.sprints && project.sprints.length > 0) {
+            const currentSprint = project.sprints.id(
+              req.params.idSprint
+            );
+            if (!currentSprint) {
+              res.status(404).json({ sporočilo: "Ne najdem sprinta." });
+            } else {
+                //updejtam sprint
+                currentSprint.startDate = req.body.startDate;
+                currentSprint.endDate = req.body.endDate;
+                currentSprint.sprintSize = req.body.sprintSize;
+                currentSprint.save((napaka, sprint) => {
+                  if (napaka) {
+                  res.status(400).json(napaka);
+                  } else {
+                }
+              });
+
+                project.save((napaka, project) => {
+                  if (napaka) {
+                    res.status(404).json(napaka);
+                  } else {
+                    res.status(200).json(project);
+                  }
+                });
+              }
+            }
+           else {
+            return res.status(404).json({ sporočilo: "Ni obstojecih sprintov." });
+          }
+        });
+    };
+
   //delete sprint
   const deleteSprint = (req, res) => {
     const { idProject, idSprint } = req.params;
@@ -144,5 +194,6 @@ const Project = mongoose.model("Project");
    module.exports = {
        addSprintToAProject,
        updateSprintInProcess,
-       deleteSprint
+       deleteSprint,
+       updateFutureSprint
 };
