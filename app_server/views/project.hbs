@@ -147,12 +147,12 @@
                                 var storyPriority = $(this).data('priority');
                                 var storyBusinessValue = $(this).data('busval');
                                 var storySize = $(this).data('size');
-                                var storyTests = $(this).data('acc');
-                                var storySubtasks = $(this).data('subt');
-                                var storyComments = $(this).data('com');
-                                var storyPendingFlag = $(this).data('pending');
-                                var storyOwner = $(this).data('owner');
-                                var storyFlags = $(this).data('flags');
+                                let storyTests = $(this).data('acc');
+                                let storySubtasks = $(this).data('subt');
+                                let storyComments = $(this).data('com');
+                                let storyPendingFlag = $(this).data('pending');
+                                let storyOwner = $(this).data('owner');
+                                let storyFlags = $(this).data('flags');
                                 var storySprint = $(this).data('sprint1');
                                 var storyFinished = $(this).data('finished');
                                 var isScrumMaster = $(this).data('scrum');
@@ -213,22 +213,25 @@
 
                                 {{!-- acceptance tests - to je tabela --}}
                                 {{!-- kjer je , bomo brejkal --}}
-                                
-                                
                                 let string = storyTests.toString();
                                 let result = string.replace(/,/g, '<br>');
-                                console.log(result);
-                              
+                                {{!-- console.log(result); --}}
                               
                                 $('#storyAcceptanceTests').html(result);
-                                {{!-- storyAcceptanceTestsS --}}
-
+                                
                                 {{!-- tasks - objekti --}}
+
                                 console.log(storySubtasks)
                                 $('#storyTasks').html(storySubtasks);
 
+
                                 {{!-- comments - objekti --}}
-                                console.log(storyComments)
+                                let comments = [{}]; 
+                                console.log(comments)
+                                comments = JSON.stringify(storyComments);
+                                var stringifiedObj = Object.entries(storyComments).map(x=>x.join(":")).join("\n");
+                                console.log(stringifiedObj)
+                                console.log('Comments: %o', storyComments)
                                 $('#storyComments').html(storyComments);
 
 
