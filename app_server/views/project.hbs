@@ -159,7 +159,8 @@
                                 var isProductManager = $(this).data('projman');
                                 var isTeamMember = $(this).data('team');
                                 var admin = $(this).data('admin');
-                                var commentOwnerUsername = $(this).data('username');
+                                var commentOwnerUsername = $(this).data('user');
+                                console.log(commentOwnerUsername);
 
                                 {{!-- story name odstranmo prve tri znakce --}}
                                  var nameOfStory = storyName.substring(3, storyName.length);

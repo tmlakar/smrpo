@@ -82,6 +82,8 @@ var prikaz = (req, res) => {
 
 
     var username = user.username;
+    var usernameS = user.username;
+    console.log(usernameS)
     var projectId = req.params.id;
     axios
         .get(apiParametri.streznik + '/api/projects/' + projectId)
@@ -180,7 +182,7 @@ var prikaz = (req, res) => {
                 res.render('project', {
                     name: odgovor.data.name,
                     id: projectId,
-                    username: username,
+                    username: usernameS,
                     sprints: sprinti,
                     finishedSprints: finishedSprints,
                     inProcessSprints: inProcessSprints,
@@ -213,7 +215,7 @@ var prikaz = (req, res) => {
                     name: odgovor.data.name,
                     id: projectId,
                     sprints: sprinti,
-                    username: username,
+                    username: usernameS,
                     finishedSprints: finishedSprints,
                     inProcessSprints: inProcessSprints,
                     futureSprints: futureSprints,
