@@ -843,7 +843,69 @@ $(document).ready(function(){
 
         setTimeout(function() {
 
-            $('#myModal41').modal('hide');
+            $('#myModal42').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+{{!-- modal window if acceptance test was successfully added --}}
+<div id="myModal43" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Acceptance test has been successfully added!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyAddedAccepTest}}
+<script>
+    $(document).ready(function(){
+        $("#myModal43").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModal43').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+{{!-- modal window if comment was successfully added --}}
+<div id="myModal44" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Comment has been successfully added!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyAddedAccepTest}}
+<script>
+    $(document).ready(function(){
+        $("#myModal44").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModal44').modal('hide');
         }, 7000);
     });
 </script>
