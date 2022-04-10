@@ -29,30 +29,30 @@
                     {{#each collaborators as |collaborator|}}
                     {{!-- ce je Team Member se krogec obarva s sivo --}}
                     {{#if (isTeamMember collaborator.project_role)}}
-                    
+
                     <button  id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
                     data-target="#modalnoOknoColl" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c6) !important; ">
                     {{firstLetterOfUsername collaborator.username}}
-                    
+
                     </button>
                     {{/if}}
-                    
+
 
                     {{!-- ce je Scrum Master se krogec obarva z modro  --}}
                     {{#if (isScrumMaster collaborator.project_role)}}
-                    
+
                     <button id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}" data-target="#modalnoOknoColl" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c5) !important; ">
                     {{firstLetterOfUsername collaborator.username}}
-                    
+
                     </button>
                     {{/if}}
 
                     {{!-- ce je Product Manager se krogec obarva s oranzno --}}
                     {{#if (isProductManager collaborator.project_role)}}
-                    
+
                     <button id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}" data-target="#modalnoOknoColl" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c1) !important; ">
                     {{firstLetterOfUsername collaborator.username}}
-                    
+
                     </button>
                     {{/if}}
                     <script>
@@ -67,25 +67,25 @@
                                 $('#idHolder').html( eventId );
                                 $('#idHolder2').html( eventUsr );
                                 $('#idHolder3').html( eventRole );
-                                
+
                                 $('#inputUsr').val(eventUsr);
                                 $('#inputRole').val(eventRole);
                                 var str = '/projects/' + projectId + '/edit-collaborator/' + eventId;
                                 console.log(str);
                                 var strD = '/projects/' + projectId + '/delete-collaborator/' + eventId;
-                               
+
                                 $('#collaboratorEdit').attr("action", str);
                                 $('#collaboratorRemove').attr("action", strD);
-                                
+
 
                             });
                     </script>
 
-                    
+
                     {{!-- modalno okno za spreminjanje nastavitev uporabnika --}}
                     <div class="modal fade" id="modalnoOknoColl" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
-                            <div class="modal-content modal-content-ekipa"> 
+                            <div class="modal-content modal-content-ekipa">
                                 <div class="modal-header modal-header-ekipa">
                                 <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit project collaborator</h5>
                                 <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
@@ -96,13 +96,13 @@
                                     <form method="post" id="collaboratorEdit" action="url">
                                     <!--form start-->
                                     <!-- Username -->
-                                    
+
                                     <input type="hidden" name="eventId" id="eventId"/ hidden>
-                                    <span id="idHolder0" hidden></span>	
-        	                        <span id="idHolder" hidden></span>	
-                                    <span id="idHolder2" hidden></span>	
+                                    <span id="idHolder0" hidden></span>
+        	                        <span id="idHolder" hidden></span>
+                                    <span id="idHolder2" hidden></span>
                                     <span id="idHolder3" hidden></span>
-                                    
+
                                     <div class="mb-3">
                                         <label class="form-label">Username</label>
                                         <div class="row" style="padding: 0px !important">
@@ -130,12 +130,12 @@
                                     <br><br>
                                     <div style="padding: 10px !important">
                                         <!-- save changes -->
-                                        
+
                                     <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; !important">Save changes</button>
-                                    
+
                                     </form>
                                     <!-- remove collaborator -->
-                                    
+
                                     <form action="url" method="post" id="collaboratorRemove">
                                     <div>
                                     <button type="submit" class="btn submit-form" style="margin-top: -50px !important; background-color: var(--c1)!important; float: right !important; width: 200px !important">Remove collaborator</button>
@@ -149,7 +149,7 @@
                     </div>
 
                     {{/each}}
-                     
+
 
 
                 <!-- Legenda -->
@@ -160,7 +160,7 @@
                 <button id="collaborator_circle_legend" style="background-color: var(--c1) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 10px !important; padding-right: 20px !important;">Product Manager</span>
                 <a href="#add" onclick="location.href='#add'"><button id="ekipa" type="button" data-toggle="modal" data-target="#modalnoOknoEkipa" class="btn btn-dark dodaj-vekipo" style="background-color: var(--c1) !important; border: 3px solid var(--c1) !important"><i class="fa-solid fa-plus dodaj"></i></button></a>
                 </div>
-                
+
             </div>
 
         </div>
@@ -209,17 +209,17 @@
 
 <div class="modal fade" id="modalnoOknoEkipa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content modal-content-ekipa"> 
+        <div class="modal-content modal-content-ekipa">
             <div class="modal-header modal-header-ekipa">
                 <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Add project collaborators</h5>
                 <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-            </div> 
+            </div>
             <div class="modal-body">
-                
 
-                
+
+
                 <form action="/projects/{{id}}/add-collaborators" method="post">
                 <div class="mb-3 form-select">
                         <label class="form-label" style="padding-top: 5px !important">Collaborator</label>
@@ -228,7 +228,7 @@
                                 {{#each users as |user|}}
                                 {{#if user.isNotDeleted}}
                                 {{#if (isUser user.role)}}
-                            <option value="{{user.username}}"> 
+                            <option value="{{user.username}}">
                             </option>
                             {{/if}}
                             {{/if}}
@@ -250,7 +250,7 @@
                       <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
                 </div>
                 </form>
-                
+
 
             </div>
         </div>
@@ -260,7 +260,7 @@
 
 
 
- 
+
 {{!-- ______________________________________________ modal windows _________________________________________________ --}}
 
 {{!-- modal window if project was successfully edited --}}
@@ -276,7 +276,7 @@
                 <div class="modal-body">
                     <p>Project information were successfully updated!</p>
                 </div>
-                
+
                 </div>
             </div>
         </div>
@@ -295,7 +295,7 @@
                 <div class="modal-body">
                     <p>User's project role was successfully updated!</p>
                 </div>
-                
+
                 </div>
             </div>
         </div>
@@ -313,7 +313,7 @@
                 <div class="modal-body">
                     <p>User was successfully added to the project!</p>
                 </div>
-                
+
                 </div>
             </div>
         </div>
@@ -331,7 +331,7 @@
                 <div class="modal-body">
                     <p>User was successfully removed from the project!</p>
                 </div>
-                
+
                 </div>
             </div>
         </div>
@@ -353,7 +353,7 @@
                 <div class="modal-body">
                     <p>Whoops! Something went wrong! A user that is already a collaborator on a project, can't be added to the same project again!</p>
                 </div>
-                
+
                 </div>
             </div>
         </div>
@@ -364,10 +364,10 @@
 <script>
     $(document).ready(function(){
         $("#myModal1").modal('show');
-        
+
         setTimeout(function() {
-            
-            $('#myModal1').modal('hide');   
+
+            $('#myModal1').modal('hide');
         }, 7000);
     });
 </script>
@@ -378,10 +378,10 @@
 <script>
     $(document).ready(function(){
         $("#myModal2").modal('show');
-        
+
         setTimeout(function() {
-            
-            $('#myModal2').modal('hide');   
+
+            $('#myModal2').modal('hide');
         }, 7000);
     });
 </script>
@@ -392,10 +392,10 @@
 <script>
     $(document).ready(function(){
         $("#myModal3").modal('show');
-        
+
         setTimeout(function() {
-            
-            $('#myModal3').modal('hide');   
+
+            $('#myModal3').modal('hide');
         }, 7000);
     });
 </script>
@@ -406,10 +406,10 @@
 <script>
     $(document).ready(function(){
         $("#myModal4").modal('show');
-        
+
         setTimeout(function() {
-            
-            $('#myModal4').modal('hide');   
+
+            $('#myModal4').modal('hide');
         }, 7000);
     });
 </script>
@@ -419,11 +419,14 @@
 <script>
     $(document).ready(function(){
         $("#myModal5").modal('show');
-        
+
         setTimeout(function() {
-            
-            $('#myModal5').modal('hide');   
+
+            $('#myModal5').modal('hide');
         }, 7000);
     });
 </script>
 {{/if}}
+
+
+

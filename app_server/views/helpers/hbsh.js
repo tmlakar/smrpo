@@ -110,3 +110,69 @@ hbs.registerHelper('formatirajInfo', function (value) {
   return trimmedString;
 
 });
+
+
+
+hbs.registerHelper('formatirajZapisAcceptanceTestov', function (value) {
+  var tests = value;
+  for (var i = 0; i < tests.length; i++) {
+    var string = tests[i];
+    string = '# ' + string;
+    tests[i] = string;
+  } 
+
+  return tests;
+
+});
+
+
+/* 
+pogoji za urejanje in izbris kartic 
+- lahko jo samo scrum master al pa product manager
+- nesme pripadat katermu koli sprintu
+- nesme bit realizirana 
+*/
+
+// se pokaze, ampak disabled -> seprav mora bit vedno true;
+hbs.registerHelper('karticeNemoresUrejat', function (value1, value2, value3, value4) {
+  // value 3 - pripada sprintu
+  // value 4 - finished?
+  //je finished
+  console.log(value1, value2, value3, value4);
+  if (value4 == true) {
+    return true;
+  }
+  //pripada sprintu
+  if (value3 != 0) {
+    return true;
+  }
+  //nesme bit scrum master al pa 
+  if (value1 != true && value2 != true) {
+    return true;
+  }
+
+  
+  return false;
+
+});
+
+hbs.registerHelper('karticaSeLahkoUreja', function (value1, value2, value3, value4) {
+  // value 3 - pripada sprintu
+  // value 4 - finished?
+  //ni finished
+  //ne pripada sprintu
+  //je scrum master al pa product manager
+  console.log(value1, value2, value3, value4);
+  if (value1 == true || value2 == true) {
+    if (value3 == 0 && value4 == false) {
+      return true;
+    } else {
+      return false;
+    }
+    
+
+  }
+
+  return false;
+
+});

@@ -14,7 +14,17 @@ var apiParametri = {
 
 
   var prikaz = (req, res) => {
-    var successfullyAdded = req.query.add;
+    var successfullyDeletedSprint = req.query.delete;
+    var uspesnoIzbrisan = false;
+     if (successfullyDeletedSprint == "success") {
+     uspesnoIzbrisan = true;
+    }
+    var successfullyUpdated = req.query.update;
+    var uspesnoPosodobljeno = false;
+    if (successfullyUpdated == "success") {
+     uspesnoPosodobljeno = true;
+    }
+    var successfullyAdded = req.query.addstory;
     console.log(successfullyAdded)
     var uspesnoDodano = false;
     if (successfullyAdded == "successfully added") {
@@ -30,6 +40,26 @@ var apiParametri = {
       nivoDostopa = true;
     }
     var vloga = user.role;
+
+    //user feedback uporabniske zgodbe
+    //uspesno dodana zgodba
+    var successfullyAddedStory = req.query.addstory;
+    var uspesnoDodanaZgodba = false;
+    if (successfullyAddedStory == "successfully added story") {
+      uspesnoDodanaZgodba = true;
+    }
+    //uspesno posodobljena zgodba
+    var successfullyEditedStory = req.query.edited;
+    var uspesnoPosodobljenaZgodba = false;
+    if (successfullyEditedStory == "successfully edited") {
+      uspesnoPosodobljenaZgodba = true;
+    }
+    //uspesno odstranjena zgodba
+    var successfullyRemovedStory = req.query.removed;
+    var uspesnoOdstranjenaZgodba = false;
+    if (successfullyRemovedStory == "successfully removed") {
+      uspesnoOdstranjenaZgodba = true;
+    }
 
     var username = user.username;
     var projectId = req.params.id;
@@ -52,6 +82,7 @@ var apiParametri = {
           var info = odgovor.data.info;
           var collaborators = odgovor.data.collaborators;
           var scrumMasterUsername;
+          var productManagerUsername;
           var teamMembers = [];
           var productManagers = [];
           var scrumMasters = [];
@@ -64,6 +95,7 @@ var apiParametri = {
               i4 = i4 + 1;
             }
             if (collaborators[i].project_role == "Product Manager") {
+              productManagerUsername = collaborators[i].username;
               productManagers[i5] = collaborators[i];
               i5 = i5 + 1;
             }
@@ -75,24 +107,28 @@ var apiParametri = {
             }
           }
 
-          var now = new Date();
+          var now = new Date().setHours(0,0,0,0);
           for(let i=0; i< sprinti.length; i++){
+            var start = new Date(sprinti[i].startDate).setHours(0,0,0,0);
+            var end = new Date(sprinti[i].endDate).setHours(0,0,0,0);
             //če je finished
-            if((new Date(sprinti[i].startDate) < now) && (new Date(sprinti[i].endDate) < now)){
+            if((start < now) && (end < now)){
               finishedSprints[i1] = sprinti[i];
               i1 = i1 +1;
             }
             //če je in process
-            if((new Date(sprinti[i].startDate) <= now) && (new Date(sprinti[i].endDate) > now)){
+            if((start <= now) && (end >= now)){
               inProcessSprints[i2] = sprinti[i];
               i2 = i2 +1;
             }
             //če je v prihodnosti
-            if((new Date(sprinti[i].startDate) >= now) && (new Date(sprinti[i].endDate) > now)){
-              inProcessSprints[i3] = sprinti[i];
+            if((start > now) && (end > now)){
+              futureSprints[i3] = sprinti[i];
               i3 = i3 +1;
             }
           }
+
+
 
 
           if (vloga == "user") {
@@ -101,13 +137,19 @@ var apiParametri = {
             if(scrumMasterUsername == username){
               scrumMaster = true;
             }
+            // isto ugotovimo al je product manager
+            var productManager = false;
+            if(productManagerUsername == username){
+              productManager = true;
+            }
+
             res.render('project',
             { name: odgovor.data.name,
               id: projectId,
               sprints: sprinti,
-              // finishedSprints: finishedSprints,
-              // inProcessSprints: inProcessSprints,
-              // futureSprints: futureSprints,
+              finishedSprints: finishedSprints,
+              inProcessSprints: inProcessSprints,
+              futureSprints: futureSprints,
               teamMembers: teamMembers,
               productManagers: productManagers,
               scrumMasters: scrumMasters,
@@ -116,7 +158,14 @@ var apiParametri = {
               info: info,
               layout: 'layout-user',
               scrumMaster: scrumMaster,
-              successfullyAddedSprint: uspesnoDodano
+              productManager: productManager,
+              successfullyAddedSprint: uspesnoDodano,
+              successfullyAddedStory: uspesnoDodanaZgodba,
+              successfullyAddedSprint: uspesnoDodano,
+              successfullyUpdatedSprint: uspesnoPosodobljeno,
+              successfullyDeletedSprint: uspesnoIzbrisan,
+              successfullyEditedStory: uspesnoPosodobljenaZgodba,
+              successfullyRemovedStory: uspesnoOdstranjenaZgodba,
             });
           } else {
 
@@ -124,9 +173,9 @@ var apiParametri = {
             { name: odgovor.data.name,
               id: projectId,
               sprints: sprinti,
-              // finishedSprints: finishedSprints,
-              // inProcessSprints: inProcessSprints,
-              // futureSprints: futureSprints,
+              finishedSprints: finishedSprints,
+              inProcessSprints: inProcessSprints,
+              futureSprints: futureSprints,
               userStories: uporabniskeZgodbe,
               teamMembers: teamMembers,
               productManagers: productManagers,
@@ -135,7 +184,14 @@ var apiParametri = {
               info: info,
               layout: 'layout',
               scrumMaster: scrumMaster,
-              successfullyAddedSprint: uspesnoDodano
+              productManager: productManager,
+              successfullyAddedSprint: uspesnoDodano,
+              successfullyAddedStory: uspesnoDodanaZgodba,
+              successfullyAddedSprint: uspesnoDodano,
+              successfullyDeletedSprint: uspesnoIzbrisan,
+              successfullyEditedStory: uspesnoPosodobljenaZgodba,
+              successfullyRemovedStory: uspesnoOdstranjenaZgodba,
+
             });
           }
         });
