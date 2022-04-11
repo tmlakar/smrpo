@@ -236,7 +236,7 @@ const updateUserStoryAddSubtask = (req, res) => {
         } else {
           //tle pushas na
           currentUserStory.subtasks.push({
-            name: req.body.name,
+            name: req.body.name + ' [' + req.body.hour + 'h]',
           });
             
           project.save((napaka, project) => {

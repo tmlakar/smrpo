@@ -128,7 +128,7 @@ const updateUserStoryInfo = (req, res) => {
 const addSubtask = (req, res) => {
     var projectId = req.params.id;
     var storyId = req.params.idStory;
-    if (!req.body.name || !req.body.subtaskOwnerUsername) {
+    if (!req.body.name || !req.body.hour) {
 
     } else {
         axios({
@@ -136,7 +136,7 @@ const addSubtask = (req, res) => {
             url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/add-subtask',
             data: {
                 name: req.body.name,
-                subtaskOwnerUsername: req.body.subtaskOwnerUsername,
+                hour: req.body.hour,
             }
         }).then((odgovor) => {
             var name = odgovor.name;

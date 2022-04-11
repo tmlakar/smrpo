@@ -350,9 +350,9 @@
                                 var urlAddComment = '/project/'+ projId + '/userStory/'+ storyId + '/add-comment';
                                  $('#urlAddComment').attr("action", urlAddComment);
 
-
-                                 var urlAddSubtaks = '/project/'+ projId + '/userStory/'+ storyId + '/add-subtask';
-                                 $('#urlAddSubtaks').attr("action", urlAddSubtaks);
+                                console.log(storyId)
+                                 var urlAddSubtask = '/project/'+ projId + '/userStory/'+ storyId + '/add-subtask';
+                                 $('#urlAddSubtask1').attr("action", urlAddSubtask);
 
 
                             });
@@ -493,7 +493,7 @@
               <!-- Tab 3 - Tasks -->
               <div id="tasks" class="tab-pane fade">
               <div class="modal-body">
-                  <form method="post" id="urlAddSubtaks" action="url">
+                  
 
                     <!-- Tasks -->
                     <div id ="allSubtasksStory" class="mb-3" style="padding-bottom: 10px !important">
@@ -557,7 +557,8 @@
                     </div>
 
                     <!-- Add new tasks -form-->
-                    <div id="addNewSubtask">
+                    <form method="post" id="urlAddSubtask1" action=""></form>
+                    <div id=" ">
                     <div class="mb-3" style="padding-bottom: 10px !important; width: 84% !important; float: Left;">
                             <label class="form-label" style="padding-top: 10px !important;">Add task</label>
                             <input class="form-control input-form" name="name" id="info" aria-describedby="emailHelp" required>
@@ -566,7 +567,7 @@
                     <div class="clear"></div>
                     <div class="mb-3" style="padding-bottom: 10px !important; width: 14% !important; float: Right;">
                             <label class="form-label" style="padding-top: 10px !important;">Hours</label>
-                            <input class="form-control input-form" name="hours" id="taskHours" type="number" min="1" aria-describedby="emailHelp" required>
+                            <input class="form-control input-form" name="hour" id="taskHours" type="number" min="1" aria-describedby="emailHelp" required>
                     </div>
 
                     <!-- save changes -->
