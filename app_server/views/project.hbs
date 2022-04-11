@@ -89,7 +89,7 @@
   <div class="tab-content">
     <div id="backlog" class=" active tab-pane fade">
 
-      
+
       <div class="card-group">
       <div class="row">
     {{#each userStories as |story|}}
@@ -104,7 +104,7 @@
                 <div class=" col-lg-10" >
                   <h4><i>{{story.name}}</i></h4>
                 </div>
-                
+
                 <div class="storyOwner_circle-d col-lg-2 " >
                     <button  id="storyOwner_circle" type="button"
                             class="btn btn-dark open-collaboratorEdit" disabled>
@@ -119,6 +119,7 @@
             </p>
             
             <p hidden>
+<<<<<<< HEAD
             
             {{#each story.comments as |comment|}}
             {{comment.comment}}
@@ -132,6 +133,30 @@
             <p hidden>
               {{story.subtasks}}
             </p>
+=======
+            <script>var commentsArray = "";</script>
+            {{#each story.comments as |comment|}}
+
+            {{comment.comment}}
+            {{comment.commentOwnerUsername}}
+            <script>
+
+              var comment = {}
+              comment.comment = "{{comment.comment}}"
+              comment.commentOwnerUsername = "{{comment.commentOwnerUsername}}"
+              var commentS = JSON.stringify(comment);
+              //console.log(commentS);
+              commentsArray = commentsArray + "," + commentS;
+
+            </script>
+            {{/each}}
+            <script>
+              console.log(commentsArray);
+
+
+
+            </script>
+>>>>>>> 1662e2f3f6d07795cc916707725d120c69cf80e3
             </p>
             <div class="row" style="padding: 0px !important;">
               <div class="card-flagss col-lg-12">
@@ -181,8 +206,14 @@
                                 var isTeamMember = $(this).data('team');
                                 var admin = $(this).data('admin');
                                 var commentOwnerUsername = $(this).data('user');
+<<<<<<< HEAD
             
                             
+=======
+
+
+                                console.log(commentsArray)
+>>>>>>> 1662e2f3f6d07795cc916707725d120c69cf80e3
 
                                 {{!-- story name odstranmo prve tri znakce --}}
                                  var nameOfStory = storyName.substring(3, storyName.length);
@@ -240,18 +271,32 @@
                                 let string = storyTests.toString();
                                 let result = string.replace(/,/g, '<br>');
                                 {{!-- console.log(result); --}}
-                              
+
                                 $('#storyAcceptanceTests').html(result);
-                                
+
                                 {{!-- tasks - objekti --}}
 
+<<<<<<< HEAD
                                 //console.log(storySubtasks);
                                 $('#storyTasks').html(storySubtasks1.toString());
+=======
+
+                                $('#storyTasks').html(storySubtasks);
+>>>>>>> 1662e2f3f6d07795cc916707725d120c69cf80e3
 
 
                                 {{!-- comments - objekti --}}
+                                let comments = [{}];
+                                console.log(comments)
+                                comments = JSON.stringify(storyComments);
+                                var stringifiedObj = Object.entries(storyComments).map(x=>x.join(":")).join("\n");
+                                console.log(stringifiedObj)
+                                console.log('Comments: %o', storyComments)
+                                $('#storyComments').html(storyComments);
+
                                 {{!-- commentOwnerUsername --}}
 
+<<<<<<< HEAD
                                 
                                 let array = storyComments;
 
@@ -288,6 +333,9 @@
                                 } else {
                                   document.getElementById("addCommentForm").style.display="none";
                                 }
+=======
+                                {{!-- $('#storyComments').html(commentsArray); --}}
+>>>>>>> 1662e2f3f6d07795cc916707725d120c69cf80e3
 
                                 {{!-- za input za username od trenutno prijavnega uporabnika --}}
                                 $('#commentOwnerUsername').val(commentOwnerUsername);
@@ -308,14 +356,14 @@
                                 var urlDelete = '/project/'+ projId + '/userStory/'+ storyId + '/delete';
                                 $('#urlDelete').attr("action", urlDelete);
 
-                                
+
                                 var urlAddTests = '/project/'+ projId + '/userStory/'+ storyId + '/add-test';
                                 $('#urlAddTests').attr("action", urlAddTests);
 
                                 var urlAddComment = '/project/'+ projId + '/userStory/'+ storyId + '/add-comment';
                                  $('#urlAddComment').attr("action", urlAddComment);
 
-                                 
+
                                  var urlAddSubtaks = '/project/'+ projId + '/userStory/'+ storyId + '/add-subtask';
                                  $('#urlAddSubtaks').attr("action", urlAddSubtaks);
 
@@ -508,7 +556,7 @@
                                   {{!-- <a href="#"><button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save changes</button></a>
                                   <a href="#"><button type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important">Delete task</button></a>
                                --}}
-                                </div> 
+                                </div>
                               </div>
                             </div>
                         </div>
@@ -523,7 +571,7 @@
                     <div class="mb-3" style="padding-bottom: 10px !important; width: 84% !important; float: Left;">
                             <label class="form-label" style="padding-top: 10px !important;">Add task</label>
                             <input class="form-control input-form" name="name" id="info" aria-describedby="emailHelp" required>
-                            
+
                     </div>
                     <div class="clear"></div>
                     <div class="mb-3" style="padding-bottom: 10px !important; width: 14% !important; float: Right;">
@@ -541,7 +589,7 @@
               <!-- Tab 4 - Comments -->
               <div id="comments" class="tab-pane fade">
               <div class="modal-body">
-                 
+
 
                     <!-- All comments -->
                     <!-- sm pridejo komentarji? -->
@@ -701,6 +749,92 @@
             </div>
         </div>
 
+
+<div id="modalnoOknoCollNapakaStart" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Failed!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Start date can't be in the past!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+<div id="modalnoOknoCollNapakaEnd" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Failed!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>End date can't be in the past!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+<div id="modalnoOknoCollNapakaStartEnd" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Failed!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Start and end date can't be in the past!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+<div id="modalnoOknoCollNapakaDate" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Failed!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Start date must be before end date!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+<div id="modalnoOknoCollSize" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Failed!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>This size is too big for the number of days for this sprint!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
 {{#if prekrivanje}}
 <script>
     $(document).ready(function(){
@@ -713,7 +847,62 @@
     });
 </script>
 {{/if}}
+{{#if startPast}}
+<script>
+    $(document).ready(function(){
+        $("#modalnoOknoCollNapakaStart").modal('show');
+        setTimeout(function() {
 
+            $('#modalnoOknoCollNapaka').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+{{#if endPast}}
+<script>
+    $(document).ready(function(){
+        $("#modalnoOknoCollNapakaEnd").modal('show');
+        setTimeout(function() {
+
+            $('#modalnoOknoCollNapakaEnd').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+{{#if startEndPast}}
+<script>
+    $(document).ready(function(){
+        $("#modalnoOknoCollNapakaStartEnd").modal('show');
+        setTimeout(function() {
+
+            $('#modalnoOknoCollNapakaStartEnd').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+{{#if correctDate}}
+<script>
+    $(document).ready(function(){
+        $("#modalnoOknoCollNapakaDate").modal('show');
+        setTimeout(function() {
+
+            $('#modalnoOknoCollNapakaDate').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+{{#if sizeBig}}
+<script>
+    $(document).ready(function(){
+        $("#modalnoOknoCollSize").modal('show');
+
+        setTimeout(function() {
+
+            $('#modalnoOknoCollSize').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
 
       <div id="sprints" class="tab-pane fade">
 
@@ -755,7 +944,7 @@
                              $('#inputStart').val(eventStart);
                              $('#inputEnd').val(eventEnd);
                              $('#inputSprintSize').val(sprintSize);
-                            var str = '/sprints/' + projectId + '/sprint-edit/' + sprintId;
+                            var str = '/sprints/' + projectId + '/sprint-edit/' + sprintId + '?startDate=' + eventStart + '&endDate=' + eventEnd;
                              $('#sprintEdit').attr("action", str);
                         });
                 </script>

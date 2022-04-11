@@ -190,12 +190,15 @@ var apiParametri = {
 
 
 const posodobiInprocessSprint = (req, res) => {
-  console.log("pridemm");
   var projectId = req.params.projectId;
   var sprintId = req.params.sprintId;
-  console.log("server")
-  console.log(projectId)
-  console.log(sprintId)
+  var start = req.query.startDate;
+  var end = req.query.endDate;
+  const arraystartDate = start.split(".");
+  var startDate = new Date(arraystartDate[2],arraystartDate[1]-1,arraystartDate[0]);
+  const arrayEndDate = end.split(".");
+  var endDate = new Date(arrayEndDate[2],arrayEndDate[1]-1,arrayEndDate[0]);
+  //new Date(2008, 3, 2);
   if (!req.body.sprintSize) {
     res.render('error', {
          message: "Prišlo je do napake.",
@@ -204,6 +207,12 @@ const posodobiInprocessSprint = (req, res) => {
               stack: "Pri urejanju članka niste izpolnili enega izmed polj: name, Prosimo izpolnite manjkajoča polja."
          }
     });
+  }
+  else if(isSprintSizeTooBig(startDate, endDate, req.body.sprintSize)){
+    var napaka = true;
+    var string = "#sprints";
+    var string2 = "tooBig";
+    res.redirect('/project/' + projectId  + '?napakaSize=' + string2 +  string);
   }
   //tukaj je spet potrebno narediti vsa preverjanja ustreznosti podatkov novega sprinta
   else {
@@ -247,41 +256,37 @@ const posodobiFutureSprint = (req, res) => {
   else if(isFutureDate(new Date(req.body.startDate))==false) {
     console.log("napaka")
     var napaka = true;
-    res.render('sprint-new', {
-         napaka2: napaka
-    });
+    var string = "#sprints";
+    var string2 = "start";
+    res.redirect('/project/' + projectId  + '?napakaDate=' + string2 +  string);
   }
   //preverimo, da je end date v prihodnosti
   else if(isFutureDate(new Date(req.body.endDate))==false) {
-    console.log("napaka")
     var napaka = true;
-    res.render('sprint-new', {
-         napaka3: napaka
-    });
+    var string = "#sprints";
+    var string2 = "end";
+    res.redirect('/project/' + projectId  + '?napakaDate=' + string2 +  string);
   }
   //preverimo, da sta oba datuma v prihodnosti
   else if(isFutureDate(new Date(req.body.startDate))==false && isFutureDate(new Date(req.body.endDate))==false) {
-    console.log("napaka")
     var napaka = true;
-    res.render('sprint-new', {
-         napaka4: napaka
-    });
+    var string = "#sprints";
+    var string2 = "startend";
+    res.redirect('/project/' + projectId  + '?napakaDate=' + string2 +  string);
   }
   //preverimo da je začetni datum pred končnim
   else if(req.body.startDate > req.body.endDate){
     var napaka = true;
-    console.log(typeof req.body.sprintSize)
-    res.render('sprint-new', {
-         napaka1: napaka
-    });
+    var string = "#sprints";
+    var string2 = "correct";
+    res.redirect('/project/' + projectId  + '?napakaDate=' + string2 +  string);
   }
   //preverimo ustreznost velikosti sprinta glede na vnesena datume
   else if(isSprintSizeTooBig(new Date(req.body.startDate), new Date(req.body.endDate), req.body.sprintSize)){
     var napaka = true;
-    console.log("prevelk size")
-    res.render('sprint-new', {
-         napaka6: napaka
-    });
+    var string = "#sprints";
+    var string2 = "tooBig";
+    res.redirect('/project/' + projectId  + '?napakaSize=' + string2 +  string);
   }
   else {
     //tukaj še preverjanja glede prekrivanja sprintov - vse isto razen, da ne gledamo prekrivanja s tem sprintom ki ga urejamo
