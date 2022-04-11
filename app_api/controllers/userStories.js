@@ -122,6 +122,7 @@ const projectInfo = (req, res) => {
   /* Updating basic userStory info - name, description, priority, bussiness value */
 
   const updateUserStoryInfo = (req, res) => {
+    
     if (!req.params.idProject || !req.params.idUserStory) {
       return res.status(404).json({
         sporočilo:
