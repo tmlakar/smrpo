@@ -24,7 +24,7 @@
                         {{#each productManagers as |productManager|}}
 
                           <button  id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
-                           class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c1) !important; " >
+                           class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c1) !important; ">
                           {{firstLetterOfUsername productManager.username}}
                           </button>
 
@@ -37,7 +37,7 @@
                         {{#each scrumMasters as |scrumMaster|}}
                           <br>
                           <button  id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
-                           class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c5) !important; " >
+                           class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c5) !important; ">
                           {{firstLetterOfUsername scrumMaster.username}}
                           </button>
                         {{/each}}
