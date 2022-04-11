@@ -119,7 +119,6 @@
             </p>
             
             <p hidden>
-<<<<<<< HEAD
             
             {{#each story.comments as |comment|}}
             {{comment.comment}}
@@ -133,30 +132,6 @@
             <p hidden>
               {{story.subtasks}}
             </p>
-=======
-            <script>var commentsArray = "";</script>
-            {{#each story.comments as |comment|}}
-
-            {{comment.comment}}
-            {{comment.commentOwnerUsername}}
-            <script>
-
-              var comment = {}
-              comment.comment = "{{comment.comment}}"
-              comment.commentOwnerUsername = "{{comment.commentOwnerUsername}}"
-              var commentS = JSON.stringify(comment);
-              //console.log(commentS);
-              commentsArray = commentsArray + "," + commentS;
-
-            </script>
-            {{/each}}
-            <script>
-              console.log(commentsArray);
-
-
-
-            </script>
->>>>>>> 1662e2f3f6d07795cc916707725d120c69cf80e3
             </p>
             <div class="row" style="padding: 0px !important;">
               <div class="card-flagss col-lg-12">
@@ -206,14 +181,8 @@
                                 var isTeamMember = $(this).data('team');
                                 var admin = $(this).data('admin');
                                 var commentOwnerUsername = $(this).data('user');
-<<<<<<< HEAD
             
                             
-=======
-
-
-                                console.log(commentsArray)
->>>>>>> 1662e2f3f6d07795cc916707725d120c69cf80e3
 
                                 {{!-- story name odstranmo prve tri znakce --}}
                                  var nameOfStory = storyName.substring(3, storyName.length);
@@ -276,13 +245,8 @@
 
                                 {{!-- tasks - objekti --}}
 
-<<<<<<< HEAD
                                 //console.log(storySubtasks);
                                 $('#storyTasks').html(storySubtasks1.toString());
-=======
-
-                                $('#storyTasks').html(storySubtasks);
->>>>>>> 1662e2f3f6d07795cc916707725d120c69cf80e3
 
 
                                 {{!-- comments - objekti --}}
@@ -296,7 +260,6 @@
 
                                 {{!-- commentOwnerUsername --}}
 
-<<<<<<< HEAD
                                 
                                 let array = storyComments;
 
@@ -333,9 +296,6 @@
                                 } else {
                                   document.getElementById("addCommentForm").style.display="none";
                                 }
-=======
-                                {{!-- $('#storyComments').html(commentsArray); --}}
->>>>>>> 1662e2f3f6d07795cc916707725d120c69cf80e3
 
                                 {{!-- za input za username od trenutno prijavnega uporabnika --}}
                                 $('#commentOwnerUsername').val(commentOwnerUsername);
