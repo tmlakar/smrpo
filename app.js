@@ -38,6 +38,9 @@ app.set('view engine', 'hbs');
 
 require("./app_server/views/helpers/hbsh.js");
 
+app.get('/favicon.ico', (req, res) => res.status(204));
+
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

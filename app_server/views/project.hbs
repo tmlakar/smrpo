@@ -105,7 +105,8 @@
         //future release - pripada sprintu v prihodnosti?
         var finishedStory = {{story.finished}}
         var barvaObrobe = '';
-        var atr = ' border: 3px solid';
+        var atr = '';
+        atr = atr + ' border: 3px solid';
         console.log(finishedStory);
         if (finishedStory == true) {
           barvaObrobe = '#8ecae6';
@@ -120,7 +121,7 @@
         
         $('#uporabniskaZgodbaProductBacklog').attr("style", atr);
         //ce je zgodba v future release - pripada sprintu, ki je nekje v prihodnosti
-
+        
         </script>
 
         <div id="uporabniskaZgodbaProductBacklog" class="card projekt-user-card" style="">
@@ -271,21 +272,53 @@
                                 $('#storyAcceptanceTests').html(result);
 
                                 {{!-- tasks - objekti --}}
+                                // 1. pravice dodajanja novega taska
+                                // dodaja lahko scrum master ali clani razvojne skupine
+                                // v primeru da je zgodba znotraj aktivnega sprinta
+                                if (storySprint != 0) {
+                                  //a je v aktivnem sprintu? - TO DO 
+                                  if (isScrumMaster || isTeamMember) {
+                                    document.getElementById("addNewSubtask").style.display="block";
+                                  } else {
+                                    document.getElementById("addNewSubtask").style.display="none";
+                                  }
+                                
+                                } else {
+                                  document.getElementById("addNewSubtask").style.display="none";
 
-                                //console.log(storySubtasks);
-                                $('#storyTasks').html(storySubtasks1.toString());
+                                }
+
+                                
+                              
+                                  function functionFirstLetterS(value) {
+                                              if (value == null) {
+                                                value = "null";
+                                              }
+                                              let letter = value.charAt(0);
+                                              letter = letter.toUpperCase();
+                                              return letter;
+                                  }
+                                // 2. izpis vseh subtaskov - ista fora kokr komenti - spajamo skp stringe
+                                let arrayS = storySubtasks;
+                                var subtasksString = '';
+                                for (j in arrayS) {
+                                  subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 60px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important;"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/>';
+                                  // name of subtask
+                                  subtasksString = subtasksString + arrayS[j].name + '</label></div>';
+
+                                  // add owner
+                                  subtasksString = subtasksString + '<div class="col-lg-3"><a><button id="editTask" type="button" data-toggle="modal" data-target="#modalEditTask" class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button  id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="float:right;">';
+                                  subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
+                                  subtasksString = subtasksString + '</button></div></div>';
+                                  //add edit button with id
+                                }
+                                
+                                $('#subtasksStory').html(subtasksString);
 
 
-                                {{!-- comments - objekti --}}
-                                let comments = [{}];
-                                console.log(comments)
-                                comments = JSON.stringify(storyComments);
-                                var stringifiedObj = Object.entries(storyComments).map(x=>x.join(":")).join("\n");
-                                console.log(stringifiedObj)
-                                console.log('Comments: %o', storyComments)
-                                $('#storyComments').html(storyComments);
 
                                 {{!-- commentOwnerUsername --}}
+                                {{!-- comments --}}
 
                                 
                                 let array = storyComments;
@@ -296,6 +329,7 @@
                                     letter = letter.toUpperCase();
                                     return letter;
                                 }
+                                
                               
                                 var commentsString = '';
                                 for (j in array) {
@@ -328,16 +362,9 @@
                                 $('#commentOwnerUsername').val(commentOwnerUsername);
 
 
-                                {{!-- $('#inputUsr').val(eventUsr); --}}
-                                {{!-- $('#inputRole').val(eventRole);
-                                var str = '/projects/' + projectId + '/edit-collaborator/' + eventId;
-                                console.log(str);
-                                var strD = '/projects/' + projectId + '/delete-collaborator/' + eventId;
 
-                                $('#collaboratorEdit').attr("action", str);
-                                $('#collaboratorRemove').attr("action", strD); --}}
-
-
+                                // url-ji
+                                 
                                 var editBasicInfo = '/project/'+ projId + '/userStory/'+ storyId + '/edit-info';
                                 $('#editBasicInfo').attr("action", editBasicInfo);
                                 var urlDelete = '/project/'+ projId + '/userStory/'+ storyId + '/delete';
@@ -469,7 +496,7 @@
                   <form method="post" id="urlAddTests" action="">
 
                     <!-- Acceptance tests -->
-                    <div  class="mb-3" style="padding-bottom: 10px !important">
+                    <div  class="mb-3" >
                       <!-- verjetno each -->
                         <p  id="storyAcceptanceTests" style="color: var(--c1) !important;"></p>
 
@@ -496,7 +523,7 @@
                   <form method="post" id="urlAddSubtaks" action="url">
 
                     <!-- Tasks -->
-                    <div class="mb-3" style="padding-bottom: 10px !important">
+                    <div id ="allSubtasksStory" class="mb-3" style="padding-bottom: 10px !important">
                        <!-- Each? -->
                       <div class="row">
                         <div class="col-lg-9">
@@ -551,10 +578,13 @@
                       <!-- end second modal window -->
                       </div>
                       <br>
-                      <p id="storyTasks"></p>
+                      {{!-- tjasaaaa --}}
+                      <div id="subtasksStory">
+                      </div>
                     </div>
 
                     <!-- Add new tasks -form-->
+                    <div id="addNewSubtask">
                     <div class="mb-3" style="padding-bottom: 10px !important; width: 84% !important; float: Left;">
                             <label class="form-label" style="padding-top: 10px !important;">Add task</label>
                             <input class="form-control input-form" name="name" id="info" aria-describedby="emailHelp" required>
@@ -568,7 +598,7 @@
 
                     <!-- save changes -->
                     <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Add</button>
-
+                    </div>
                 </form>
               </div> <!-- end modal body -->
               </div>
