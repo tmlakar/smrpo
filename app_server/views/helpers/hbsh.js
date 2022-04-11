@@ -176,3 +176,7 @@ hbs.registerHelper('karticaSeLahkoUreja', function (value1, value2, value3, valu
   return false;
 
 });
+/* da vidm ce loh object parsam */
+hbs.registerHelper('json', function(context) {
+  return JSON.stringify(context);
+});

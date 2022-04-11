@@ -95,7 +95,7 @@
     {{#each userStories as |story|}}
         <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-storyid="{{story._id}}"
          data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}"
-         data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{story.subtasks}}" data-com="{{story.comments}}" data-pending="{{story.pending}}"
+         data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
          data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
          data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}">
         <div class="card projekt-user-card" style="">
@@ -117,30 +117,21 @@
               <span>Business value:</span> {{story.businessValue}}<br>
               <span>Velocity:</span> {{story.size}}
             </p>
-            {{!-- tlele se komentarji dajo v string --}}
-            <p hidden>
-            <script>var commentsArray = "";</script>
-            {{#each story.comments as |comment|}}
             
+            <p hidden>
+            
+            {{#each story.comments as |comment|}}
             {{comment.comment}}
             {{comment.commentOwnerUsername}}
-            <script>
-              
-              var comment = {}
-              comment.comment = "{{comment.comment}}"
-              comment.commentOwnerUsername = "{{comment.commentOwnerUsername}}"
-              var commentS = JSON.stringify(comment);
-              //console.log(commentS);
-              commentsArray = commentsArray + "," + commentS;
-              
-            </script>
             {{/each}}
-            <script>
-              console.log(commentsArray);
-              
-                
-             
-            </script>
+            
+
+            <p hidden>
+              {{story.comments}}
+            </p>
+            <p hidden>
+              {{story.subtasks}}
+            </p>
             </p>
             <div class="row" style="padding: 0px !important;">
               <div class="card-flagss col-lg-12">
@@ -175,7 +166,11 @@
                                 var storySize = $(this).data('size');
                                 let storyTests = $(this).data('acc');
                                 let storySubtasks = $(this).data('subt');
+                                let storySubtasks1 = [{Object}];
+                                storySubtasks1 = JSON.stringify($(this).data('subt'));
                                 let storyComments = $(this).data('com');
+                                let storyComments1 = [{Object}];
+                                storyComments1 = JSON.stringify($(this).data('com'));
                                 let storyPendingFlag = $(this).data('pending');
                                 let storyOwner = $(this).data('owner');
                                 let storyFlags = $(this).data('flags');
@@ -186,9 +181,8 @@
                                 var isTeamMember = $(this).data('team');
                                 var admin = $(this).data('admin');
                                 var commentOwnerUsername = $(this).data('user');
-                                
-                                
-                                console.log(commentsArray)
+            
+                            
 
                                 {{!-- story name odstranmo prve tri znakce --}}
                                  var nameOfStory = storyName.substring(3, storyName.length);
@@ -251,15 +245,49 @@
                                 
                                 {{!-- tasks - objekti --}}
 
-                                
-                                $('#storyTasks').html(storySubtasks);
+                                //console.log(storySubtasks);
+                                $('#storyTasks').html(storySubtasks1.toString());
 
 
                                 {{!-- comments - objekti --}}
                                 {{!-- commentOwnerUsername --}}
+
                                 
-                                $('#storyComments').html(storyComments); 
-                                {{!-- $('#storyComments').html(commentsArray); --}}
+                                let array = storyComments;
+
+                                function functionFirstLetter(value) {
+                                    
+                                    let letter = value.charAt(0);
+                                    letter = letter.toUpperCase();
+                                    return letter;
+                                }
+                              
+                                var commentsString = '';
+                                for (j in array) {
+                                  //comment owners
+                                  //prefix
+                                  commentsString = commentsString + '<div class="row" style="height: 80px !important; padding: 5px !important"><div class="col-lg-1"><div style="margin-left: 0px !important"><button id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c3) !important" disabled>';
+                                  //postfix
+                                  
+                                  commentsString = commentsString + functionFirstLetter(array[j].commentOwnerUsername) + '</button></div></div>';
+
+                                  //comments
+                                  //prefix
+                                  commentsString = commentsString + '<div class="col-lg-11" style="color: var(--c3)!important; padding-top: 10px !important">';
+                                  //postfix
+                                  commentsString = commentsString + array[j].comment + '</div></div>';
+                                  
+                                }
+                               
+                                $('#storyCommentsAll').html(commentsString);
+
+                                //pravice dodeljevanja - team members 
+                                if (isTeamMember) {
+                                  document.getElementById("addCommentForm").style.display="block";
+    
+                                } else {
+                                  document.getElementById("addCommentForm").style.display="none";
+                                }
 
                                 {{!-- za input za username od trenutno prijavnega uporabnika --}}
                                 $('#commentOwnerUsername').val(commentOwnerUsername);
@@ -408,7 +436,6 @@
                     <!-- Acceptance tests -->
                     <div  class="mb-3" style="padding-bottom: 10px !important">
                       <!-- verjetno each -->
-
                         <p  id="storyAcceptanceTests" style="color: var(--c1) !important;"></p>
 
                     </div>
@@ -517,23 +544,14 @@
                  
 
                     <!-- All comments -->
-                    <!-- datalist? -->
-                    <div class="row">
-                      <div class="col-lg-1">
-                        <button  id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="float:left;" disabled> <!-- nism zihr, če je ok tuki id taskOwner? -->
-                            N
-                        </button>
-
-                      </div>
-                      <div class="col-lg-11">
-                        <p style="color: var(--c3)!important;">Moj komentar je tukaj :)
-                        </p>
-                      </div>
-                      <br>
+                    <!-- sm pridejo komentarji? -->
+                    <div id="storyCommentsAll" style="padding: 0px !important">
+                      
                     </div>
-                    <p id="storyComments"></p>
+                    
 
                       <!-- Add comment -form -->
+                      <div id="addCommentForm">
                        <form method="post" id="urlAddComment" action="">
                     <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Add comment</label>
@@ -545,6 +563,7 @@
                       <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Comment</button>
 
                   </form>
+                  </div>
               </div> <!-- end modal body -->
               </div>
 

@@ -63,6 +63,7 @@ const projectInfo = (req, res) => {
         var currentLast = project.userStories.length;
         number = currentLast + 1;
       }
+    
 
       project.userStories.push({
         name: "#" + number + " " + req.body.name,
@@ -70,6 +71,7 @@ const projectInfo = (req, res) => {
         priority: req.body.priority,
         businessValue: req.body.businessValue,
         size: req.body.size,
+        flags: ["Unassigned", "Unfinished"]
       });
       project.save((napaka, project) => {
         if (napaka) {
