@@ -98,31 +98,6 @@
          data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
          data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
          data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}">
-        
-        <script>
-        {{!-- tuki bo kaksne barvne obrobe so zgodbe --}}
-        // ce je zgodba unfinished ali finished
-        //future release - pripada sprintu v prihodnosti?
-        var finishedStory = {{story.finished}}
-        var barvaObrobe = '';
-        var atr = '';
-        atr = atr + ' border: 3px solid';
-        console.log(finishedStory);
-        if (finishedStory == true) {
-          barvaObrobe = '#8ecae6';
-          atr = atr + ' #8ecae6';
-        } else {
-          barvaObrobe= '#239ebc';
-          atr = atr + ' #239ebc';
-        }
-        
-        atr = atr + ' !important;'
-        console.log(atr);
-        
-        $('#uporabniskaZgodbaProductBacklog').attr("style", atr);
-        //ce je zgodba v future release - pripada sprintu, ki je nekje v prihodnosti
-        
-        </script>
 
         <div id="uporabniskaZgodbaProductBacklog" class="card projekt-user-card" style="">
           <div class="card-body user-card-info">
