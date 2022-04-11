@@ -11,7 +11,8 @@ const collaboratorShema = new mongoose.Schema({
 const subtaskShema = new mongoose.Schema({
     name: {type: String},
     subtaskOwnerUsername: {type: String, default: null},
-    pending: {type: String, default: true}
+    pending: {type: String, default: true},
+    finished: {type: Boolean, default: false}
 });
 
 const userStoryCommentsShema = new mongoose.Schema({
