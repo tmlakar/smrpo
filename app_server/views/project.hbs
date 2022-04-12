@@ -417,6 +417,19 @@
                                               return letter;
                                   }
                                 //  izpis vseh subtaskov - ista fora kokr komenti - spajamo skp stringe
+                                var teamMembers = [];
+                                var t = 0;
+                                var c = 0;
+                                var username;
+                                for (c = 0; c < collaborators1.length; c++) {
+                                  if (collaborators1[c].project_role == "Team Member") {
+                                    username = collaborators1[c].username;
+                                    teamMembers[t] = username;
+                                    t = t + 1;
+                                  }
+                                }
+                                console.log(teamMembers);
+
                                 var canEdit = false;
                                 if (isScrumMaster || isTeamMember) {
                                   canEdit = true;
@@ -432,6 +445,7 @@
                                   name = arrayS[j].name;
                                   hour = arrayS[j].hours;
                                   idsub = arrayS[j]._id;
+                                  var assignee1 = arrayS[j].subtaskOwnerUsername;
                                   assignee = functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
                                   console.log(name, hour, assignee);
                                   if (canEdit) {
@@ -439,9 +453,9 @@
                                   // name of subtask
                                   subtasksString = subtasksString + arrayS[j].name + ' [' + arrayS[j].hours + 'h]' + '</span></label></div>';
                                   
-                                  
+                                  var collaborators2 = JSON.stringify(collaborators1);
                                   // add owner
-                                  subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button  id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="float:right; background-color: var(--c3) !important" >';
+                                  subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" >';
                                   subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
                                   subtasksString = subtasksString + '</button></div></div>';
                                   //add edit button with id
@@ -452,7 +466,7 @@
                                   
                                   
                                   // add owner
-                                  subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;" disabled>Edit</button></a><button  id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="float:right; background-color: var(--c3) !important" disabled>';
+                                  subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;" disabled>Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="' + teamMembers +'" class="btn" style="float:right; background-color: var(--c4) !important" disabled>';
                                   subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
                                   subtasksString = subtasksString + '</button></div></div>';
                                   //add edit button with id
@@ -716,6 +730,54 @@
 
 
                             });
+
+                            $(document).on("click", "#taskOwner_circle", function () {
+                              var subtaskOwner = $(this).data('asub');
+                              if (subtaskOwner == null) {
+                                subtaskOwner = "Not defined yet.";
+                              }
+                              var projID = $(this).data('idproject');
+                                var storyID = $(this).data('iduserstory');
+                                var subtaskID = $(this).data('idsubtask');
+                                var collaborators = [];
+                                collaborators = $(this).data('collab');
+
+                                var collaboratorsArray = [];
+                                let string = collaborators.toString();
+                                let result = collaborators.replace(/,/g, '\n');
+                                let arr = result.split('\n');
+                                console.log(arr)
+                                //current owner
+                                //collaborators
+                                //proj id
+                                //storu id
+                                //subtask id
+                                console.log(subtaskOwner, storyID, projID, subtaskID);
+                                console.log(result);
+
+                                //current owner to field
+                                $('#currentAsignee').val(subtaskOwner);
+                                
+                                //array to field
+                                var stringA = '';
+                                for (var i = 0; i < arr.length; i++) {
+                                  stringA = stringA + '<option value=';
+                                  //team member
+                                  stringA = stringA + '"' + arr[i] + '"';
+                                  stringA = stringA + '></option>';
+                                }
+                                 
+                                 $('#newAssigneeList').html(stringA);
+
+
+                                var urlEditSubtaskOwner = '/project/' + projID + '/userStory/' + storyID + '/subtask/' + subtaskID + '/edit-subtask-owner';
+                                $('#urlEditSubtaskOwner').attr("action", urlEditSubtaskOwner);
+
+                                function json(context) {
+                                  return JSON.stringify(context);
+                                }
+
+                            });
                             </script>
                       </div>
                     </div>
@@ -776,7 +838,7 @@
         </div>
         </div>
 
-        {{!-- modalno okno za spreminjanje lastnika kartice --}}
+                        {{!-- modalno okno za spreminjanje lastnika kartice --}}
                         <div class="modal" id="modalEditUser" tabindex="-1" role="dialog" aria-hidden="true">
                           <div class="modal-dialog" style="padding-top: 150px !important;">
                             <div class="modal-content modal-content-ekipa" style="background-color: var(--c2) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
@@ -854,23 +916,26 @@
                                 
                                 </div>
                                 <div class="modal-body">
-
+                                  <form method="post" id="urlEditSubtaskOwner" url="">
                                  <!-- Current assignee -->
                                   <div class="mb-3" style="padding-bottom: 10px !important;">
                                     <label class="form-label" style="padding-top: 10px !important;">Current assignee</label>
-                                    <input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="currTaskAssignee" id="currTaskAssignee" aria-describedby="emailHelp" readonly>
+                                    <input id="currentAsignee" class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="currTaskAssignee" id="currTaskAssignee" aria-describedby="emailHelp" readonly>
                                   </div>
                                   
                                   <!-- New assignee -->
                                   <div class="mb-3" style="padding-bottom: 10px !important;">
                                     <label class="form-label" style="padding-top: 10px !important;">New assignee</label>
-                                    <input class="form-control input-form" name="newTaskAssignee" id="newTaskAssignee" aria-describedby="emailHelp" required>
+                                    <input class="form-control input-form" list="newAssigneeList" name="subtaskOwnerUsername" id="newTaskAssignee" aria-describedby="emailHelp" required>
+                                    <datalist id="newAssigneeList">
+
+                                    </datalist>
                                   </div>
 
                                   <br>
                                   <!-- save changes -->
                                   <button id="changeAssignee" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
-                                                                 
+                                  </form>                           
                                 </div>
                               </div>
                             </div>
