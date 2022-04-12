@@ -390,7 +390,7 @@
                                 // pravice dodajanja novega taska
                                 // dodaja lahko scrum master ali clani razvojne skupine
                                 // v primeru da je zgodba znotraj aktivnega sprinta
-
+                                
                                 if (isScrumMaster || isTeamMember) {
                                     if (sprintsInProgress == storySprint) {
                                     // lahko doda - enabled
@@ -416,7 +416,11 @@
                                               letter = letter.toUpperCase();
                                               return letter;
                                   }
-                                // 2. izpis vseh subtaskov - ista fora kokr komenti - spajamo skp stringe
+                                //  izpis vseh subtaskov - ista fora kokr komenti - spajamo skp stringe
+                                var canEdit = false;
+                                if (isScrumMaster || isTeamMember) {
+                                  canEdit = true;
+                                }
                                 let arrayS = storySubtasks;
                                 console.log(arrayS)
                                 var name = '';
@@ -430,18 +434,29 @@
                                   idsub = arrayS[j]._id;
                                   assignee = functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
                                   console.log(name, hour, assignee);
+                                  if (canEdit) {
                                   subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 55px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important; padding-left: 15px !important"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/ ><span style="padding-left: 10px !important">';
                                   // name of subtask
                                   subtasksString = subtasksString + arrayS[j].name + ' [' + arrayS[j].hours + 'h]' + '</span></label></div>';
-                                  {{!-- $('#editTaskButton1').attr("data-namesub", name);
-                                  $('#editTaskButton1').attr("data-hoursub", hour);
-                                  $('#editTaskButton1').attr("data-asub", assignee); --}}
+                                  
                                   
                                   // add owner
-                                  subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button  id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="float:right; background-color: var(--c3) !important" disabled>';
+                                  subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button  id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="float:right; background-color: var(--c3) !important" >';
                                   subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
                                   subtasksString = subtasksString + '</button></div></div>';
                                   //add edit button with id
+                                  } else {
+                                    subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 55px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important; padding-left: 15px !important"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/ ><span style="padding-left: 10px !important">';
+                                  // name of subtask
+                                  subtasksString = subtasksString + arrayS[j].name + ' [' + arrayS[j].hours + 'h]' + '</span></label></div>';
+                                  
+                                  
+                                  // add owner
+                                  subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;" disabled>Edit</button></a><button  id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="float:right; background-color: var(--c3) !important" disabled>';
+                                  subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
+                                  subtasksString = subtasksString + '</button></div></div>';
+                                  //add edit button with id
+                                  }
                                   
                                 
                                 }
@@ -666,7 +681,7 @@
                                 var subtaskHour = $(this).data('hoursub');
                                 var subtaskOwner = $(this).data('asub');
 
-                                //rabim se idprojekt, idstorie, idtask
+                                //rabim se idprojekt, idstorie, idtask, ce je scrum, product, team member
                                 
                                 var projID = $(this).data('idproject');
                                 var storyID = $(this).data('iduserstory');
@@ -675,6 +690,18 @@
                                 console.log(subtaksName, subtaskHour, subtaskOwner);
                                 $('#nameTaskEditing').val(subtaksName);
                                 $('#hourTaskEditing').val(subtaskHour);
+                                // scrumMasterji pa teammemberji lahko urejajo tekom razvoja
+                                
+                                var isScrumM = $(this).data('scrum');
+                                var isProductM = $(this).data('product');
+                                var isTeamM = $(this).data('teamm');
+                                if (isScrumM || isTeamM) {
+                                  //lahko urejat in remova
+                                } else {
+                                  //nemore urejat in remova
+                                }
+                                
+
 
                                 //url za put in delete
                                 
@@ -685,7 +712,7 @@
                                 var urlDeleteSubtask = '/project/' + projID + '/userStory/' + storyID + '/subtask/' + subtaskID + '/delete';
                                 $('#urlDeleteSubtask').attr("action", urlDeleteSubtask);
 
-                                console.log(urlEditSubtask, urlDeleteSubtask);
+                                //console.log(urlEditSubtask, urlDeleteSubtask);
 
 
                             });
