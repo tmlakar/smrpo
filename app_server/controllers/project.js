@@ -162,6 +162,12 @@ var prikaz = (req, res) => {
         neuspesnoZbrisanaNaloga = true;
     }
 
+    // edited story owner
+    var uspesnoPosodobljenOwnerZgodbe = false;
+    if (req.query.success == "successfully edited story owner") {
+        uspesnoPosodobljenOwnerZgodbe = true;
+    }
+   
     var username = user.username;
     var usernameS = user.username;
     console.log(usernameS)
@@ -312,6 +318,7 @@ var prikaz = (req, res) => {
                     successfullyDeletedTask: uspesnoZbrisanaNaloga,
                     errorDeleteTask: neuspesnoZbrisanaNaloga,
                     errorEditedStory: neuspesnoPosodobljenaZgodba,
+                    uspesnoPosodobljenOwnerZgodbe: uspesnoPosodobljenOwnerZgodbe
 
 
                 });
@@ -362,6 +369,7 @@ var prikaz = (req, res) => {
                     successfullyDeletedTask: uspesnoZbrisanaNaloga,
                     errorDeleteTask: neuspesnoZbrisanaNaloga,
                     errorEditedStory: neuspesnoPosodobljenaZgodba,
+                    uspesnoPosodobljenOwnerZgodbe: uspesnoPosodobljenOwnerZgodbe
                 });
             }
         });

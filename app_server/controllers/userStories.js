@@ -316,8 +316,8 @@ const updateOwner = (req, res) => {
             }
         }).then((odgovor) => {
             var name = odgovor.name;
-            var string = "successfully added";
-            res.redirect('/project/' + projectId + '?error=' + string);
+            var string = "successfully edited story owner";
+            res.redirect('/project/' + projectId + '?success=' + string);
         }).catch((napaka) => {
             var string = "napakaPriPosodabljanjuUporabniskeZgodbe";
             res.redirect('/project/' + projectId + '?error=' + string);

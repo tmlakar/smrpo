@@ -345,6 +345,20 @@
                                  
                                  $('#newOwnerList').html(stringA1);
 
+                                 //aktivni sprint + scrum master / teammember
+                                 if (isScrumMaster || isTeamMember) {
+                                    if (sprintsInProgress == storySprint) {
+                                    // lahko doda - enabled
+                                    
+                            
+                                    } else {
+                                      //nemore dodat - disabled
+                                    document.getElementById("changeAssignee").attr("button",disabled);
+                                    }
+                                } else {
+                                  document.getElementById("changeAssignee").attr("button",disabled);
+                                }
+
 
                                 var editOwnerStory = '/project/' + projId + '/userStory/' + storyId + '/edit-owner';
                                 $('#editOwnerStory').attr("action", editOwnerStory);
@@ -370,6 +384,10 @@
                                 $('#StoryFinished').val(storyFinished);
                                 $('#isScrumMaster').val(isScrumMaster);
                                 $('#isProductManager').val(isProductManager);
+
+                                
+                                $('#storyOwnerS').val(storyOwner);
+                                
 
                                 {{!-- se pokaze gumb ce kartico lahko urejamo --}}
                                 {{!-- ce lahko urejamo + brisemo --}}
@@ -632,7 +650,7 @@
                       <!-- Assigned -->
                     <div class="storyOwner_circle-d col-lg-2" style="padding-right: 50px !important; padding-top: 40px !important;">
                         <button  id="storyOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" data-toggle="modal" data-target="#modalEditUser">
-                            N
+                            <span id="storyOwnerS">O</span>
                         </button>
                     </div>
                     </div>
@@ -2023,3 +2041,36 @@ $(document).ready(function(){
     });
 </script>
 {{/if}}
+
+{{!-- ce je biu owner uspesno dodan - zgodba --}}
+
+<div id="modalUpdateOwnerStory" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Story owner has been successfully updated!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if uspesnoPosodobljenOwnerZgodbe}}
+<script>
+    $(document).ready(function(){
+        $("#modalUpdateOwnerStory").modal('show');
+
+        setTimeout(function() {
+
+            $('#modalUpdateOwnerStory').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
