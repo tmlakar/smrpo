@@ -345,20 +345,6 @@
                                  
                                  $('#newOwnerList').html(stringA1);
 
-                                 //aktivni sprint + scrum master / teammember
-                                 if (isScrumMaster || isTeamMember) {
-                                    if (sprintsInProgress == storySprint) {
-                                    // lahko doda - enabled
-                                    
-                            
-                                    } else {
-                                      //nemore dodat - disabled
-                                    document.getElementById("changeAssignee").attr("button",disabled);
-                                    }
-                                } else {
-                                  document.getElementById("changeAssignee").attr("button",disabled);
-                                }
-
 
                                 var editOwnerStory = '/project/' + projId + '/userStory/' + storyId + '/edit-owner';
                                 $('#editOwnerStory').attr("action", editOwnerStory);
