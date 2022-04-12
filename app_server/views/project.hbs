@@ -400,11 +400,11 @@
                                     } else {
                                       //nemore dodat - disabled
                                        document.getElementById("addTaskEnabled").style.display="none";
-                                    document.getElementById("addTaskDisabled").style.display="disabled";
+                                    document.getElementById("addTaskDisabled").style.display="block";
                                     }
                                 } else {
                                   document.getElementById("addTaskEnabled").style.display="none";
-                                    document.getElementById("addTaskDisabled").style.display="disabled";
+                                    document.getElementById("addTaskDisabled").style.display="block";
                                 }
                                 
                               
@@ -422,25 +422,29 @@
                                 var name = '';
                                 var hour = '';
                                 var assignee = '';
+                                var idsub = '';
                                 var subtasksString = '';
                                 for (j in arrayS) {
                                   name = arrayS[j].name;
                                   hour = name.substring(name.length-4, name.length);
                                   name = name.substring(0, name.length-5);
                                   hour = hour.substring(1, 2);
+                                  idsub = arrayS[j]._id;
                                   assignee = functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
                                   console.log(name, hour, assignee);
                                   subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 55px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important; padding-left: 15px !important"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/ ><span style="padding-left: 10px !important">';
                                   // name of subtask
                                   subtasksString = subtasksString + arrayS[j].name + '</span></label></div>';
-                                  $('#editTaskButton').attr("data-namesub", name);
-                                  $('#editTaskButton').attr("data-hoursub", hour);
-                                  $('#editTaskButton').attr("data-asub", assignee);
+                                  {{!-- $('#editTaskButton1').attr("data-namesub", name);
+                                  $('#editTaskButton1').attr("data-hoursub", hour);
+                                  $('#editTaskButton1').attr("data-asub", assignee); --}}
+                                  
                                   // add owner
-                                  subtasksString = subtasksString + '<div class="col-lg-3"><a style="padding: 7px !important"><button data-namesub="" data-hoursub="" data-asub="" id="editTaskButton" type="button" data-toggle="modal" data-target="#modalEditTask" class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button  id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="float:right; background-color: var(--c3) !important" disabled>';
+                                  subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button  id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="float:right; background-color: var(--c3) !important" disabled>';
                                   subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
                                   subtasksString = subtasksString + '</button></div></div>';
                                   //add edit button with id
+                                  
                                 
                                 }
                                 
@@ -472,6 +476,8 @@
                                   //postfix
                                   commentsString = commentsString + array[j].comment + '</div></div>';
                                 }
+
+
                                
                                 $('#storyCommentsAll').html(commentsString);
 
@@ -510,6 +516,8 @@
 
 
                             });
+
+                            
                     </script>
 
 
@@ -685,6 +693,7 @@
                     <div id ="allSubtasksStory" class="mb-3" style="padding-bottom: 10px !important">
                        <!-- Each? -->
                       <div class="row">
+                        
                     
                         {{!-- modalno okno za spreminjanje nalog --}}
                         <div class="modal" id="modalEditTask" tabindex="-1" role="dialog" aria-hidden="true">
@@ -692,7 +701,7 @@
                             <div class="modal-content modal-content-ekipa" style="border: 3px solid var(--c2) !important;">
                                 <div class="modal-header modal-header-ekipa">
                                 <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit task</h5>
-                                <a href="#" data-dismiss="modal"><button type="button" class="close"> 
+                                <a href="#" data-dismiss="modal" hidden><button type="button" class="close"> 
                                 <span aria-hidden="true">&times;</span>
                                 </button></a> 
                                 </div>
@@ -700,12 +709,12 @@
                                   <!-- Edit existing tasks -->
                                   <div class="mb-3" style="padding-bottom: 10px !important; width: 84% !important; float: Left;">
                                     <label class="form-label" style="padding-top: 10px !important;">Task</label>
-                                    <input class="form-control input-form" name="name" id="info" aria-describedby="emailHelp" required> <!-- placeholder in value -->
+                                    <input id="nameTaskEditing" class="form-control input-form" name="name" id="info" aria-describedby="emailHelp" required> <!-- placeholder in value -->
                                   </div>
                                   <div class="clear"></div>
                                   <div class="mb-3" style="padding-bottom: 10px !important; width: 14% !important; float: Right;">
                                     <label class="form-label" style="padding-top: 10px !important;">Hours</label>
-                                    <input class="form-control input-form" name="hour" id="taskHours" type="number" min="1" aria-describedby="emailHelp" required> <!-- placeholder in value -->
+                                    <input id="hourTaskEditing" class="form-control input-form" name="hour" id="taskHours" type="number" min="1" aria-describedby="emailHelp" required> <!-- placeholder in value -->
                                   </div>
 
                                   <br>
@@ -723,6 +732,32 @@
                       <br>
                       {{!-- tjasaaaa tle se renderira--}}
                       <div id="addnewSubtask1">
+                        <script>
+                        $(document).on("click", "#editTaskButton1", function () {
+                                var subtaksName = $(this).data('namesub');
+                                var subtaskHour = $(this).data('hoursub');
+                                var subtaskOwner = $(this).data('asub');
+
+                                //rabim se idprojekt, idstorie, idtask
+                                
+                                var projID = $(this).data('idproject');
+                                var storyID = $(this).data('iduserstory');
+                                var storyID = $(this).data('iduserstory');
+
+                                console.log(subtaksName, subtaskHour, subtaskOwner);
+                                $('#nameTaskEditing').val(subtaksName);
+                                $('#hourTaskEditing').val(subtaskHour);
+
+                                //url za put in delete
+                                
+                                 {{!-- var urlEditSubtask = '/project/' + projId + '/userStory/' + storyId + '/add-subtask';
+                                 $('#urlAddSubtask').attr("action", urlAddSubtask); --}}
+
+
+
+
+                            });
+                            </script>
                       </div>
                     </div>
 
