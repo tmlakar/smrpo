@@ -96,6 +96,10 @@ router.put("/projects/:idProject/userStory/:idUserStory/edit-info", ctrlUserStor
 router.post("/projects/:idProject/userStory/:idUserStory/add-subtask", ctrlUserStories.updateUserStoryAddSubtask);
 /* Updating subtaks owner */
 router.put("/projects/:idProject/userStory/:idUserStory/subtask/:idSubtask/edit-subtask-owner", ctrlUserStories.updateUserStoryAddOwnerToSubtask);
+/* Updating subtaks info */
+router.put("/projects/:idProject/userStory/:idUserStory/subtask/:idSubtask/edit-subtask", ctrlUserStories.updateUserStoryEditSubtask);
+/* Deleting subtask */
+router.delete("/projects/:idProject/userStory/:idUserStory/subtask/:idSubtask/delete", ctrlUserStories.updateUserStoryRemoveSubtask);
 /* Add acceptance test */
 router.post("/projects/:idProject/userStory/:idUserStory/add-test", ctrlUserStories.updateUserStoryAddAcceptanceTests);
 /* Add comment / footnote */
