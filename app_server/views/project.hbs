@@ -303,6 +303,52 @@
 
                                 console.log(collaborators1);
                                 
+                                
+                                // spreminjanje ownerja
+                                var ownerStory = storyOwner;
+                                if (storyOwner == null) {
+                                  ownerStory = "Not defined yet.";
+                                }
+                                //projId,
+                                //storyId
+                                
+                                var collaborators3 = [{}];
+                                collaborators3 = collaborators1;
+                                var teamMembers1 = [];
+                                var t = 0;
+                                
+                                for (var c = 0; c < collaborators3.length; c++) {
+                                  if (collaborators3[c].project_role == "Team Member") {
+                                    username = collaborators3[c].username;
+                                    teamMembers1[t] = username;
+                                    t = t + 1;
+                                  }
+                                }
+
+                                
+                                let stringc = teamMembers1.toString();
+                                let result1 = stringc.replace(/,/g, '\n');
+                                let arr1 = result1.split('\n');
+                                
+
+                                //current owner to field
+                                $('#currentOwner').val(ownerStory);
+                                
+                                //array to field
+                                var stringA1 = '';
+                                for (var i = 0; i < arr1.length; i++) {
+                                  stringA1 = stringA1 + '<option value=';
+                                  //team member
+                                  stringA1 = stringA1 + '"' + arr1[i] + '"';
+                                  stringA1 = stringA1 + '></option>';
+                                }
+                                 
+                                 $('#newOwnerList').html(stringA1);
+
+
+                                var editOwnerStory = '/project/' + projId + '/userStory/' + storyId + '/edit-owner';
+                                $('#editOwnerStory').attr("action", editOwnerStory);
+
                             
 
                                 {{!-- story name odstranmo prve tri znakce --}}
@@ -847,23 +893,24 @@
                                 
                                 </div>
                                 <div class="modal-body">
-
+                                  <form method="post" id="editOwnerStory" url="">
                                  <!-- Current assignee -->
                                   <div class="mb-3" style="padding-bottom: 10px !important;">
                                     <label class="form-label" style="padding-top: 10px !important;">Current assignee</label>
-                                    <input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="currAssignee" id="currAssignee" aria-describedby="emailHelp" readonly>
+                                    <input id="currentOwner" class="form-control input-form" style="background-color: rgb(196, 196, 196) !important"  aria-describedby="emailHelp" readonly>
                                   </div>
                                   
                                   <!-- New assignee -->
                                   <div class="mb-3" style="padding-bottom: 10px !important;">
                                     <label class="form-label" style="padding-top: 10px !important;">New assignee</label>
-                                    <input class="form-control input-form" name="newAssignee" id="newAssignee" aria-describedby="emailHelp" required>
+                                    <input class="form-control input-form" list="newOwnerList" name="userStorieOwnerUsername" id="newAssignee" aria-describedby="emailHelp" required>
+                                    <datalist id="newOwnerList"></datalist>
                                   </div>
 
                                   <br>
                                   <!-- save changes -->
                                   <button id="changeAssignee" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
-                                                                 
+                                   </form>                              
                                 </div>
                               </div>
                             </div>
