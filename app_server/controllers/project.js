@@ -167,7 +167,10 @@ var prikaz = (req, res) => {
             }
 
 
-
+            var inProcessSprintsNumbers = [];
+            var inProcess = 0;
+            var finishedSprintsNumbers = [];
+            var futureSprintsNumbers = [];
             var now = new Date().setHours(0, 0, 0, 0);
             for (let i = 0; i < sprinti.length; i++) {
                 var start = new Date(sprinti[i].startDate).setHours(0, 0, 0, 0);
@@ -180,6 +183,8 @@ var prikaz = (req, res) => {
                 //če je in process
                 if ((start <= now) && (end >= now)) {
                     inProcessSprints[i2] = sprinti[i];
+                    inProcessSprintsNumbers = sprinti[i].number;
+                    inProcess = inProcess + 1;
                     i2 = i2 + 1;
                 }
                 //če je v prihodnosti
@@ -219,6 +224,7 @@ var prikaz = (req, res) => {
                     sprints: sprinti,
                     finishedSprints: finishedSprints,
                     inProcessSprints: inProcessSprints,
+                    inProcessSprintsNumbers: inProcessSprintsNumbers,
                     futureSprints: futureSprints,
                     teamMembers: teamMembers,
                     productManagers: productManagers,
@@ -258,6 +264,7 @@ var prikaz = (req, res) => {
                     username: usernameS,
                     finishedSprints: finishedSprints,
                     inProcessSprints: inProcessSprints,
+                    inProcessSprintsNumbers: inProcessSprintsNumbers,
                     futureSprints: futureSprints,
                     userStories: uporabniskeZgodbe,
                     teamMembers: teamMembers,

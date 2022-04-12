@@ -97,7 +97,7 @@
          data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}"
          data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
          data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
-         data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}">
+         data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
 
         <div id="uporabniskaZgodbaProductBacklog" class="card projekt-user-card" style="">
           <div class="card-body user-card-info">
@@ -184,13 +184,18 @@
                                 var isTeamMember = $(this).data('team');
                                 var admin = $(this).data('admin');
                                 var commentOwnerUsername = $(this).data('user');
+                                var sprintsInProgress = $(this).data('sprintsall');
+                                
             
+                                console.log(sprintsInProgress);
+                                
                             
 
                                 {{!-- story name odstranmo prve tri znakce --}}
                                  var nameOfStory = storyName.substring(3, storyName.length);
 
-
+                                // 1. basic info
+                                //prikazovanje
                                 {{!-- posiljanje na modalno okno --}}
                                 {{!-- info --}}
                                 $('#StoryName').html( storyName );
@@ -210,6 +215,7 @@
                                 {{!-- ce lahko urejamo + brisemo --}}
                                 {{!-- ce je user --}}
 
+                                //pravice kdo lahko in v katerih primerih
                                 if (isScrumMaster == true || isProductManager == true) {
                                       if (storyFinished == false && storySprint == 0) {
                                       document.getElementById("editButton").style.display="block";
@@ -237,7 +243,8 @@
                                 }
 
 
-
+                                // 2. acceptance tests
+                                //prikazovanje
                                 {{!-- acceptance tests - to je tabela --}}
                                 {{!-- kjer je , bomo brejkal --}}
                                 let string = storyTests.toString();
@@ -246,12 +253,31 @@
 
                                 $('#storyAcceptanceTests').html(result);
 
+                                //kdo in v katerih primerih
+                                
+                                  if (isScrumMaster || isTeamMember) {
+                                    if (storySprint != 0 && storyFinished == false) {
+                                    
+                                    document.getElementById("addTestEnabled").style.display="none";
+                                    document.getElementById("addTestDisabled").style.display="block";
+                                    //disabled button
+                                  } else {
+                                    document.getElementById("addTestEnabled").style.display="block";
+                                    document.getElementById("addTestDisabled").style.display="none";
+                                    //enabled button
+                                  }
+                                }
+
+                                // 3. subtasks (naloge)
                                 {{!-- tasks - objekti --}}
-                                // 1. pravice dodajanja novega taska
+                                // pravice dodajanja novega taska
                                 // dodaja lahko scrum master ali clani razvojne skupine
                                 // v primeru da je zgodba znotraj aktivnega sprinta
                                 if (storySprint != 0) {
-                                  //a je v aktivnem sprintu? - TO DO 
+                                  //a je v aktivnem sprintu? - TO DO
+                                  if (sprintsInProgress == storySprint) {
+                                    console.log("DELA");
+                                  }
                                   if (isScrumMaster || isTeamMember) {
                                     document.getElementById("addNewSubtask1").style.display="block";
                                   } else {
@@ -291,54 +317,49 @@
                                 //$('#subtasksStory').html(subtasksString);
 
 
-
+                                // 4. komentarji
                                 {{!-- commentOwnerUsername --}}
                                 {{!-- comments --}}
 
-                                
+                                // prikazovanje komentarjev
                                 let array = storyComments;
-
                                 function functionFirstLetter(value) {
-                                    
                                     let letter = value.charAt(0);
                                     letter = letter.toUpperCase();
                                     return letter;
                                 }
-                                
-                              
                                 var commentsString = '';
                                 for (j in array) {
                                   //comment owners
                                   //prefix
                                   commentsString = commentsString + '<div class="row" style="height: 80px !important; padding: 5px !important"><div class="col-lg-1"><div style="margin-left: 0px !important"><button id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c3) !important" disabled>';
                                   //postfix
-                                  
                                   commentsString = commentsString + functionFirstLetter(array[j].commentOwnerUsername) + '</button></div></div>';
-
                                   //comments
                                   //prefix
                                   commentsString = commentsString + '<div class="col-lg-11" style="color: var(--c3)!important; padding-top: 10px !important">';
                                   //postfix
                                   commentsString = commentsString + array[j].comment + '</div></div>';
-                                  
                                 }
                                
                                 $('#storyCommentsAll').html(commentsString);
 
-                                //pravice dodeljevanja - team members 
-                                {{!-- if (isTeamMember) {
-                                  document.getElementById("addCommentForm").style.display="block";
+                                //pravice dodajanja komentarjev - team members 
+                                if (isTeamMember) {
+                                  document.getElementById("addCommentsButtonEnabled").style.display="block";
+                                  document.getElementById("addCommentsButtonDisabled").style.display="none";
     
                                 } else {
-                                  document.getElementById("addCommentForm").style.display="none";
-                                } --}}
-
+                                  document.getElementById("addCommentsButtonDisabled").style.display="block";
+                                  document.getElementById("addCommentsButtonEnabled").style.display="none";
+                                }
+                                
                                 {{!-- za input za username od trenutno prijavnega uporabnika --}}
                                 $('#commentOwnerUsername').val(commentOwnerUsername);
 
 
 
-                                // url-ji
+                                // url-ji za 1., 2., 3., 4. kam se posiljajo podatki
                                  
                                 var editBasicInfo = '/project/'+ projId + '/userStory/'+ storyId + '/edit-info';
                                 $('#editBasicInfo').attr("action", editBasicInfo);
@@ -484,7 +505,8 @@
                     </div>
 
                     <!-- Add test -->
-                      <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Add</button>
+                      <button id="addTestEnabled" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Add</button>
+                      <button id="addTestDisabled" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important" disabled>Add</button>
 
                 </form>
               </div> <!-- end modal body -->
@@ -601,8 +623,8 @@
                     </div>
 
                     <!-- save changes -->
-                      <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Comment</button>
-
+                      <button id="addCommentsButtonEnabled" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Comment</button>
+                      <button id="addCommentsButtonDisabled" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important" disabled>Comment</button>
                   </form>
                   </div>
               </div> <!-- end modal body -->

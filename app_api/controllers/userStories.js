@@ -192,7 +192,12 @@ const projectInfo = (req, res) => {
             currentUserStory.businessValue = req.body.businessValue;
             currentUserStory.size = req.body.size;
             currentUserStory.sprint = req.body.sprint;
-              
+            var sprintString;
+            // posodbimo se flags
+            if (req.body.sprint != 0) {
+              sprintString = "Sprint " + req.body.sprint;
+              currentUserStory.flags[0] = sprintString;
+            } 
               project.save((napaka, project) => {
                 if (napaka) {
                   res.status(404).json(napaka);
