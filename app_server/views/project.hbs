@@ -93,7 +93,7 @@
       <div class="card-group">
       <div class="row">
     {{#each userStories as |story|}}
-        <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-storyid="{{story._id}}"
+        <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
          data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}"
          data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
          data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
@@ -159,7 +159,9 @@
 
 
                               var projId = $(this).data('projid');
-                                var storyId = $(this).data('storyid');
+                                var storyId = $(this).data('id');
+                                console.log(storyId);
+                                var storyID = $(this).data('id');
                                 var storyName = $(this).data('name');
                                 var storyAbout = $(this).data('desc');
                                 var storyPriority = $(this).data('priority');
@@ -251,13 +253,13 @@
                                 if (storySprint != 0) {
                                   //a je v aktivnem sprintu? - TO DO 
                                   if (isScrumMaster || isTeamMember) {
-                                    document.getElementById("addNewSubtask").style.display="block";
+                                    document.getElementById("addNewSubtask1").style.display="block";
                                   } else {
-                                    document.getElementById("addNewSubtask").style.display="none";
+                                    document.getElementById("addNewSubtask1").style.display="none";
                                   }
                                 
                                 } else {
-                                  document.getElementById("addNewSubtask").style.display="none";
+                                  document.getElementById("addNewSubtask1").style.display="none";
 
                                 }
 
@@ -286,7 +288,7 @@
                                   //add edit button with id
                                 }
                                 
-                                $('#subtasksStory').html(subtasksString);
+                                //$('#subtasksStory').html(subtasksString);
 
 
 
@@ -351,7 +353,7 @@
                                  $('#urlAddComment').attr("action", urlAddComment);
 
                                 console.log(storyId)
-                                 var urlAddSubtask = '/project/'+ projId + '/userStory/'+ storyId + '/add-subtask';
+                                 var urlAddSubtask = '/project/' + projId + '/userStory/' + storyId + '/add-subtask';
                                  $('#urlAddSubtask1').attr("action", urlAddSubtask);
 
 
@@ -552,7 +554,7 @@
                       </div>
                       <br>
                       {{!-- tjasaaaa --}}
-                      <div id="subtasksStory">
+                      <div id="addNewSubtask1">
                       </div>
                     </div>
 
