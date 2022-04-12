@@ -71,7 +71,7 @@ const projectInfo = (req, res) => {
         priority: req.body.priority,
         businessValue: req.body.businessValue,
         size: req.body.size,
-        flags: ["Unassigned", "Unfinished", req.body.priority]
+        flags: ["Unassigned", "Unfinished"]
       });
       project.save((napaka, project) => {
         if (napaka) {
@@ -199,7 +199,7 @@ const projectInfo = (req, res) => {
               currentUserStory.flags[0] = sprintString;
             } 
             //posodobimo flags za priority 
-            currentUserStory.flags[2] = req.body.priority;
+            
               project.save((napaka, project) => {
                 if (napaka) {
                   res.status(404).json(napaka);

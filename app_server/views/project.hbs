@@ -367,7 +367,7 @@
 
                                 //kdo in v katerih primerih
                                 
-                                  if (isScrumMaster || isTeamMember) {
+                                  if (isScrumMaster || isProductManager) {
                                     if (storySprint != 0 && storyFinished == false) {
                                     
                                     document.getElementById("addTestEnabled").style.display="none";
@@ -378,6 +378,9 @@
                                     document.getElementById("addTestDisabled").style.display="none";
                                     //enabled button
                                   }
+                                } else {
+                                  document.getElementById("addTestEnabled").style.display="none";
+                                    document.getElementById("addTestDisabled").style.display="block";
                                 }
 
                                 // 3. subtasks (naloge)
@@ -385,22 +388,22 @@
                                 // pravice dodajanja novega taska
                                 // dodaja lahko scrum master ali clani razvojne skupine
                                 // v primeru da je zgodba znotraj aktivnega sprinta
-                                if (storySprint != 0) {
-                                  //a je v aktivnem sprintu? - TO DO
-                                  if (sprintsInProgress == storySprint) {
-                                    console.log("DELA");
-                                  }
-                                  if (isScrumMaster || isTeamMember) {
-                                    document.getElementById("addNewSubtask1").style.display="block";
-                                  } else {
-                                    document.getElementById("addNewSubtask1").style.display="none";
-                                  }
-                                
+
+                                if (isScrumMaster || isTeamMember) {
+                                    if (sprintsInProgress == storySprint) {
+                                    // lahko doda - enabled
+                                    document.getElementById("addTaskEnabled").style.display="block";
+                                    document.getElementById("addTaskDisabled").style.display="none";
+                                    console.log("Dodeljen sprint je tekoc sprint.");
+                                    } else {
+                                      //nemore dodat - disabled
+                                       document.getElementById("addTaskEnabled").style.display="none";
+                                    document.getElementById("addTaskDisabled").style.display="disabled";
+                                    }
                                 } else {
-                                  document.getElementById("addNewSubtask1").style.display="none";
-
+                                  document.getElementById("addTaskEnabled").style.display="none";
+                                    document.getElementById("addTaskDisabled").style.display="disabled";
                                 }
-
                                 
                               
                                   function functionFirstLetterS(value) {
@@ -487,7 +490,7 @@
 
                                 console.log(storyId)
                                  var urlAddSubtask = '/project/' + projId + '/userStory/' + storyId + '/add-subtask';
-                                 $('#urlAddSubtask1').attr("action", urlAddSubtask);
+                                 $('#urlAddSubtask').attr("action", urlAddSubtask);
 
 
                             });
@@ -692,7 +695,7 @@
                     </div>
 
                     <!-- Add new tasks -form-->
-                    <form method="post" id="urlAddSubtask1" action=""></form>
+                    <form method="post" id="urlAddSubtask" action="">
                     <div id=" ">
                     <div class="mb-3" style="padding-bottom: 10px !important; width: 84% !important; float: Left;">
                             <label class="form-label" style="padding-top: 10px !important;">Add task</label>
@@ -706,9 +709,10 @@
                     </div>
 
                     <!-- save changes -->
-                    <button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Add</button>
+                    <button id="addTaskEnabled"type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Add</button>
+                    <button id="addTaskDisabled"type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important" disabled>Add</button>
                     </div>
-                </form>
+                    </form>
               </div> <!-- end modal body -->
               </div>
 
