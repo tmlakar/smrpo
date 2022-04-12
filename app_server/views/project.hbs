@@ -569,7 +569,7 @@
                           <div class="modal-dialog" style="padding-top: 150px !important;">
                             <div class="modal-content modal-content-ekipa" style="border: 3px solid var(--c2) !important;">
                                 <div class="modal-header modal-header-ekipa">
-                                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit assignee</h5>
+                                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit User story assignee</h5>
                                 
                                 </div>
                                 <div class="modal-body">
@@ -726,8 +726,41 @@
                               </div>
                             </div>
                         </div>
+                      <!-- end second modal window -spreminjanje nalog -->
 
-                      <!-- end second modal window -->
+                      {{!-- modalno okno za spreminjanje lastnika naloge --}}
+                        <div class="modal" id="modalEditTaskUser" tabindex="-1" role="dialog" aria-hidden="true">
+                          <div class="modal-dialog" style="padding-top: 150px !important;">
+                            <div class="modal-content modal-content-ekipa" style="border: 3px solid var(--c2) !important;">
+                                <div class="modal-header modal-header-ekipa">
+                                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit task assignee</h5>
+                                
+                                </div>
+                                <div class="modal-body">
+
+                                 <!-- Current assignee -->
+                                  <div class="mb-3" style="padding-bottom: 10px !important;">
+                                    <label class="form-label" style="padding-top: 10px !important;">Current assignee</label>
+                                    <input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="currTaskAssignee" id="currTaskAssignee" aria-describedby="emailHelp" readonly>
+                                  </div>
+                                  
+                                  <!-- New assignee -->
+                                  <div class="mb-3" style="padding-bottom: 10px !important;">
+                                    <label class="form-label" style="padding-top: 10px !important;">New assignee</label>
+                                    <input class="form-control input-form" name="newTaskAssignee" id="newTaskAssignee" aria-describedby="emailHelp" required>
+                                  </div>
+
+                                  <br>
+                                  <!-- save changes -->
+                                  <button id="changeAssignee" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
+                                                                 
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <!-- end second modal window -spreminjanje lastnika naloge -->
+
+
                       </div>
                       <br>
                       {{!-- tjasaaaa tle se renderira--}}
