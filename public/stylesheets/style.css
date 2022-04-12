@@ -686,7 +686,8 @@ p {
 }
 
 #user-story-info>span {
-    color: var(--c2) !important;
+    color: var(--c4) !important;
+    font-weight: normal !important;
 }
 
 .card-flagss>div>span {
@@ -736,10 +737,11 @@ p {
 }
 
 .user-card-info>p {
-    font-size: 12px !important;
+    font-size: 13px !important;
     color: var(--c3) !important;
     margin-bottom: 20px !important;
     padding: 0px !important;
+    font-weight: bold !important;
 }
 
 
@@ -817,11 +819,12 @@ p {
 .projekt-management-button {
     border-radius: 20px !important;
     border: 0px solid !important;
-    height: 50px !important;
-    width: 150px !important;
+    height: 40px !important;
+    width: 130px !important;
     color: white;
     margin-top: 10px !important;
     margin-left: 0px !important;
+    font-size: 14px !important;
 }
 
 .center-block {
