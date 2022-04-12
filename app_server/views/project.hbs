@@ -104,7 +104,7 @@
               <div class="row" style="padding: 0px !important">
                 {{#if (columnFirst story.finished story.sprint story.priority)}}
                 <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
-                data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}"
+                data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}" data-collaborators="{{json ../collaborators}}"
                 data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
                 data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
                 data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
@@ -159,7 +159,7 @@
               <div class="row" style="padding: 0px !important">
                 {{#if (columnSecond story.finished story.sprint)}}
                 <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
-                data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}"
+                data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}" data-collaborators="{{json ../collaborators}}"
                 data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
                 data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
                 data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
@@ -214,7 +214,7 @@
               <div class="row" style="padding: 0px !important">
                 {{#if (columnThird story.finished story.sprint story.priority)}}
                 <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
-                data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}"
+                data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}" data-collaborators="{{json ../collaborators}}"
                 data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
                 data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
                 data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
@@ -297,9 +297,11 @@
                                 var admin = $(this).data('admin');
                                 var commentOwnerUsername = $(this).data('user');
                                 var sprintsInProgress = $(this).data('sprintsall');
+                                let collaborators1 = [{}];
+                                collaborators1 = $(this).data('collaborators');
                                 
-            
-                                console.log(sprintsInProgress);
+
+                                console.log(collaborators1);
                                 
                             
 
@@ -416,11 +418,12 @@
                                   }
                                 // 2. izpis vseh subtaskov - ista fora kokr komenti - spajamo skp stringe
                                 let arrayS = storySubtasks;
+                                console.log(arrayS)
                                 var subtasksString = '';
                                 for (j in arrayS) {
-                                  subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 60px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important;"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/>';
+                                  subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 60px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important;"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/ ><span style="padding-left: 10px !important">';
                                   // name of subtask
-                                  subtasksString = subtasksString + arrayS[j].name + '</label></div>';
+                                  subtasksString = subtasksString + arrayS[j].name + '</span></label></div>';
 
                                   // add owner
                                   subtasksString = subtasksString + '<div class="col-lg-3"><a><button id="editTask" type="button" data-toggle="modal" data-target="#modalEditTask" class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button  id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="float:right;">';
@@ -429,7 +432,8 @@
                                   //add edit button with id
                                 }
                                 
-                                //$('#subtasksStory').html(subtasksString);
+                                console.log(subtasksString);
+                                $('#addnewSubtask1').html(subtasksString);
 
 
                                 // 4. komentarji
@@ -689,8 +693,8 @@
                       <!-- end second modal window -->
                       </div>
                       <br>
-                      {{!-- tjasaaaa --}}
-                      <div id="addNewSubtask1">
+                      {{!-- tjasaaaa tle se renderira--}}
+                      <div id="addnewSubtask1">
                       </div>
                     </div>
 

@@ -219,6 +219,7 @@ var prikaz = (req, res) => {
 
                 res.render('project', {
                     name: odgovor.data.name,
+                    collaborators: collaborators,
                     id: projectId,
                     username: usernameS,
                     sprints: sprinti,
