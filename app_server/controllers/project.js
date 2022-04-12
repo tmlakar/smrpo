@@ -96,11 +96,21 @@ var prikaz = (req, res) => {
     if (successfullyAddedAccepTest == "successfully added acceptance test") {
         uspesnoDodanSprejemniTest = true;
     }
+    //Napaka pri dodajanju acceptance testa
+    var neuspesnoDodanTest = false;
+    if (req.query.error == "napakaPriDodajanjuSprejemnegaTesta") {
+        neuspesnoDodanTest = true;
+    }
     //uspesno dodan komentar
     var successfullyAddedComment = req.query.addcomment;
     var uspesnoDodanKomenar = false;
     if (successfullyAddedComment == "successfully added comment") {
         uspesnoDodanKomenar = true;
+    }
+    //Napaka pri dodajanju komentarja
+    var neuspesnoDodanKomentar = false;
+    if (req.query.error == "napakaPriDodajanjuKomentarja") {
+        neuspesnoDodanKomentar = true;
     }
 
 
@@ -236,6 +246,8 @@ var prikaz = (req, res) => {
                     startEndPast: startEndPast,
                     correctDate: correctDate,
                     sizeBig: sizeBig,
+                    errorAddComment: neuspesnoDodanKomentar,
+                    errorAddAccepTest: neuspesnoDodanTest,
                 });
             } else {
 
@@ -272,6 +284,8 @@ var prikaz = (req, res) => {
                     startEndPast: startEndPast,
                     correctDate: correctDate,
                     sizeBig: sizeBig,
+                    errorAddComment: neuspesnoDodanKomentar,
+                    errorAddAccepTest: neuspesnoDodanTest,
                 });
             }
         });

@@ -94,7 +94,7 @@ const updateUserStoryInfo = (req, res) => {
     var storyId = req.params.idStory;
     //console.log(req.body.name);
     var currName = req.body.nameOrig;
-    var prefix = currName.substring(0,3);
+    var prefix = currName.substring(0, 3);
     //console.log(prefix + req.body.name);
     if (!req.body.aboutText || !req.body.priority || !req.body.businessValue || !req.body.size || !req.body.sprint) {
 
