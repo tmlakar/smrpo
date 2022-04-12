@@ -166,10 +166,10 @@ const addSubtaskOwner = (req, res) => {
             }
         }).then((odgovor) => {
             var name = odgovor.name;
-            var string = "successfully added";
-            res.redirect('/project/' + projectId + '?error=' + string);
+            var string = "successfully added assignee";
+            res.redirect('/project/' + projectId + '?updateowner=' + string);
         }).catch((napaka) => {
-            var string = "napakaPriPosodabljanjuUporabniskeZgodbe";
+            var string = "napakaPriPosodabljanjuLastnika";
             res.redirect('/project/' + projectId + '?error=' + string);
 
         });
@@ -193,10 +193,10 @@ const editSubtask = (req, res) => {
             }
         }).then((odgovor) => {
             var name = odgovor.name;
-            var string = "";
+            var string = "successfully updated task";
             res.redirect('/project/' + projectId + '?successful=' + string);
         }).catch((napaka) => {
-            var string = "";
+            var string = "napakaPriPosodabljanjuNaloge";
             res.redirect('/project/' + projectId + '?error=' + string);
 
         });
@@ -207,22 +207,22 @@ const editSubtask = (req, res) => {
 const removeSubtask = (req, res) => {
     var projectId = req.params.id;
     var storyId = req.params.idStory;
-    
+
     var subtaskId = req.params.idSubtask;
     axios({
         method: 'delete',
         url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/subtask/' + subtaskId + '/delete',
-        
-        }).then((odgovor) => {
-            var name = odgovor.name;
-            var string = "";
-            res.redirect('/project/' + projectId + '?successful=' + string);
-        }).catch((napaka) => {
-            var string = "";
-            res.redirect('/project/' + projectId + '?error=' + string);
 
-     });
-    
+    }).then((odgovor) => {
+        var name = odgovor.name;
+        var string = "successfully deleted task";
+        res.redirect('/project/' + projectId + '?successDelete=' + string);
+    }).catch((napaka) => {
+        var string = "napakaPriBrisanjuNaloge";
+        res.redirect('/project/' + projectId + '?error=' + string);
+
+    });
+
 };
 
 /* POST - Add acceptance test to a story */

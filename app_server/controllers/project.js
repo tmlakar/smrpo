@@ -123,11 +123,39 @@ var prikaz = (req, res) => {
     if (req.query.error == "napakaPriDodajanjuSubtaska") {
         neuspesnoDodanaNaloga = true;
     }
-
     //uspesno posodobljena naloga
-
+    var successfullyUpdatedTask = req.query.successful;
+    var uspesnoPosodobljenaNaloga = false;
+    if (successfullyUpdatedTask == "successfully updated task") {
+        uspesnoPosodobljenaNaloga = true;
+    }
     //Napaka pri posodabljanju naloge
-
+    var neuspesnoPosodobljenaNaloga = false;
+    if (req.query.error == "napakaPriPosodabljanjuNaloge") {
+        neuspesnoPosodobljenaNaloga = true;
+    }
+    //uspesno dodan lastnik naloge
+    var successfullyAddedTaskAssign = req.query.updateowner;
+    var uspesnoDodanLastnik = false;
+    if (successfullyAddedTaskAssign == "successfully added assignee") {
+        uspesnoDodanLastnik = true;
+    }
+    //napaka pri dodajanju lastnika naloge
+    var neuspesnoDodanLastnik = false;
+    if (req.query.error == "napakaPriPosodabljanjuLastnika") {
+        neuspesnoDodanLastnik = true;
+    }
+    //uspesno zbrisana naloga
+    var successfullyDeletedTask = req.query.successDelete;
+    var uspesnoZbrisanaNaloga = false;
+    if (successfullyDeletedTask == "successfully deleted task") {
+        uspesnoZbrisanaNaloga = true;
+    }
+    //napaka pri brisanju naloge
+    var neuspesnoZbrisanaNaloga = false;
+    if (req.query.error == "napakaPriBrisanjuNaloge") {
+        neuspesnoZbrisanaNaloga = true;
+    }
 
     var username = user.username;
     var usernameS = user.username;
@@ -272,6 +300,14 @@ var prikaz = (req, res) => {
                     errorAddAccepTest: neuspesnoDodanTest,
                     successfullyAddedTask: uspesnoDodanaNaloga,
                     errorAddTask: neuspesnoDodanaNaloga,
+                    successfullyUpdatedTask: uspesnoPosodobljenaNaloga,
+                    errorUpdateTask: neuspesnoPosodobljenaNaloga,
+                    successfullyAddedTaskAssign: uspesnoDodanLastnik,
+                    errorAddTaskAssign: neuspesnoDodanLastnik,
+                    successfullyDeletedTask: uspesnoZbrisanaNaloga,
+                    errorDeleteTask: neuspesnoZbrisanaNaloga,
+
+
                 });
             } else {
 
@@ -313,6 +349,12 @@ var prikaz = (req, res) => {
                     errorAddAccepTest: neuspesnoDodanTest,
                     successfullyAddedTask: uspesnoDodanaNaloga,
                     errorAddTask: neuspesnoDodanaNaloga,
+                    successfullyUpdatedTask: uspesnoPosodobljenaNaloga,
+                    errorUpdateTask: neuspesnoPosodobljenaNaloga,
+                    successfullyAddedTaskAssign: uspesnoDodanLastnik,
+                    errorAddTaskAssign: neuspesnoDodanLastnik,
+                    successfullyDeletedTask: uspesnoZbrisanaNaloga,
+                    errorDeleteTask: neuspesnoZbrisanaNaloga,
                 });
             }
         });

@@ -1709,8 +1709,8 @@ $(document).ready(function(){
                 </div>
             </div>
         </div>
-<!-- AnjaPopravi -->
-{{#if successfullyAddedComment}}
+
+{{#if successfullyUpdatedTask}}
 <script>
     $(document).ready(function(){
         $("#myModal49").modal('show');
@@ -1741,8 +1741,8 @@ $(document).ready(function(){
                 </div>
             </div>
         </div>
-<!-- AnjaPopravi -->
-{{#if successfullyAddedComment}}
+
+{{#if errorUpdateTask}}
 <script>
     $(document).ready(function(){
         $("#myModal50").modal('show');
@@ -1772,8 +1772,8 @@ $(document).ready(function(){
                 </div>
             </div>
         </div>
-<!-- AnjaPopravi -->
-{{#if successfullyAddedComment}}
+
+{{#if successfullyAddedTaskAssign}}
 <script>
     $(document).ready(function(){
         $("#myModal51").modal('show');
@@ -1804,8 +1804,8 @@ $(document).ready(function(){
                 </div>
             </div>
         </div>
-<!-- AnjaPopravi -->
-{{#if successfullyAddedComment}}
+
+{{#if errorAddTaskAssign}}
 <script>
     $(document).ready(function(){
         $("#myModal52").modal('show');
@@ -1813,6 +1813,69 @@ $(document).ready(function(){
         setTimeout(function() {
 
             $('#myModal52').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+{{!-- modal window if task was successfully deleted --}}
+<div id="myModal53" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Task has been successfully deleted!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyDeletedTask}}
+<script>
+    $(document).ready(function(){
+        $("#myModal53").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModal53').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if error occured while deleting --}}
+<div id="myModal54" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important;">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Task wasn't deleted!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if errorDeleteTask}}
+<script>
+    $(document).ready(function(){
+        $("#myModal54").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModal54').modal('hide');
         }, 7000);
     });
 </script>
