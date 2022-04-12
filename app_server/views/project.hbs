@@ -89,70 +89,182 @@
   <div class="tab-content">
     <div id="backlog" class=" active tab-pane fade">
       
+      {{!-- 1. stolpec - if unfinished + pripadajo sprintu --}}
 
-      <div class="card-group">
-      <div class="row">
-    {{#each userStories as |story|}}
-        <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
-         data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}"
-         data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
-         data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
-         data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
+      <div class="row" style="padding-top: 40px !important; color: var(--c1) !important">
+        <div class="col-lg-4" style="padding-left: 0px !important"><h5>Unfinished</h5></div>
+        <div class="col-lg-4" style="padding-left: 0px !important"><h5>Finished</h5></div>
+        <div class="col-lg-4" style="padding-left: 0px !important"><h5>Future release</h5></div>
+      </div>
+    <div class="row">
+      <div class="col-lg-4">
+        {{#each userStories as |story|}}
+    
+            <div class="card-group">
+              <div class="row" style="padding: 0px !important">
+                {{#if (columnFirst story.finished story.sprint story.priority)}}
+                <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
+                data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}"
+                data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
+                data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
+                data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
 
-        <div id="uporabniskaZgodbaProductBacklog" class="card projekt-user-card" style="">
-          <div class="card-body user-card-info">
-            <div class="row" style="padding: 0px !important;">
-                <div class=" col-lg-10" >
-                  <h4><i>{{story.name}}</i></h4>
-                </div>
+                <div id="uporabniskaZgodbaProductBacklog" class="card projekt-user-card" style="border: 3px solid var(--c4) !important;">
+                  <div class="card-body user-card-info">
+                    <div class="row" style="padding: 0px !important;">
+                        <div class=" col-lg-10" >
+                          <h4><i>{{story.name}}</i></h4>
+                        </div>
 
-                <div class="storyOwner_circle-d col-lg-2 " >
-                    <button  id="storyOwner_circle" type="button"
-                            class="btn btn-dark open-collaboratorEdit" disabled>
-                            {{firstLetterOfUsername story.userStorieOwnerUsername}}
-                    </button>
+                        <div class="storyOwner_circle-d col-lg-2 " >
+                            <button  id="storyOwner_circle" type="button"
+                                    class="btn btn-dark open-collaboratorEdit" disabled>
+                                    {{firstLetterOfUsername story.userStorieOwnerUsername}}
+                            </button>
+                          </div>
+                    </div>
+
+                    <p id="user-story-info"><span>Priority:</span> {{story.priority}}<br>
+                      <span>Business value:</span> {{story.businessValue}}<br>
+                      <span>Velocity:</span> {{story.size}}
+                    </p>
+                    
+                    <div class="row" style="padding: 0px !important;">
+                      <div class="card-flagss col-lg-12">
+                        <div class="row">
+                        {{#each story.flags as |flag|}}
+                          <span id="flag-info">
+                          {{flag}}
+                          </span>
+                        {{/each}}
+                        </div>
+                      </div>
+                    </div>
+
+
                   </div>
-            </div>
 
-            <p id="user-story-info"><span>Priority:</span> {{story.priority}}<br>
-              <span>Business value:</span> {{story.businessValue}}<br>
-              <span>Velocity:</span> {{story.size}}
-            </p>
-            
-            <p hidden>
-            
-            {{#each story.comments as |comment|}}
-            {{comment.comment}}
-            {{comment.commentOwnerUsername}}
-            {{/each}}
-            
-
-            <p hidden>
-              {{story.comments}}
-            </p>
-            <p hidden>
-              {{story.subtasks}}
-            </p>
-            </p>
-            <div class="row" style="padding: 0px !important;">
-              <div class="card-flagss col-lg-12">
-                <div class="row">
-                {{#each story.flags as |flag|}}
-                  <span id="flag-info">
-                  {{flag}}
-                  </span>
-                {{/each}}
                 </div>
+                </a>
+              {{/if}}
               </div>
-            </div>
+              </div>
+            {{/each}}
+          </div>
+          {{!-- 2. stolpec - finished --}}
+          <div class="col-lg-4">
+        {{#each userStories as |story|}}
+    
+            <div class="card-group">
+              <div class="row" style="padding: 0px !important">
+                {{#if (columnSecond story.finished story.sprint)}}
+                <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
+                data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}"
+                data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
+                data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
+                data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
+
+                <div id="uporabniskaZgodbaProductBacklog" class="card projekt-user-card" style="border: 3px solid var(--c5) !important;">
+                  <div class="card-body user-card-info">
+                    <div class="row" style="padding: 0px !important;">
+                        <div class=" col-lg-10" >
+                          <h4><i>{{story.name}}</i></h4>
+                        </div>
+
+                        <div class="storyOwner_circle-d col-lg-2 " >
+                            <button  id="storyOwner_circle" type="button"
+                                    class="btn btn-dark open-collaboratorEdit" disabled>
+                                    {{firstLetterOfUsername story.userStorieOwnerUsername}}
+                            </button>
+                          </div>
+                    </div>
+
+                    <p id="user-story-info"><span>Priority:</span> {{story.priority}}<br>
+                      <span>Business value:</span> {{story.businessValue}}<br>
+                      <span>Velocity:</span> {{story.size}}
+                    </p>
+                    
+                    <div class="row" style="padding: 0px !important;">
+                      <div class="card-flagss col-lg-12">
+                        <div class="row">
+                        {{#each story.flags as |flag|}}
+                          <span id="flag-info">
+                          {{flag}}
+                          </span>
+                        {{/each}}
+                        </div>
+                      </div>
+                    </div>
 
 
+                  </div>
+
+                </div>
+                </a>
+              {{/if}}
+              </div>
+              </div>
+            {{/each}}
+          </div>
+          {{!-- 3. stolpec --}}
+          <div class="col-lg-4">
+        {{#each userStories as |story|}}
+    
+            <div class="card-group">
+              <div class="row" style="padding: 0px !important">
+                {{#if (columnThird story.finished story.sprint story.priority)}}
+                <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
+                data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}"
+                data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
+                data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
+                data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
+
+                <div id="uporabniskaZgodbaProductBacklog" class="card projekt-user-card" style="border: 3px solid var(--c2) !important;">
+                  <div class="card-body user-card-info">
+                    <div class="row" style="padding: 0px !important;">
+                        <div class=" col-lg-10" >
+                          <h4><i>{{story.name}}</i></h4>
+                        </div>
+
+                        <div class="storyOwner_circle-d col-lg-2 " >
+                            <button  id="storyOwner_circle" type="button"
+                                    class="btn btn-dark open-collaboratorEdit" disabled>
+                                    {{firstLetterOfUsername story.userStorieOwnerUsername}}
+                            </button>
+                          </div>
+                    </div>
+
+                    <p id="user-story-info"><span>Priority:</span> {{story.priority}}<br>
+                      <span>Business value:</span> {{story.businessValue}}<br>
+                      <span>Velocity:</span> {{story.size}}
+                    </p>
+                    
+                    <div class="row" style="padding: 0px !important;">
+                      <div class="card-flagss col-lg-12">
+                        <div class="row">
+                        {{#each story.flags as |flag|}}
+                          <span id="flag-info">
+                          {{flag}}
+                          </span>
+                        {{/each}}
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                </div>
+                </a>
+              {{/if}}
+              </div>
+              </div>
+            {{/each}}
           </div>
 
-        </div>
-        </a>
-
-    {{/each}}
+    </div>
+    
+    
 
                   <script>
                             $(document).on("click", ".modalnoOknoStory", function () {
@@ -382,8 +494,7 @@
                     </script>
 
 
-      </div>
-      </div>
+      
 
       <div class="modal fade" id="modalnoOknoStory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -1059,6 +1170,8 @@ $(document).ready(function(){
 
 
 </div>
+
+{{!-- ************************************* MODALNA OKNA USER FEEDBACK ****************************************************** --}}
 
 {{!-- modal window if sprint was successfully added --}}
 <div id="myModal31" class=" modal" tabindex="-1" role="dialog">

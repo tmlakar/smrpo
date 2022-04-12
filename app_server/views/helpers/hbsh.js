@@ -180,3 +180,47 @@ hbs.registerHelper('karticaSeLahkoUreja', function (value1, value2, value3, valu
 hbs.registerHelper('json', function(context) {
   return JSON.stringify(context);
 });
+
+
+// stolpci product backlog
+
+hbs.registerHelper('columnFirst', function(value1, value2, value3) {
+  //value 1 - finished oz unfinished
+  //value 2 - pripada sprintu?
+  if (value3 == "Won't have this time") {
+    return false;
+  }
+
+  if (value1 == false && value2 != 0) {
+    return true;
+  }
+  
+  return false;
+  
+});
+
+hbs.registerHelper('columnSecond', function(value1, value2) {
+  //value 1 - finished oz unfinished
+  //value 2 - pripada sprintu?
+
+  if (value1 == true && value2 != 0) {
+    return true;
+  }
+  return false;
+  
+});
+
+hbs.registerHelper('columnThird', function(value1, value2, value3) {
+  //value 1 - finished oz unfinished
+  //value 2 - pripada sprintu?
+
+  if (value1 == false && value2 == 0) {
+    return true;
+  }
+  if (value3 == "Won't have this time") {
+    return true;
+  }
+  return false;
+  
+});
+
