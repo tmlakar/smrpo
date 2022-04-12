@@ -399,7 +399,7 @@
                                     console.log("Dodeljen sprint je tekoc sprint.");
                                     } else {
                                       //nemore dodat - disabled
-                                       document.getElementById("addTaskEnabled").style.display="none";
+                                    document.getElementById("addTaskEnabled").style.display="none";
                                     document.getElementById("addTaskDisabled").style.display="block";
                                     }
                                 } else {
@@ -426,15 +426,13 @@
                                 var subtasksString = '';
                                 for (j in arrayS) {
                                   name = arrayS[j].name;
-                                  hour = name.substring(name.length-4, name.length);
-                                  name = name.substring(0, name.length-5);
-                                  hour = hour.substring(1, 2);
+                                  hour = arrayS[j].hours;
                                   idsub = arrayS[j]._id;
                                   assignee = functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
                                   console.log(name, hour, assignee);
                                   subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 55px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important; padding-left: 15px !important"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/ ><span style="padding-left: 10px !important">';
                                   // name of subtask
-                                  subtasksString = subtasksString + arrayS[j].name + '</span></label></div>';
+                                  subtasksString = subtasksString + arrayS[j].name + ' [' + arrayS[j].hours + 'h]' + '</span></label></div>';
                                   {{!-- $('#editTaskButton1').attr("data-namesub", name);
                                   $('#editTaskButton1').attr("data-hoursub", hour);
                                   $('#editTaskButton1').attr("data-asub", assignee); --}}
@@ -672,7 +670,7 @@
                                 
                                 var projID = $(this).data('idproject');
                                 var storyID = $(this).data('iduserstory');
-                                var storyID = $(this).data('iduserstory');
+                                var subtaskID = $(this).data('idsubtask');
 
                                 console.log(subtaksName, subtaskHour, subtaskOwner);
                                 $('#nameTaskEditing').val(subtaksName);
@@ -680,10 +678,14 @@
 
                                 //url za put in delete
                                 
-                                 {{!-- var urlEditSubtask = '/project/' + projId + '/userStory/' + storyId + '/add-subtask';
-                                 $('#urlAddSubtask').attr("action", urlAddSubtask); --}}
+                                
+                                 var urlEditSubtask = '/project/' + projID + '/userStory/' + storyID + '/subtask/' + subtaskID + '/edit-subtask';
+                                 $('#urlEditSubtask').attr("action", urlEditSubtask);
+                                  
+                                var urlDeleteSubtask = '/project/' + projID + '/userStory/' + storyID + '/subtask/' + subtaskID + '/delete';
+                                $('#urlDeleteSubtask').attr("action", urlDeleteSubtask);
 
-
+                                console.log(urlEditSubtask, urlDeleteSubtask);
 
 
                             });
@@ -790,6 +792,7 @@
                                 </button></a> 
                                 </div>
                                 <div class="modal-body">
+                                  <form method="post" action="" id="urlEditSubtask">
                                   <!-- Edit existing tasks -->
                                   <div class="mb-3" style="padding-bottom: 10px !important; width: 84% !important; float: Left;">
                                     <label class="form-label" style="padding-top: 10px !important;">Task</label>
@@ -803,9 +806,11 @@
 
                                   <br>
 
-                                  <a href="#"><button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save changes</button></a>
-                                  <a href="#"><button type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important">Delete task</button></a>
-                               
+                                  <a ><button id="urlEditSubtask" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save changes</button></a>
+                                  </form>
+                                  <form method="post" action="" id="urlDeleteSubtask">
+                                  <a ><button id="urlDeleteSubtask" type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important">Delete task</button></a>
+                               </form>
                                 </div>
                               </div>
                             </div>
@@ -814,6 +819,7 @@
 
                       {{!-- modalno okno za spreminjanje lastnika naloge --}}
                         <div class="modal" id="modalEditTaskUser" tabindex="-1" role="dialog" aria-hidden="true">
+                          
                           <div class="modal-dialog" style="padding-top: 150px !important;">
                             <div class="modal-content modal-content-ekipa" style="background-color: var(--c2) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
                                 <div class="modal-header" style="background-color: var(--c2) !important;">

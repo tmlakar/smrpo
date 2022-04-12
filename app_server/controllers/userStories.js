@@ -136,7 +136,7 @@ const addSubtask = (req, res) => {
             url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/add-subtask',
             data: {
                 name: req.body.name,
-                hour: req.body.hour,
+                hours: req.body.hour,
             }
         }).then((odgovor) => {
             var name = odgovor.name;
@@ -174,6 +174,55 @@ const addSubtaskOwner = (req, res) => {
 
         });
     }
+};
+
+/* PUT - updating subtask */
+const editSubtask = (req, res) => {
+    var projectId = req.params.id;
+    var storyId = req.params.idStory;
+    var subtaskId = req.params.idSubtask;
+    if (!req.body.name || !req.body.hour) {
+
+    } else {
+        axios({
+            method: 'put',
+            url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/subtask/' + subtaskId + '/edit-subtask',
+            data: {
+                name: req.body.name,
+                hours: req.body.hour,
+            }
+        }).then((odgovor) => {
+            var name = odgovor.name;
+            var string = "";
+            res.redirect('/project/' + projectId + '?successful=' + string);
+        }).catch((napaka) => {
+            var string = "";
+            res.redirect('/project/' + projectId + '?error=' + string);
+
+        });
+    }
+};
+
+/* DELETE - remove subtask */
+const removeSubtask = (req, res) => {
+    var projectId = req.params.id;
+    var storyId = req.params.idStory;
+    
+    var subtaskId = req.params.idSubtask;
+    axios({
+        method: 'delete',
+        url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/subtask/' + subtaskId + '/delete',
+        
+        }).then((odgovor) => {
+            var name = odgovor.name;
+            var string = "";
+            res.redirect('/project/' + projectId + '?successful=' + string);
+        }).catch((napaka) => {
+            var string = "";
+            res.redirect('/project/' + projectId + '?error=' + string);
+
+     });
+    
 };
 
 /* POST - Add acceptance test to a story */
@@ -308,5 +357,7 @@ module.exports = {
     addComment,
     addFlag,
     updateOwner,
-    deleteStory
+    deleteStory,
+    removeSubtask,
+    editSubtask
 };
