@@ -178,7 +178,7 @@ curl -X PUT \
 
 
 curl -X DELETE \
-       "http://localhost:3000/api/projects/624d48a734390139f25a0a03/delete"
+       "http://localhost:3000/api/projects/6254ac190c3d676f72545fdf/userStory/6254aea79a69bfe31b169878/subtask/62558f79487dadf16a5ec554/delete"
 
 
 ________ user story _______
@@ -200,9 +200,9 @@ curl -X POST \
        "http://localhost:3000/api/projects/624e92711c36154b522b6286/userStory/624ec2aacee888e0103ba81d/add-subtask"
 
 curl -X PUT \
-       -d "subtaskOwnerUsername=evvid" \
+       -d "name=subtask&hours=40" \
        -H "Content-Type: application/x-www-form-urlencoded" \
-       "http://localhost:3000/api/projects/624e92711c36154b522b6286/userStory/624ec2aacee888e0103ba81d/subtask/624ecb4d96fc510d3c4db110/edit-subtask-owner"
+       "http://localhost:3000/api/projects/6254ac190c3d676f72545fdf/userStory/6254aea79a69bfe31b169878/subtask/62558f79487dadf16a5ec554/edit-subtask"
 
 curl -X POST \
        -d "tests=# Preveri delovanje." \

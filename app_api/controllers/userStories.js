@@ -243,7 +243,8 @@ const updateUserStoryAddSubtask = (req, res) => {
         } else {
           //tle pushas na
           currentUserStory.subtasks.push({
-            name: req.body.name + ' [' + req.body.hour + 'h]',
+            name: req.body.name,
+            hours: req.body.hours
           });
             
           project.save((napaka, project) => {
@@ -256,6 +257,113 @@ const updateUserStoryAddSubtask = (req, res) => {
           }
 
         }
+       else {
+        return res.status(404).json({ sporočilo: "Ni obstojecih uporabniskih zgodb." });
+      }
+    });
+};
+
+/* Editing subtask of a story */
+const updateUserStoryEditSubtask = (req, res) => {
+  if (!req.params.idProject || !req.params.idUserStory || !req.params.idSubtask) {
+    return res.status(404).json({
+      sporočilo:
+        "Ne najdem projekta oziroma uporabniske zgodbe, " +
+        "idProject in idUserStory sta obvezna parametra.",
+    });
+  }
+  Project.findById(req.params.idProject)
+    .select("userStories")
+    .exec((napaka, project) => {
+      if (!project) {
+        return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+      } else if (napaka) {
+        return res.status(500).json(napaka);
+      }
+      if (project.userStories && project.userStories.length > 0) {
+        const currentUserStory = project.userStories.id(
+          req.params.idUserStory
+        );
+        if (!currentUserStory) {
+          res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
+        } else {
+
+          if (currentUserStory.subtasks && currentUserStory.subtasks.length > 0) {
+            const currentSubtask = currentUserStory.subtasks.id(
+              req.params.idSubtask
+            );
+            if (!currentSubtask) {
+              res.status(404).json({ sporočilo: "Ne najdem subtaksa." });
+            } else {
+              
+              currentSubtask.name = req.body.name;
+              currentSubtask.hours = req.body.hours;
+
+
+              project.save((napaka, project) => {
+                if (napaka) {
+                  res.status(404).json(napaka);
+                } else {
+                  res.status(200).json(project);
+                }
+              });
+            }
+          }
+
+        }}
+       else {
+        return res.status(404).json({ sporočilo: "Ni obstojecih uporabniskih zgodb." });
+      }
+    });
+};
+
+/* Removing subtask from a story - lahko pa sam da se da na deleted flag subtask */
+const updateUserStoryRemoveSubtask = (req, res) => {
+  if (!req.params.idProject || !req.params.idUserStory || !req.params.idSubtask) {
+    return res.status(404).json({
+      sporočilo:
+        "Ne najdem projekta oziroma uporabniske zgodbe, " +
+        "idProject in idUserStory sta obvezna parametra.",
+    });
+  }
+  Project.findById(req.params.idProject)
+    .select("userStories")
+    .exec((napaka, project) => {
+      if (!project) {
+        return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+      } else if (napaka) {
+        return res.status(500).json(napaka);
+      }
+      if (project.userStories && project.userStories.length > 0) {
+        const currentUserStory = project.userStories.id(
+          req.params.idUserStory
+        );
+        if (!currentUserStory) {
+          res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
+        } else {
+
+          if (currentUserStory.subtasks && currentUserStory.subtasks.length > 0) {
+            const currentSubtask = currentUserStory.subtasks.id(
+              req.params.idSubtask
+            );
+            if (!currentSubtask) {
+              res.status(404).json({ sporočilo: "Ne najdem subtaksa." });
+            } else {
+              currentUserStory.subtasks.id(req.params.idSubtask).remove()
+              
+
+
+              project.save((napaka, project) => {
+                if (napaka) {
+                  res.status(404).json(napaka);
+                } else {
+                  res.status(200).json(project);
+                }
+              });
+            }
+          }
+
+        }}
        else {
         return res.status(404).json({ sporočilo: "Ni obstojecih uporabniskih zgodb." });
       }
@@ -537,6 +645,8 @@ module.exports = {
     updateUserStoryInfo,
     updateUserStoryAddSubtask,
     updateUserStoryAddOwnerToSubtask,
+    updateUserStoryEditSubtask,
+    updateUserStoryRemoveSubtask,
     updateUserStoryAddAcceptanceTests,
     updateUserStoryAddAComment,
     updateUserStoryAddFlags,

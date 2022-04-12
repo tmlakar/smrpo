@@ -10,9 +10,12 @@ const collaboratorShema = new mongoose.Schema({
 
 const subtaskShema = new mongoose.Schema({
     name: {type: String},
+    hours: {type: Number},
     subtaskOwnerUsername: {type: String, default: null},
     pending: {type: String, default: true},
-    finished: {type: Boolean, default: false}
+    finished: {type: Boolean, default: false},
+    isDeleted: {type: Boolean, default: false}
+    
 });
 
 const userStoryCommentsShema = new mongoose.Schema({
