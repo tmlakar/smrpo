@@ -827,6 +827,16 @@ p {
     font-size: 12px !important;
 }
 
+.projekt-management-button1 {
+    border-radius: 20px !important;
+    border: 0px solid !important;
+    height: 50px !important;
+    width: 150px !important;
+    color: white;
+    margin-top: 10px !important;
+    margin-left: 0px !important;
+}
+
 .center-block {
     display: block;
     margin-right: auto;
