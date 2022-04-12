@@ -84,6 +84,11 @@ var prikaz = (req, res) => {
     if (successfullyEditedStory == "successfully edited") {
         uspesnoPosodobljenaZgodba = true;
     }
+    //napaka pri posodabljanju zgodbe
+    var neuspesnoPosodobljenaZgodba = false;
+    if (req.query.error == "napakaPriPosodabljanjuUporabniskeZgodbe") {
+        neuspesnoPosodobljenaZgodba = true;
+    }
     //uspesno odstranjena zgodba
     var successfullyRemovedStory = req.query.removed;
     var uspesnoOdstranjenaZgodba = false;
@@ -306,6 +311,7 @@ var prikaz = (req, res) => {
                     errorAddTaskAssign: neuspesnoDodanLastnik,
                     successfullyDeletedTask: uspesnoZbrisanaNaloga,
                     errorDeleteTask: neuspesnoZbrisanaNaloga,
+                    errorEditedStory: neuspesnoPosodobljenaZgodba,
 
 
                 });
@@ -355,6 +361,7 @@ var prikaz = (req, res) => {
                     errorAddTaskAssign: neuspesnoDodanLastnik,
                     successfullyDeletedTask: uspesnoZbrisanaNaloga,
                     errorDeleteTask: neuspesnoZbrisanaNaloga,
+                    errorEditedStory: neuspesnoPosodobljenaZgodba,
                 });
             }
         });
