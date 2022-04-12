@@ -564,39 +564,7 @@
                     </div>
                     </div>
 
-                    {{!-- modalno okno za spreminjanje lastnika kartice --}}
-                        <div class="modal" id="modalEditUser" tabindex="-1" role="dialog" aria-hidden="true">
-                          <div class="modal-dialog" style="padding-top: 150px !important;">
-                            <div class="modal-content modal-content-ekipa" style="border: 3px solid var(--c2) !important;">
-                                <div class="modal-header modal-header-ekipa">
-                                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit User story assignee</h5>
-                                
-                                </div>
-                                <div class="modal-body">
-
-                                 <!-- Current assignee -->
-                                  <div class="mb-3" style="padding-bottom: 10px !important;">
-                                    <label class="form-label" style="padding-top: 10px !important;">Current assignee</label>
-                                    <input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="currAssignee" id="currAssignee" aria-describedby="emailHelp" readonly>
-                                  </div>
-                                  
-                                  <!-- New assignee -->
-                                  <div class="mb-3" style="padding-bottom: 10px !important;">
-                                    <label class="form-label" style="padding-top: 10px !important;">New assignee</label>
-                                    <input class="form-control input-form" name="newAssignee" id="newAssignee" aria-describedby="emailHelp" required>
-                                  </div>
-
-                                  <br>
-                                  <!-- save changes -->
-                                  <button id="changeAssignee" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
-                                                                 
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                        <!-- end second modal window -->
-
-
+                  
                       <!-- Description -->
                     <div class="mb-3" style="padding-bottom: 10px !important">
                             <label class="form-label" style="padding-top: 10px !important">Description</label>
@@ -691,78 +659,7 @@
 
                     <!-- Tasks -->
                     <div id ="allSubtasksStory" class="mb-3" style="padding-bottom: 10px !important">
-                       <!-- Each? -->
-                      <div class="row">
-                        
-                    
-                        {{!-- modalno okno za spreminjanje nalog --}}
-                        <div class="modal" id="modalEditTask" tabindex="-1" role="dialog" aria-hidden="true">
-                          <div class="modal-dialog" style="padding-top: 150px !important;">
-                            <div class="modal-content modal-content-ekipa" style="border: 3px solid var(--c2) !important;">
-                                <div class="modal-header modal-header-ekipa">
-                                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit task</h5>
-                                <a href="#" data-dismiss="modal" hidden><button type="button" class="close"> 
-                                <span aria-hidden="true">&times;</span>
-                                </button></a> 
-                                </div>
-                                <div class="modal-body">
-                                  <!-- Edit existing tasks -->
-                                  <div class="mb-3" style="padding-bottom: 10px !important; width: 84% !important; float: Left;">
-                                    <label class="form-label" style="padding-top: 10px !important;">Task</label>
-                                    <input id="nameTaskEditing" class="form-control input-form" name="name" id="info" aria-describedby="emailHelp" required> <!-- placeholder in value -->
-                                  </div>
-                                  <div class="clear"></div>
-                                  <div class="mb-3" style="padding-bottom: 10px !important; width: 14% !important; float: Right;">
-                                    <label class="form-label" style="padding-top: 10px !important;">Hours</label>
-                                    <input id="hourTaskEditing" class="form-control input-form" name="hour" id="taskHours" type="number" min="1" aria-describedby="emailHelp" required> <!-- placeholder in value -->
-                                  </div>
 
-                                  <br>
-
-                                  <a href="#"><button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save changes</button></a>
-                                  <a href="#"><button type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important">Delete task</button></a>
-                               
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                      <!-- end second modal window -spreminjanje nalog -->
-
-                      {{!-- modalno okno za spreminjanje lastnika naloge --}}
-                        <div class="modal" id="modalEditTaskUser" tabindex="-1" role="dialog" aria-hidden="true">
-                          <div class="modal-dialog" style="padding-top: 150px !important;">
-                            <div class="modal-content modal-content-ekipa" style="border: 3px solid var(--c2) !important;">
-                                <div class="modal-header modal-header-ekipa">
-                                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit task assignee</h5>
-                                
-                                </div>
-                                <div class="modal-body">
-
-                                 <!-- Current assignee -->
-                                  <div class="mb-3" style="padding-bottom: 10px !important;">
-                                    <label class="form-label" style="padding-top: 10px !important;">Current assignee</label>
-                                    <input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="currTaskAssignee" id="currTaskAssignee" aria-describedby="emailHelp" readonly>
-                                  </div>
-                                  
-                                  <!-- New assignee -->
-                                  <div class="mb-3" style="padding-bottom: 10px !important;">
-                                    <label class="form-label" style="padding-top: 10px !important;">New assignee</label>
-                                    <input class="form-control input-form" name="newTaskAssignee" id="newTaskAssignee" aria-describedby="emailHelp" required>
-                                  </div>
-
-                                  <br>
-                                  <!-- save changes -->
-                                  <button id="changeAssignee" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
-                                                                 
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                        <!-- end second modal window -spreminjanje lastnika naloge -->
-
-
-                      </div>
-                      <br>
                       {{!-- tjasaaaa tle se renderira--}}
                       <div id="addnewSubtask1">
                         <script>
@@ -842,13 +739,112 @@
                       <button id="addCommentsButtonDisabled" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important" disabled>Comment</button>
                   </form>
                   </div>
-              </div> <!-- end modal body -->
+              </div> 
               </div>
 
             </div>
         </div>
         </div>
         </div>
+
+        {{!-- modalno okno za spreminjanje lastnika kartice --}}
+                        <div class="modal" id="modalEditUser" tabindex="-1" role="dialog" aria-hidden="true">
+                          <div class="modal-dialog" style="padding-top: 150px !important;">
+                            <div class="modal-content modal-content-ekipa" style="background-color: var(--c2) !important;">
+                                <div class="modal-header" style="background-color: var(--c2) !important;">
+                                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit User story assignee</h5>
+                                
+                                </div>
+                                <div class="modal-body">
+
+                                 <!-- Current assignee -->
+                                  <div class="mb-3" style="padding-bottom: 10px !important;">
+                                    <label class="form-label" style="padding-top: 10px !important;">Current assignee</label>
+                                    <input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="currAssignee" id="currAssignee" aria-describedby="emailHelp" readonly>
+                                  </div>
+                                  
+                                  <!-- New assignee -->
+                                  <div class="mb-3" style="padding-bottom: 10px !important;">
+                                    <label class="form-label" style="padding-top: 10px !important;">New assignee</label>
+                                    <input class="form-control input-form" name="newAssignee" id="newAssignee" aria-describedby="emailHelp" required>
+                                  </div>
+
+                                  <br>
+                                  <!-- save changes -->
+                                  <button id="changeAssignee" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
+                                                                 
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <!-- end second modal window -->
+
+                      {{!-- modalno okno za spreminjanje nalog --}}
+                        <div class="modal" id="modalEditTask" tabindex="-1" role="dialog" aria-hidden="true">
+                          <div class="modal-dialog" style="padding-top: 150px !important;">
+                            <div class="modal-content modal-content-ekipa" style="background-color: var(--c2) !important;">
+                                <div class="modal-header" style="background-color: var(--c2) !important;">
+                                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit task</h5>
+                                <a href="#" data-dismiss="modal" hidden><button type="button" class="close"> 
+                                <span aria-hidden="true">&times;</span>
+                                </button></a> 
+                                </div>
+                                <div class="modal-body">
+                                  <!-- Edit existing tasks -->
+                                  <div class="mb-3" style="padding-bottom: 10px !important; width: 84% !important; float: Left;">
+                                    <label class="form-label" style="padding-top: 10px !important;">Task</label>
+                                    <input id="nameTaskEditing" class="form-control input-form" name="name" id="info" aria-describedby="emailHelp" required> <!-- placeholder in value -->
+                                  </div>
+                                  <div class="clear"></div>
+                                  <div class="mb-3" style="padding-bottom: 10px !important; width: 14% !important; float: Right;">
+                                    <label class="form-label" style="padding-top: 10px !important;">Hours</label>
+                                    <input id="hourTaskEditing" class="form-control input-form" name="hour" id="taskHours" type="number" min="1" aria-describedby="emailHelp" required> <!-- placeholder in value -->
+                                  </div>
+
+                                  <br>
+
+                                  <a href="#"><button type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save changes</button></a>
+                                  <a href="#"><button type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important">Delete task</button></a>
+                               
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                      <!-- end second modal window -spreminjanje nalog -->
+
+                      {{!-- modalno okno za spreminjanje lastnika naloge --}}
+                        <div class="modal" id="modalEditTaskUser" tabindex="-1" role="dialog" aria-hidden="true">
+                          <div class="modal-dialog" style="padding-top: 150px !important;">
+                            <div class="modal-content modal-content-ekipa" style="background-color: var(--c2) !important;">
+                                <div class="modal-header" style="background-color: var(--c2) !important;">
+                                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit task assignee</h5>
+                                
+                                </div>
+                                <div class="modal-body">
+
+                                 <!-- Current assignee -->
+                                  <div class="mb-3" style="padding-bottom: 10px !important;">
+                                    <label class="form-label" style="padding-top: 10px !important;">Current assignee</label>
+                                    <input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="currTaskAssignee" id="currTaskAssignee" aria-describedby="emailHelp" readonly>
+                                  </div>
+                                  
+                                  <!-- New assignee -->
+                                  <div class="mb-3" style="padding-bottom: 10px !important;">
+                                    <label class="form-label" style="padding-top: 10px !important;">New assignee</label>
+                                    <input class="form-control input-form" name="newTaskAssignee" id="newTaskAssignee" aria-describedby="emailHelp" required>
+                                  </div>
+
+                                  <br>
+                                  <!-- save changes -->
+                                  <button id="changeAssignee" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
+                                                                 
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <!-- end second modal window -spreminjanje lastnika naloge -->
+
+        
 
 
 
@@ -1656,6 +1652,69 @@ $(document).ready(function(){
         setTimeout(function() {
 
             $('#myModal50').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+{{!-- modal window if task assignee was successfully added/edited --}}
+<div id="myModal51" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Task assignee has been successfully added!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+<!-- AnjaPopravi -->
+{{#if successfullyAddedComment}}
+<script>
+    $(document).ready(function(){
+        $("#myModal51").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModal51').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if error occured while editing/adding task assignee --}}
+<div id="myModal52" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important;">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Task assignee wasn't edited!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+<!-- AnjaPopravi -->
+{{#if successfullyAddedComment}}
+<script>
+    $(document).ready(function(){
+        $("#myModal52").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModal52').modal('hide');
         }, 7000);
     });
 </script>
