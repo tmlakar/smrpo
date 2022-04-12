@@ -112,6 +112,21 @@ var prikaz = (req, res) => {
     if (req.query.error == "napakaPriDodajanjuKomentarja") {
         neuspesnoDodanKomentar = true;
     }
+    //uspesno dodana naloga
+    var successfullyAddedTask = req.query.addtask;
+    var uspesnoDodanaNaloga = false;
+    if (successfullyAddedTask == "successfully added task") {
+        uspesnoDodanaNaloga = true;
+    }
+    //Napaka pri dodajanju naloge
+    var neuspesnoDodanaNaloga = false;
+    if (req.query.error == "napakaPriDodajanjuSubtaska") {
+        neuspesnoDodanaNaloga = true;
+    }
+
+    //uspesno posodobljena naloga
+
+    //Napaka pri posodabljanju naloge
 
 
     var username = user.username;
@@ -255,6 +270,8 @@ var prikaz = (req, res) => {
                     sizeBig: sizeBig,
                     errorAddComment: neuspesnoDodanKomentar,
                     errorAddAccepTest: neuspesnoDodanTest,
+                    successfullyAddedTask: uspesnoDodanaNaloga,
+                    errorAddTask: neuspesnoDodanaNaloga,
                 });
             } else {
 
@@ -294,6 +311,8 @@ var prikaz = (req, res) => {
                     sizeBig: sizeBig,
                     errorAddComment: neuspesnoDodanKomentar,
                     errorAddAccepTest: neuspesnoDodanTest,
+                    successfullyAddedTask: uspesnoDodanaNaloga,
+                    errorAddTask: neuspesnoDodanaNaloga,
                 });
             }
         });

@@ -140,8 +140,8 @@ const addSubtask = (req, res) => {
             }
         }).then((odgovor) => {
             var name = odgovor.name;
-            var string = "successfully added";
-            res.redirect('/project/' + projectId + '?error=' + string);
+            var string = "successfully added task";
+            res.redirect('/project/' + projectId + '?addtask=' + string);
         }).catch((napaka) => {
             var string = "napakaPriDodajanjuSubtaska";
             res.redirect('/project/' + projectId + '?error=' + string);

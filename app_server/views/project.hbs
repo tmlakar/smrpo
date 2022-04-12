@@ -538,12 +538,44 @@
 
                       <!-- Assigned -->
                     <div class="storyOwner_circle-d col-lg-2" style="padding-right: 50px !important; padding-top: 40px !important;">
-                        <button  id="storyOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit">
+                        <button  id="storyOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" data-toggle="modal" data-target="#modalEditUser">
                             N
                         </button>
                     </div>
-
                     </div>
+
+                    {{!-- modalno okno za spreminjanje lastnika kartice --}}
+                        <div class="modal" id="modalEditUser" tabindex="-1" role="dialog" aria-hidden="true">
+                          <div class="modal-dialog" style="padding-top: 150px !important;">
+                            <div class="modal-content modal-content-ekipa" style="border: 3px solid var(--c2) !important;">
+                                <div class="modal-header modal-header-ekipa">
+                                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit assignee</h5>
+                                
+                                </div>
+                                <div class="modal-body">
+
+                                 <!-- Current assignee -->
+                                  <div class="mb-3" style="padding-bottom: 10px !important;">
+                                    <label class="form-label" style="padding-top: 10px !important;">Current assignee</label>
+                                    <input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="currAssignee" id="currAssignee" aria-describedby="emailHelp" readonly>
+                                  </div>
+                                  
+                                  <!-- New assignee -->
+                                  <div class="mb-3" style="padding-bottom: 10px !important;">
+                                    <label class="form-label" style="padding-top: 10px !important;">New assignee</label>
+                                    <input class="form-control input-form" name="newAssignee" id="newAssignee" aria-describedby="emailHelp" required>
+                                  </div>
+
+                                  <br>
+                                  <!-- save changes -->
+                                  <button id="changeAssignee" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
+                                                                 
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <!-- end second modal window -->
+
 
                       <!-- Description -->
                     <div class="mb-3" style="padding-bottom: 10px !important">
@@ -1435,6 +1467,131 @@ $(document).ready(function(){
         setTimeout(function() {
 
             $('#myModal46').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+{{!-- modal window if task was successfully added --}}
+<div id="myModal47" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Task has been successfully added!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyAddedTask}}
+<script>
+    $(document).ready(function(){
+        $("#myModal47").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModal47').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+{{!-- modal window if error occured while adding task --}}
+<div id="myModal48" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important;">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Task wasn't added!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if errorAddTask}}
+<script>
+    $(document).ready(function(){
+        $("#myModal48").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModal48').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+{{!-- modal window if task was successfully edited --}}
+<div id="myModal49" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Task has been successfully edited!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+<!-- AnjaPopravi -->
+{{#if successfullyAddedComment}}
+<script>
+    $(document).ready(function(){
+        $("#myModal49").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModal49').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if error occured while editing task --}}
+<div id="myModal50" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important;">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Task wasn't edited!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+<!-- AnjaPopravi -->
+{{#if successfullyAddedComment}}
+<script>
+    $(document).ready(function(){
+        $("#myModal50").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModal50').modal('hide');
         }, 7000);
     });
 </script>
