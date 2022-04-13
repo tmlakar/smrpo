@@ -53,7 +53,9 @@ router.post('/projects/:id/add-collaborators', ctrlCollaborators.addProjectColla
 router.post('/projects/:id/edit-collaborator/:idC', ctrlCollaborators.editProjectCollaboratorRole);
 router.post('/projects/:id/delete-collaborator/:idC', ctrlCollaborators.deleteProjectCollaborator);
 
-
+//my tasks
+var ctrlMyTasks = require("../controllers/mytasks");
+router.get('/mytasks', ctrlMyTasks.prikaz);
 
 
 /* Project -> Sprint -> User stories */
