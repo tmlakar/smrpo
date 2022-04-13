@@ -102,6 +102,13 @@ router.post("/project/:id/userStory/:idStory/delete", ctrlUserStories.deleteStor
 /* Publications */
 var ctrlPublications = require("../controllers/publications");
 router.get('/project/:id/project-wall', ctrlPublications.podrobnostiProject);
+router.post('/project/:id/new-publication', ctrlPublications.addNewPublication);
+router.post('/project/:id/publications/:idPublication/new-comment', ctrlPublications.addCommentToPublication);
+// delete
+router.post('/project/:id/publication/:idPublication/remove', ctrlPublications.deletePublication);
+router.post('/project/:id/publication/:idPublication/comment/:idComment', ctrlPublications.removeComment);
+
+
 
 
 // account

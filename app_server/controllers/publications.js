@@ -69,7 +69,106 @@ var podrobnostiProject = (req, res) => {
 
 
 };
+/* POST - Add new publication */
+const addNewPublication = (req, res) => {
+    var projectId = req.params.id;
+    var date = new Date();
+    
+    if (!req.body.text) {
 
+    } else {
+        axios({
+            
+            url: apiParametri.streznik + '/api/projects/' + projectId + '/new-publication',
+            data: {
+                text: req.body.text,
+                date: date,
+            }
+        }).then((odgovor) => {
+            var name = odgovor.name;
+            var string = "successfully added";
+            res.redirect('/project/' + projectId + '/project-wall?addpublication=' + string);
+        }).catch((napaka) => {
+            var string = "napaka";
+            res.redirect('/project/' + projectId + '/project-wall?error=' + string);
+
+        });
+    }
+};
+/* POST - Add comment */
+const addCommentToPublication = (req, res) => {
+    var projectId = req.params.id;
+    var pubId = req.params.idPublication;
+    var date = new Date();
+    if (!req.body.comment) {
+
+    } else {
+        axios({
+            method: 'post',
+            url: apiParametri.streznik + '/api/projects/' + projectId + '/publications/' + pubId + '/new-comment',
+            data: {
+                comment: req.body.comment,
+                commentOwner: req.body.commentOwner,
+                date: date,
+                
+            }
+        }).then((odgovor) => {
+            var name = odgovor.name;
+            var string = "successfully added";
+            res.redirect('/project/' + projectId + '/project-wall?addcomment=' + string);
+        }).catch((napaka) => {
+            var string = "napakaKom";
+            res.redirect('/project/' + projectId + '?error=' + string);
+
+        });
+    }
+};
+
+/* DELETE - remove comment */
+const removeComment = (req, res) => {
+    var projectId = req.params.id;
+    var pubId = req.params.idPublication;
+
+    var commentId = req.params.idComment;
+    axios({
+        method: 'delete',
+        url: apiParametri.streznik + '/api/projects/' + projectId + '/publications/' + pubId + '/comment/' + commentId + '/remove',
+        
+    }).then((odgovor) => {
+        var name = odgovor.name;
+        var string = "successfully deleted";
+        res.redirect('/project/' + projectId + '?successDelete=' + string);
+    }).catch((napaka) => {
+        var string = "napakaPriBrisanju";
+        res.redirect('/project/' + projectId + '?error=' + string);
+
+    });
+
+};
+
+/* DELETE - delete publication */
+const deletePublication = (req, res) => {
+    var projectId = req.params.id;
+    var pubId = req.params.idPublication;
+    axios({
+        method: 'delete',
+        url: apiParametri.streznik + '/api/projects/' + projectId + '/publications/' + pubId + '/remove',
+
+    }).then((odgovor) => {
+        var name = odgovor.name;
+        var string = "successfully removed publication";
+        res.redirect('/project/' + projectId + '?removed=' + string);
+    }).catch((napaka) => {
+        var string = "napaka";
+        res.redirect('/project/' + projectId + '?error=' + string);
+
+    });
+
+};
 module.exports = {
-    podrobnostiProject
+    podrobnostiProject,
+    addNewPublication,
+    addCommentToPublication,
+    removeComment,
+    deletePublication
 };
