@@ -70,6 +70,8 @@ router.get("/sprint-edit/:id", ctrlSprint.prikazEdit);
 router.post("/sprints/:projectId/sprint-edit/:sprintId", ctrlSprint.posodobiInprocessSprint)
 router.post("/sprints/:projectId/sprint-edit-all/:sprintId", ctrlSprint.posodobiFutureSprint)
 router.post("/sprints/:projectId/delete-sprint/:sprintId", ctrlSprint.deleteSprint)
+
+
 /* User stories a.k.a uporabniska zgodba */
 var ctrlUserStories = require("../controllers/userStories");
 /* Adding a new user story to a project */
@@ -95,6 +97,11 @@ router.post("/project/:id/userStory/:idStory/add-flag", ctrlUserStories.addFlag)
 router.post("/project/:id/userStory/:idStory/edit-owner", ctrlUserStories.updateOwner);
 /* Delete userStory */
 router.post("/project/:id/userStory/:idStory/delete", ctrlUserStories.deleteStory);
+
+
+/* Publications */
+var ctrlPublications = require("../controllers/publications");
+router.get('/project/:id/project-wall', ctrlPublications.podrobnostiProject);
 
 
 // account

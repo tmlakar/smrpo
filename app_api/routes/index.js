@@ -8,6 +8,7 @@ const ctrlAccount = require("../controllers/account");
 const ctrlCollaborators = require("../controllers/collaborators");
 const ctrlSprints = require("../controllers/sprints");
 const ctrlUserStories = require("../controllers/userStories");
+const ctrlPublications = require("../controllers/publications");
 
 const jwt = require("express-jwt");
 const avtentikacija = jwt({
@@ -85,6 +86,8 @@ router.post("/sprint-new/:id", ctrlSprints.addSprintToAProject);
 router.put("/sprints/:idProject/edit-sprint/:idSprint", ctrlSprints.updateSprintInProcess);
 router.put("/sprints/:idProject/edit-sprint-all/:idSprint", ctrlSprints.updateFutureSprint);
 router.delete("/sprints/:idProject/delete-sprint/:idSprint", ctrlSprints.deleteSprint);
+
+
 /* User stories */
 /* userStory info */
 router.get("/projects/:idProject/userStory/:idUserStory", ctrlUserStories.userStoryInfo);
@@ -112,6 +115,16 @@ router.put("/projects/:idProject/userStory/:idUserStory/edit-owner", ctrlUserSto
 router.delete("/projects/:idProject/userStory/:idUserStory/delete", ctrlUserStories.deleteUserStory);
 
 
+/* Publications */
+router.get("/projects/:idProject/project-wall", ctrlPublications.projectInfo);
+/* Adding publication */
+router.post("/projects/:idProject/new-publication", ctrlPublications.addPublicationToAProject);
+/* Adding comment to a publication */
+router.post("/projects/:idProject/publications/:idPublication/new-comment", ctrlPublications.addCommentToPublication);
+/* Removing comment from a publication */
+router.delete("/projects/:idProject/publications/:idPublication/comment/:idComment/remove", ctrlPublications.addPublicationToAProject);
+/* Removing comment */
+router.delete("/projects/:idProject/publications/:idPublication/remove", ctrlPublications.addPublicationToAProject)
 
 /* Avtentikacija */
 router.post("/registracija", ctrlAvtentikacija.registracija);

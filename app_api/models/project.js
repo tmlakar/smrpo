@@ -1,5 +1,17 @@
 const mongoose = require("mongoose");
 
+const publicationCommentShema = new mongoose.Schema({
+    comment: {type: String},
+    commentOwner: {type: String},
+    date: {type: Date}
+});
+
+const publicationShema = new mongoose.Schema({
+    text: {type: String},
+    date: {type: Date},
+    comments: [publicationCommentShema]
+});
+
 const collaboratorShema = new mongoose.Schema({
     username: { type: String},
     project_role: { type: String,
@@ -7,6 +19,7 @@ const collaboratorShema = new mongoose.Schema({
         enum: ["Team Member", "Product Manager", "Scrum Master"]
       }
 });
+
 
 const subtaskShema = new mongoose.Schema({
     name: {type: String},
@@ -41,6 +54,7 @@ const userStoriesShema = new mongoose.Schema({
     finished: {type: Boolean, default: false},
     inProgress: {type: Boolean, default: false},
     sprint: {type: Number, default: 0},
+    publications: [publicationShema]
 
 
 });
