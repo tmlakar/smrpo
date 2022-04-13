@@ -161,13 +161,23 @@ var prikaz = (req, res) => {
     if (req.query.error == "napakaPriBrisanjuNaloge") {
         neuspesnoZbrisanaNaloga = true;
     }
-
     // edited story owner
     var uspesnoPosodobljenOwnerZgodbe = false;
     if (req.query.success == "successfully edited story owner") {
         uspesnoPosodobljenOwnerZgodbe = true;
     }
-   
+    //dodajanje nove objave -TjasaPreveri
+    var successfullyAddedPublish = req.query.addpublication;
+    var uspesnoDodanaObjava = false;
+    if (successfullyAddedPublish == "successfully added publication") {
+        uspesnoDodanaObjava = true;
+    }
+    //napaka pri dodajanju nove objave
+    var neuspesnoDodanaObjava = false;
+    if (req.query.error == "napakaPriDodajanjuObjave") {
+        neuspesnoDodanaObjava = true;
+    }
+
     var username = user.username;
     var usernameS = user.username;
     console.log(usernameS)
@@ -318,7 +328,9 @@ var prikaz = (req, res) => {
                     successfullyDeletedTask: uspesnoZbrisanaNaloga,
                     errorDeleteTask: neuspesnoZbrisanaNaloga,
                     errorEditedStory: neuspesnoPosodobljenaZgodba,
-                    uspesnoPosodobljenOwnerZgodbe: uspesnoPosodobljenOwnerZgodbe
+                    uspesnoPosodobljenOwnerZgodbe: uspesnoPosodobljenOwnerZgodbe,
+                    successfullyAddedPublish: uspesnoDodanaObjava,
+                    errorAddPublish: neuspesnoDodanaObjava,
 
 
                 });
@@ -369,7 +381,9 @@ var prikaz = (req, res) => {
                     successfullyDeletedTask: uspesnoZbrisanaNaloga,
                     errorDeleteTask: neuspesnoZbrisanaNaloga,
                     errorEditedStory: neuspesnoPosodobljenaZgodba,
-                    uspesnoPosodobljenOwnerZgodbe: uspesnoPosodobljenOwnerZgodbe
+                    uspesnoPosodobljenOwnerZgodbe: uspesnoPosodobljenOwnerZgodbe,
+                    successfullyAddedPublish: uspesnoDodanaObjava,
+                    errorAddPublish: neuspesnoDodanaObjava,
                 });
             }
         });

@@ -9,6 +9,11 @@
 
   {{!-- additional project infos --}}
   <div class="col-lg-2" style="padding-top: 20px !important; padding-right: 20px !important">
+
+  {{!-- gumb za nazaj na project --}}
+    <div  style="padding-bottom: 20px !important">
+          <a href="/project/{{id}}"><button class="btn submit-form btn-dark" style="background-color: var(--c6) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Go to Project</button></a>
+    </div>
     {{!-- par informacij o projektu --}}
     <div class="card account-info" style="background-color: var(--c4) !important;">
                 <div class="card-body">
@@ -61,18 +66,92 @@
                 </div>
 
             </div>
-
-
-    <br>
-    {{!-- legenda --}}
-    
-
   </div>
-
 
     <div class="col-lg-10" style="margin-top: 20px !important">
+
+        <!-- objave na projektu -->
+        <div class="card projekt-publication" style="border: 3px solid var(--c2) !important;">
+          
+          <textarea class="form-control input-form-text" style="background-color: rgb(196, 196, 196) !important; margin: 10px !important;" name=""  id="" aria-describedby="emailHelp" readonly>
+            Anjin fejk text.
+          </textarea>
+          
+          
+        </div>
     
         
+        <!-- gumb za dodajanje objav - redirect v new-publication-->
+        <a href="/project/{{id}}/new-publication"><button id="" type="button" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right" style="background-color: var(--c1) !important; border: 3px solid var(--c1) !important"><i class="fa-solid fa-plus dodaj"></i></button></a><br>
+    
     </div>
+
+
   </div>
   </div>
+
+
+{{!-- ************************************* MODALNA OKNA USER FEEDBACK ****************************************************** --}}
+
+{{!-- modal window new publication was successfully published --}}
+<div id="wallModal1" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>New publication has been successfully published!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyAddedPublish}}
+<script>
+    $(document).ready(function(){
+        $("#wallModal1").modal('show');
+
+        setTimeout(function() {
+
+            $('#wallModal1').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if error occured while publishing new publication --}}
+<div id="wallModal2" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important;">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>New publication wasn't published!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if errorAddPublish}}
+<script>
+    $(document).ready(function(){
+        $("#wallModal2").modal('show');
+
+        setTimeout(function() {
+
+            $('#wallModal2').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}

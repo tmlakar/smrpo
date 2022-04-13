@@ -25,7 +25,7 @@ var podrobnostiProject = (req, res) => {
         layout1 = 'layout-user';
     }
 
-    
+
     axios
         .get(apiParametri.streznik + '/api/projects/' + projectId + '/project-wall')
         .then((odgovor) => {
@@ -40,7 +40,7 @@ var podrobnostiProject = (req, res) => {
                 if (collaborators[i].project_role == "Team Member") {
                     teamMembers[i4] = collaborators[i];
                     i4 = i4 + 1;
-                    
+
                 }
                 if (collaborators[i].project_role == "Product Manager") {
                     productManagers[i5] = collaborators[i];
@@ -73,12 +73,12 @@ var podrobnostiProject = (req, res) => {
 const addNewPublication = (req, res) => {
     var projectId = req.params.id;
     var date = new Date();
-    
+
     if (!req.body.text) {
 
     } else {
         axios({
-            
+
             url: apiParametri.streznik + '/api/projects/' + projectId + '/new-publication',
             data: {
                 text: req.body.text,
@@ -86,10 +86,10 @@ const addNewPublication = (req, res) => {
             }
         }).then((odgovor) => {
             var name = odgovor.name;
-            var string = "successfully added";
+            var string = "successfully added publication";
             res.redirect('/project/' + projectId + '/project-wall?addpublication=' + string);
         }).catch((napaka) => {
-            var string = "napaka";
+            var string = "napakaPriDodajanjuObjave";
             res.redirect('/project/' + projectId + '/project-wall?error=' + string);
 
         });
@@ -110,15 +110,15 @@ const addCommentToPublication = (req, res) => {
                 comment: req.body.comment,
                 commentOwner: req.body.commentOwner,
                 date: date,
-                
+
             }
         }).then((odgovor) => {
             var name = odgovor.name;
-            var string = "successfully added";
+            var string = "successfully added comment";
             res.redirect('/project/' + projectId + '/project-wall?addcomment=' + string);
         }).catch((napaka) => {
-            var string = "napakaKom";
-            res.redirect('/project/' + projectId + '?error=' + string);
+            var string = "napakaKomentarObjabe";
+            res.redirect('/project/' + projectId + '/project-wall?error=' + string);
 
         });
     }
@@ -133,14 +133,14 @@ const removeComment = (req, res) => {
     axios({
         method: 'delete',
         url: apiParametri.streznik + '/api/projects/' + projectId + '/publications/' + pubId + '/comment/' + commentId + '/remove',
-        
+
     }).then((odgovor) => {
         var name = odgovor.name;
-        var string = "successfully deleted";
-        res.redirect('/project/' + projectId + '?successDelete=' + string);
+        var string = "successfully deleted comment";
+        res.redirect('/project/' + projectId + '/project-wall?successDelete=' + string);
     }).catch((napaka) => {
-        var string = "napakaPriBrisanju";
-        res.redirect('/project/' + projectId + '?error=' + string);
+        var string = "napakaPriBrisanjuKomentarjaObjave";
+        res.redirect('/project/' + projectId + '/project-wall?error=' + string);
 
     });
 
@@ -157,10 +157,10 @@ const deletePublication = (req, res) => {
     }).then((odgovor) => {
         var name = odgovor.name;
         var string = "successfully removed publication";
-        res.redirect('/project/' + projectId + '?removed=' + string);
+        res.redirect('/project/' + projectId + '/project-wall?removed=' + string);
     }).catch((napaka) => {
-        var string = "napaka";
-        res.redirect('/project/' + projectId + '?error=' + string);
+        var string = "napakaPriBrisanjuObjave";
+        res.redirect('/project/' + projectId + '/project-wall?error=' + string);
 
     });
 

@@ -379,6 +379,28 @@ tbody {
     vertical-align: top !important;
 }
 
+.input-form-lglg {
+    border-radius: 15px !important;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
+    border: solid 1px #FFB703 !important;
+    background-color: #EEEEEE !important;
+    height: 200px !important;
+    word-break: normal !important;
+    vertical-align: top !important;
+}
+
+.input-form-readonlytext {
+    border-radius: 15px !important;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
+    border: solid 1px #FFB703 !important;
+    background-color: rgb(196, 196, 196) !important;
+    width: 96% !important;
+    margin: 2% !important;
+    height: 150px !important;
+    word-break: normal !important;
+    vertical-align: top !important;
+}
+
 .form-select {
     width: max-content !important;
     border-radius: 15px !important;
@@ -591,7 +613,6 @@ p {
     padding: 15px !important;
 }
 
-
 .projekt-card {
     color: white !important;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -791,6 +812,20 @@ p {
 
 .nav-tabs-proj {
     color: #000000 !important
+}
+
+
+/* Objave na projektnem zidu */
+
+.projekt-publication {
+    box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;
+    margin-top: 20px !important;
+    background-color: var(--whitest) !important;
+    border: 3px solid var(--c2) !important;
+    width: 90% !important;
+    margin-top: 30px !important;
+    margin-right: 30px !important;
+    padding: 3px !important;
 }
 
 
