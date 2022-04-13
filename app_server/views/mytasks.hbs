@@ -2,31 +2,31 @@
     <h3>Notifications</h3>
 
 
-<div class="card projekt-notification col-sm-3" style="">
-{{!-- {{#each notification as |notification|}} --}} 
+<div class="row" style="">
+ {{#each myTasks as |task|}}
+ <div class="card projekt-notification col-sm-3" style="">
                <div class="card-body">
-                <h4 style="color:#023047" id = "{{notification.id}}">NEW TASK ASSIGNED:</h4>
+                <h5 style="color:#023047" >NEW TASK ASSIGNED:</h5>
                 <br>
-                <b style="color:white; font-size:20px;">This is your new task!</b>
+                <b style="color:white; font-size:20px;">{{task.[0].name}}</b>
                 <br>
                 <br>
-                <br>
-                <small style="color:#023047;">From user story:</small><span style="color:#023047;"> #1 Kartica</span><br>
-                <small style="color:#023047;">Assigned by:</small><span style="color:#023047;"> Admin name</span><br>
-                <br>
+                <small style="color:#023047;">From user story:</small><span style="color:#023047;"> {{task.[1]}}</span><br>
+                <small style="color:#023047;">Hours for this task:</small><span style="color:#023047;"> {{task.[0].hours}}</span><br>
                 <br>
                 <button type="button" class="btn projekt-management-button btn-dark"
-                 style="background-color: #FB8500 !important" id = 'accept {{notification.id}}'>ACCEPT</button>
+                 style="background-color: #FB8500 !important" id = 'accept '>ACCEPT</button>
                 <button type="button" class="btn projekt-management-button btn-dark"
-                 style="background-color: #FF3C38 !important" id = "decline {{notification.id}}">DECLINE</button>
+                 style="background-color: #FF3C38 !important" id = "decline ">DECLINE</button>
                 <br>
                 <h2></h2>
-                <b style="color:white; font-size:20px; display:none;" id = "text {{notification.id}}">Why will you decline this task?</b>
-                <input type="hidden" class="form-control input-form" id="input {{notification.id}}">
+                <b style="color:white; font-size:20px; display:none;" id = "text ">Why will you decline this task?</b>
+                <input type="hidden" class="form-control input-form" id="input ">
                 <button hidden = "hidden" type="button" class="btn projekt-management-button btn-dark"
-                 style="background-color: #FB8500 !important" id = 'submit {{notification.id}}'>SUBMIT</button>
+                 style="background-color: #FB8500 !important" id = 'submit '>SUBMIT</button>
               </div>
-{{!-- {{/each}} --}}             
+              </div>
+ {{/each}}
 </div>
 
 </div>
@@ -38,7 +38,7 @@ $('button').on('click', function() {
                 let result2 = id1.includes("decline");
                 let result3 = id1.includes("submit")
 
-                             
+
 
                 if (result1 == 1) {
                   let id_dec = id1.replace("accept", "decline");
@@ -46,7 +46,7 @@ $('button').on('click', function() {
                   let id_input = id1.replace("accept", "input");
                   let id_subm = id1.replace("accept", "submit");
                   let id_txt = id1.replace("accep", "text");
-                  
+
                   document.getElementById(id_dec).disabled = true;
                   document.getElementById(id1).disabled = true;
                   document.getElementById(id_noti).innerHTML = "TASK ACCEPTED!";
@@ -65,9 +65,9 @@ $('button').on('click', function() {
                   document.getElementById(id_input).type = "text";
                   document.getElementById(id_txt).style.display = "";
                   document.getElementById(id1).disabled = true;
-                  document.getElementById(id_subm).hidden = "";                                   
-                  }  
-                  
+                  document.getElementById(id_subm).hidden = "";
+                  }
+
                   if(result3 == 1) {
                       let id_subm = id1.replace("submit ", "");
                       let id_input = id1.replace("submit", "input");
@@ -78,6 +78,6 @@ $('button').on('click', function() {
                       }
 
 
-            }); 
+            });
 
 </script>
