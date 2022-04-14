@@ -81,9 +81,10 @@
         </div>
     
         
-        <!-- gumb za dodajanje objav - redirect v new-publication-->
+        <!-- gumb za dodajanje objav - redirect v new-publication - v primeru da je user del projekta -->
+        {{#if canAddNewPublication}}
         <a href="/project/{{id}}/new-publication"><button id="" type="button" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right" style="background-color: var(--c1) !important; border: 3px solid var(--c1) !important"><i class="fa-solid fa-plus dodaj"></i></button></a><br>
-    
+        {{/if}}
     </div>
 
 

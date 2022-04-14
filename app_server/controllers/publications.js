@@ -20,9 +20,12 @@ var podrobnostiProject = (req, res) => {
     var projectId = req.params.id;
 
     var vloga = user.role;
+    var canAddNewPublication = false;
     var layout1 = 'layout';
     if (vloga == 'user') {
         layout1 = 'layout-user';
+        canAddNewPublication = true;
+
     }
 
     var uspesnoDodanaObjava = false;
@@ -68,7 +71,8 @@ var podrobnostiProject = (req, res) => {
                 teamMembers: teamMembers,
                 productManagers: productManagers,
                 scrumMasters: scrumMasters,
-                uspesnoDodanaObjava: uspesnoDodanaObjava
+                uspesnoDodanaObjava: uspesnoDodanaObjava,
+                canAddNewPublication: canAddNewPublication
 
             });
         });
