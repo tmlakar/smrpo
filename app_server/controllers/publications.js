@@ -25,9 +25,14 @@ var podrobnostiProject = (req, res) => {
         layout1 = 'layout-user';
     }
 
+    var uspesnoDodanaObjava = false;
+    if (req.query.addpublication == "successful") {
+        uspesnoDodanaObjava = true;
+    }
+
 
     axios
-        .get(apiParametri.streznik + '/api/projects/' + projectId + '/project-wall')
+        .get(apiParametri.streznik + '/api/projects/' + projectId)
         .then((odgovor) => {
             var teamMembers = [];
             var productManagers = [];
@@ -63,6 +68,7 @@ var podrobnostiProject = (req, res) => {
                 teamMembers: teamMembers,
                 productManagers: productManagers,
                 scrumMasters: scrumMasters,
+                uspesnoDodanaObjava: uspesnoDodanaObjava
 
             });
         });
@@ -71,7 +77,7 @@ var podrobnostiProject = (req, res) => {
 };
 
 /* Podrobnosti projekta */
-var podrobnostiProjectnewPublication = (req, res) => {
+var podrobnostiProjectNewPublication = (req, res) => {
     var tokenParts = req.cookies.authcookie['žeton'].split('.');
     var encodedPayload = tokenParts[1];
     //var rawPayload = window.atob(encodedPayload);
@@ -87,7 +93,7 @@ var podrobnostiProjectnewPublication = (req, res) => {
 
 
     axios
-        .get(apiParametri.streznik + '/api/projects/' + projectId + '/project-wall')
+        .get(apiParametri.streznik + '/api/projects/' + projectId)
         .then((odgovor) => {
             var teamMembers = [];
             var productManagers = [];
@@ -129,24 +135,34 @@ var podrobnostiProjectnewPublication = (req, res) => {
 
 
 };
+
 /* POST - Add new publication */
 const addNewPublication = (req, res) => {
     var projectId = req.params.id;
     var date = new Date();
+    console.log(date);
+    var tokenParts = req.cookies.authcookie['žeton'].split('.');
+    var encodedPayload = tokenParts[1];
+    var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+    var user = JSON.parse(rawPayload);
+    var currentUsername = user.username;
+
+
 
     if (!req.body.text) {
 
     } else {
         axios({
-
+            method: 'post',
             url: apiParametri.streznik + '/api/projects/' + projectId + '/new-publication',
             data: {
                 text: req.body.text,
                 date: date,
+                publicationOwner: currentUsername
             }
         }).then((odgovor) => {
             var name = odgovor.name;
-            var string = "successfully added publication";
+            var string = "successful";
             res.redirect('/project/' + projectId + '/project-wall?addpublication=' + string);
         }).catch((napaka) => {
             var string = "napakaPriDodajanjuObjave";
@@ -231,5 +247,5 @@ module.exports = {
     addCommentToPublication,
     removeComment,
     deletePublication,
-    podrobnostiProjectnewPublication
+    podrobnostiProjectNewPublication
 };

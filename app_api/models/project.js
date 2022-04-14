@@ -9,7 +9,8 @@ const publicationCommentShema = new mongoose.Schema({
 const publicationShema = new mongoose.Schema({
     text: {type: String},
     date: {type: Date},
-    comments: [publicationCommentShema]
+    comments: [publicationCommentShema],
+    publicationOwner: {type: String}
 });
 
 const collaboratorShema = new mongoose.Schema({
@@ -54,7 +55,7 @@ const userStoriesShema = new mongoose.Schema({
     finished: {type: Boolean, default: false},
     inProgress: {type: Boolean, default: false},
     sprint: {type: Number, default: 0},
-    publications: [publicationShema]
+    
 
 
 });
@@ -73,7 +74,8 @@ const projectShema = new mongoose.Schema({
     projectID: {type: Number},
     collaborators: [collaboratorShema],
     userStories: [userStoriesShema],
-    sprints: [sprintShema]
+    sprints: [sprintShema],
+    publications: [publicationShema]
 
 });
 
