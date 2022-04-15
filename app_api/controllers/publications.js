@@ -52,7 +52,8 @@ const addPublicationToAProject = (req, res) => {
 
       project.publications.push({
         text: req.body.text,
-        date: req.body.date
+        date: req.body.date,
+        publicationOwner: req.body.publicationOwner
       });
       project.save((napaka, project) => {
         if (napaka) {

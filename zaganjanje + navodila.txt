@@ -184,9 +184,11 @@ curl -X DELETE \
 ________ user story _______
 
 curl -X POST \
-       -d "name=1 Dodajanje uporabnikov&aboutText=Dodas uporabnike&priority=Must have&businessValue=10&size=3" \
+       -d "text=Objava&a&priority=Must have&businessValue=10&size=3" \
        -H "Content-Type: application/x-www-form-urlencoded" \
        "http://localhost:3000/api/project/624e92711c36154b522b6286/userStory-new"
+
+
 
 
 curl -X PUT \
