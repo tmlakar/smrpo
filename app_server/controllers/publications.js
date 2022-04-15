@@ -174,10 +174,10 @@ const addCommentToPublication = (req, res) => {
             }
         }).then((odgovor) => {
             var name = odgovor.name;
-            var string = "successfully added comment";
+            var string = "successfully published comment";
             res.redirect('/project/' + projectId + '/project-wall?addcomment=' + string);
         }).catch((napaka) => {
-            var string = "napakaKomentarObjabe";
+            var string = "napakaKomentarObjave";
             res.redirect('/project/' + projectId + '/project-wall?error=' + string);
 
         });

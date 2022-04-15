@@ -166,7 +166,7 @@ var prikaz = (req, res) => {
     if (req.query.success == "successfully edited story owner") {
         uspesnoPosodobljenOwnerZgodbe = true;
     }
-    //dodajanje nove objave -TjasaPreveri
+    //uspesno dodana nova objava
     var successfullyAddedPublish = req.query.addpublication;
     var uspesnoDodanaObjava = false;
     if (successfullyAddedPublish == "successfully added publication") {
@@ -176,6 +176,39 @@ var prikaz = (req, res) => {
     var neuspesnoDodanaObjava = false;
     if (req.query.error == "napakaPriDodajanjuObjave") {
         neuspesnoDodanaObjava = true;
+    }
+    //uspesno dodan komentar objavi
+    var successfullyAddedPublishComment = req.query.addcomment;
+    var uspesnoDodanKomentarObjavi = false;
+    if (successfullyAddedPublishComment == "successfully published comment") {
+        uspesnoDodanKomentarObjavi = true;
+    }
+    //napaka pri dodajanju komentarja objavi
+    var neuspesnoDodanKomentarObjavi = false;
+    if (req.query.error == "napakaKomentarObjave") {
+        neuspesnoDodanKomentarObjavi = true;
+    }
+    //uspesno izbrisana objava
+    var successfullyDeletePublish = req.query.removed;
+    var uspesnoZbrisanaObjava = false;
+    if (successfullyDeletePublish == "successfully removed publication") {
+        uspesnoZbrisanaObjava = true;
+    }
+    //napaka pri brisanju objave
+    var neuspesnoZbrisanaObjava = false;
+    if (req.query.error == "napakaPriBrisanjuObjave") {
+        neuspesnoZbrisanaObjava = true;
+    }
+    //uspesno izbrisan komentar objave
+    var successfullyDeletePublishComment = req.query.successDelete;
+    var uspesnoZbrisanKomentarObjave = false;
+    if (successfullyDeletePublishComment == "successfully deleted comment") {
+        uspesnoZbrisanKomentarObjave = true;
+    }
+    //napaka pri brisanju komentarja objave
+    var neuspesnoZbrisanKomentarObjave = false;
+    if (req.query.error == "napakaPriBrisanjuKomentarjaObjave") {
+        neuspesnoZbrisanKomentarObjave = true;
     }
 
     var username = user.username;
@@ -331,7 +364,12 @@ var prikaz = (req, res) => {
                     uspesnoPosodobljenOwnerZgodbe: uspesnoPosodobljenOwnerZgodbe,
                     successfullyAddedPublish: uspesnoDodanaObjava,
                     errorAddPublish: neuspesnoDodanaObjava,
-
+                    successfullyAddedPublishComment: uspesnoDodanKomentarObjavi,
+                    errorAddPublishComment: neuspesnoDodanKomentarObjavi,
+                    successfullyDeletePublish: uspesnoZbrisanaObjava,
+                    errorDeletePublish: neuspesnoZbrisanaObjava,
+                    successfullyDeletePublishComment: uspesnoZbrisanKomentarObjave,
+                    errorDeletePublishComment: neuspesnoZbrisanKomentarObjave,
 
                 });
             } else {
@@ -384,6 +422,13 @@ var prikaz = (req, res) => {
                     uspesnoPosodobljenOwnerZgodbe: uspesnoPosodobljenOwnerZgodbe,
                     successfullyAddedPublish: uspesnoDodanaObjava,
                     errorAddPublish: neuspesnoDodanaObjava,
+                    successfullyAddedPublishComment: uspesnoDodanKomentarObjavi,
+                    errorAddPublishComment: neuspesnoDodanKomentarObjavi,
+                    successfullyDeletePublish: uspesnoZbrisanaObjava,
+                    errorDeletePublish: neuspesnoZbrisanaObjava,
+                    successfullyDeletePublishComment: uspesnoZbrisanKomentarObjave,
+                    errorDeletePublishComment: neuspesnoZbrisanKomentarObjave,
+
                 });
             }
         });

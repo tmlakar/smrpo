@@ -394,11 +394,14 @@ tbody {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
     border: solid 1px #FFB703 !important;
     background-color: rgb(196, 196, 196) !important;
-    width: 96% !important;
-    margin: 2% !important;
+    width: 98% !important;
+    margin: 1% !important;
     height: 150px !important;
     word-break: normal !important;
     vertical-align: top !important;
+    padding: 5px !important;
+    box-sizing: border-box !important;
+    resize: none !important;
 }
 
 .form-select {
@@ -819,13 +822,69 @@ p {
 
 .projekt-publication {
     box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;
-    margin-top: 20px !important;
     background-color: var(--whitest) !important;
     border: 3px solid var(--c2) !important;
     width: 90% !important;
-    margin-top: 30px !important;
-    margin-right: 30px !important;
+    margin-right: 20px !important;
     padding: 3px !important;
+    margin-top: -25px !important;
+    padding-top: -25px !important;
+}
+
+.dodaj-komentarObjavi {
+    background-color: var(--c4) !important;
+    border: none !important;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    float: right;
+    padding: 8px;
+    text-align: center;
+    margin-bottom: 50px;
+    margin-left: 92%;
+}
+
+.btn-delete-publi {
+    margin: 1% !important;
+    height: 40px !important;
+    width: 40px !important;
+    border-radius: 20px !important;
+    background-color: var(--c2) !important;
+    position: relative;
+    bottom: 0% !important;
+}
+
+.btn-delete-comment {
+    margin: 1% !important;
+    margin-top: 10px !important;
+    height: 25px !important;
+    width: 25px !important;
+    border-radius: 20px !important;
+    background-color: var(--c2) !important;
+    margin-top: 10px !important;
+}
+
+.commentOwner_circle {
+    margin: 1% !important;
+    margin-top: 10px !important;
+    height: 25px !important;
+    width: 25px !important;
+    border-radius: 20px !important;
+    background-color: var(--c3) !important;
+    color: #EEEEEE !important;
+    font-size: 11px !important;
+    padding-right: 0px !important;
+    margin-right: 30% !important;
+    padding: 2px !important;
+    text-align: center !important;
+}
+
+.publi-font {
+    font-size: 14px !important;
+    color: var(--c3) !important;
+    margin-top: 20px !important;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
 }
 
 
