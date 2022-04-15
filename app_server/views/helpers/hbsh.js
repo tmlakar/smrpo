@@ -221,9 +221,14 @@ hbs.registerHelper('columnThird', function(value1, value2, value3) {
   
 });
 
-
-
-
+hbs.registerHelper('isnotPO', function(value1, value2, value3) {
+  if ((value1 == true || value2 == true) && value3 == false) {
+    return true;
+  } else {
+    return false;
+  }
+  
+});
 
 
 hbs.registerHelper('missingData', function(value1, value2, value3) {

@@ -96,7 +96,12 @@ const updateUserStoryInfo = (req, res) => {
     var currName = req.body.nameOrig;
     var prefix = currName.substring(0, 3);
     //console.log(prefix + req.body.name);
-    if (!req.body.aboutText || !req.body.priority || !req.body.businessValue || !req.body.size || !req.body.sprint) {
+    var currSize = req.body.currSize;
+    var size = currSize;
+    if (req.body.size) {
+        size = req.body.size;
+    }
+    if (!req.body.aboutText || !req.body.priority || !req.body.businessValue) {
 
     } else {
         axios({
@@ -109,8 +114,9 @@ const updateUserStoryInfo = (req, res) => {
                 aboutText: req.body.aboutText,
                 priority: req.body.priority,
                 businessValue: req.body.businessValue,
-                size: req.body.size,
-                sprint: req.body.sprint,
+                size: size,
+                
+                
             }
         }).then((odgovor) => {
             var name = odgovor.name;

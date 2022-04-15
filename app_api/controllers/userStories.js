@@ -189,15 +189,18 @@ const projectInfo = (req, res) => {
             currentUserStory.aboutText = req.body.aboutText;
             currentUserStory.priority = req.body.priority;
             currentUserStory.businessValue = req.body.businessValue;
-            currentUserStory.size = req.body.size;
-            currentUserStory.sprint = req.body.sprint;
-            var sprintString;
-            // posodbimo se flags
-            if (req.body.sprint != 0) {
-              sprintString = "Sprint " + req.body.sprint;
-              currentUserStory.flags[0] = sprintString;
-            } 
-            //posodobimo flags za priority 
+            if (req.body.size) {
+              currentUserStory.size = req.body.size;
+            }
+            
+            // currentUserStory.sprint = req.body.sprint;
+            // var sprintString;
+            // // posodbimo se flags
+            // if (req.body.sprint != 0) {
+            //   sprintString = "Sprint " + req.body.sprint;
+            //   currentUserStory.flags[0] = sprintString;
+            // } 
+            // //posodobimo flags za priority 
             
               project.save((napaka, project) => {
                 if (napaka) {
