@@ -19,6 +19,52 @@ var podrobnostiProject = (req, res) => {
     var user = JSON.parse(rawPayload);
     var projectId = req.params.id;
 
+    //uspesno dodana nova objava
+    var successfullyAddedPublish = req.query.addpublication;
+    var uspesnoDodanaObjava = false;
+    if (successfullyAddedPublish == "successfully added publication") {
+        uspesnoDodanaObjava = true;
+    }
+    //napaka pri dodajanju nove objave
+    var neuspesnoDodanaObjava = false;
+    if (req.query.error == "napakaPriDodajanjuObjave") {
+        neuspesnoDodanaObjava = true;
+    }
+    //uspesno dodan komentar objavi
+    var successfullyAddedPublishComment = req.query.addcomment;
+    var uspesnoDodanKomentarObjavi = false;
+    if (successfullyAddedPublishComment == "successfully published comment") {
+        uspesnoDodanKomentarObjavi = true;
+    }
+    //napaka pri dodajanju komentarja objavi
+    var neuspesnoDodanKomentarObjavi = false;
+    if (req.query.error == "napakaKomentarObjave") {
+        neuspesnoDodanKomentarObjavi = true;
+    }
+    //uspesno izbrisana objava
+    var successfullyDeletePublish = req.query.removed;
+    var uspesnoZbrisanaObjava = false;
+    if (successfullyDeletePublish == "successfully removed publication") {
+        uspesnoZbrisanaObjava = true;
+    }
+    //napaka pri brisanju objave
+    var neuspesnoZbrisanaObjava = false;
+    if (req.query.error == "napakaPriBrisanjuObjave") {
+        neuspesnoZbrisanaObjava = true;
+    }
+    //uspesno izbrisan komentar objave
+    var successfullyDeletePublishComment = req.query.successDelete;
+    var uspesnoZbrisanKomentarObjave = false;
+    if (successfullyDeletePublishComment == "successfully deleted comment") {
+        uspesnoZbrisanKomentarObjave = true;
+    }
+    //napaka pri brisanju komentarja objave
+    var neuspesnoZbrisanKomentarObjave = false;
+    if (req.query.error == "napakaPriBrisanjuKomentarjaObjave") {
+        neuspesnoZbrisanKomentarObjave = true;
+    }
+
+
     var vloga = user.role;
     //console.log(vloga);
     var canAddNewPublication = false;
@@ -55,7 +101,7 @@ var podrobnostiProject = (req, res) => {
                 if (collaborators[i].project_role == "Team Member") {
                     teamMembers[i4] = collaborators[i];
                     i4 = i4 + 1;
-                    
+
 
                 }
                 if (collaborators[i].project_role == "Product Manager") {
@@ -71,7 +117,7 @@ var podrobnostiProject = (req, res) => {
 
                 }
 
-                
+
             }
             res.render('project-wall', {
                 name: odgovor.data.name,
@@ -91,6 +137,14 @@ var podrobnostiProject = (req, res) => {
                 canDelete: canDelete,
                 isScrumMaster: isScrumMaster,
                 role: vloga,
+                successfullyAddedPublish: uspesnoDodanaObjava,
+                errorAddPublish: neuspesnoDodanaObjava,
+                successfullyAddedPublishComment: uspesnoDodanKomentarObjavi,
+                errorAddPublishComment: neuspesnoDodanKomentarObjavi,
+                successfullyDeletePublish: uspesnoZbrisanaObjava,
+                errorDeletePublish: neuspesnoZbrisanaObjava,
+                successfullyDeletePublishComment: uspesnoZbrisanKomentarObjave,
+                errorDeletePublishComment: neuspesnoZbrisanKomentarObjave,
 
             });
         });
@@ -151,6 +205,7 @@ var podrobnostiProjectNewPublication = (req, res) => {
                 teamMembers: teamMembers,
                 productManagers: productManagers,
                 scrumMasters: scrumMasters,
+
 
             });
         });
