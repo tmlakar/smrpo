@@ -20,13 +20,20 @@ var podrobnostiProject = (req, res) => {
     var projectId = req.params.id;
 
     var vloga = user.role;
+    //console.log(vloga);
     var canAddNewPublication = false;
+    var canAddNewComment = false;
+    var canDelete = false;
     var layout1 = 'layout';
     if (vloga == 'user') {
         layout1 = 'layout-user';
         canAddNewPublication = true;
+        canAddNewComment = true;
 
     }
+
+    var username = user.username;
+    var isScrumMaster = false;
 
     var uspesnoDodanaObjava = false;
     if (req.query.addpublication == "successful") {
@@ -48,6 +55,7 @@ var podrobnostiProject = (req, res) => {
                 if (collaborators[i].project_role == "Team Member") {
                     teamMembers[i4] = collaborators[i];
                     i4 = i4 + 1;
+                    
 
                 }
                 if (collaborators[i].project_role == "Product Manager") {
@@ -57,14 +65,20 @@ var podrobnostiProject = (req, res) => {
                 if (collaborators[i].project_role == "Scrum Master") {
                     scrumMasters[i6] = collaborators[i];
                     i6 = i6 + 1;
+                    if (collaborators[i].username == username) {
+                        canDelete = true;
+                    }
 
                 }
+
+                
             }
             res.render('project-wall', {
                 name: odgovor.data.name,
                 info: odgovor.data.info,
                 collaborators: odgovor.data.collaborators,
                 userStories: odgovor.data.userStories,
+                publications: odgovor.data.publications,
                 sprints: odgovor.data.sprints,
                 id: odgovor.data._id,
                 layout: layout1,
@@ -72,7 +86,11 @@ var podrobnostiProject = (req, res) => {
                 productManagers: productManagers,
                 scrumMasters: scrumMasters,
                 uspesnoDodanaObjava: uspesnoDodanaObjava,
-                canAddNewPublication: canAddNewPublication
+                canAddNewPublication: canAddNewPublication,
+                canAddNewComment: canAddNewComment,
+                canDelete: canDelete,
+                isScrumMaster: isScrumMaster,
+                role: vloga,
 
             });
         });
@@ -180,6 +198,11 @@ const addCommentToPublication = (req, res) => {
     var projectId = req.params.id;
     var pubId = req.params.idPublication;
     var date = new Date();
+    var tokenParts = req.cookies.authcookie['žeton'].split('.');
+    var encodedPayload = tokenParts[1];
+    var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+    var user = JSON.parse(rawPayload);
+    var currentUsername = user.username;
     if (!req.body.comment) {
 
     } else {
@@ -188,7 +211,7 @@ const addCommentToPublication = (req, res) => {
             url: apiParametri.streznik + '/api/projects/' + projectId + '/publications/' + pubId + '/new-comment',
             data: {
                 comment: req.body.comment,
-                commentOwner: req.body.commentOwner,
+                commentOwner: currentUsername,
                 date: date,
 
             }

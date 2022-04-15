@@ -6,6 +6,8 @@
 
 <h3>{{name}}'s project wall</h3>
 
+{{!-- skripta za dodeljevanje pravic --}}
+
 
 <div class="row" style="padding-top:">
 
@@ -71,7 +73,7 @@
   </div>
 
     <div class="col-lg-10" style="margin-top: 20px !important">
-
+        {{#each publications as |publication|}}
         <!-- objave za projekt -->
         <div class="row">
 
@@ -79,62 +81,99 @@
           <div class="storyOwner_circle-d col-lg-1" style = "margin-top: 60px !important; padding-right: 30px !important;">
               <button  id="storyOwner_circle" type="button"
                   class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c1) !important; border: 2px solid var(--c1) !important;">
-                      N
+                      {{firstLetterOfUsername publication.publicationOwner}}
               </button>
           </div>
-
 
         <!-- kartica objave -->
         <div class="col-lg-11">
 
         <!-- datum -->
         <div class="publi-font">
-          <p>14.4.2022</p>
+          <p>{{formatirajDatum publication.date}}</p>
         </div>
 
         <div class="card projekt-publication" style="border: 3px solid var(--c2) !important;">
           
           <!-- Objava -->
-          <textarea class="form-control input-form-readonlytext" aria-describedby="emailHelp" readonly>Objava od Poženela.</textarea>
+          <textarea class="form-control input-form-readonlytext" aria-describedby="emailHelp" readonly>{{publication.text}}</textarea>
 
 
           <!-- row za krogce od komentarjev + row za komentarje + row za dodajanje komentarjv -->
+          
           <div class="row">
+              
             <div class="col-lg-10">
-
+            {{#each publication.comments as |comment|}}
             <!-- row za krogce od komentarjev + row za komentarje -->
             <div class="row">
             <div class="col-lg-1" style="padding-right: 0px !important; margin-right: 0px !important; padding-left: 0px !important; margin-left: 0px !important;">
-              <button class="btn btn-delete-comment" data-toggle="modal" data-target="#modalDeleteComment" style="padding: 0px!important; margin-left: -30px !important; float: left !important;"><i class="bi-trash-fill" style="font-size:13px"></i></button>
-              <button class="btn commentOwner_circle" style="float: right !important;">N</button>
+                {{#if ../../canDelete}}
+              <button class="btn btn-delete-comment" data-proj="{{../../id}}" data-publication="{{publication._id}}" data-comm="{{comment._id}}" data-toggle="modal" data-target="#modalDeleteComment" style="padding: 0px!important; margin-left: -30px !important; float: left !important;"><i class="bi-trash-fill" style="font-size:13px"></i></button>
+              {{else}}
+            <button class="btn btn-delete-comment" data-proj="{{../../id}}" data-publication="{{publication._id}}" data-comm="{{comment._id}}" data-toggle="modal" data-target="#modalDeleteComment" style="padding: 0px!important; margin-left: -30px !important; float: left !important;" disabled><i class="bi-trash-fill" style="font-size:13px"></i></button>
+              {{/if}}
+              <button class="btn commentOwner_circle" style="float: right !important;">{{firstLetterOfUsername comment.commentOwner}}</button>
             </div>
 
 
             <!-- komentarji -->
             <div class="col-lg-11" style="padding-left: 0px !important; margin-left: 0px !important;">
-            <div class="publi-font" style="margin-top: 10px !important;">Komentar 1</div>
-            <div class="publi-font" style="font-size: 12px !important; margin-top: 5px !important; margin-bottom: 15px !important;">14.4.2022</div>
+            <div class="publi-font" style="margin-top: 10px !important;">{{comment.comment}}</div>
+            <div class="publi-font" style="font-size: 12px !important; margin-top: 5px !important; margin-bottom: 15px !important;">{{formatirajDatum comment.date}}</div>
             </div>
 
             </div>
-            
+            {{/each}}
             </div>
             
 
             <!-- Gumba za delete in dodaj komentar -->
-            <div class="col-lg-2" style="padding-right: 0px !important; margin-right: 0px !important; margin-bottom: -35px !important; margin-top: auto;">
-            <button type="button" data-toggle="modal" data-target="#modalDeletePublish" class="btn btn-delete-publi" style="padding: 8px; margin-right: 0px !important; float: right !important;"><i class="bi-trash-fill" style="font-size:18px"></i></button>
-            <button type="button" data-toggle="modal" data-target="#modalAddComment" class="btn btn-dark dodaj-komentarObjavi" style="margin-right: 0px !important; margin-top: 8px !important; float: right !important;"><i class="fa-solid fa-plus fa-lg" style="width: 20px !important; height: 20px !important;" aria-hidden="true"></i></button>
-            </div>
+            <div class="col-lg-2" style="float: right !important;padding-right: 0px !important; margin-right: 0px !important; margin-bottom: -35px !important; margin-top: auto;">
+            {{#if ../canDelete}}
+            <button type="button" data-toggle="modal" data-target="#modalDeletePublish" data-proj="{{../id}}" data-publication="{{publication._id}}" class="btn btn-delete-publi" style="padding: 8px; margin-right: 0px !important; float: right !important;"><i class="bi-trash-fill" style="font-size:18px"></i></button>
+            {{else}}
+            <button type="button" data-toggle="modal" data-target="#modalDeletePublish" data-proj="{{../id}}" data-publication="{{publication._id}}" class="btn btn-delete-publi" style="padding: 8px; margin-right: 0px !important; float: right !important;" disabled><i class="bi-trash-fill" style="font-size:18px"></i></button>
+            {{/if}}
+            {{#if ../canAddNewComment}}
+            <button id="addCommentButton" type="button" data-toggle="modal" data-target="#modalAddComment" data-proj="{{../id}}" data-publication="{{publication._id}}" class="btn btn-dark dodaj-komentarObjavi" style="margin-right: 0px !important; margin-top: 8px !important; float: right !important;"><i class="fa-solid fa-plus fa-lg" style="width: 20px !important; height: 20px !important;" aria-hidden="true"></i></button>
+           {{else}}
+            <button id="addCommentButton" type="button" data-toggle="modal" data-target="#modalAddComment" data-proj="{{../id}}" data-publication="{{publication._id}}" class="btn btn-dark dodaj-komentarObjavi" style="margin-right: 0px !important; margin-top: 8px !important; float: right !important;" disabled><i class="fa-solid fa-plus fa-lg" style="width: 20px !important; height: 20px !important;" aria-hidden="true"></i></button>
+           {{/if}}
+           </div>
 
           </div>
 
         </div>
         </div>
         </div>
+        
+        {{/each}}
         <!-- end objave na projektu -->
 
         <!-- modalno okno za komentiranje objave -->
+        <script>
+
+            $(document).on("click", ".dodaj-komentarObjavi", function () {
+                                var projectId = $(this).data('proj');
+                                var publicationId = $(this).data('publication');
+                                
+                                console.log(publicationId);
+                                console.log(projectId);
+
+
+                                var url = '/project/' + projectId + '/publications/' + publicationId + '/new-comment';
+                                $('#addComm').attr("action", url);
+                                
+                                //$('#idHolder3').html( eventRole );
+
+                                //$('#inputUsr').val(eventUsr);
+                                
+                                //$('#collaboratorEdit').attr("action", str);
+                                
+
+                            });
+        </script>
         <div class="modal" id="modalAddComment" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" style="padding-top: 150px !important;">
             <div class="modal-content modal-content-ekipa" style="background-color: var(--c4) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
@@ -144,25 +183,49 @@
               </div>
 
               <div class="modal-body">
-              <!--form method="post" id="" url="" -->
+              <form method="post" id="addComm" action="">
              
                 <!-- Comment -->
                 <div class="mb-3" style="padding-bottom: 10px !important;">
                     <label class="form-label" style="padding-top: 10px !important;">Comment</label>
-                    <textarea class="form-control input-form-lg" name="" id="" aria-describedby="emailHelp" required></textarea>
+                    <textarea class="form-control input-form-lg" name="comment" id="" aria-describedby="emailHelp" required></textarea>
                 </div>
 
                 <br>
               <!-- post comment -->
                 <button id="" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Comment</button>
-              <!--form-->                             
+              </form>                           
               </div>
             </div>
           </div>
         </div>
+
+        
         <!-- end modalno okno za komentiranje objave -->
 
         <!-- modalno okno za brisanje objave -->
+        <script>
+
+            $(document).on("click", ".btn-delete-publi", function () {
+                                var projectId1 = $(this).data('proj');
+                                var publicationId1 = $(this).data('publication');
+                                
+                                console.log(publicationId1);
+                                console.log(projectId1);
+
+                                
+                                var url1 = '/project/' + projectId1 + '/publication/' + publicationId1 + '/remove';
+                                $('#delPub').attr("action", url1);
+                                
+                                //$('#idHolder3').html( eventRole );
+
+                                //$('#inputUsr').val(eventUsr);
+                                
+                                //$('#collaboratorEdit').attr("action", str);
+                                
+
+                            });
+        </script>
         <div class="modal" id="modalDeletePublish" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" style="padding-top: 150px !important;">
             <div class="modal-content modal-content-ekipa" style="background-color: var(--c2) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
@@ -172,7 +235,7 @@
               </div>
 
               <div class="modal-body">
-              <!--form method="post" id="" url="" -->
+              <form method="post" id="delPub" action="">
              
                 <!-- Confirmation message -->
                 <div class="mb-3" style="padding-bottom: 10px !important;">
@@ -183,7 +246,7 @@
                 <br>
               <!-- delete -->
                 <button id="" type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: right; !important">Delete</button>
-              <!--form-->                             
+                </form>                            
               </div>
             </div>
           </div>
@@ -191,6 +254,31 @@
         <!-- end modalno okno za brisanje objave -->
 
         <!-- modalno okno za brisanje komentarja -->
+        <script>
+
+            $(document).on("click", ".btn-delete-comment", function () {
+                                var projectId2 = $(this).data('proj');
+                                var publicationId2 = $(this).data('publication');
+                                var commentId = $(this).data('comm');
+                                
+                                console.log(publicationId2);
+                                console.log(projectId2);
+                                console.log(commentId);
+
+                                
+
+                                var url2 = '/project/' + projectId2 + '/publication/' + publicationId2 + '/comment/' + commentId;
+                                $('#delComm').attr("action", url2);
+                                
+                                //$('#idHolder3').html( eventRole );
+
+                                //$('#inputUsr').val(eventUsr);
+                                
+                                //$('#collaboratorEdit').attr("action", str);
+                                
+
+                            });
+        </script>
         <div class="modal" id="modalDeleteComment" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" style="padding-top: 150px !important;">
             <div class="modal-content modal-content-ekipa" style="background-color: var(--c2) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
@@ -200,7 +288,7 @@
               </div>
 
               <div class="modal-body">
-              <!--form method="post" id="" url="" -->
+              <form method="post" id="delComm" action="">
              
                 <!-- Confirmation message -->
                 <div class="mb-3" style="padding-bottom: 10px !important;">
@@ -211,7 +299,7 @@
                 <br>
               <!-- delete -->
                 <button id="" type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: right; !important">Delete</button>
-              <!--form-->                             
+              </form>                             
               </div>
             </div>
           </div>

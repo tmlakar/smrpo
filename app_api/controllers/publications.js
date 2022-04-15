@@ -93,7 +93,7 @@ const addCommentToPublication = (req, res) => {
             res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
           } else {
             //tle dodas en acceptance task
-            currentPublication.publications.push({
+            currentPublication.comments.push({
                 comment: req.body.comment,
                 commentOwner: req.body.commentOwner,
                 date: req.body.date
@@ -172,7 +172,7 @@ const removeCommentFromPublication = (req, res) => {
           return res.status(500).json(napaka);
         }
         if (project.publications && project.publications.length > 0) {
-          const currentPublication = project.publication.id(
+          const currentPublication = project.publications.id(
             req.params.idPublication
           );
           if (!currentPublication) {

@@ -122,9 +122,9 @@ router.post("/projects/:idProject/new-publication", ctrlPublications.addPublicat
 /* Adding comment to a publication */
 router.post("/projects/:idProject/publications/:idPublication/new-comment", ctrlPublications.addCommentToPublication);
 /* Removing comment from a publication */
-router.delete("/projects/:idProject/publications/:idPublication/comment/:idComment/remove", ctrlPublications.addPublicationToAProject);
+router.delete("/projects/:idProject/publications/:idPublication/comment/:idComment/remove", ctrlPublications.removeCommentFromPublication);
 /* Removing comment */
-router.delete("/projects/:idProject/publications/:idPublication/remove", ctrlPublications.addPublicationToAProject)
+router.delete("/projects/:idProject/publications/:idPublication/remove", ctrlPublications.deletePublication)
 
 /* Avtentikacija */
 router.post("/registracija", ctrlAvtentikacija.registracija);

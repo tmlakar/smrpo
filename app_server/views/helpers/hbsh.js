@@ -239,3 +239,15 @@ hbs.registerHelper('missingData', function(value1, value2, value3) {
 });
 
 
+
+hbs.registerHelper('canAddComment', function(value1) {
+  if (value1 == "user") {
+    return true;
+  } else {
+    return false;
+  }
+
+  
+});
+
+
