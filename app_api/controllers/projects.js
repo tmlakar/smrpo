@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Project = mongoose.model("Project");
 
+
 /* Projects list */
 const projectsList = (req, res) => {
     Project.find().exec(function(err, projects) {
@@ -19,6 +20,24 @@ const projectsList = (req, res) => {
 const projectCreate = (req, res) => {
     //var collaboratorsR = [{username: "anja", project_role: "Team Member"}];
     console.log(req.body.name, req.body.info);
+    var nameL = req.body.name;
+    nameL = nameL.toLowerCase();
+
+    Project.find().exec(function(err, projects) {
+        if (err) {
+            console.log(err);
+            res.status(404).json({ "sporočilo": "Napaka pri poizvedbi: " + err });
+        } else {
+            for (var i = 0; i < projects.length; i++) {
+                if (projects[i].name.toLowerCase() == nameL) {
+                    res.status(400).json();
+                }
+            }
+            
+            
+        }
+    });
+    
 
     Project.create({
 

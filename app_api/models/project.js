@@ -60,6 +60,7 @@ const userStoriesShema = new mongoose.Schema({
 
 });
 
+
 const sprintShema = new mongoose.Schema({
   //tukaj manjka sprint name, če kje uporabljaš
     number: {type: Number},
@@ -80,4 +81,6 @@ const projectShema = new mongoose.Schema({
 });
 
 
+
 mongoose.model('Project', projectShema, 'Projects');
+

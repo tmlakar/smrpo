@@ -55,12 +55,30 @@ var podrobnostiProject = (req, res) => {
     axios
         .get (apiParametri.streznik + '/api/projects/' + projectId)
         .then((odgovor) => {
+          var hasProductOwner = false;
+          var hasTeamMembers = false;
+          var hasScrumMaster = false;
+          var collaborators = odgovor.data.collaborators;
+          for (var i = 0; i < collaborators.length; i++) {
+            if (collaborators[i].project_role == "Product Manager") {
+              hasProductOwner = true;
+            }
+            if (collaborators[i].project_role == "Team Member") {
+              hasTeamMembers = true;
+            }
+            if (collaborators[i].project_role == "Scrum Master") {
+              hasScrumMaster = true;
+            }
+          }
             res.render('project-edit',
             { name: odgovor.data.name,
               info: odgovor.data.info,
               collaborators: odgovor.data.collaborators,
               id: odgovor.data._id,
-              napaka: jeNapaka
+              napaka: jeNapaka,
+              hasProductOwner: hasProductOwner,
+              hasScrumMaster: hasScrumMaster,
+              hasTeamMembers: hasTeamMembers
             });
         });
   };

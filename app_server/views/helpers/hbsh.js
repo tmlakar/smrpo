@@ -224,3 +224,18 @@ hbs.registerHelper('columnThird', function(value1, value2, value3) {
   
 });
 
+
+
+
+
+
+hbs.registerHelper('missingData', function(value1, value2, value3) {
+  if (value1 == true && value2 == true && value3 == true) {
+    return false;
+  }
+  return true;
+
+  
+});
+
+
