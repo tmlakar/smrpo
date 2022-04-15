@@ -1,4 +1,6 @@
 {{!-- Product backlog / sprints zavihka --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">    
+
 
 <div class="hbses">
 
@@ -70,15 +72,153 @@
 
     <div class="col-lg-10" style="margin-top: 20px !important">
 
-        <!-- objave na projektu -->
+        <!-- objave za projekt -->
+        <div class="row">
+
+          <!-- krogec lastnika objave -->
+          <div class="storyOwner_circle-d col-lg-1" style = "margin-top: 60px !important; padding-right: 30px !important;">
+              <button  id="storyOwner_circle" type="button"
+                  class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c1) !important; border: 2px solid var(--c1) !important;">
+                      N
+              </button>
+          </div>
+
+
+        <!-- kartica objave -->
+        <div class="col-lg-11">
+
+        <!-- datum -->
+        <div class="publi-font">
+          <p>14.4.2022</p>
+        </div>
+
         <div class="card projekt-publication" style="border: 3px solid var(--c2) !important;">
           
-          <textarea class="form-control input-form-text" style="background-color: rgb(196, 196, 196) !important; margin: 10px !important;" name=""  id="" aria-describedby="emailHelp" readonly>
-            Anjin fejk text.
-          </textarea>
-          
-          
+          <!-- Objava -->
+          <textarea class="form-control input-form-readonlytext" aria-describedby="emailHelp" readonly>Objava od Poženela.</textarea>
+
+
+          <!-- row za krogce od komentarjev + row za komentarje + row za dodajanje komentarjv -->
+          <div class="row">
+            <div class="col-lg-10">
+
+            <!-- row za krogce od komentarjev + row za komentarje -->
+            <div class="row">
+            <div class="col-lg-1" style="padding-right: 0px !important; margin-right: 0px !important; padding-left: 0px !important; margin-left: 0px !important;">
+              <button class="btn btn-delete-comment" data-toggle="modal" data-target="#modalDeleteComment" style="padding: 0px!important; margin-left: -30px !important; float: left !important;"><i class="bi-trash-fill" style="font-size:13px"></i></button>
+              <button class="btn commentOwner_circle" style="float: right !important;">N</button>
+            </div>
+
+
+            <!-- komentarji -->
+            <div class="col-lg-11" style="padding-left: 0px !important; margin-left: 0px !important;">
+            <div class="publi-font" style="margin-top: 10px !important;">Komentar 1</div>
+            <div class="publi-font" style="font-size: 12px !important; margin-top: 5px !important; margin-bottom: 15px !important;">14.4.2022</div>
+            </div>
+
+            </div>
+            
+            </div>
+            
+
+            <!-- Gumba za delete in dodaj komentar -->
+            <div class="col-lg-2" style="padding-right: 0px !important; margin-right: 0px !important; margin-bottom: -35px !important; margin-top: auto;">
+            <button type="button" data-toggle="modal" data-target="#modalDeletePublish" class="btn btn-delete-publi" style="padding: 8px; margin-right: 0px !important; float: right !important;"><i class="bi-trash-fill" style="font-size:18px"></i></button>
+            <button type="button" data-toggle="modal" data-target="#modalAddComment" class="btn btn-dark dodaj-komentarObjavi" style="margin-right: 0px !important; margin-top: 8px !important; float: right !important;"><i class="fa-solid fa-plus fa-lg" style="width: 20px !important; height: 20px !important;" aria-hidden="true"></i></button>
+            </div>
+
+          </div>
+
         </div>
+        </div>
+        </div>
+        <!-- end objave na projektu -->
+
+        <!-- modalno okno za komentiranje objave -->
+        <div class="modal" id="modalAddComment" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" style="padding-top: 150px !important;">
+            <div class="modal-content modal-content-ekipa" style="background-color: var(--c4) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
+              <div class="modal-header" style="background-color: var(--c4) !important;">
+                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Add new comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
+              </div>
+
+              <div class="modal-body">
+              <!--form method="post" id="" url="" -->
+             
+                <!-- Comment -->
+                <div class="mb-3" style="padding-bottom: 10px !important;">
+                    <label class="form-label" style="padding-top: 10px !important;">Comment</label>
+                    <textarea class="form-control input-form-lg" name="" id="" aria-describedby="emailHelp" required></textarea>
+                </div>
+
+                <br>
+              <!-- post comment -->
+                <button id="" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Comment</button>
+              <!--form-->                             
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end modalno okno za komentiranje objave -->
+
+        <!-- modalno okno za brisanje objave -->
+        <div class="modal" id="modalDeletePublish" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" style="padding-top: 150px !important;">
+            <div class="modal-content modal-content-ekipa" style="background-color: var(--c2) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
+              <div class="modal-header" style="background-color: var(--c2) !important;">
+                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Deleting publication</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
+              </div>
+
+              <div class="modal-body">
+              <!--form method="post" id="" url="" -->
+             
+                <!-- Confirmation message -->
+                <div class="mb-3" style="padding-bottom: 10px !important;">
+                    <p>Are you sure you want to delete publication?
+                    <small><i>Publication will be removed from the Project wall.</i></small></p>
+                </div>
+
+                <br>
+              <!-- delete -->
+                <button id="" type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: right; !important">Delete</button>
+              <!--form-->                             
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end modalno okno za brisanje objave -->
+
+        <!-- modalno okno za brisanje komentarja -->
+        <div class="modal" id="modalDeleteComment" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" style="padding-top: 150px !important;">
+            <div class="modal-content modal-content-ekipa" style="background-color: var(--c2) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
+              <div class="modal-header" style="background-color: var(--c2) !important;">
+                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important;">Deleting comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
+              </div>
+
+              <div class="modal-body">
+              <!--form method="post" id="" url="" -->
+             
+                <!-- Confirmation message -->
+                <div class="mb-3" style="padding-bottom: 10px !important;">
+                    <p>Are you sure you want to delete comment?
+                    <small><i>Comment will be removed from publication.</i></small></p>
+                </div>
+
+                <br>
+              <!-- delete -->
+                <button id="" type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: right; !important">Delete</button>
+              <!--form-->                             
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end modalno okno za brisanje komentarja -->
+
+        
     
         
         <!-- gumb za dodajanje objav - redirect v new-publication - v primeru da je user del projekta -->
@@ -157,14 +297,191 @@
 </script>
 {{/if}}
 
+{{!-- modal window new comment was successfully published --}}
+<div id="wallModal3" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>New comment has been successfully published!</p>
+                </div>
 
+                </div>
+            </div>
+        </div>
 
-
-{{!-- ***************************************** SCRIPTS *********************************************** --}}
-
+{{#if successfullyAddedPublishComment}}
 <script>
-    {{!-- dodajanje komentarja modalno okno --}}
-    {{!-- brisanje komentarja modalno okno --}}
-    {{!-- brisanje objave modalno okno --}}
+    $(document).ready(function(){
+        $("#wallModal3").modal('show');
 
+        setTimeout(function() {
+
+            $('#wallModal3').modal('hide');
+        }, 7000);
+    });
 </script>
+{{/if}}
+
+
+{{!-- modal window if error occured while publishing new comment --}}
+<div id="wallModal4" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important;">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>New comment wasn't published!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if errorAddPublishComment}}
+<script>
+    $(document).ready(function(){
+        $("#wallModal4").modal('show');
+
+        setTimeout(function() {
+
+            $('#wallModal4').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+{{!-- modal window publication was successfully deleted --}}
+<div id="wallModal5" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Publication was successfully deleted!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyDeletePublish}}
+<script>
+    $(document).ready(function(){
+        $("#wallModal5").modal('show');
+
+        setTimeout(function() {
+
+            $('#wallModal5').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if error occured while deleting publication --}}
+<div id="wallModal6" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important;">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Publication wasn't deleted!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if errorDeletePublish}}
+<script>
+    $(document).ready(function(){
+        $("#wallModal6").modal('show');
+
+        setTimeout(function() {
+
+            $('#wallModal6').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+{{!-- modal window comment was successfully deleted --}}
+<div id="wallModal7" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Comment was successfully deleted!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyDeletePublishComment}}
+<script>
+    $(document).ready(function(){
+        $("#wallModal7").modal('show');
+
+        setTimeout(function() {
+
+            $('#wallModal7').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if error occured while deleting comment --}}
+<div id="wallModal8" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important;">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Comment wasn't deleted!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if errorDeletePublishComment}}
+<script>
+    $(document).ready(function(){
+        $("#wallModal8").modal('show');
+
+        setTimeout(function() {
+
+            $('#wallModal8').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
