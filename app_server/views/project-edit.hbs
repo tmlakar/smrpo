@@ -3,6 +3,7 @@
 
 
     <div class="col-sm-5 ">
+
         <div class="card account-info" style="background-color: var(--c4) !important;">
             <div class="card-body">
                 <h5 class="card-title">Project information</h5>
@@ -20,7 +21,7 @@
         </div>
         <br>
 
-
+        
         <div class="card account-info" style="background-color: var(--c4) !important;">
             <div class="card-body">
                 <h5 class="card-title">Project collaborators</h5>
@@ -71,6 +72,9 @@
                                 $('#idHolder2').html( eventUsr );
                                 $('#idHolder3').html( eventRole );
 
+                                if (eventRole == "Product Manager") {
+                                    eventRole = "Product Owner";
+                                }
                                 $('#inputUsr').val(eventUsr);
                                 $('#inputRole').val(eventRole);
                                 var str = '/projects/' + projectId + '/edit-collaborator/' + eventId;
@@ -126,7 +130,7 @@
                                     <input class="form-control input-form" type="text" name="project_role" list="exampleList1" required>
                                         <datalist id="exampleList1">
                                             <option value="Team Member">  </option>
-                                            <option value="Product Manager"></option>
+                                            <option value="Product Owner"></option>
                                             <option value="Scrum Master"></option>
                                         </datalist>
                                     </div>
@@ -162,13 +166,34 @@
                 <div>
                 <button id="collaborator_circle_legend" style="background-color: var(--c6) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 10px !important; padding-right: 20px !important;">Team Member</span>
                 <button id="collaborator_circle_legend" style="background-color: var(--c5) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 10px !important; padding-right: 20px !important;">Scrum master</span>
-                <button id="collaborator_circle_legend" style="background-color: var(--c1) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 10px !important; padding-right: 20px !important;">Product Manager</span>
+                <button id="collaborator_circle_legend" style="background-color: var(--c1) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 10px !important; padding-right: 20px !important;">Product Owner</span>
                 <a href="#add" onclick="location.href='#add'"><button id="ekipa" type="button" data-toggle="modal" data-target="#modalnoOknoEkipa" class="btn btn-dark dodaj-vekipo" style="background-color: var(--c1) !important; border: 3px solid var(--c1) !important"><i class="fa-solid fa-plus dodaj"></i></button></a>
                 </div>
 
             </div>
 
         </div>
+    <br>
+            {{#if missingProductOwner}}
+                        
+                        <span style="font-size: 12px !important; color: var(--c1) !important"><b>Warning:</b> Project role 'Product Owner' not yet assigned!</span><br>
+                          
+
+            {{/if}}
+            {{#if missingTeamMember}}
+                        
+                        <span style="font-size: 12px !important; color: var(--c1) !important"><b>Warning:</b> Add at least one user with project role 'Team Member'!</span><br>
+                          
+
+            {{/if}}
+
+            {{#if missingScrumMaster}}
+                        
+                        <span style="font-size: 12px !important; color: var(--c1) !important"><b>Warning:</b> Project role 'Scrum Master' not yet assigned!</span><br>
+                          
+
+            {{/if}}
+        <br>
     </div>
 
 
@@ -247,7 +272,7 @@
                           <input class="form-control input-form" type="text" placeholder="Select project role from roles list" style="width: 400px !important" name="project_role" list="exampleList1" required>
                             <datalist id="exampleList1">
                             <option value="Team Member">  </option>
-                            <option value="Product Manager"></option>
+                            <option value="Product Owner"></option>
                             <option value="Scrum Master"></option>
                             </datalist>
                             </div>

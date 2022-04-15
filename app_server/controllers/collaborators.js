@@ -68,9 +68,30 @@ var availableCollaboratorsList = (req, res) => {
 
 
     Promise.all([promise1, promise2]).then(function(values) {
-        //console.log(values[0]);
-        console.log("working?");
-        //console.log(values[1]);
+        
+        
+
+        var hasProductOwner = false;
+          var hasTeamMembers = false;
+          var hasScrumMaster = false;
+          var missingProductOwner = true;
+          var missingScrumMaster = true;
+          var missingTeamMember = true;
+          var collaborators = values[1].data.collaborators;
+          for (var i = 0; i < collaborators.length; i++) {
+            if (collaborators[i].project_role == "Product Manager") {
+              hasProductOwner = true;
+              missingProductOwner = false;
+            }
+            if (collaborators[i].project_role == "Team Member") {
+              hasTeamMembers = true;
+              missingTeamMember = false;
+            }
+            if (collaborators[i].project_role == "Scrum Master") {
+              hasScrumMaster = true;
+              missingScrumMaster = false;
+            }
+          }
         res.render("project-edit", {
             name: values[1].data.name,
             info: values[1].data.info,
@@ -84,6 +105,9 @@ var availableCollaboratorsList = (req, res) => {
             successfullyEditedProject: uspesnoPosodobljeno,
             layout: layout1,
             napaka: napakaEdit,
+            missingProductOwner: missingProductOwner,
+            missingScrumMaster: missingScrumMaster,
+            missingTeamMember: missingTeamMember
         });
     });
 };
@@ -123,6 +147,10 @@ var podrobnostiProject = (req, res) => {
 /* POST - Add project collaborators */
 const addProjectCollaborators = (req, res) => {
     var projectId = req.params.id;
+    var prole = req.body.project_role;
+    if (prole == "Product Owner") {
+        prole = "Product Manager";
+    }
     if (!req.body.username || !req.body.project_role) {
 
     } else {
@@ -131,7 +159,7 @@ const addProjectCollaborators = (req, res) => {
             url: apiParametri.streznik + '/api/projects/' + projectId + '/add-collaborators',
             data: {
                 username: req.body.username,
-                project_role: req.body.project_role
+                project_role: prole,
             }
         }).then(() => {
             var string = "successfully added";
@@ -149,6 +177,10 @@ const addProjectCollaborators = (req, res) => {
 const editProjectCollaboratorRole = (req, res) => {
     var projectId = req.params.id;
     var collaboratorId = req.params.idC;
+    var prole = req.body.project_role;
+    if (prole == "Product Owner") {
+        prole = "Product Manager";
+    }
     if (!req.body.project_role) {
 
     } else {
@@ -156,7 +188,7 @@ const editProjectCollaboratorRole = (req, res) => {
             method: 'put',
             url: apiParametri.streznik + '/api/projects/' + projectId + '/edit-collaborator/' + collaboratorId,
             data: {
-                project_role: req.body.project_role
+                project_role: prole,
             }
         }).then(() => {
             var string = "successfully edited"
