@@ -191,7 +191,7 @@ hbs.registerHelper('columnFirst', function(value1, value2, value3) {
     return false;
   }
 
-  if (value1 == false && value2 != 0) {
+  if (value1 == false) {
     return true;
   }
   
@@ -203,7 +203,7 @@ hbs.registerHelper('columnSecond', function(value1, value2) {
   //value 1 - finished oz unfinished
   //value 2 - pripada sprintu?
 
-  if (value1 == true && value2 != 0) {
+  if (value1 == true) {
     return true;
   }
   return false;
@@ -214,9 +214,6 @@ hbs.registerHelper('columnThird', function(value1, value2, value3) {
   //value 1 - finished oz unfinished
   //value 2 - pripada sprintu?
 
-  if (value1 == false && value2 == 0) {
-    return true;
-  }
   if (value3 == "Won't have this time") {
     return true;
   }
@@ -249,5 +246,15 @@ hbs.registerHelper('canAddComment', function(value1) {
 
   
 });
+
+
+hbs.registerHelper('formatRole', function(value1) {
+  if (value1 == "Product Manager") {
+    return "Product Owner";
+  }
+
+  
+});
+
 
 

@@ -58,10 +58,12 @@ var podrobnostiProject = (req, res) => {
           var hasProductOwner = false;
           var hasTeamMembers = false;
           var hasScrumMaster = false;
+          var missingProductOwner = true;
           var collaborators = odgovor.data.collaborators;
           for (var i = 0; i < collaborators.length; i++) {
             if (collaborators[i].project_role == "Product Manager") {
               hasProductOwner = true;
+              //missingProductOwner = false;
             }
             if (collaborators[i].project_role == "Team Member") {
               hasTeamMembers = true;
@@ -78,7 +80,8 @@ var podrobnostiProject = (req, res) => {
               napaka: jeNapaka,
               hasProductOwner: hasProductOwner,
               hasScrumMaster: hasScrumMaster,
-              hasTeamMembers: hasTeamMembers
+              hasTeamMembers: hasTeamMembers,
+              missingProductOwner: missingProductOwner
             });
         });
   };

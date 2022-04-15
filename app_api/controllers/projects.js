@@ -30,28 +30,30 @@ const projectCreate = (req, res) => {
         } else {
             for (var i = 0; i < projects.length; i++) {
                 if (projects[i].name.toLowerCase() == nameL) {
-                    res.status(400).json();
+                    return res.status(400).json();
                 }
             }
+
+            Project.create({
+
+                name: req.body.name,
+                info: req.body.info
+        
+            }, (napaka, project) => {
+                if (napaka) {
+                    console.log("Prislo je do napake");
+                    res.status(400).json(napaka);
+                } else {
+                    res.status(201).json();
+                }
+            });
             
             
         }
     });
     
 
-    Project.create({
-
-        name: req.body.name,
-        info: req.body.info
-
-    }, (napaka, project) => {
-        if (napaka) {
-            console.log("Prislo je do napake");
-            res.status(400).json(napaka);
-        } else {
-            res.status(201).json(project);
-        }
-    });
+    
 };
 
 /* Just for developing purposes - deleting a project */
@@ -97,24 +99,50 @@ const projectUpdate = (req, res) => {
             sporočilo: "Ne najdem projekta, idProject je obvezen parameter.",
         });
     }
-    Project.findById(req.params.idProject)
-        .exec((napaka, project) => {
-            if (!project) {
-                return res.status(404).json({ sporočilo: "Ne najdem projekta." });
-            } else if (napaka) {
-                return res.status(500).json(napaka);
-            }
-            project.name = req.body.name;
-            project.info = req.body.info;
+            
+        var nameL = req.body.name;
+        nameL = nameL.toLowerCase();
+            
 
-            project.save((napaka, project) => {
-                if (napaka) {
-                    res.status(404).json(napaka);
-                } else {
-                    res.status(200).json(project);
-                }
+        Project.find().exec(function(err, projects) {
+                    if (err) {
+                        console.log(err);
+                        res.status(404).json({ "sporočilo": "Napaka pri poizvedbi: " + err });
+                    } else {
+                        for (var i = 0; i < projects.length; i++) {
+                            if (projects[i].name.toLowerCase() == nameL) {
+                                return res.status(400).json();
+                            } 
+                        }
+
+                        Project.findById(req.params.idProject)
+                            .exec((napaka, project) => {
+                                if (!project) {
+                                    return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+                                } else if (napaka) {
+                                    return res.status(500).json(napaka);
+                                }
+
+                                
+
+
+                                project.name = req.body.name;
+                                project.info = req.body.info;
+
+                                project.save((napaka, project) => {
+                                    if (napaka) {
+                                        res.status(404).json(napaka);
+                                    } else {
+                                        res.status(200).json(project);
+                                    }
+                                });
+                            });
+                        
+                        
+                    }
             });
-        });
+
+    
 };
 
 module.exports = {
