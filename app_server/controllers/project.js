@@ -219,6 +219,7 @@ var prikaz = (req, res) => {
                 }
             }
 
+            //ima ze acceptance teste? ker ce ne, tut se nesme vidt add to sprint pa urejanje siz-a
 
             var inProcessSprintsNumbers = [];
             var inProcess = 0;
