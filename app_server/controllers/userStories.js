@@ -63,7 +63,7 @@ var podrobnostiProject = (req, res) => {
 /* POST - Add new user story */
 const addNewUserStory = (req, res) => {
     var projectId = req.params.id;
-    if (!req.body.name || !req.body.aboutText || !req.body.priority || !req.body.businessValue || !req.body.size) {
+    if (!req.body.name || !req.body.aboutText || !req.body.priority || !req.body.businessValue) {
 
     } else {
         axios({
@@ -74,7 +74,7 @@ const addNewUserStory = (req, res) => {
                 aboutText: req.body.aboutText,
                 priority: req.body.priority,
                 businessValue: req.body.businessValue,
-                size: req.body.size,
+                
             }
         }).then((odgovor) => {
             var name = odgovor.name;

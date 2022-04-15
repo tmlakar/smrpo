@@ -56,7 +56,7 @@ const projectInfo = (req, res) => {
           var nameOfStory = project.userStories[i].name;
           nameOfStory = nameOfStory.substring(3, nameOfStory.length);
           console.log(nameOfStory);
-          if (nameOfStory == req.body.name) {
+          if (nameOfStory.toLowerCase() == req.body.name.toLowerCase()) {
             return res.status(401).json("Ime ze obstaja");
           }
         }
@@ -70,7 +70,6 @@ const projectInfo = (req, res) => {
         aboutText: req.body.aboutText,
         priority: req.body.priority,
         businessValue: req.body.businessValue,
-        size: req.body.size,
         flags: ["Unassigned", "Unfinished"]
       });
       project.save((napaka, project) => {
@@ -156,7 +155,7 @@ const projectInfo = (req, res) => {
           var newFullName = oldPrefix + newName;
           for (var i = 0; i < project.userStories.length; i++) {
             var nameOfStory = project.userStories[i].name;
-            if (nameOfStory == newFullName) {
+            if (nameOfStory.toLowerCase() == newFullName.toLowerCase()) {
               if (i == currentIndex) {
 
               } else {
@@ -168,7 +167,7 @@ const projectInfo = (req, res) => {
           for (var i = 0; i < project.userStories.length; i++) {
             var nameOfStory = project.userStories[i].name;
             nameOfStory = nameOfStory.substring(3, nameOfStory.length);
-            if (newName == nameOfStory) {
+            if (newName.toLowerCase() == nameOfStory.toLowerCase()) {
               if (i != currentIndex) {
                 return res.status(401).json({ sporočilo: "Ne." });
               }

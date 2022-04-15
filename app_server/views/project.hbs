@@ -74,7 +74,7 @@
                   <!-- legend for user stories -->
                         <div><button id="project_circle_legend" style="background-color: var(--c4) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Unfinished</span></div>
                         <div><button id="project_circle_legend" style="background-color: var(--c5) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Finished</span></div>
-                        <div><button id="project_circle_legend" style="background-color: var(--c2) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Future relese</span></div>
+                        <div><button id="project_circle_legend" style="background-color: var(--c2) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Future release</span></div>
                 </div>
     </div>
 
@@ -306,6 +306,9 @@
                                 
 
                                 console.log(collaborators1);
+                                // poglejmo ce ma story kej acceptance testov
+                                var acceptanceTestsExist = false;
+                                console.log(storyTests);
                                 
                                 
                                 // spreminjanje ownerja
@@ -673,7 +676,7 @@
 
                     <!-- Size --->
                     <div class="mb-3" style="padding-bottom: 10px !important; width: 49% !important; float: Left;">
-                        <label class="form-label" style="padding-top: 10px !important">Size</label>
+                        <label class="form-label" style="padding-top: 10px !important">Size (in points)</label>
                         <input class="form-control input-form" name="size" id="storySize" aria-describedby="emailHelp" type="number" min="1" required>
                     </div>
                     <div class="clear"></div>
