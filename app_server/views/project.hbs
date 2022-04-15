@@ -135,13 +135,18 @@
                     
                     <div class="row" style="padding: 0px !important;">
                       <div class="card-flagss col-lg-12">
-                        <div class="row">
-                        
-                          <span id="flag-info">
-                          <!-- gumb kaj je --> Current sprint
+                        <div class="row"  style="padding: 0px !important;  margin: 0px !important;">
+
+                          <!-- pogoj -->
+                          <!--<span id="flag-info" style="margin-left: 12px!important;>
+                          Unassigned
+                          </span> -->
+
+                          <span id="flag-info" style="margin-left: 12px!important; width: 120px !important;">
+                           Current sprint
                           </span>
-                          <!-- gumb za sprint info + modalno okno -->
-                        
+                          
+                          <button type="button" data-toggle="modal" data-target="#modalSprintInfo" class="btn btn-dark sprint-info-button" style="margin-left: 15px !important; margin-right: -20px !important;">in Sprints</button>
 
                         </div>
                       </div>
@@ -157,8 +162,24 @@
               </div>
             {{/each}}
           </div>
-          <!-- modalno okno -->
+          
+          <!-- Modalno okno za pregled zgodovine sprintov kartice -->
+          <div class="modal" id="modalSprintInfo" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" style="padding-top: 150px !important;">
+            <div class="modal-content" style="box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
+              <div class="modal-header" style="padding-bottom: 0px!important; margin-bottom: 0px!important;">
+                <h5 class="modal-title">User story [insert name] was assigned to the following Sprints:</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
+              </div>
+              <div class="modal-body" style="padding-top: 0px!important; margin-top: 0px!important;">
+                <p>* Sprint 1</p>                         
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END - Modalno okno za pregled zgodovine sprintov kartice -->
 
+        
           {{!-- 2. stolpec - finished --}}
           <div class="col-lg-4">
         {{#each userStories as |story|}}
@@ -195,10 +216,13 @@
                     <div class="row" style="padding: 0px !important;">
                       <div class="card-flagss col-lg-12">
                         <div class="row">
-                          <span id="flag-info">
-                            Finished
-                            <!-- gumb za sprint info -->
+                          
+                          <span id="flag-info" style="margin-left: 12px!important; width: 80px !important;">
+                           Finished
                           </span>
+                          
+                          <button type="button" data-toggle="modal" data-target="#modalSprintInfo" class="btn btn-dark sprint-info-button" style="margin-left: 55px !important; margin-right: -20px !important;">in Sprints</button>
+                        
                         </div>
                       </div>
                     </div>
@@ -1295,6 +1319,10 @@
                 <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                 <span>Sprint size:</span> {{sprint.sprintSize}}</p>
 
+                <a href="/project/{{id}}/sprint-tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
+                  Go to Sprint
+                </button></a>
+
               </div>
             </div>
 
@@ -1308,12 +1336,12 @@
                 <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                 <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                 <span>Sprint size:</span> {{sprint.sprintSize}}</p>
-                <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;">
+                <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;" hidden>
                   Edit sprint
                 </button>
-                <button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
+                <a href="/project/{{id}}/sprint-tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
                   Go to Sprint
-                </button>
+                </button></a>
 
                 <script>
                         $(document).on("click", ".projekt-management-button", function () {
@@ -1341,6 +1369,9 @@
                 <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                 <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                 <span>Sprint size:</span> {{sprint.sprintSize}}</p>
+                <a href="/project/{{id}}/sprint-tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
+                  Go to Sprint
+                </button></a>
               </div>
             </div>
           {{!-- gumba za edit projectov --}}
@@ -1357,9 +1388,9 @@
                 <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;">
                   Edit Sprint
                 </button>
-                <button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
+                <a href="/project/{{id}}/sprint-tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
                   Go to Sprint
-                </button>
+                </button></a>
                 <script>
                         $(document).on("click", ".projekt-management-button", function () {
                           var projectId = $(this).data('proj');
@@ -1388,6 +1419,9 @@
                 <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                 <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                 <span>Sprint size:</span> {{sprint.sprintSize}}</p>
+                <a href="/project/{{id}}/sprint-tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
+                  Go to Sprint
+                </button></a>
               </div>
             </div>
           {{!-- gumba za edit projectov --}}

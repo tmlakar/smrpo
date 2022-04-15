@@ -780,6 +780,19 @@ p {
     font-weight: bold !important;
 }
 
+.sprint-info-button {
+    border-radius: 20px !important;
+    border: 0px solid !important;
+    height: 30px !important;
+    width: 110px !important;
+    color: white;
+    background-color: var(--c1) !important;
+    font-size: 12px !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    margin-top: 5px !important;
+}
+
 
 /* */
 
