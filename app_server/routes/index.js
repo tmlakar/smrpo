@@ -56,7 +56,7 @@ router.post('/projects/:id/delete-collaborator/:idC', ctrlCollaborators.deletePr
 //my tasks
 var ctrlMyTasks = require("../controllers/mytasks");
 router.get('/mytasks', ctrlMyTasks.prikaz);
-
+router.get('/mytasks/:projectId/:storyId/:taskId', ctrlMyTasks.acceptTask);
 
 /* Project -> Sprint -> User stories */
 var ctrlProject = require("../controllers/project");

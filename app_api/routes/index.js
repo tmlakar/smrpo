@@ -9,6 +9,7 @@ const ctrlCollaborators = require("../controllers/collaborators");
 const ctrlSprints = require("../controllers/sprints");
 const ctrlUserStories = require("../controllers/userStories");
 const ctrlPublications = require("../controllers/publications");
+const ctrlTasks = require("../controllers/mytasks");
 
 const jwt = require("express-jwt");
 const avtentikacija = jwt({
@@ -139,6 +140,7 @@ router.put('/account/:idUser', ctrlAccount.userUpdate);
 router.put('/account/pass/:idUser', ctrlAccount.userUpdatePass);
 router.put('/account/username/:idUser', ctrlAccount.userUpdateUsername);
 
-
+/* Tasks - sprejemanje in odpovedovanje */
+router.put("/mytasks/:idProject/:idStory/:idTask", ctrlTasks.acceptTask);
 
 module.exports = router;
