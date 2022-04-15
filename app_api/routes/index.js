@@ -141,6 +141,6 @@ router.put('/account/pass/:idUser', ctrlAccount.userUpdatePass);
 router.put('/account/username/:idUser', ctrlAccount.userUpdateUsername);
 
 /* Tasks - sprejemanje in odpovedovanje */
-router.put("/mytasks/:idProject/:idStory/:idTask", ctrlTasks.acceptTask);
-
+router.put("/mytasks/accept/:idProject/:idStory/:idTask", ctrlTasks.acceptTask);
+router.put("/mytasks/decline/:idProject/:idStory/:idTask", ctrlTasks.declineTask);
 module.exports = router;

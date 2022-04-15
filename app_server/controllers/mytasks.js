@@ -20,6 +20,10 @@ var prikaz = (req, res) => {
     if(parameter == "success"){
       accepted = true;
     }
+    var declined = false;
+    if(parameter == "declined"){
+      declined = true;
+    }
     console.log(parameter)
     var tokenParts = req.cookies.authcookie['žeton'].split('.');
     var encodedPayload = tokenParts[1];
@@ -81,7 +85,8 @@ var prikaz = (req, res) => {
             layout: 'layout-user',
             myAssignedTasks: myAssignedTasks,
             myAcceptedTasks: myAcceptedTasks,
-            accepted: accepted
+            accepted: accepted,
+            declined: declined 
 
           });
           console.log(myAssignedTasks)
@@ -96,7 +101,7 @@ var acceptTask = (req, res) => {
   var taskId = req.params.taskId;
   axios({
     method: 'put',
-    url: apiParametri.streznik + '/api/mytasks/' + projectId + '/' + storyId + '/' +  taskId
+    url: apiParametri.streznik + '/api/mytasks/accept/' + projectId + '/' + storyId + '/' +  taskId
     })
     .then(() => {
       console.log("uspešno sprejeta naloga")
@@ -107,9 +112,27 @@ var acceptTask = (req, res) => {
     });
 }
 
+var declineTask = (req, res) => {
+  //pokličem api, da posodobim atribut v bazi
+  var projectId = req.params.projectId;
+  var storyId = req.params.storyId;
+  var taskId = req.params.taskId;
+  axios({
+    method: 'put',
+    url: apiParametri.streznik + '/api/mytasks/decline/' + projectId + '/' + storyId + '/' +  taskId
+    })
+    .then(() => {
+      console.log("uspešno zavrnjena naloga")
+      var string = "declined";
+      res.redirect('/mytasks/' + '?add=' + string);
+    }).catch((error) => {
+      console.log("napaka")
+    });
+}
 
 
 module.exports = {
     prikaz,
-    acceptTask
+    acceptTask,
+    declineTask
 };

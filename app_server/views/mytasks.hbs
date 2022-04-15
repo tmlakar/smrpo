@@ -32,6 +32,37 @@
   </script>
   {{/if}}
 
+  {{!-- modal window if task has been accepted --}}
+  <div id="myModal42" class=" modal" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content alert-s-200">
+                  <div class="modal-header" style="background-color: var(--c5) !important">
+                      <h5 class="modal-title">Success!</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <p>You declined this task!</p>
+                  </div>
+
+                  </div>
+              </div>
+          </div>
+
+  {{#if declined}}
+  <script>
+      $(document).ready(function(){
+          $("#myModal42").modal('show');
+
+          setTimeout(function() {
+
+              $('#myModal42').modal('hide');
+          }, 7000);
+      });
+  </script>
+  {{/if}}
+
 <h5>My assigned tasks:</h5>
 <div class="row" style="">
  {{#each myAssignedTasks as |task|}}
@@ -44,21 +75,24 @@
                 <small style="color:#023047;">Hours for this task:</small><span style="color:#023047;"> {{task.[0].hours}}</span><br>
                 <br>
 
-                <a href="/mytasks/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}"  class="btn projekt-management-button btn-dark"
+                <a href="/mytasks/accept/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}"  class="btn projekt-management-button btn-dark"
                 style="background-color: #FB8500 !important; padding-top: 10px" id = "accept">ACCEPT</a>
+
+                <a href="/mytasks/decline/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}"  class="btn projekt-management-button btn-dark"
+                style="background-color: #FF3C38 !important; padding-top: 10px" id = "decline">DECLINE</a>
 
                 <!-- <button href="/mytasks/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}" data-projId="{{task.[2]}}" data-storyId="{{task.[3]}}"
                 data-taskId="{{task.[0]._id}}" type="button" class="btn projekt-management-button btn-dark"
                  style="background-color: #FB8500 !important" id = "accept" action="url" method="post">ACCEPT</button> -->
 
-                <button type="button" class="btn projekt-management-button btn-dark"
+                <!-- <button type="button" class="btn projekt-management-button btn-dark"
                  style="background-color: #FF3C38 !important" id = "decline">DECLINE</button>
                 <br>
                 <h2></h2>
                 <b style="color:white; font-size:20px; display:none;" id = "text ">Why will you decline this task?</b>
                 <input type="hidden" class="form-control input-form" id="input ">
                 <button hidden = "hidden" type="button" class="btn projekt-management-button btn-dark"
-                 style="background-color: #FB8500 !important" id = 'submit '>SUBMIT</button>
+                 style="background-color: #FB8500 !important" id = 'submit '>SUBMIT</button> -->
               </div>
               </div>
  {{/each}}
