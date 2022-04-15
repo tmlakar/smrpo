@@ -55,7 +55,7 @@ const userStoriesShema = new mongoose.Schema({
     finished: {type: Boolean, default: false},
     inProgress: {type: Boolean, default: false},
     sprint: {type: Number, default: 0},
-    
+    allSprints: [{type: String}]
 
 
 });

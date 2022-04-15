@@ -85,8 +85,9 @@
   <ul class="nav nav-tabs">
 
     <li class="active"><a class="nav-link" data-toggle="tab" href="#backlog" onclick="location.href='#backlog'">Product backlog</a></li>
+    {{#if (isnotPO scrumMaster teamMember productManager)}}
     <li><a class="nav-link" data-toggle="tab" href="#sprints" onclick="location.href='#sprints'">Sprints</a></li>
-
+    {{/if}}
   </ul>
 
   {{!-- product backlog -> prikazovanje zgodb + dodajanje novih --}}
@@ -299,7 +300,7 @@
                                 collaborators1 = $(this).data('collaborators');
                                 
 
-                                console.log(collaborators1);
+                                //console.log(collaborators1);
                                 
                                 
                                 // spreminjanje ownerja
@@ -363,6 +364,8 @@
                                 $('#storyPriority').val(storyPriority);
                                 $('#storyBusinessValue').val(storyBusinessValue);
                                 $('#storySize').val(storySize);
+                                $('#storySize1').val(storySize);
+                                $('#storySize2').val(storySize);
                                 $('#storySprint').val(storySprint);
                                 $('#StoryBelongsToASprint').val(storySprint);
                                 $('#StoryFinished').val(storyFinished);
@@ -379,6 +382,10 @@
 
                                 //pravice kdo lahko in v katerih primerih
                                 if (isScrumMaster == true || isProductManager == true) {
+                                      if (isProductManager == true) {
+                                         document.getElementById("storySize2").style.display="block";
+                                    document.getElementById("storySize").style.display="none";
+                                      }
                                       if (storyFinished == false && storySprint == 0) {
                                       document.getElementById("editButton").style.display="block";
                                       document.getElementById("deleteButton").style.display="block";
@@ -404,6 +411,39 @@
                                   document.getElementById("deleteButton").style.display="none";
                                 }
 
+                                console.log(storyTests);
+                                if (storyTests == "") {
+                                  //nemores dat v sprint al pa dat size
+                                  if (isProductManager == true) {
+                                    document.getElementById("addToSprintDisabled").style.display="none";
+                                   document.getElementById("addToSprint").style.display="none";
+                                   document.getElementById("storySize2").style.display="block";
+                                   document.getElementById("storySize").style.display="none";
+                                  } else { 
+                                   document.getElementById("addToSprintDisabled").style.display="block";
+                                   document.getElementById("addToSprint").style.display="none";
+                                   document.getElementById("storySize2").style.display="block";
+                                   document.getElementById("storySize").style.display="none";
+                                  }
+                                   
+                                } else {
+                                  // lahko
+                                  if (isProductManager == true) {
+                                         document.getElementById("storySize2").style.display="block";
+                                        document.getElementById("storySize").style.display="none";
+                                        document.getElementById("addToSprintDisabled").style.display="none";
+                                   document.getElementById("addToSprint").style.display="none";
+
+                                      } else {
+                                        document.getElementById("addToSprintDisabled").style.display="none";
+                                       document.getElementById("addToSprint").style.display="block";
+                                   
+                                       document.getElementById("storySize2").style.display="none";
+                                      document.getElementById("storySize").style.display="block";
+                                      }
+                                }
+                  
+
 
                                 // 2. acceptance tests
                                 //prikazovanje
@@ -412,6 +452,10 @@
                                 let string = storyTests.toString();
                                 let result = string.replace(/,/g, '<br>');
                                 {{!-- console.log(result); --}}
+                                if (isProductManager == true) {
+                                  
+               
+                                }
 
                                 $('#storyAcceptanceTests').html(result);
 
@@ -612,7 +656,9 @@
               <ul class="nav nav-tabs">
                   <li class="active"><a class="nav-link" data-toggle="tab" href="#info" onclick="location.href='#info'">Edit information</a></li>
                   <li><a class="nav-link" data-toggle="tab" href="#atest" onclick="location.href='#atest'">Add acceptance tests</a></li>
+                  {{#if (isnotPO scrumMaster teamMember productManager)}}
                   <li><a class="nav-link" data-toggle="tab" href="#tasks" onclick="location.href='#tasks'">Add and edit tasks</a></li>
+                  {{/if}}
                   <li><a class="nav-link" data-toggle="tab" href="#comments" onclick="location.href='#comments'">Add a comment</a></li>
                 </ul>
 
@@ -666,38 +712,47 @@
                     </div>
 
                     <!-- Size --->
-                    <div class="mb-3" style="padding-bottom: 10px !important;">
-                        <label class="form-label" style="padding-top: 10px !important">Size</label>
+                    <div id="storySizeInput" class="mb-3" style="padding-bottom: 10px !important;">
+                        <label id="storySizeInputLabel" class="form-label" style="padding-top: 10px !important">Size</label>
                         <input class="form-control input-form" name="size" id="storySize" aria-describedby="emailHelp" type="number" min="1" required>
+                        <input class="form-control input-form" name="size" id="storySize2" aria-describedby="emailHelp" type="number" min="1" style="background-color: rgb(196, 196, 196) !important"disabled>
+
+                        <input class="form-control input-form" name="currSize" id="storySize1" aria-describedby="emailHelp" type="number" min="1" hidden>
+
                     </div>
                     
 
 
                       <!-- se pogoji kdo lahko spreminja pa pod katerimi pogoji-->
-                      <div class="row" style="padding: 0% !important; margin: 0% !important;">
+                      
 
-                        <div class="col-lg-4" style="padding: 0% !important; margin: 0% !important;">
+                        <div class="" style="padding: 0% !important; margin: 0% !important;">
                         <button id="editButtonDisabled" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important" disabled>Save changes</button>
                         <button id="editButton" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save changes</button>
                         </div>
 
                     </form>
 
-                      <div class="col-lg-4">
-                      <form id="addStoryToSprint" method="post" action="">
-                      <!--<button id="addToSprintDisabled" type="submit" class="btn submit-form" style="background-color: var(--c2)!important; width: 220px !important;" disabled>Add to current Sprint</button>-->
-                      <button id="addToSprint" type="submit" class="btn submit-form" style="background-color: var(--c2)!important; width: 220px !important;">Add to current Sprint</button>
-                      </form>
-                      </div>
+                    
 
-                      <div class="col-lg-4" style="padding: 0% !important; margin: 0% !important;">
+                      <div class="" style="padding: 0% !important; margin: 0% !important; float: right !important">
                       <form id="urlDelete" method="post" action="">
                       <button id="deleteButtonDisabled" type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important" disabled>Delete story</button>
                       <button id="deleteButton" type="submit" class="btn submit-form" style="background-color: var(--c1)!important; float: Right; !important">Delete story</button>
                       </form>
                       </div>
 
+                      
+
+                       <div class="" style="">
+                      <form id="addStoryToSprint" method="post" action="">
+                      <button id="addToSprintDisabled" type="submit" class="btn submit-form" style="background-color: var(--c2)!important; width: 220px !important;" disabled>Add to current Sprint</button>
+                      <button id="addToSprint" type="submit" class="btn submit-form" style="background-color: var(--c2)!important; width: 220px !important;">Add to current Sprint</button>
+                      </form>
                       </div>
+
+
+                      
 
               </div>
 
