@@ -1,0 +1,125 @@
+
+<div class="hbses">
+
+<h3>[Sprint name]'s tasks</h3>
+
+
+
+<div class="row" style="padding-top:">
+
+  {{!-- additional project infos --}}
+  <div class="col-lg-2" style="padding-top: 20px !important; padding-right: 20px !important">
+
+  {{!-- gumb za nazaj na project --}}
+    <div  style="padding-bottom: 20px !important">
+          <a href="/project/{{id}}"><button class="btn submit-form btn-dark" style="background-color: var(--c5) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Go to Project</button></a>
+    </div>
+    {{!-- par informacij o projektu --}}
+    <div class="card account-info" style="background-color: var(--c4) !important;">
+                <div class="card-body">
+                    <h5 class="card-title">Additional project information</h5>
+                        {{!-- info --}}
+                        <p class="card-text"><span style="color: var(--c2) !important;">Project description:</span>
+                        <br>
+                        {{info}}
+                        </p>
+                        {{!-- produktni vodja --}}
+                        <p class="card-text"><span style="color: var(--c2) !important;">Product owner:</span>
+                        <br>
+                        {{#each productManagers as |productManager|}}
+
+                          <button  id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
+                           class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c1) !important; ">
+                          {{firstLetterOfUsername productManager.username}}
+                          </button>
+
+                        {{/each}}
+
+                        </p>
+                        {{!-- scrum master --}}
+                        <p class="card-text"><span style="color: var(--c2) !important;">Scrum master:</span>
+
+                        {{#each scrumMasters as |scrumMaster|}}
+                          <br>
+                          <button  id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
+                           class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c5) !important; ">
+                          {{firstLetterOfUsername scrumMaster.username}}
+                          </button>
+                        {{/each}}
+
+                        </p>
+                        {{!-- team members --}}
+                        <p class="card-text"><span style="color: var(--c2) !important;">Team members:</span>
+
+                        {{#each teamMembers as |teamMember|}}
+                          <br>
+                          <button  id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
+                           class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c6) !important; ">
+                          {{firstLetterOfUsername teamMember.username}}
+                          </button>
+                        {{/each}}
+
+                        </p>
+
+
+
+                </div>
+
+            </div>
+  </div>
+
+    <div class="col-lg-10" style="margin-top: 20px !important">
+        
+        <!-- kartice v sprintu -->
+        <div class="card projekt-publication" style="border: 3px solid var(--c2) !important;">
+
+        <p>#[no.] [Ime kartice]</p>
+          
+        <!-- row: done/not done + task + assigned & in progress -->
+        <div class="row">
+
+            <div class="col-lg-1">
+                <p>check</p>
+            </div>
+              
+            <div class="col-lg-9">
+            <p>Task</p>
+            </div>
+
+
+
+        </div>
+        
+        <!-- gumb za dodajanje novih uporabniških zgodb v sprint modalno okno-->
+        <button id="" type="button" data-toggle="modal" data-target="#modalAddStories" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right" style="background-color: var(--c1) !important; border: 3px solid var(--c1) !important"><i class="fa-solid fa-plus dodaj"></i></button><br>
+        
+    </div>
+
+
+  </div>
+  </div>
+
+
+<!-- modalno okno za dodajanje novih uporabniških zgodb v sprint -->
+<div class="modal" id="modalAddStories" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="padding-top: 150px !important;">
+        <div class="modal-content modal-content-ekipa" style="background-color: var(--c4) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
+            <div class="modal-header" style="background-color: var(--c4) !important;">
+                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Add User stories to Sprint</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
+            </div>
+
+            <div class="modal-body">
+            <form method="post" id="" action="">
+             
+             <p>checkbox z zgodbami, ki so na voljo</p>
+            
+            <button id="" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Add</button>
+            </form>                           
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
