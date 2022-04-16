@@ -69,14 +69,14 @@
 
     <br>
     {{!-- legenda --}}
-    <div class="card account-info" style="background-color: var(--c3) !important;">
+  <!--  <div class="card account-info" style="background-color: var(--c3) !important;">
                 <div class="card-body">
-                  <!-- legend for user stories -->
+                 
                         <div><button id="project_circle_legend" style="background-color: var(--c4) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Unfinished</span></div>
                         <div><button id="project_circle_legend" style="background-color: var(--c5) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Finished</span></div>
-                        <div><button id="project_circle_legend" style="background-color: var(--c2) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Future release</span></div>
+                        <div><button id="project_circle_legend" style="background-color: var(--c2) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Future</span></div>
                 </div>
-    </div>
+    </div> -->
 
   </div>
 
@@ -756,9 +756,9 @@
                     </div>
 
                       <!-- Assigned -->
-                    <div class="storyOwner_circle-d col-lg-2" style="padding-right: 50px !important; padding-top: 40px !important;">
-                        <button  id="storyOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" data-toggle="modal" data-target="#modalEditUser">
-                            <span id="storyOwnerS">O</span>
+                    <div class="storyOwner_circle-d col-lg-2" style="padding-right: 30px !important; padding-top: 40px !important;">
+                        <button  id="storyOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c4) !important; width: 100px !important" data-toggle="modal" data-target="#modalEditUser">
+                            <span id="storyOwnerS">Assignee</span>
                         </button>
                     </div>
                     </div>
@@ -1495,7 +1495,7 @@
                   <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                   <span>Sprint size:</span> {{sprint.sprintSize}}</p>
 
-                  <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
+                  <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c4) !important; float: right !important;">
                     Go to Sprint
                   </button></a>
 
@@ -1515,10 +1515,10 @@
                 <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                 <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                 <span>Sprint size:</span> {{sprint.sprintSize}}</p>
-                <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;">
+                <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: right !important;">
                   Edit Sprint
                 </button>
-                <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
+                <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;"hidden>
                   Go to Sprint
                 </button></a>
                 <script>
@@ -1549,7 +1549,7 @@
                 <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                 <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                 <span>Sprint size:</span> {{sprint.sprintSize}}</p>
-                <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
+                <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;" hidden>
                   Go to Sprint
                 </button></a>
               </div>

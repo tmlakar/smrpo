@@ -74,7 +74,7 @@ const addNewUserStory = (req, res) => {
                 aboutText: req.body.aboutText,
                 priority: req.body.priority,
                 businessValue: req.body.businessValue,
-                
+
             }
         }).then((odgovor) => {
             var name = odgovor.name;
@@ -82,7 +82,7 @@ const addNewUserStory = (req, res) => {
             res.redirect('/project/' + projectId + '?addstory=' + string + '#backlog');
         }).catch((napaka) => {
             var string = "napakaPriDodajanjuUporabniskeZgodbe";
-            res.redirect('/project/' + projectId + '/new-user-story?error=' + string +'#backlog');
+            res.redirect('/project/' + projectId + '/new-user-story?error=' + string + '#backlog');
 
         });
     }
@@ -109,17 +109,17 @@ const updateUserStoryInfo = (req, res) => {
                 aboutText: req.body.aboutText,
                 priority: req.body.priority,
                 businessValue: req.body.businessValue,
-                
-                
-                
+
+
+
             }
         }).then((odgovor) => {
             var name = odgovor.name;
             var string = "successfully edited";
-            res.redirect('/project/' + projectId + '?edited=' + string);
+            res.redirect('/project/' + projectId + '?edited=' + string + '#backlog');
         }).catch((napaka) => {
             var string = "napakaPriPosodabljanjuUporabniskeZgodbe";
-            res.redirect('/project/' + projectId + '?error=' + string);
+            res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
 
         });
     }
@@ -142,10 +142,10 @@ const addSubtask = (req, res) => {
         }).then((odgovor) => {
             var name = odgovor.name;
             var string = "successfully added task";
-            res.redirect('/project/' + projectId + '?addtask=' + string);
+            res.redirect('/project/' + projectId + '?addtask=' + string + '#backlog');
         }).catch((napaka) => {
             var string = "napakaPriDodajanjuSubtaska";
-            res.redirect('/project/' + projectId + '?error=' + string);
+            res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
 
         });
     }
@@ -164,25 +164,25 @@ const addToSprint = (req, res) => {
             url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/add-to-sprint',
             data: {
                 sprint: req.body.sprint,
-                
+
             }
         }).then((odgovor) => {
             var name = odgovor.name;
             var string = "successfull";
-            res.redirect('/project/' + projectId + '?addsprint=' + string);
+            res.redirect('/project/' + projectId + '?addsprint=' + string + '#backlog');
         }).catch((napaka) => {
             var string = "napakaPriDodajanjuSubtaska";
-            res.redirect('/project/' + projectId + '?error=' + string);
+            res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
 
         });
     }
 };
 
-/* POST - Add zie  */
+/* POST - Add size  */
 const addSize = (req, res) => {
     var projectId = req.params.id;
     var storyId = req.params.idStory;
-    
+
     if (!req.body.size) {
 
     } else {
@@ -191,15 +191,15 @@ const addSize = (req, res) => {
             url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/add-size',
             data: {
                 size: req.body.size,
-                
+
             }
         }).then((odgovor) => {
             var name = odgovor.name;
             var string = "successfull";
-            res.redirect('/project/' + projectId + '?addsize=' + string);
+            res.redirect('/project/' + projectId + '?addsize=' + string + '#backlog');
         }).catch((napaka) => {
             var string = "napakaPriDodajanjuSize";
-            res.redirect('/project/' + projectId + '?error=' + string);
+            res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
 
         });
     }
@@ -223,10 +223,10 @@ const addSubtaskOwner = (req, res) => {
         }).then((odgovor) => {
             var name = odgovor.name;
             var string = "successfully added assignee";
-            res.redirect('/project/' + projectId + '?updateowner=' + string);
+            res.redirect('/project/' + projectId + '?updateowner=' + string + '#backlog');
         }).catch((napaka) => {
             var string = "napakaPriPosodabljanjuLastnika";
-            res.redirect('/project/' + projectId + '?error=' + string);
+            res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
 
         });
     }
@@ -250,10 +250,10 @@ const editSubtask = (req, res) => {
         }).then((odgovor) => {
             var name = odgovor.name;
             var string = "successfully updated task";
-            res.redirect('/project/' + projectId + '?successful=' + string);
+            res.redirect('/project/' + projectId + '?successful=' + string + '#backlog');
         }).catch((napaka) => {
             var string = "napakaPriPosodabljanjuNaloge";
-            res.redirect('/project/' + projectId + '?error=' + string);
+            res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
 
         });
     }
@@ -272,10 +272,10 @@ const removeSubtask = (req, res) => {
     }).then((odgovor) => {
         var name = odgovor.name;
         var string = "successfully deleted task";
-        res.redirect('/project/' + projectId + '?successDelete=' + string);
+        res.redirect('/project/' + projectId + '?successDelete=' + string + '#backlog');
     }).catch((napaka) => {
         var string = "napakaPriBrisanjuNaloge";
-        res.redirect('/project/' + projectId + '?error=' + string);
+        res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
 
     });
 
@@ -297,10 +297,10 @@ const addAcceptanceTest = (req, res) => {
         }).then((odgovor) => {
             var name = odgovor.name;
             var string = "successfully added acceptance test";
-            res.redirect('/project/' + projectId + '?addtest=' + string);
+            res.redirect('/project/' + projectId + '?addtest=' + string + '#backlog');
         }).catch((napaka) => {
             var string = "napakaPriDodajanjuSprejemnegaTesta";
-            res.redirect('/project/' + projectId + '?error=' + string);
+            res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
 
         });
     }
@@ -323,10 +323,10 @@ const addComment = (req, res) => {
         }).then((odgovor) => {
             var name = odgovor.name;
             var string = "successfully added comment";
-            res.redirect('/project/' + projectId + '?addcomment=' + string);
+            res.redirect('/project/' + projectId + '?addcomment=' + string + '#backlog');
         }).catch((napaka) => {
             var string = "napakaPriDodajanjuKomentarja";
-            res.redirect('/project/' + projectId + '?error=' + string);
+            res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
 
         });
     }
@@ -348,10 +348,10 @@ const addFlag = (req, res) => {
         }).then((odgovor) => {
             var name = odgovor.name;
             var string = "successfully added";
-            res.redirect('/project/' + projectId + '?error=' + string);
+            res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
         }).catch((napaka) => {
             var string = "napakaPriDodajanjuSubtaska";
-            res.redirect('/project/' + projectId + '?error=' + string);
+            res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
 
         });
     }
@@ -373,10 +373,10 @@ const updateOwner = (req, res) => {
         }).then((odgovor) => {
             var name = odgovor.name;
             var string = "successfully edited story owner";
-            res.redirect('/project/' + projectId + '?success=' + string);
+            res.redirect('/project/' + projectId + '?success=' + string + '#backlog');
         }).catch((napaka) => {
             var string = "napakaPriPosodabljanjuUporabniskeZgodbe";
-            res.redirect('/project/' + projectId + '?error=' + string);
+            res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
 
         });
     }
@@ -394,10 +394,10 @@ const deleteStory = (req, res) => {
     }).then((odgovor) => {
         var name = odgovor.name;
         var string = "successfully removed";
-        res.redirect('/project/' + projectId + '?removed=' + string);
+        res.redirect('/project/' + projectId + '?removed=' + string + '#backlog');
     }).catch((napaka) => {
         var string = "napakaPriPosodabljanjuUporabniskeZgodbe";
-        res.redirect('/project/' + projectId + '?error=' + string);
+        res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
 
     });
 
