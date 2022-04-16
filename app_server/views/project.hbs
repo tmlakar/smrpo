@@ -1362,43 +1362,27 @@
 {{/if}}
 
       <div id="sprints" class="tab-pane fade">
+        <div class="row" style="padding-top: 40px !important; color: var(--c1) !important">
 
+          {{!---INPROGRESS SPRINTS --}}
+          {{!---prikaz dodanih sprintov, ki se jih pridobi iz apija --}}
+          <div class="col-lg-4" style="padding-left: 0px !important"><h5>In Progress</h5>
+            {{#if scrumMaster}}
+            {{#each inProcessSprints as |sprint|}}
+              <div class="card projekt-sprint" style="background-color: var(--c4)!important">
+                <div class="card-body">
+                  <h4 ><b>Sprint {{number}}</b></h4>
+                  <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
+                  <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
+                  <span>Sprint size:</span> {{sprint.sprintSize}}</p>
+                  <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;" hidden>
+                    Edit sprint
+                  </button>
+                  <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
+                    Go to Sprint
+                  </button></a>
 
-      <div class="row" style="">
-        {{!---prikaz dodanih sprintov, ki se jih pridobi iz apija --}}
-        {{#each finishedSprints as |sprint|}}
-            <div class="card projekt-sprint col-sm-3" style="background-color: var(--c5)!important">
-              <div class="card-body">
-                <h4 ><b>Sprint {{number}}</b></h4>
-                <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
-                <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
-                <span>Sprint size:</span> {{sprint.sprintSize}}</p>
-
-                <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
-                  Go to Sprint
-                </button></a>
-
-              </div>
-            </div>
-
-        {{/each}}
-         {{!---prikaz dodanih sprintov, ki se jih pridobi iz apija --}}
-         {{#if scrumMaster}}
-        {{#each inProcessSprints as |sprint|}}
-            <div class="card projekt-sprint col-sm-3" style="background-color: var(--c4)!important">
-              <div class="card-body">
-                <h4 ><b>Sprint {{number}}</b></h4>
-                <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
-                <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
-                <span>Sprint size:</span> {{sprint.sprintSize}}</p>
-                <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;" hidden>
-                  Edit sprint
-                </button>
-                <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
-                  Go to Sprint
-                </button></a>
-
-                <script>
+                    <script>
                         $(document).on("click", ".projekt-management-button", function () {
                             var projectId = $(this).data('proj');
                             var sprintId = $(this).data('id');
@@ -1410,15 +1394,15 @@
                              $('#inputSprintSize').val(sprintSize);
                             var str = '/sprints/' + projectId + '/sprint-edit/' + sprintId + '?startDate=' + eventStart + '&endDate=' + eventEnd;
                              $('#sprintEdit').attr("action", str);
-                        });
-                </script>
-              </div>
-            </div>
-          {{!-- gumba za edit projectov --}}
-        {{/each}}
-        {{else}}
-        {{#each inProcessSprints as |sprint|}}
-            <div class="card projekt-sprint col-sm-3" style="background-color: var(--c4)!important">
+                            });
+                      </script>
+                  </div>
+                </div>
+            {{!-- gumba za edit projectov --}}
+            {{/each}}
+            {{else}}
+            {{#each inProcessSprints as |sprint|}}
+            <div class="card projekt-sprint" style="background-color: var(--c4)!important">
               <div class="card-body">
                 <h4 ><b>Sprint {{number}}</b></h4>
                 <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
@@ -1429,12 +1413,38 @@
                 </button></a>
               </div>
             </div>
-          {{!-- gumba za edit projectov --}}
-        {{/each}}
-        {{/if}}
-        {{#if scrumMaster}}
-        {{#each futureSprints as |sprint|}}
-            <div class="card projekt-sprint col-sm-3" style="background-color: var(--c2)!important">
+            {{!-- gumba za edit projectov --}}
+            {{/each}}
+            {{/if}}
+          </div>
+
+
+          {{!---FINISHED SPRINTS --}}
+          {{!---prikaz dodanih sprintov, ki se jih pridobi iz apija --}}
+          <div class="col-lg-4" style="padding-left: 0px !important"><h5>Finished</h5>
+            {{#each finishedSprints as |sprint|}}
+              <div class="card projekt-sprint col-sm-3" style="background-color: var(--c5)!important">
+                <div class="card-body">
+                  <h4 ><b>Sprint {{number}}</b></h4>
+                  <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
+                  <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
+                  <span>Sprint size:</span> {{sprint.sprintSize}}</p>
+
+                  <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
+                    Go to Sprint
+                  </button></a>
+
+                </div>
+              </div>
+            {{/each}}
+          </div>
+
+          {{!---FUTURE RELEASE SPRINTS --}}
+          {{!---prikaz dodanih sprintov, ki se jih pridobi iz apija --}}
+          <div class="col-lg-4" style="padding-left: 0px !important"><h5>Future Release</h5>
+            {{#if scrumMaster}}
+            {{#each futureSprints as |sprint|}}
+            <div class="card projekt-sprint" style="background-color: var(--c2)!important">
               <div class="card-body">
                 <h4 ><b>Sprint {{number}}</b></h4>
                 <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
@@ -1468,7 +1478,7 @@
         {{/each}}
         {{else}}
         {{#each futureSprints as |sprint|}}
-            <div class="card projekt-sprint col-sm-3" style="background-color: var(--c2)!important">
+            <div class="card projekt-sprint" style="background-color: var(--c2)!important">
               <div class="card-body">
                 <h4 ><b>Sprint {{number}}</b></h4>
                 <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
@@ -1481,8 +1491,12 @@
             </div>
           {{!-- gumba za edit projectov --}}
         {{/each}}
-        {{/if}}
+        {{/if}}        
+          </div>
+
       </div>
+
+
       {{#if scrumMaster}}
         {{!-- gumb za dodajanje novega sprinta - se pokaže le če je prijavljen admin--}}
         <div><a href="/sprint-new/{{id}}"><button id="" type="button" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right"><i class="fa-solid fa-plus dodaj"></i></button></a></div><br>
