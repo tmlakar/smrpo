@@ -71,7 +71,9 @@ router.post('/sprint-new/:id', ctrlSprint.sprintCreate);
 router.get("/sprint-edit/:id", ctrlSprint.prikazEdit);
 router.post("/sprints/:projectId/sprint-edit/:sprintId", ctrlSprint.posodobiInprocessSprint)
 router.post("/sprints/:projectId/sprint-edit-all/:sprintId", ctrlSprint.posodobiFutureSprint)
-router.post("/sprints/:projectId/delete-sprint/:sprintId", ctrlSprint.deleteSprint)
+router.post("/sprints/:projectId/delete-sprint/:sprintId", ctrlSprint.deleteSprint);
+router.get("/project/:id/sprint/:sprintId/tasks", ctrlSprint.podrobnostiProject);
+
 
 
 /* User stories a.k.a uporabniska zgodba */
