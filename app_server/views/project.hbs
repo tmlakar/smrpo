@@ -142,12 +142,14 @@
                           <!--<span id="flag-info" style="margin-left: 12px!important;>
                           Unassigned
                           </span> -->
-
+                          
+                          
                           <span id="flag-info" style="margin-left: 12px!important; width: 120px !important;">
-                           Current sprint
+                           {{isInCurrentSprint story.sprint ../inProcessSprintsNumbers}}
                           </span>
                           
-                          <button type="button" data-toggle="modal" data-target="#modalSprintInfo" class="btn btn-dark sprint-info-button" style="margin-left: 15px !important; margin-right: -20px !important;">in Sprints</button>
+                          
+                          <button type="button" data-toggle="modal" data-name="{{story.name}}" data-sprints="{{story.allSprints}}" data-target="#modalSprintInfo" class="btn btn-dark sprint-info-button" style="margin-left: 15px !important; margin-right: -20px !important;">in Sprints</button>
 
                         </div>
                       </div>
@@ -164,16 +166,37 @@
             {{/each}}
           </div>
           
+          <script>
+            $(document).on("click", ".sprint-info-button", function () {
+              var sprints = $(this).data('sprints');
+              var nam = $(this).data('name');
+              console.log(sprints);
+              let stringS = sprints.toString();
+              stringS = 'Sprint ' + stringS;
+              let resultS = stringS.replace(/,/g, ',Sprint ');
+              resultS = resultS.replace(/,/g, '</br>');
+              resultS = '<p style="color: var(--c7) !important; padding-left: 10px !important; padding-top: 10px !important">' + resultS + '</p>';
+              console.log(resultS);
+
+              $('#storySprints').html(resultS);
+              
+              var heading = 'User story "' + nam + '" was assigned to the following Sprints:';
+              $('#headingCardStories').html(heading);
+
+
+            });
+
+          </script>
           <!-- Modalno okno za pregled zgodovine sprintov kartice -->
           <div class="modal" id="modalSprintInfo" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" style="padding-top: 150px !important;">
-            <div class="modal-content" style="box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
+            <div class="modal-content" style="box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px; color: white !important">
               <div class="modal-header" style="padding-bottom: 0px!important; margin-bottom: 0px!important;">
-                <h5 class="modal-title">User story [insert name] was assigned to the following Sprints:</h5>
+                <h5 class="modal-title" id="headingCardStories" style="color: white !important"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
               </div>
-              <div class="modal-body" style="padding-top: 0px!important; margin-top: 0px!important;">
-                <p>* Sprint 1</p>                         
+              <div id="storySprints" class="modal-body" >
+                                       
               </div>
             </div>
           </div>
@@ -222,7 +245,7 @@
                            Finished
                           </span>
                           
-                          <button type="button" data-toggle="modal" data-target="#modalSprintInfo" class="btn btn-dark sprint-info-button" style="margin-left: 55px !important; margin-right: -20px !important;">in Sprints</button>
+                          <button type="button" data-name="{{story.name}}" data-sprints="{{story.allSprints}}"  data-toggle="modal" data-target="#modalSprintInfo" class="btn btn-dark sprint-info-button" style="margin-left: 55px !important; margin-right: -20px !important;">in Sprints</button>
                         
                         </div>
                       </div>
@@ -292,10 +315,9 @@
                   <script>
                             $(document).on("click", ".modalnoOknoStory", function () {
 
-
+                              //pridobivanje podatkov v modalno okno
                               var projId = $(this).data('projid');
                                 var storyId = $(this).data('id');
-                                console.log(storyId);
                                 var storyID = $(this).data('id');
                                 var storyName = $(this).data('name');
                                 var storyAbout = $(this).data('desc');
@@ -324,7 +346,6 @@
                                 collaborators1 = $(this).data('collaborators');
                                 
 
-                                //console.log(collaborators1);
                                 
                                 
                                 // spreminjanje ownerja
@@ -388,14 +409,14 @@
                                 $('#storyPriority').val(storyPriority);
                                 $('#storyBusinessValue').val(storyBusinessValue);
                                 $('#storySize').val(storySize);
-                                $('#storySize1').val(storySize);
-                                $('#storySize2').val(storySize);
                                 $('#storySprint').val(storySprint);
                                 $('#StoryBelongsToASprint').val(storySprint);
                                 $('#StoryFinished').val(storyFinished);
                                 $('#isScrumMaster').val(isScrumMaster);
                                 $('#isProductManager').val(isProductManager);
 
+                                //append current sprint to button "add to current sprint"
+                                $('#currentSprint').val(sprintsInProgress);
                                 
                                 $('#storyOwnerS').val(storyOwner);
                                 
@@ -404,10 +425,10 @@
                                 {{!-- ce lahko urejamo + brisemo --}}
                                 {{!-- ce je user --}}
 
-                                //pravice kdo lahko in v katerih primerih
+                                //pravice kdo lahko ureja informacije in v katerih primerih
                                 if (isScrumMaster == true || isProductManager == true) {
                                       if (isProductManager == true) {
-                                         document.getElementById("storySize2").style.display="block";
+                                         
                                     document.getElementById("storySize").style.display="none";
                                       }
                                       if (storyFinished == false && storySprint == 0) {
@@ -435,41 +456,68 @@
                                   document.getElementById("deleteButton").style.display="none";
                                 }
 
-                                console.log(storyTests);
+                                
+                                // add to sprint pravice
+                                if (sprintsInProgress == storySprint) {
+                                  //naj se gumb ne pokaze
+                                  document.getElementById("addToSprintDisabled").style.display="none";
+                                   document.getElementById("addToSprint").style.display="none";
+                                } else {
                                 if (storyTests == "") {
                                   //nemores dat v sprint al pa dat size
                                   if (isProductManager == true) {
                                     document.getElementById("addToSprintDisabled").style.display="none";
                                    document.getElementById("addToSprint").style.display="none";
-                                   document.getElementById("storySize2").style.display="block";
-                                   document.getElementById("storySize").style.display="none";
+                                   
                                   } else { 
                                    document.getElementById("addToSprintDisabled").style.display="block";
                                    document.getElementById("addToSprint").style.display="none";
-                                   document.getElementById("storySize2").style.display="block";
-                                   document.getElementById("storySize").style.display="none";
+                                  
                                   }
                                    
                                 } else {
                                   // lahko
                                   if (isProductManager == true) {
-                                         document.getElementById("storySize2").style.display="block";
-                                        document.getElementById("storySize").style.display="none";
-                                        document.getElementById("addToSprintDisabled").style.display="none";
-                                   document.getElementById("addToSprint").style.display="none";
+                                      document.getElementById("addToSprintDisabled").style.display="none";
+                                       document.getElementById("addToSprint").style.display="none";
 
                                       } else {
+                                        //story size more bit razlicen od 0 da lahko da v current sprint
+                                        if (storySize == 0) {
+                                           document.getElementById("addToSprintDisabled").style.display="block";
+                                   document.getElementById("addToSprint").style.display="none";
+                                        } else {
                                         document.getElementById("addToSprintDisabled").style.display="none";
                                        document.getElementById("addToSprint").style.display="block";
-                                   
-                                       document.getElementById("storySize2").style.display="none";
-                                      document.getElementById("storySize").style.display="block";
+                                        }
                                       }
                                 }
+                                }
                   
+                                // 1.5 size ***************************************************************************
+                                //izpisovanje
+                                //pravice -> kdo lahko ureja sprint size  in kdaj
+                                if (isScrumMaster) {
+                                  if (storyTests == "" || storySprint != 0) {
+                                    document.getElementById("editSizeButtonDisabled").style.display="block";
+                                    document.getElementById("editSizeButton").style.display="none";
+                                    //naj se se renderirajo stvari ki nakazujejo zakaj nemore uredit
+                                    document.getElementById("storySizeDisabledPSA").style.display="block";
+                                   
+                                  } else {
+                                    document.getElementById("editSizeButtonDisabled").style.display="none";
+                                    document.getElementById("editSizeButton").style.display="block";   
+                                    document.getElementById("storySizeDisabledPSA").style.display="none";
+                                  }
+
+                                } else {
+                                  document.getElementById("editSizeButtonDisabled").style.display="block";
+                                  document.getElementById("editSizeButton").style.display="none";
+                                  document.getElementById("storySizeDisabledPSA").style.display="none";
+                                }
 
 
-                                // 2. acceptance tests
+                                // 2. acceptance tests *****************************************************************
                                 //prikazovanje
                                 {{!-- acceptance tests - to je tabela --}}
                                 {{!-- kjer je , bomo brejkal --}}
@@ -483,7 +531,7 @@
 
                                 $('#storyAcceptanceTests').html(result);
 
-                                //kdo in v katerih primerih
+                                //kdo in v katerih primerih lahko dodaja acceptance tests?
                                 
                                   if (isScrumMaster || isProductManager) {
                                     if (storySprint != 0 && storyFinished == false) {
@@ -501,14 +549,14 @@
                                     document.getElementById("addTestDisabled").style.display="block";
                                 }
 
-                                // 3. subtasks (naloge)
-                                {{!-- tasks - objekti --}}
+                                // 3. subtasks (naloge) *****************************************************************************
+                                
                                 // pravice dodajanja novega taska
                                 // dodaja lahko scrum master ali clani razvojne skupine
                                 // v primeru da je zgodba znotraj aktivnega sprinta
                                 
                                 if (isScrumMaster || isTeamMember) {
-                                    if (sprintsInProgress == storySprint) {
+                                    if (sprintsInProgress == storySprint && storyFinished == false) {
                                     // lahko doda - enabled
                                     document.getElementById("addTaskEnabled").style.display="block";
                                     document.getElementById("addTaskDisabled").style.display="none";
@@ -595,10 +643,9 @@
                                 $('#addnewSubtask1').html(subtasksString);
 
 
-                                // 4. komentarji
+                                // 4. komentarji *******************************************************************************
                                 {{!-- commentOwnerUsername --}}
                                 {{!-- comments --}}
-
                                 // prikazovanje komentarjev
                                 let array = storyComments;
                                 function functionFirstLetter(value) {
@@ -619,13 +666,11 @@
                                   //postfix
                                   commentsString = commentsString + array[j].comment + '</div></div>';
                                 }
-
-
-                               
                                 $('#storyCommentsAll').html(commentsString);
 
                                 //pravice dodajanja komentarjev - team members 
-                                if (isTeamMember) {
+                                if ((isTeamMember || isScrumMaster) && storyFinished == false) {
+                                  
                                   document.getElementById("addCommentsButtonEnabled").style.display="block";
                                   document.getElementById("addCommentsButtonDisabled").style.display="none";
     
@@ -639,8 +684,14 @@
 
 
 
-                                // url-ji za 1., 2., 3., 4. kam se posiljajo podatki
-                                 
+                                // url-ji za 1., 2., 3., 4. kam se posiljajo podatki ******************************************************
+
+                                var addToSprint = '/project/'+ projId + '/userStory/'+ storyId +'/add-to-sprint';
+                                $('#addToSprintForm').attr("action", addToSprint);
+
+                                var addSize = '/project/'+ projId + '/userStory/'+ storyId +'/add-size';
+                                $('#addSizeForm').attr("action", addSize);
+
                                 var editBasicInfo = '/project/'+ projId + '/userStory/'+ storyId + '/edit-info';
                                 $('#editBasicInfo').attr("action", editBasicInfo);
                                 var urlDelete = '/project/'+ projId + '/userStory/'+ storyId + '/delete';
@@ -670,7 +721,7 @@
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content modal-content-ekipa" style = "border: 3px solid var(--c2) !important;">
                 <div class="modal-header modal-header-ekipa">
-                  <h5 class="modal-title" id="StoryName" style="padding-top=10px; !important">{{story.name}}</h5> <!-- ni znotraj each in mi ne dela -->
+                  <h5 class="modal-title" id="StoryName" style="padding-top=10px; !important">{{story.name}}</h5> 
                   <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </button>
@@ -678,17 +729,20 @@
 
                 {{!-- zavihki za uporabnisko --}}
               <ul class="nav nav-tabs">
-                  <li class="active"><a class="nav-link" data-toggle="tab" href="#info" onclick="location.href='#info'">Edit information</a></li>
-                  <li><a class="nav-link" data-toggle="tab" href="#atest" onclick="location.href='#atest'">Add acceptance tests</a></li>
+                  <li class="active"><a class="nav-link" data-toggle="tab" href="#info" onclick="location.href='#info'">Information</a></li>
                   {{#if (isnotPO scrumMaster teamMember productManager)}}
-                  <li><a class="nav-link" data-toggle="tab" href="#tasks" onclick="location.href='#tasks'">Add and edit tasks</a></li>
+                  <li><a class="nav-link" data-toggle="tab" href="#storysize" onclick="location.href='#storysize'">Story size</a></li>
                   {{/if}}
-                  <li><a class="nav-link" data-toggle="tab" href="#comments" onclick="location.href='#comments'">Add a comment</a></li>
+                  <li><a class="nav-link" data-toggle="tab" href="#atest" onclick="location.href='#atest'">Acceptance tests</a></li>
+                  {{#if (isnotPO scrumMaster teamMember productManager)}}
+                  <li><a class="nav-link" data-toggle="tab" href="#tasks" onclick="location.href='#tasks'">Tasks</a></li>
+                  {{/if}}
+                  <li><a class="nav-link" data-toggle="tab" href="#comments" onclick="location.href='#comments'">Comments</a></li>
                 </ul>
 
                 <!-- Tab 1 - Information -->
                 <div class="tab-content">
-                <div id="info" class=" active tab-pane fade">
+                <div id="info" class="active in tab-pane fade">
                 <div class="modal-body">
                   <form method="post" id="editBasicInfo" action="">
 
@@ -735,18 +789,7 @@
                         <input class="form-control input-form" name="businessValue" id="storyBusinessValue" aria-describedby="emailHelp" type="number" min="1" max="10" required>
                     </div>
 
-                    <!-- Size --->
-                    <div id="storySizeInput" class="mb-3" style="padding-bottom: 10px !important;">
-                        <label id="storySizeInputLabel" class="form-label" style="padding-top: 10px !important">Size</label>
-                        <input class="form-control input-form" name="size" id="storySize" aria-describedby="emailHelp" type="number" min="1" required>
-                        <input class="form-control input-form" name="size" id="storySize2" aria-describedby="emailHelp" type="number" min="1" style="background-color: rgb(196, 196, 196) !important"disabled>
-
-                        <input class="form-control input-form" name="currSize" id="storySize1" aria-describedby="emailHelp" type="number" min="1" hidden>
-
-                    </div>
                     
-
-
                       <!-- se pogoji kdo lahko spreminja pa pod katerimi pogoji-->
                       
 
@@ -769,19 +812,41 @@
                       
 
                        <div class="" style="">
-                      <form id="addStoryToSprint" method="post" action="">
+                      <form id="addToSprintForm" method="post" action="">
+                      <input id="currentSprint" name="sprint" hidden>
                       <button id="addToSprintDisabled" type="submit" class="btn submit-form" style="background-color: var(--c2)!important; width: 220px !important; margin-left: 35% !important;" disabled>Add to current Sprint</button>
                       <button id="addToSprint" type="submit" class="btn submit-form" style="background-color: var(--c2)!important; width: 220px !important; margin-left: 35% !important;">Add to current Sprint</button>
                       </form>
                       </div>
 
-
-                      
-
               </div>
 
 
                 </div>
+
+                {{!-- Tab 1.5 - Story size --}}
+                <div id="storysize" class="tab-pane fade">
+                  <div class="modal-body">
+                    <form id="addSizeForm" action="" method="post">
+                    <div class = "row" style="padding-left: 0px !important;">
+                   {{!-- input size --}}
+                      <div id="storySizeInput" class="mb-3 col-lg-9" style="padding-bottom: 10px !important;">
+                        <label id="storySizeInputLabel" class="form-label" style="padding-top: 10px !important">Size (in points)</label>
+                        <input class="form-control input-form" name="size" id="storySize" aria-describedby="emailHelp" type="number" min="1" required>
+                    </div>
+                    {{!-- button save size --}}
+                    <div class="col-lg-2" style="padding-top: 35px !important ;padding-bottom: 10px !important; float: right !important">
+                        <button id="editSizeButtonDisabled" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important" disabled>Save size</button>
+                        <button id="editSizeButton" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: Left; !important">Save size</button>
+                        </div>
+                    </div>
+                    <div id="storySizeDisabledPSA" display="none">
+                    <span style="font-size: 12px !important; color: var(--c1) !important">Story size can't be edited. <br>The reason might be undefined acceptance tests or that the story is already a part of current sprint. </span><br>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+
 
               <!-- Tab 2 - Acceptance test -->
               <div id="atest" class="tab-pane fade">
@@ -2151,4 +2216,37 @@ $(document).ready(function(){
     });
 </script>
 {{/if}}
+
+
+
+<div id="modalAddToSprint" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>User story has been successfully added to current sprint!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if uspesnoDodanoVSprint}}
+<script>
+    $(document).ready(function(){
+        $("#modalAddToSprint").modal('show');
+
+        setTimeout(function() {
+
+            $('#modalAddToSprint').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
 

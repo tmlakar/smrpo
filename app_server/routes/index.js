@@ -101,6 +101,12 @@ router.post("/project/:id/userStory/:idStory/add-flag", ctrlUserStories.addFlag)
 router.post("/project/:id/userStory/:idStory/edit-owner", ctrlUserStories.updateOwner);
 /* Delete userStory */
 router.post("/project/:id/userStory/:idStory/delete", ctrlUserStories.deleteStory);
+/* add to sprint */
+router.post("/project/:id/userStory/:idStory/add-to-sprint", ctrlUserStories.addToSprint);
+/* add size */
+router.post("/project/:id/userStory/:idStory/add-size", ctrlUserStories.addSize);
+
+
 
 
 /* Publications */

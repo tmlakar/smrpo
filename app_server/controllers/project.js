@@ -60,6 +60,13 @@ var prikaz = (req, res) => {
     if (successfullyAdded == "successfully added") {
         uspesnoDodano = true;
     }
+
+    var uspesnoDodanoVSprint = false;
+    if (req.query.addsprint == "successfull") {
+        uspesnoDodanoVSprint = true;
+    }
+
+   
     var tokenParts = req.cookies.authcookie['žeton'].split('.');
     var encodedPayload = tokenParts[1];
     var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
@@ -319,6 +326,7 @@ var prikaz = (req, res) => {
                     errorDeleteTask: neuspesnoZbrisanaNaloga,
                     errorEditedStory: neuspesnoPosodobljenaZgodba,
                     uspesnoPosodobljenOwnerZgodbe: uspesnoPosodobljenOwnerZgodbe,
+                    uspesnoDodanoVSprint: uspesnoDodanoVSprint
 
 
                 });
@@ -370,6 +378,7 @@ var prikaz = (req, res) => {
                     errorDeleteTask: neuspesnoZbrisanaNaloga,
                     errorEditedStory: neuspesnoPosodobljenaZgodba,
                     uspesnoPosodobljenOwnerZgodbe: uspesnoPosodobljenOwnerZgodbe,
+                    uspesnoDodanoVSprint: uspesnoDodanoVSprint
 
 
                 });

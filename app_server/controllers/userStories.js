@@ -96,11 +96,6 @@ const updateUserStoryInfo = (req, res) => {
     var currName = req.body.nameOrig;
     var prefix = currName.substring(0, 3);
     //console.log(prefix + req.body.name);
-    var currSize = req.body.currSize;
-    var size = currSize;
-    if (req.body.size) {
-        size = req.body.size;
-    }
     if (!req.body.aboutText || !req.body.priority || !req.body.businessValue) {
 
     } else {
@@ -114,7 +109,7 @@ const updateUserStoryInfo = (req, res) => {
                 aboutText: req.body.aboutText,
                 priority: req.body.priority,
                 businessValue: req.body.businessValue,
-                size: size,
+                
                 
                 
             }
@@ -155,6 +150,61 @@ const addSubtask = (req, res) => {
         });
     }
 };
+
+/* POST - Add story to a sprint  */
+const addToSprint = (req, res) => {
+    var projectId = req.params.id;
+    var storyId = req.params.idStory;
+    console.log(req.body.sprint);
+    if (!req.body.sprint) {
+
+    } else {
+        axios({
+            method: 'post',
+            url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/add-to-sprint',
+            data: {
+                sprint: req.body.sprint,
+                
+            }
+        }).then((odgovor) => {
+            var name = odgovor.name;
+            var string = "successfull";
+            res.redirect('/project/' + projectId + '?addsprint=' + string);
+        }).catch((napaka) => {
+            var string = "napakaPriDodajanjuSubtaska";
+            res.redirect('/project/' + projectId + '?error=' + string);
+
+        });
+    }
+};
+
+/* POST - Add zie  */
+const addSize = (req, res) => {
+    var projectId = req.params.id;
+    var storyId = req.params.idStory;
+    
+    if (!req.body.size) {
+
+    } else {
+        axios({
+            method: 'post',
+            url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/add-size',
+            data: {
+                size: req.body.size,
+                
+            }
+        }).then((odgovor) => {
+            var name = odgovor.name;
+            var string = "successfull";
+            res.redirect('/project/' + projectId + '?addsize=' + string);
+        }).catch((napaka) => {
+            var string = "napakaPriDodajanjuSize";
+            res.redirect('/project/' + projectId + '?error=' + string);
+
+        });
+    }
+};
+
 
 /* PUT - updating subtask owner */
 const addSubtaskOwner = (req, res) => {
@@ -365,5 +415,7 @@ module.exports = {
     updateOwner,
     deleteStory,
     removeSubtask,
-    editSubtask
+    editSubtask,
+    addToSprint,
+    addSize
 };

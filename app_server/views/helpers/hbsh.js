@@ -261,5 +261,14 @@ hbs.registerHelper('formatRole', function(value1) {
   
 });
 
+hbs.registerHelper('isInCurrentSprint', function(value1, value2) {
+  if (value1 == value2) {
+    return "Current sprint";
+  } else {
+    return "Unassigned";
+  }
+
+  
+});
 
 
