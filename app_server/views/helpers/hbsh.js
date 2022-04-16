@@ -271,4 +271,15 @@ hbs.registerHelper('isInCurrentSprint', function(value1, value2) {
   
 });
 
+hbs.registerHelper('InCurrentSprint', function(value1, value2) {
+  value1 = value1.toString();
+  value2 = value2.toString();
+  if (value1 == value2) {
+    return true;
+  } else {
+    return false;
+  }
+
+  
+});
 

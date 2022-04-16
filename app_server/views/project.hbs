@@ -69,16 +69,72 @@
 
     <br>
     {{!-- legenda --}}
-    <div class="card account-info" style="background-color: var(--c3) !important;">
+    {{!-- <div class="card account-info" style="background-color: var(--c3) !important;">
                 <div class="card-body">
-                  <!-- legend for user stories -->
+                 
                         <div><button id="project_circle_legend" style="background-color: var(--c4) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Unfinished</span></div>
                         <div><button id="project_circle_legend" style="background-color: var(--c5) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Finished</span></div>
-                        <div><button id="project_circle_legend" style="background-color: var(--c2) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Future release</span></div>
+                        <div><button id="project_circle_legend" style="background-color: var(--c2) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Future</span></div>
                 </div>
+    </div>  --}}
+
+  {{!-- gumb za dodajanje zgodb v sprint za Scrum Master-ja --}}
+    {{#if scrumMaster}}
+    <div>
+        <button class="btn submit-form btn-dark add-to-current-sprint" data-spr="{{inProcessSprintsNumbers}}" data-toggle="modal" data-stor="{{json userStories}}" data-target="#modalAddStories" style="background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Add to Current Sprint</button>
     </div>
+    {{/if}}
 
   </div>
+
+{{!-- script za izpisovanje seznama --}}
+<script>
+  
+  $(document).on("click", ".add-to-current-sprint", function () {
+    var userStories = $(this).data('stor');
+    var currSprint = $(this).data('spr');
+    console.log(userStories);
+    console.log(currSprint);
+
+    //pogledas ce -> niso se v trenutnem sprintu, imajo assignan size, priority ni wont have this time
+    var arrStories = [{}];
+    var arrI = 0;
+    for (var i = 0; i < userStories.length; i++) {
+      if ((userStories[i].sprint != currSprint) && (userStories[i].size != 0) && (userStories[i].priority != "Won't have this time")) {
+        
+        arrStories[arrI] = userStories[i];
+        arrI = arrI + 1;
+      }
+    }
+   
+
+    console.log(arrStories);
+
+  });
+
+</script>
+<!-- modalno okno za dodajanje novih uporabniških zgodb v sprint -->
+<div class="modal" id="modalAddStories" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="padding-top: 150px !important;">
+        <div class="modal-content modal-content-ekipa" style="background-color: var(--c4) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
+            <div class="modal-header" style="background-color: var(--c4) !important;">
+                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Select User stories for Sprint</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
+            </div>
+
+            <div class="modal-body">
+            <form method="post" id="" action="">
+             
+             <p>checkbox z zgodbami, ki so na voljo</p>
+             <div style="padding-left: 10px !important;"><input type="checkbox" id="" name="" value="Task zgodbe 1" style="color: var(--c6) !important"></div>
+            
+            <button id="" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important;margin-right: 10px !important;">Add</button>
+            </form>                           
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {{!-- product backlog / sprints --}}
 <div class="col-lg-10" style="margin-top: 20px !important">
@@ -148,9 +204,9 @@
                            {{isInCurrentSprint story.sprint ../inProcessSprintsNumbers}}
                           </span>
                           
-                          
+                          {{#if (InCurrentSprint story.sprint ../inProcessSprintsNumbers)}}
                           <button type="button" data-toggle="modal" data-name="{{story.name}}" data-sprints="{{story.allSprints}}" data-target="#modalSprintInfo" class="btn btn-dark sprint-info-button" style="margin-left: 15px !important; margin-right: -20px !important;">in Sprints</button>
-
+                          {{/if}}
                         </div>
                       </div>
                     </div>
@@ -362,7 +418,7 @@
                                 var t = 0;
 
                                 for (var c = 0; c < collaborators3.length; c++) {
-                                  if (collaborators3[c].project_role == "Team Member") {
+                                  if (collaborators3[c].project_role == "Team Member" || collaborators3[c].project_role == "Scrum Master") {
                                     username = collaborators3[c].username;
                                     teamMembers1[t] = username;
                                     t = t + 1;
@@ -586,7 +642,7 @@
                                 var c = 0;
                                 var username;
                                 for (c = 0; c < collaborators1.length; c++) {
-                                  if (collaborators1[c].project_role == "Team Member") {
+                                  if (collaborators1[c].project_role == "Team Member" || collaborators1[c].project_role == "Scrum Master") {
                                     username = collaborators1[c].username;
                                     teamMembers[t] = username;
                                     t = t + 1;
@@ -756,9 +812,9 @@
                     </div>
 
                       <!-- Assigned -->
-                    <div class="storyOwner_circle-d col-lg-2" style="padding-right: 50px !important; padding-top: 40px !important;">
-                        <button  id="storyOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" data-toggle="modal" data-target="#modalEditUser">
-                            <span id="storyOwnerS">O</span>
+                    <div class="storyOwner_circle-d col-lg-2" style="padding-right: 30px !important; padding-top: 40px !important;">
+                        <button  id="storyOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c4) !important; width: 100px !important" data-toggle="modal" data-target="#modalEditUser">
+                            <span id="storyOwnerS">Assignee</span>
                         </button>
                     </div>
                     </div>
@@ -943,14 +999,13 @@
                                 let string = collaborators.toString();
                                 let result = collaborators.replace(/,/g, '\n');
                                 let arr = result.split('\n');
-                                console.log(arr)
+                                
                                 //current owner
                                 //collaborators
                                 //proj id
                                 //storu id
                                 //subtask id
-                                console.log(subtaskOwner, storyID, projID, subtaskID);
-                                console.log(result);
+                                
 
                                 //current owner to field
                                 $('#currentAsignee').val(subtaskOwner);
@@ -965,6 +1020,7 @@
                                 }
 
                                  $('#newAssigneeList').html(stringA);
+                                 //
 
 
                                 var urlEditSubtaskOwner = '/project/' + projID + '/userStory/' + storyID + '/subtask/' + subtaskID + '/edit-subtask-owner';
@@ -1440,7 +1496,7 @@
                   <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                   <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                   <span>Sprint size:</span> {{sprint.sprintSize}}</p>
-                  <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;" hidden>
+                  <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;" >
                     Edit sprint
                   </button>
                   <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
@@ -1495,7 +1551,7 @@
                   <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                   <span>Sprint size:</span> {{sprint.sprintSize}}</p>
 
-                  <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
+                  <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c4) !important; float: right !important;">
                     Go to Sprint
                   </button></a>
 
@@ -1515,10 +1571,10 @@
                 <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                 <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                 <span>Sprint size:</span> {{sprint.sprintSize}}</p>
-                <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;">
+                <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: right !important;">
                   Edit Sprint
                 </button>
-                <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
+                <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;"hidden>
                   Go to Sprint
                 </button></a>
                 <script>
@@ -1549,7 +1605,7 @@
                 <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                 <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                 <span>Sprint size:</span> {{sprint.sprintSize}}</p>
-                <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
+                <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;" hidden>
                   Go to Sprint
                 </button></a>
               </div>
@@ -2263,4 +2319,67 @@ $(document).ready(function(){
 </script>
 {{/if}}
 
+
+{{!-- modal window stories were successfully added to sprint --}}
+<div id="add2sprintModal1" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>User stories were successfully added to Sprint!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyAddedStories2Sprint}}
+<script>
+    $(document).ready(function(){
+        $("#add2sprintModal1").modal('show');
+
+        setTimeout(function() {
+
+            $('#add2sprintModal1').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if error occured while adding user stories to sprint --}}
+<div id="add2sprintModal2" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important;">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>User stories weren't added to Sprint!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if errorAddingStories2Sprint}}
+<script>
+    $(document).ready(function(){
+        $("#add2sprintModal2").modal('show');
+
+        setTimeout(function() {
+
+            $('#add2sprintModal2').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
 
