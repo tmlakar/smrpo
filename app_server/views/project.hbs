@@ -78,7 +78,35 @@
                 </div>
     </div> -->
 
+  {{!-- gumb za dodajanje zgodb v sprint za Scrum Master-ja --}}
+    <div>
+        <button class="btn submit-form btn-dark" data-toggle="modal" data-target="#modalAddStories" style="background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Add to Current Sprint</button>
+    </div>
+
   </div>
+
+<!-- modalno okno za dodajanje novih uporabniških zgodb v sprint -->
+<div class="modal" id="modalAddStories" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="padding-top: 150px !important;">
+        <div class="modal-content modal-content-ekipa" style="background-color: var(--c4) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
+            <div class="modal-header" style="background-color: var(--c4) !important;">
+                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Select User stories for Sprint</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
+            </div>
+
+            <div class="modal-body">
+            <form method="post" id="" action="">
+             
+             <p>checkbox z zgodbami, ki so na voljo</p>
+             <div style="padding-left: 10px !important;"><input type="checkbox" id="" name="" value="Task zgodbe 1" style="color: var(--c6) !important"></div>
+            
+            <button id="" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important;margin-right: 10px !important;">Add</button>
+            </form>                           
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {{!-- product backlog / sprints --}}
 <div class="col-lg-10" style="margin-top: 20px !important">
@@ -1440,7 +1468,7 @@
                   <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                   <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                   <span>Sprint size:</span> {{sprint.sprintSize}}</p>
-                  <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;" >
+                  <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;" hidden>
                     Edit sprint
                   </button>
                   <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
@@ -1506,7 +1534,7 @@
 
           {{!---FUTURE RELEASE SPRINTS --}}
           {{!---prikaz dodanih sprintov, ki se jih pridobi iz apija --}}
-          <div class="col-lg-4" style="padding-left: 0px !important"><h5>Future release</h5>
+          <div class="col-lg-4" style="padding-left: 0px !important"><h5>Future Release</h5>
             {{#if scrumMaster}}
             {{#each futureSprints as |sprint|}}
             <div class="card projekt-sprint" style="background-color: var(--c2)!important">
@@ -1518,7 +1546,7 @@
                 <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: right !important;">
                   Edit Sprint
                 </button>
-                <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;" hidden>
+                <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;"hidden>
                   Go to Sprint
                 </button></a>
                 <script>
@@ -2263,4 +2291,67 @@ $(document).ready(function(){
 </script>
 {{/if}}
 
+
+{{!-- modal window stories were successfully added to sprint --}}
+<div id="add2sprintModal1" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>User stories were successfully added to Sprint!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyAddedStories2Sprint}}
+<script>
+    $(document).ready(function(){
+        $("#add2sprintModal1").modal('show');
+
+        setTimeout(function() {
+
+            $('#add2sprintModal1').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if error occured while adding user stories to sprint --}}
+<div id="add2sprintModal2" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important;">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>User stories weren't added to Sprint!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if errorAddingStories2Sprint}}
+<script>
+    $(document).ready(function(){
+        $("#add2sprintModal2").modal('show');
+
+        setTimeout(function() {
+
+            $('#add2sprintModal2').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
 
