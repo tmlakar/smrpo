@@ -69,22 +69,50 @@
 
     <br>
     {{!-- legenda --}}
-  <!--  <div class="card account-info" style="background-color: var(--c3) !important;">
+    {{!-- <div class="card account-info" style="background-color: var(--c3) !important;">
                 <div class="card-body">
                  
                         <div><button id="project_circle_legend" style="background-color: var(--c4) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Unfinished</span></div>
                         <div><button id="project_circle_legend" style="background-color: var(--c5) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Finished</span></div>
                         <div><button id="project_circle_legend" style="background-color: var(--c2) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Future</span></div>
                 </div>
-    </div> -->
+    </div>  --}}
 
   {{!-- gumb za dodajanje zgodb v sprint za Scrum Master-ja --}}
+    {{#if scrumMaster}}
     <div>
-        <button class="btn submit-form btn-dark" data-toggle="modal" data-target="#modalAddStories" style="background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Add to Current Sprint</button>
+        <button class="btn submit-form btn-dark add-to-current-sprint" data-spr="{{inProcessSprintsNumbers}}" data-toggle="modal" data-stor="{{json userStories}}" data-target="#modalAddStories" style="background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Add to Current Sprint</button>
     </div>
+    {{/if}}
 
   </div>
 
+{{!-- script za izpisovanje seznama --}}
+<script>
+  
+  $(document).on("click", ".add-to-current-sprint", function () {
+    var userStories = $(this).data('stor');
+    var currSprint = $(this).data('spr');
+    console.log(userStories);
+    console.log(currSprint);
+
+    //pogledas ce -> niso se v trenutnem sprintu, imajo assignan size, priority ni wont have this time
+    var arrStories = [{}];
+    var arrI = 0;
+    for (var i = 0; i < userStories.length; i++) {
+      if ((userStories[i].sprint != currSprint) && (userStories[i].size != 0) && (userStories[i].priority != "Won't have this time")) {
+        
+        arrStories[arrI] = userStories[i];
+        arrI = arrI + 1;
+      }
+    }
+   
+
+    console.log(arrStories);
+
+  });
+
+</script>
 <!-- modalno okno za dodajanje novih uporabniških zgodb v sprint -->
 <div class="modal" id="modalAddStories" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="padding-top: 150px !important;">
@@ -176,9 +204,9 @@
                            {{isInCurrentSprint story.sprint ../inProcessSprintsNumbers}}
                           </span>
                           
-                          
+                          {{#if (InCurrentSprint story.sprint ../inProcessSprintsNumbers)}}
                           <button type="button" data-toggle="modal" data-name="{{story.name}}" data-sprints="{{story.allSprints}}" data-target="#modalSprintInfo" class="btn btn-dark sprint-info-button" style="margin-left: 15px !important; margin-right: -20px !important;">in Sprints</button>
-
+                          {{/if}}
                         </div>
                       </div>
                     </div>
@@ -390,7 +418,7 @@
                                 var t = 0;
 
                                 for (var c = 0; c < collaborators3.length; c++) {
-                                  if (collaborators3[c].project_role == "Team Member") {
+                                  if (collaborators3[c].project_role == "Team Member" || collaborators3[c].project_role == "Scrum Master") {
                                     username = collaborators3[c].username;
                                     teamMembers1[t] = username;
                                     t = t + 1;
@@ -614,7 +642,7 @@
                                 var c = 0;
                                 var username;
                                 for (c = 0; c < collaborators1.length; c++) {
-                                  if (collaborators1[c].project_role == "Team Member") {
+                                  if (collaborators1[c].project_role == "Team Member" || collaborators1[c].project_role == "Scrum Master") {
                                     username = collaborators1[c].username;
                                     teamMembers[t] = username;
                                     t = t + 1;
@@ -971,14 +999,13 @@
                                 let string = collaborators.toString();
                                 let result = collaborators.replace(/,/g, '\n');
                                 let arr = result.split('\n');
-                                console.log(arr)
+                                
                                 //current owner
                                 //collaborators
                                 //proj id
                                 //storu id
                                 //subtask id
-                                console.log(subtaskOwner, storyID, projID, subtaskID);
-                                console.log(result);
+                                
 
                                 //current owner to field
                                 $('#currentAsignee').val(subtaskOwner);
@@ -993,6 +1020,7 @@
                                 }
 
                                  $('#newAssigneeList').html(stringA);
+                                 //
 
 
                                 var urlEditSubtaskOwner = '/project/' + projID + '/userStory/' + storyID + '/subtask/' + subtaskID + '/edit-subtask-owner';
@@ -1468,7 +1496,7 @@
                   <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                   <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                   <span>Sprint size:</span> {{sprint.sprintSize}}</p>
-                  <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;" hidden>
+                  <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;" >
                     Edit sprint
                   </button>
                   <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
