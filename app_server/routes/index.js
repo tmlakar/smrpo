@@ -73,7 +73,7 @@ router.get("/sprint-edit/:id", ctrlSprint.prikazEdit);
 router.post("/sprints/:projectId/sprint-edit/:sprintId", ctrlSprint.posodobiInprocessSprint)
 router.post("/sprints/:projectId/sprint-edit-all/:sprintId", ctrlSprint.posodobiFutureSprint)
 router.post("/sprints/:projectId/delete-sprint/:sprintId", ctrlSprint.deleteSprint);
-router.get("/project/:id/sprint/:sprintId/tasks", ctrlSprint.podrobnostiProject);
+
 
 
 
@@ -106,6 +106,9 @@ router.post("/project/:id/userStory/:idStory/delete", ctrlUserStories.deleteStor
 router.post("/project/:id/userStory/:idStory/add-to-sprint", ctrlUserStories.addToSprint);
 /* add size */
 router.post("/project/:id/userStory/:idStory/add-size", ctrlUserStories.addSize);
+
+
+router.get("/project/:id/sprint/:sprintId/tasks", ctrlUserStories.podrobnostiProjectSprint);
 
 
 

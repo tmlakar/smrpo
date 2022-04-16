@@ -1440,7 +1440,7 @@
                   <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                   <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                   <span>Sprint size:</span> {{sprint.sprintSize}}</p>
-                  <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;" hidden>
+                  <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;" >
                     Edit sprint
                   </button>
                   <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
@@ -1506,7 +1506,7 @@
 
           {{!---FUTURE RELEASE SPRINTS --}}
           {{!---prikaz dodanih sprintov, ki se jih pridobi iz apija --}}
-          <div class="col-lg-4" style="padding-left: 0px !important"><h5>Future Release</h5>
+          <div class="col-lg-4" style="padding-left: 0px !important"><h5>Future release</h5>
             {{#if scrumMaster}}
             {{#each futureSprints as |sprint|}}
             <div class="card projekt-sprint" style="background-color: var(--c2)!important">
@@ -1518,7 +1518,7 @@
                 <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: right !important;">
                   Edit Sprint
                 </button>
-                <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;"hidden>
+                <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;" hidden>
                   Go to Sprint
                 </button></a>
                 <script>

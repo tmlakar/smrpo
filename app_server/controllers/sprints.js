@@ -10,75 +10,7 @@ var apiParametri = {
     timeout: 5000,
   });
 
-  var podrobnostiProject = (req, res) => {
-    var tokenParts = req.cookies.authcookie['žeton'].split('.');
-    var encodedPayload = tokenParts[1];
-    //var rawPayload = window.atob(encodedPayload);
-    var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
-    var user = JSON.parse(rawPayload);
-    var projectId = req.params.id;
-    var sprintId = req.params.sprintId;
-    
 
-    var vloga = user.role;
-    var layout1 = 'layout';
-    if (vloga == 'user') {
-        layout1 = 'layout-user';
-    }
-
-    
-    axios
-        .get(apiParametri.streznik + '/api/projects/' + projectId)
-        .then((odgovor) => {
-          var collaborators = odgovor.data.collaborators;
-          var scrumMasterUsername;
-            var productManagerUsername;
-            var teamMembers = [];
-            var productManagers = [];
-            var scrumMasters = [];
-            var i4 = 0;
-            var i5 = 0;
-            var i6 = 0;
-            var teamMembersUsernames = [];
-            var iTMUsr = 0;
-          for (let i = 0; i < collaborators.length; i++) {
-            if (collaborators[i].project_role == "Team Member") {
-                teamMembers[i4] = collaborators[i];
-                teamMembersUsernames[iTMUsr] = collaborators[i].username;
-                i4 = i4 + 1;
-                iTMUsr = iTMUsr + 1;
-            }
-            if (collaborators[i].project_role == "Product Manager") {
-                productManagerUsername = collaborators[i].username;
-                productManagers[i5] = collaborators[i];
-                i5 = i5 + 1;
-            }
-            if (collaborators[i].project_role == "Scrum Master") {
-                scrumMasterUsername = collaborators[i].username;
-                scrumMasters[i6] = collaborators[i];
-                i6 = i6 + 1;
-
-            }
-          }
-
-          console.log("tuki")
-            res.render('sprint-tasks', {
-                name: odgovor.data.name,
-                info: odgovor.data.info,
-                collaborators: odgovor.data.collaborators,
-                userStories: odgovor.data.userStories,
-                sprints: odgovor.data.sprints,
-                id: odgovor.data._id,
-                layout: layout1,
-                teamMembers: teamMembers,
-                productManagers: productManagers,
-                scrumMasters: scrumMasters,
-
-            });
-        });
-
-
-};
 
   var prikaz = (req, res) => {
         var projectId = req.params.id;
@@ -469,5 +401,5 @@ const deleteSprint = (req, res) => {
     posodobiInprocessSprint,
     posodobiFutureSprint,
     deleteSprint,
-    podrobnostiProject
+    
 };

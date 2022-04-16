@@ -1,7 +1,7 @@
 
 <div class="hbses">
 
-<h3>[Sprint name]'s tasks</h3>
+<h3>{{nameOfCurrentSprint}}'s tasks</h3>
 
 
 
@@ -78,34 +78,44 @@
     <div class="col-lg-10" style="margin-top: 20px !important">
         
         <!-- kartice v sprintu -->
+        {{#each userStories as |story|}}
+        {{#if (InCurrentSprint story.sprint ../currentSprintNumber)}}
+
         <div class="card projekt-publication" style="border: 3px solid var(--c4) !important; margin-top: 5px !important; margin-left: 50px !important; margin-bottom: 25px !important;">
 
-          <h5 style="padding: 10px !important;"><i>#[no.] [Ime kartice]</i></h5>
+          <h5 style="padding: 10px !important;"><i>{{story.name}}</i></h5>
           
           <!-- row: done/not done + task + assigned & in progress -->
           <div class="row">
 
+              {{#each story.subtasks as |subtask|}}
               <div class="col-lg-1">
-                <p style="padding: 0px !important; margin: 0px !important">1.</p>
+                <p style="padding: 0px !important; margin: 0px !important">{{@index}}</p>
               </div>
 
                             
               <div class="col-lg-9">
-                <p style="padding: 0px !important; margin-bottom: 25px !important">Fejk task številka 1. Pa še neki napiešm, da pride tekst do konca, da vidm kak se pogre z drugimi gumbki.</p>
+                <p style="padding: 0px !important; margin-bottom: 25px !important">{{subtask.name}}</p>
               </div>
 
               <!-- Assigned & značke -->
               <div class="col-lg-2" style="margin-bottom: 25px !important">
-                <button  id="taskOwner_circle" class="btn" style="background-color: var(--c4) !important; height: 35px !important; width: 35px !important; margin-top: -3px !important;" disabled>N</button>
+                {{#if subtask.subtaskOwnerUsername}}
+                <button  id="taskOwner_circle" class="btn" style="background-color: var(--c4) !important; height: 35px !important; width: 35px !important; margin-top: -3px !important;" disabled>{{firstLetterOfUsername subtask.subtaskOwnerUsername}}</button>
+                {{/if}}
                 <!-- možnosti za značke -->
+                {{#if subtask.finished}}
                 <i class="fa-solid fa-circle-check fa-2xl" style="color: var(--c1) !important; padding-left: 15px !important;"></i>
+                {{else}}
                 <i class="fa-solid fa-person-digging fa-xl" style="color: var(--c4) !important; padding-left: 18px !important;"></i>
-                
+                {{/if}}
               </div>
-
+            {{/each}}
           </div>
          
         </div>
+        {{/if}}
+    {{/each}}
         
         
         <!-- gumb za dodajanje novih uporabniških zgodb v sprint modalno okno-->
