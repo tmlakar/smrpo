@@ -79,10 +79,10 @@ const addNewUserStory = (req, res) => {
         }).then((odgovor) => {
             var name = odgovor.name;
             var string = "successfully added story";
-            res.redirect('/project/' + projectId + '?addstory=' + string);
+            res.redirect('/project/' + projectId + '?addstory=' + string + '#backlog');
         }).catch((napaka) => {
             var string = "napakaPriDodajanjuUporabniskeZgodbe";
-            res.redirect('/project/' + projectId + '/new-user-story?error=' + string);
+            res.redirect('/project/' + projectId + '/new-user-story?error=' + string +'#backlog');
 
         });
     }
