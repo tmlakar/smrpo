@@ -24,6 +24,10 @@ var prikaz = (req, res) => {
     if(parameter == "declined"){
       declined = true;
     }
+    var finished = false;
+    if(parameter == "finished"){
+      finished = true;
+    }
     console.log(parameter)
     var tokenParts = req.cookies.authcookie['žeton'].split('.');
     var encodedPayload = tokenParts[1];
@@ -38,6 +42,7 @@ var prikaz = (req, res) => {
         .then((odgovor) => {
           var myAssignedTasks = [];
           var myAcceptedTasks = [];
+          var myfinishedTasks = [];
           var stolpecTask = 0;
           var stolpecZgodba = 1;
           var vrstica = 0;
@@ -47,6 +52,7 @@ var prikaz = (req, res) => {
           var myStories = [];
           var prvic = true;
           var prvic2 = true;
+          var prvic3 = true;
           var projectId;
           var storyId;
           for(var i= 0; i < projekti.length; i++){
@@ -58,24 +64,34 @@ var prikaz = (req, res) => {
                 tasks = zgodbe[j].subtasks;
                 for(var k=0; k<tasks.length; k++){
                     //nalogo se lahko sploh prikaže, če je prijavljen uporabnik subtask owner, če je pending in če je v aktivnem sprintu
-                    if(tasks[k].subtaskOwnerUsername == username && tasks[k].pending == "true"){
+                    if(tasks[k].subtaskOwnerUsername == username && tasks[k].pending == "true" && tasks[k].isDeleted == false && tasks[k].finished == false){
                       if(prvic){
                         myAssignedTasks = [[tasks[k], zgodbe[j].name, projectId, storyId]];
                         prvic = false;
-                    }
-                    else{
-                      myAssignedTasks.push([tasks[k],zgodbe[j].name, projectId, storyId]);
-                    }
+                      }
+                      else{
+                        myAssignedTasks.push([tasks[k],zgodbe[j].name, projectId, storyId]);
+                      }
                     }
                     //naloge, ki so že od uporabnika, ker jih je že sprejel se shranijo, to so tiste ki imajo pending false in username enak
-                    if(tasks[k].subtaskOwnerUsername == username && tasks[k].pending == "false"){
+                    if(tasks[k].subtaskOwnerUsername == username && tasks[k].pending == "false" && tasks[k].isDeleted == false && tasks[k].finished == false){
                       if(prvic2){
                         myAcceptedTasks = [[tasks[k], zgodbe[j].name, projectId, storyId]];
                         prvic2 = false;
+                      }
+                      else{
+                        myAcceptedTasks.push([tasks[k],zgodbe[j].name, projectId, storyId]);
+                      }
                     }
-                    else{
-                      myAcceptedTasks.push([tasks[k],zgodbe[j].name, projectId, storyId]);
-                    }
+                    //naloge, ki jih je uporabnik končal
+                    if(tasks[k].subtaskOwnerUsername == username && tasks[k].finished == true && tasks[k].pending == "false" && tasks[k].isDeleted == false){
+                      if(prvic3){
+                        myfinishedTasks = [[tasks[k], zgodbe[j].name, projectId, storyId]];
+                        prvic3 = false;
+                      }
+                      else{
+                        myfinishedTasks.push([tasks[k],zgodbe[j].name, projectId, storyId]);
+                      }
                     }
                 }
             }
@@ -85,12 +101,12 @@ var prikaz = (req, res) => {
             layout: 'layout-user',
             myAssignedTasks: myAssignedTasks,
             myAcceptedTasks: myAcceptedTasks,
+            myfinishedTasks: myfinishedTasks,
             accepted: accepted,
-            declined: declined 
-
+            declined: declined,
+            finished: finished
           });
-          console.log(myAssignedTasks)
-          console.log(myAcceptedTasks)
+          console.log(myfinishedTasks)
         })
 };
 
@@ -130,9 +146,28 @@ var declineTask = (req, res) => {
     });
 }
 
+var finishTask = (req, res) => {
+  //pokličem api, da posodobim atribut v bazi
+  var projectId = req.params.projectId;
+  var storyId = req.params.storyId;
+  var taskId = req.params.taskId;
+  axios({
+    method: 'put',
+    url: apiParametri.streznik + '/api/mytasks/finish/' + projectId + '/' + storyId + '/' +  taskId
+    })
+    .then(() => {
+      console.log("uspešno končana naloga")
+      var string = "finished";
+      res.redirect('/mytasks/' + '?add=' + string);
+    }).catch((error) => {
+      console.log("napaka")
+    });
+}
+
 
 module.exports = {
     prikaz,
     acceptTask,
-    declineTask
+    declineTask,
+    finishTask
 };
