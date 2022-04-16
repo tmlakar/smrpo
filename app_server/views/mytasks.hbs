@@ -1,5 +1,35 @@
 <div class="hbses">
 
+  {{!-- modal window if task has been accepted --}}
+  <div id="myModal43" class=" modal" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content alert-s-200">
+                  <div class="modal-header" style="background-color: var(--c5) !important">
+                      <h5 class="modal-title">Success!</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <p>You finished this task!</p>
+                  </div>
+
+                  </div>
+              </div>
+          </div>
+
+  {{#if finished}}
+  <script>
+      $(document).ready(function(){
+          $("#myModal43").modal('show');
+
+          setTimeout(function() {
+
+              $('#myModal43').modal('hide');
+          }, 7000);
+      });
+  </script>
+  {{/if}}
 
   {{!-- modal window if task has been accepted --}}
   <div id="myModal41" class=" modal" tabindex="-1" role="dialog">
@@ -101,6 +131,26 @@
 <h5 style="padding-top: 70px; padding-bottom: 0px">My accepted tasks:</h5>
 <div class="row" style="">
  {{#each myAcceptedTasks as |task|}}
+ <div class="card projekt-notification col-sm-3" style="">
+               <div class="card-body">
+                <b style="color:white; font-size:20px;">{{task.[0].name}}</b>
+                <br>
+                <br>
+                <small style="color:#023047;">From user story:</small><span style="color:#023047;"> {{task.[1]}}</span><br>
+                <small style="color:#023047;">Hours for this task:</small><span style="color:#023047;"> {{task.[0].hours}}</span><br>
+                <br>
+                <a href="/mytasks/finish/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}"  class="btn projekt-management-button btn-dark"
+                style="background-color: #32CD32 !important; padding-top: 10px" id = "accept">FINISH</a>
+                <a href="/mytasks/decline/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}"  class="btn projekt-management-button btn-dark"
+                style="background-color: #FF3C38 !important; padding-top: 10px" id = "decline">DECLINE</a>
+              </div>
+              </div>
+ {{/each}}
+</div>
+
+<h5 style="padding-top: 70px; padding-bottom: 0px">My finished tasks:</h5>
+<div class="row" style="">
+ {{#each myfinishedTasks as |task|}}
  <div class="card projekt-notification col-sm-3" style="">
                <div class="card-body">
                 <b style="color:white; font-size:20px;">{{task.[0].name}}</b>

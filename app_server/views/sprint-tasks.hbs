@@ -12,7 +12,14 @@
 
   {{!-- gumb za nazaj na project --}}
     <div  style="padding-bottom: 20px !important">
-          <a href="/project/{{id}}"><button class="btn submit-form btn-dark" style="background-color: var(--c5) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Go to Project</button></a>
+          <a href="/project/{{id}}#sprints"><button class="btn submit-form btn-dark" style="background-color: var(--c5) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Go to Sprints</button></a>
+    </div>
+    <!-- legenda -->
+    <div class="card account-info" style="background-color: var(--c6) !important; margin-bottom: 20px !important;">
+      <div class="card-body">
+        <div style="margin-bottom: 15px !important;"><i class="fa-solid fa-circle-check fa-xl" style="color: var(--c1) !important; padding-right: 5px !important;"></i><span style="font-size: 13px !important; padding-right: 6px !important; color: var(--c3) !important;">Finished</span></div>
+        <div><i class="fa-solid fa-person-digging fa-lg" style="color: var(--c4) !important;padding-left: 2px !important; padding-right: 5px !important;"></i><span style="font-size: 13px !important; padding-right: 6px !important; color: var(--c3) !important;">In progress</span></div>
+      </div>
     </div>
     {{!-- par informacij o projektu --}}
     <div class="card account-info" style="background-color: var(--c4) !important;">
@@ -71,31 +78,39 @@
     <div class="col-lg-10" style="margin-top: 20px !important">
         
         <!-- kartice v sprintu -->
-        <div class="card projekt-publication" style="border: 3px solid var(--c2) !important;">
+        <div class="card projekt-publication" style="border: 3px solid var(--c2) !important; margin-top: 5px !important; margin-left: 50px !important; margin-bottom: 25px !important;">
 
-        <p>#[no.] [Ime kartice]</p>
+          <h5 style="padding: 10px !important;"><i>#[no.] [Ime kartice]</i></h5>
           
-        <!-- row: done/not done + task + assigned & in progress -->
-        <div class="row">
+          <!-- row: done/not done + task + assigned & in progress -->
+          <div class="row">
 
-            <div class="col-lg-1">
-                <p>check</p>
-            </div>
-              
-            <div class="col-lg-9">
-            <p>Task</p>
-            </div>
+              <div class="col-lg-1">
+                <p style="padding: 0px !important; margin: 0px !important">1.</p>
+              </div>
 
+                            
+              <div class="col-lg-9">
+                <p style="padding: 0px !important; margin-bottom: 25px !important">Fejk task številka 1. Pa še neki napiešm, da pride tekst do konca, da vidm kak se pogre z drugimi gumbki.</p>
+              </div>
 
+              <!-- Assigned & značke -->
+              <div class="col-lg-2" style="margin-bottom: 25px !important">
+                <button  id="taskOwner_circle" class="btn" style="background-color: var(--c4) !important; height: 35px !important; width: 35px !important; margin-top: -3px !important;" disabled>N</button>
+                <!-- možnosti za značke -->
+                <i class="fa-solid fa-circle-check fa-2xl" style="color: var(--c1) !important; padding-left: 15px !important;"></i>
+                <i class="fa-solid fa-person-digging fa-xl" style="color: var(--c4) !important; padding-left: 18px !important;"></i>
+                
+              </div>
 
+          </div>
+         
         </div>
+        
         
         <!-- gumb za dodajanje novih uporabniških zgodb v sprint modalno okno-->
         <button id="" type="button" data-toggle="modal" data-target="#modalAddStories" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right" style="background-color: var(--c1) !important; border: 3px solid var(--c1) !important"><i class="fa-solid fa-plus dodaj"></i></button><br>
         
-    </div>
-
-
   </div>
   </div>
 
@@ -105,7 +120,7 @@
     <div class="modal-dialog modal-lg" style="padding-top: 150px !important;">
         <div class="modal-content modal-content-ekipa" style="background-color: var(--c4) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
             <div class="modal-header" style="background-color: var(--c4) !important;">
-                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Add User stories to Sprint</h5>
+                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Select User stories for Sprint</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
             </div>
 
@@ -113,13 +128,77 @@
             <form method="post" id="" action="">
              
              <p>checkbox z zgodbami, ki so na voljo</p>
+             <div style="padding-left: 10px !important;"><input type="checkbox" id="" name="" value="Task zgodbe 1" style="color: var(--c6) !important"></div>
             
-            <button id="" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Add</button>
+            <button id="" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important;margin-right: 10px !important;">Add</button>
             </form>                           
             </div>
         </div>
     </div>
 </div>
 
+{{!-- ************************************* MODALNA OKNA USER FEEDBACK ****************************************************** --}}
 
+{{!-- modal window stories were successfully added to sprint --}}
+<div id="sprintModal1" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>User stories were successfully added to Sprint!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyAddedStories2Sprint}}
+<script>
+    $(document).ready(function(){
+        $("#sprintModal1").modal('show');
+
+        setTimeout(function() {
+
+            $('#sprintModal1').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if error occured while adding user stories to sprint --}}
+<div id="sprintModal2" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important;">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>User stories weren't added to Sprint!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if errorAddingStories2Sprint}}
+<script>
+    $(document).ready(function(){
+        $("#sprintModal2").modal('show');
+
+        setTimeout(function() {
+
+            $('#sprintModal2').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
 

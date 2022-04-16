@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Project = mongoose.model("Project");
 const User = mongoose.model("User");
 
-/* Particular project info */ 
+/* Particular project info */
 
 const projectInfo = (req, res) => {
     Project.findById(req.params.idProject).exec((napaka,project) => {
@@ -47,7 +47,7 @@ const projectInfo = (req, res) => {
       res.status(404).json({ sporočilo: "Ne najdem projekta." });
     } else {
       console.log(project);
-      // zacetni podatki ko dodajamo user story  
+      // zacetni podatki ko dodajamo user story
       //preveri kok je user storijev ze notr za zaporedno stevilko # xx
       var number = 1;
       if (project.userStories && project.userStories.length > 0) {
@@ -63,7 +63,7 @@ const projectInfo = (req, res) => {
         var currentLast = project.userStories.length;
         number = currentLast + 1;
       }
-    
+
 
       project.userStories.push({
         name: "#" + number + " " + req.body.name,
@@ -121,7 +121,7 @@ const projectInfo = (req, res) => {
   /* Updating basic userStory info - name, description, priority, bussiness value */
 
   const updateUserStoryInfo = (req, res) => {
-    
+
     if (!req.params.idProject || !req.params.idUserStory) {
       return res.status(404).json({
         sporočilo:
@@ -172,7 +172,7 @@ const projectInfo = (req, res) => {
                 return res.status(401).json({ sporočilo: "Ne." });
               }
             }
-            
+
           }
           const currentUserStory = project.userStories.id(
             req.params.idUserStory
@@ -197,9 +197,9 @@ const projectInfo = (req, res) => {
             // if (req.body.sprint != 0) {
             //   sprintString = "Sprint " + req.body.sprint;
             //   currentUserStory.flags[0] = sprintString;
-            // } 
-            // //posodobimo flags za priority 
-            
+            // }
+            // //posodobimo flags za priority
+
               project.save((napaka, project) => {
                 if (napaka) {
                   res.status(404).json(napaka);
@@ -246,7 +246,7 @@ const updateUserStoryAddSubtask = (req, res) => {
             name: req.body.name,
             hours: req.body.hours
           });
-            
+
           project.save((napaka, project) => {
               if (napaka) {
                 res.status(404).json(napaka);
@@ -382,7 +382,7 @@ const updateUserStoryEditSubtask = (req, res) => {
             if (!currentSubtask) {
               res.status(404).json({ sporočilo: "Ne najdem subtaksa." });
             } else {
-              
+
               currentSubtask.name = req.body.name;
               currentSubtask.hours = req.body.hours;
 
@@ -437,7 +437,7 @@ const updateUserStoryRemoveSubtask = (req, res) => {
               res.status(404).json({ sporočilo: "Ne najdem subtaksa." });
             } else {
               currentUserStory.subtasks.id(req.params.idSubtask).remove()
-              
+
 
 
               project.save((napaka, project) => {
@@ -492,7 +492,7 @@ const updateUserStoryAddOwnerToSubtask = (req, res) => {
               res.status(404).json({ sporočilo: "Ne najdem subtaksa." });
             } else {
               currentSubtask.subtaskOwnerUsername = req.body.subtaskOwnerUsername;
-
+              currentSubtask.pending = true;
 
               project.save((napaka, project) => {
                 if (napaka) {
@@ -503,8 +503,8 @@ const updateUserStoryAddOwnerToSubtask = (req, res) => {
               });
             }
           }
-          
-            
+
+
 
         }}
        else {
@@ -708,7 +708,7 @@ const deleteUserStory = (req, res) => {
         if (!project.userStories.id(idUserStory)) {
           return res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
         } else {
-          
+
           project.userStories.id(idUserStory).remove();
           project.save((napaka) => {
             if (napaka) {
