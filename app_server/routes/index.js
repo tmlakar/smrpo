@@ -57,8 +57,9 @@ router.post('/projects/:id/delete-collaborator/:idC', ctrlCollaborators.deletePr
 var ctrlMyTasks = require("../controllers/mytasks");
 router.get('/mytasks', ctrlMyTasks.prikaz);
 router.get('/mytasks/accept/:projectId/:storyId/:taskId', ctrlMyTasks.acceptTask);
-router.get('/mytasks/decline/:projectId/:storyId/:taskId', ctrlMyTasks.declineTask);
+router.post('/mytasks/decline/:projectId/:storyId/:taskId', ctrlMyTasks.declineTask);
 router.get('/mytasks/finish/:projectId/:storyId/:taskId', ctrlMyTasks.finishTask);
+
 /* Project -> Sprint -> User stories */
 var ctrlProject = require("../controllers/project");
 //router.get('/project', ctrlProject.prikaz);

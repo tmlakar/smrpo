@@ -11,10 +11,14 @@ const axios = require("axios").create({
 
 
 var prikaz = (req, res) => {
+  //v primeru da uspešno zavrnemo nalogo, moram pridobit project id, story id in task id iz parametrov da lahko pošljemo komentar
     console.log(req.url)
     var parameter = "";
     if(req.url.includes('?')){
       parameter = req.query.add;
+      var id1 = req.query.id1;
+      var id2 = req.query.id1;
+      var id3 = req.query.id1;
     }
     var accepted = false;
     if(parameter == "success"){
@@ -60,7 +64,7 @@ var prikaz = (req, res) => {
             zgodbe = projekti[i].userStories
             for(var j=0; j < zgodbe.length; j++){
               storyId = zgodbe[j]._id;
-              if(zgodbe[j].flags[0] != "Unassigned" && zgodbe[j].flags[1] == "Unfinished"){
+              if(zgodbe[j].sprint != 0){
                 tasks = zgodbe[j].subtasks;
                 for(var k=0; k<tasks.length; k++){
                     //nalogo se lahko sploh prikaže, če je prijavljen uporabnik subtask owner, če je pending in če je v aktivnem sprintu
@@ -104,8 +108,13 @@ var prikaz = (req, res) => {
             myfinishedTasks: myfinishedTasks,
             accepted: accepted,
             declined: declined,
-            finished: finished
+            finished: finished,
+            projectId: id1,
+            storyId: id2,
+            taskId: id3
           });
+          console.log("ali dela")
+          console.log(id1)
           console.log(myfinishedTasks)
         })
 };
@@ -129,16 +138,31 @@ var acceptTask = (req, res) => {
 }
 
 var declineTask = (req, res) => {
-  //pokličem api, da posodobim atribut v bazi
+  var projectId = req.params.id;
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
+  console.log(req.body.comment)
+  // //pokličem api, da posodobim atribut v bazi, poleg tega pošljem še komentar
   var projectId = req.params.projectId;
   var storyId = req.params.storyId;
   var taskId = req.params.taskId;
+  var komentar = req.body.comment;
+  console.log("komentar")
+  console.log(req.query.neki)
   axios({
     method: 'put',
-    url: apiParametri.streznik + '/api/mytasks/decline/' + projectId + '/' + storyId + '/' +  taskId
+    url: apiParametri.streznik + '/api/mytasks/decline/' + projectId + '/' + storyId + '/' +  taskId,
+    data: {
+      komentar: komentar,
+      username: user.username
+    }
     })
     .then(() => {
       console.log("uspešno zavrnjena naloga")
+      //odgovor.data.projectId
       var string = "declined";
       res.redirect('/mytasks/' + '?add=' + string);
     }).catch((error) => {
@@ -163,6 +187,8 @@ var finishTask = (req, res) => {
       console.log("napaka")
     });
 }
+
+
 
 
 module.exports = {

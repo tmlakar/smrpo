@@ -21,6 +21,10 @@ const collaboratorShema = new mongoose.Schema({
       }
 });
 
+const userStoryCommentsShema = new mongoose.Schema({
+    comment: {type: String},
+    commentOwnerUsername: {type: String}
+});
 
 const subtaskShema = new mongoose.Schema({
     name: {type: String},
@@ -28,14 +32,11 @@ const subtaskShema = new mongoose.Schema({
     subtaskOwnerUsername: {type: String, default: null},
     pending: {type: String, default: true},
     finished: {type: Boolean, default: false},
-    isDeleted: {type: Boolean, default: false}
-    
+    isDeleted: {type: Boolean, default: false},
+    comments: [publicationCommentShema]
 });
 
-const userStoryCommentsShema = new mongoose.Schema({
-    comment: {type: String},
-    commentOwnerUsername: {type: String}
-});
+
 
 const userStoriesShema = new mongoose.Schema({
     name: {type: String},
@@ -83,4 +84,3 @@ const projectShema = new mongoose.Schema({
 
 
 mongoose.model('Project', projectShema, 'Projects');
-

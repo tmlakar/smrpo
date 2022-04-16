@@ -40,6 +40,7 @@ const acceptTask = (req, res) => {
                     } else {
                     //updejtam pending atribut - to bo pokazalo da je član skupine nalogo sprejel
                     task.pending = false;
+                    //shranim še komentar v tabelo komentarjev taska
                     task.save((napaka, user) => {
                       if (napaka) {
                       res.status(400).json(napaka);
@@ -75,6 +76,9 @@ const declineTask = (req, res) => {
         "idProject in idStory sta obvezna parametra."
     });
   }
+  var projectId = req.params.idProject;
+  var storyId = req.params.idStory;
+  var taskId = req.params.idTask;
   Project.findById(req.params.idProject)
     .select("userStories")
     .exec((napaka, project) => {
@@ -93,6 +97,13 @@ const declineTask = (req, res) => {
               res.status(404).json({ sporočilo: "Ne najdem zgodbe." });
             }
             else {
+                  //shranim komentar k user story
+                  console.log("v apiju")
+                  console.log(req.body.komentar)
+                  userStory.comments.push({
+                      comment: req.body.komentar,
+                      commentOwnerUsername: req.body.username
+                  });
                   //pridobim še taske
                   if (userStory.subtasks && userStory.subtasks.length > 0) {
                     const task = userStory.subtasks.id(
@@ -106,9 +117,10 @@ const declineTask = (req, res) => {
                     task.pending = true;
                     task.save((napaka, user) => {
                       if (napaka) {
-                      res.status(400).json(napaka);
+                        res.status(400).json(napaka);
                       } else {
-                      //res.status(201).json(user);
+                        //res.send({projectId: projectId, storyId: storyId, taskId: taskId})
+
                     }
                     });
                     //ali moram dodati še user story.save
@@ -192,9 +204,58 @@ const finishTask = (req, res) => {
     });
 }
 
+//add comment when declining
+
+const addComment = (req, res) => {
+    if (!req.params.idProject || !req.params.idPublication) {
+      return res.status(404).json({
+        sporočilo:
+          "Ne najdem projekta oziroma uporabniske zgodbe, " +
+          "idProject in idPublication sta obvezna parametra.",
+      });
+    }
+    Project.findById(req.params.idProject)
+      .select("publications")
+      .exec((napaka, project) => {
+        if (!project) {
+          return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+        } else if (napaka) {
+          return res.status(500).json(napaka);
+        }
+        if (project.publications && project.publications.length > 0) {
+          const currentPublication = project.publications.id(
+            req.params.idPublication
+          );
+          if (!currentPublication) {
+            res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
+          } else {
+            //tle dodas en acceptance task
+            currentPublication.comments.push({
+                comment: req.body.comment,
+                commentOwner: req.body.commentOwner,
+                date: req.body.date
+            });
+            project.save((napaka, project) => {
+                if (napaka) {
+                  res.status(404).json(napaka);
+                } else {
+                  res.status(200).json(project);
+                }
+              });
+            }
+
+          }
+         else {
+          return res.status(404).json({ sporočilo: "Ni obstojecih uporabniskih zgodb." });
+        }
+      });
+  };
+
+
 
 module.exports = {
     acceptTask,
     declineTask,
-    finishTask
+    finishTask,
+    addComment
 };
