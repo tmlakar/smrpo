@@ -54,22 +54,78 @@ var prikaz = (req, res) => {
   // parsanje datuma
   var date_parsed = Date.parse(date);
   var d = new Date(date_parsed);
-  var vloga = user.role;
-  if(vloga == "user"){
+  var month = d.getUTCMonth() + 1; //months from 1-12
+    if (month < 10) {
+      month = "0" + month;
+    }
+    var day = d.getUTCDate();
+    if (day < 10) {
+      day = "0" + day;
+    }
+    var year = d.getUTCFullYear();
+    
+    var hour = d.getUTCHours()+2;
+    if (hour < 10) {
+      hour = "0" + hour;
+    }
+    var minute = d.getUTCMinutes();
+    if (minute < 10) {
+      minute = "0" + minute;
+    }
 
-    axios
-    .get (apiParametri.streznik + '/api/account/' + userId)
-    .then((odgovor) => {
+    var datum = day+ '/' + month + '/' + year +"  " + hour +":"+ minute;
+
+  var vloga = user.role;
+  var jeUser = false;
+  if (vloga == "user") {
+    jeUser = true;
+  }
+  if(vloga == "user"){
+    let URL1 = apiParametri.streznik + '/api/projects';
+    let URL2 = apiParametri.streznik + '/api/account/' + userId;
+
+    const promise1 = axios.get(URL1);
+    const promise2 = axios.get(URL2);
+
+    Promise.all([promise1, promise2]).then(function(values) {
+        //pogledamo pri katerih projektih sodeluje user
+        var usersProjects = [];
+        var iUsersProjects = 0;
+        var usernameLoggedIn = values[1].data.username;
+        var allProjects = values[0].data;
+        //console.log(allProjects);
+        for (var i = 0; i < allProjects.length; i++) {
+          var collaborators = allProjects[i].collaborators;
+          //console.log(collaborators);
+          for (var j = 0; j < collaborators.length; j++) {
+            if (collaborators[j].username == usernameLoggedIn) {
+              //console.log("Sodeluje na projektu");
+              //shranimo v usersProject project, project id + ime projekta + kaj je njegov role na projektu
+              //console.log(allProjects[i].name, allProjects[i].info, allProjects[i]._id, collaborators[j].project_role);
+              var userProject = new Object();
+              userProject.name = allProjects[i].name;
+              userProject.info = allProjects[i].info;
+              userProject.id = allProjects[i]._id;
+              userProject.project_role = collaborators[j].project_role;
+              //iUsersProjects = iUsersProjects + 1;
+              usersProjects[iUsersProjects] = userProject;
+              iUsersProjects = iUsersProjects + 1;
+              //console.log(userProject);
+            }
+          }
+        }
+        console.log(usersProjects);
         res.render('home', 
         {
-          name: odgovor.data.name,
-          surname: odgovor.data.surname,
-          username: odgovor.data.username,
-          email: odgovor.data.email,
-          id: odgovor.data._id,
-          activeProjects: odgovor.data.activeProjects,
+          name: values[1].data.name,
+          jeUser: jeUser,
+          surname: values[1].data.surname,
+          username: values[1].data.username,
+          email: values[1].data.email,
+          id: values[1].data._id,
+          activeProjects: usersProjects,
           layout: 'layout-user',
-          date: d
+          date: datum
         });
     });
 
@@ -81,13 +137,14 @@ var prikaz = (req, res) => {
         res.render('home', 
         {
           name: odgovor.data.name,
+          jeUser: jeUser,
           surname: odgovor.data.surname,
           username: odgovor.data.username,
           email: odgovor.data.email,
           id: odgovor.data._id,
           activeProjects: odgovor.data.activeProjects,
           layout: 'layout',
-          date: d
+          date: datum
         });
     });
  }

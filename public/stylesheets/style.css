@@ -667,17 +667,19 @@ p {
 }
 
 .card-user-preview {
-    background-color: var(--c6);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
+    background-color: var(--c2);
+    
     border: none !important;
     padding: 5px !important;
-    height: 200px !important;
-    width: 250px !important;
+    height: 250px !important;
+    width: 300px !important;
     margin: 10px !important;
-    color: var(--c3) !important
+    color: var(--c7) !important
 }
 
 .card-group-userProj a {
-    color: #000000 !important;
+    color: var(--c3) !important;
 }
 
 

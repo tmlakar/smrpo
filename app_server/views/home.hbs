@@ -1,22 +1,49 @@
 
 <div class="hbses"><br>
-{{!-- some info about user --}}
-<h4 class="card-title">Hello, <span style="color: var(--c1) !important">{{name}} {{surname}}</span></h5>
+<div class="row" style="padding: 0px  !important">
+  
+  <div class="col-sm-3" style="padding-bottom: 30px !important">
+    <h4 class="card-title">Hello, <span style="color: var(--c1) !important">{{name}} {{surname}}</span></h5>
+    <br>
+    <div class="card account-info">
+      <div class="card-body">
+        <h5 class="card-title">Account information</h5>
+        <p class="card-text"><span>Full name:</span>
+          <br>
+          {{name}} {{surname}}
+          
+        </p>
+        <p class="card-text"><span>Username:</span>
+          <br>
+          {{username}}
+        </p>
+        <p class="card-text"><span>Email:</span>
+          <br>
+          {{email}}
+        </p>
+        <p class="card-text"><span>Last login:</span>
+          <br>
+          {{date}}
+        </p>
 
+        
+        
+      </div>
+    </div>
 
-
-
-      <div class="" style="padding: 30px 0px 30px 0px !important">
+    <div class="" style="padding: 30px 0px 30px 0px !important">
         <a href="/account"><button type="" class="btn submit-form"
         style="background-color: var(--c4) !important; width: 250px !important; margin: 0px !important">Edit account information</button></a>
 
       </div>
+      
+  </div>
+  <div class="col-lg-9" style="padding-left: 50px !important">
+    {{!-- projekti uporabnika --}}
 
-
-
-{{!-- projekti uporabnika --}}
-
-<h4 class="card-title">Your projects</h4>
+{{#if jeUser}}
+<h4 class="card-title" style="padding-top: 70px !important">My projects</h4>
+{{/if}}
 <br>
 <div class="card-group" style="margin-left: -25px !important">
   <div class="row">
@@ -26,14 +53,15 @@
 
         <div class="card card-user-preview card-group-userProj" style="">
           <div class="card-body">
-          <h5><a href="/project/{{activeProject.idOfProject}}#backlog">{{activeProject.name}}</a></h5>
+          <h5><a href="/project/{{activeProject.id}}#backlog">{{activeProject.name}}</a></h5>
           
+          <p style="font-size: 14px !important; padding-left: 0px !important">Your project role on this project is '{{activeProject.project_role}}'.</p>
           </div>
+          
+          {{#if (isScrumMaster activeProject.project_role)}}
+          <div style="padding: 20px !important; padding-top: 0px !important">
 
-          {{#if (isScrumMaster activeProject.p_role)}}
-          <div style="padding: 20px !important">
-
-          <a href="/projects/{{activeProject.idOfProject}}" style="color: gray !important; text-decoration: none !important"><button type="button" class="btn submit-form btn-dark"
+          <a href="/projects/{{activeProject.id}}" style="color: gray !important; text-decoration: none !important"><button type="button" class="btn submit-form btn-dark"
             style="background-color: var(--c3) !important">Edit project</button></a>
             </div>
             {{/if}}
@@ -46,5 +74,12 @@
     {{/each}}
   </div>
   </div>
+
+
+  </div>
+  
+</div>
+
+
 
 </div>
