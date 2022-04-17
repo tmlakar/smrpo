@@ -667,13 +667,13 @@ p {
 }
 
 .card-user-preview {
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
+    box-shadow: rgba(0, 0, 0, 0.24) 8px 8px 8px !important;
     background-color: var(--c2);
     
     border: none !important;
     padding: 5px !important;
     height: 250px !important;
-    width: 300px !important;
+    width: 400px !important;
     margin: 10px !important;
     color: var(--c7) !important
 }
