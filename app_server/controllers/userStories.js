@@ -541,6 +541,36 @@ var podrobnostiProjectSprint = (req, res) => {
 
 };
 
+
+/* multople axios poizvedbe za dodajanje kartic v sprint */
+const addMultipleToSprint = (req, res) => {
+    var projectId = req.params.id;
+    //tabela idStoryjev bo
+    var storyId = req.params.idStory;
+    console.log(req.body.sprint);
+    if (!req.body.sprint) {
+
+    } else {
+        axios({
+            method: 'post',
+            url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/add-to-sprint',
+            data: {
+                sprint: req.body.sprint,
+
+            }
+        }).then((odgovor) => {
+            var name = odgovor.name;
+            var string = "successfull";
+            res.redirect('/project/' + projectId + '?addsprintm=' + string + '#backlog');
+        }).catch((napaka) => {
+            var string = "napakaPriDodajanjuM";
+            res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
+
+        });
+    }
+};
+
+
 module.exports = {
     podrobnostiProject,
     addNewUserStory,
@@ -556,5 +586,6 @@ module.exports = {
     editSubtask,
     addToSprint,
     addSize,
-    podrobnostiProjectSprint
+    podrobnostiProjectSprint,
+    addMultipleToSprint
 };
