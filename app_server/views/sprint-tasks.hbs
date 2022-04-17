@@ -97,7 +97,7 @@
               <div class="col-lg-1" style="margin: 0px !important; padding: 0px !important;">
                 {{#if subtask.subtaskOwnerUsername}}
                 <button  id="taskOwner_circle" class="btn" style="background-color: var(--c4) !important; height: 35px !important; width: 35px !important; margin-top: -3px !important;" disabled>{{firstLetterOfUsername subtask.subtaskOwnerUsername}}</button>
-                <!-- možnosti za značke - tk da je v else brez značke?-->
+                <!-- možnosti za značke - tk da je v else brez značke? Uredimo, ko se bo logiralo ure; pa finished, ko je klukca v checkboxu na tasku v zgodbi-->
                 {{#if subtask.finished}}
                 <i class="fa-solid fa-circle-check fa-2xl" style="color: var(--c1) !important; padding-left: 15px !important;"></i>
                 {{else}}
@@ -111,7 +111,7 @@
               
                             
               <div class="col-lg-11">
-                <p style="padding: 0px !important; margin-left: 0px! important; margin-bottom: 25px !important">{{subtask.name}}</p>
+                <p style="padding: 0px !important; padding-top: 5px!important; padding-left: 5px!important; margin-bottom: 25px !important">{{subtask.name}}</p>
               </div>
 
             {{/each}}
