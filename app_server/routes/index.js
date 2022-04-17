@@ -126,7 +126,10 @@ router.post('/project/:id/publications/:idPublication/new-comment', ctrlPublicat
 router.post('/project/:id/publication/:idPublication/remove', ctrlPublications.deletePublication);
 router.post('/project/:id/publication/:idPublication/comment/:idComment', ctrlPublications.removeComment);
 
+//documentation
 
+var ctrlDocumentation = require("../controllers/documentation");
+router.get('/project/:id/documentation', ctrlDocumentation.prikaz);
 
 
 // account
