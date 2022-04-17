@@ -105,7 +105,7 @@ router.post("/project/:id/userStory/:idStory/edit-owner", ctrlUserStories.update
 router.post("/project/:id/userStory/:idStory/delete", ctrlUserStories.deleteStory);
 /* add to sprint */
 router.post("/project/:id/userStory/:idStory/add-to-sprint", ctrlUserStories.addToSprint);
-router.post("/project/:id/userStory/:idStory/add-multiple-to-sprint", ctrlUserStories.addMultipleToSprint);
+router.post("/project/:id/add-multiple-to-sprint", ctrlUserStories.addMultipleToSprint);
 /* add size */
 router.post("/project/:id/userStory/:idStory/add-size", ctrlUserStories.addSize);
 

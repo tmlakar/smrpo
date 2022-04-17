@@ -1,6 +1,7 @@
 const { vrniUporabnika } = require("../../app_api/controllers/home");
 const jwt = require("express-jwt");
 
+
 var apiParametri = {
     streznik: "http://localhost:" + (process.env.PORT || 3000),
   };
@@ -29,6 +30,8 @@ var prikaz = (req, res) => {
           napaka: false
       });
     }
+
+    
   } else {
     var tokenParts = req.cookies.authcookie['žeton'].split('.');
     var encodedPayload = tokenParts[1];
