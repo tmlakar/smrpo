@@ -492,8 +492,9 @@ p {
 
 
 /* buttons */
-
-
+.space {
+    height: 18px;
+  }
 /* button dropdowns */
 
 
