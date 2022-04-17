@@ -12,8 +12,6 @@
     {{!-- gumb za na project wall --}}
     <div  style="padding-bottom: 20px !important">
           <a href="/project/{{id}}/project-wall"><button class="btn submit-form btn-dark" style="background-color: var(--c6) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Go to Project wall</button></a>
-          <div class="space"></div>
-          <a href="/project/{{id}}/acceptance-ready"><button class="btn submit-form btn-dark" style="background-color: var(--c6) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Acceptance Ready Stories</button></a>
     </div>
     {{!-- par informacij o projektu --}}
     <div class="card account-info" style="background-color: var(--c4) !important;">
@@ -80,10 +78,15 @@
                 </div>
     </div>  --}}
 
-  {{!-- gumb za dodajanje zgodb v sprint za Scrum Master-ja --}}
+    <div  style="padding-bottom: 20px !important">
+          <a href="/project/{{id}}/documentation"><button class="btn submit-form btn-dark" style="background-color: var(--c6) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Documentation</button></a>
+    </div>
+
+  {{!-- gumb za dodajanje zgodb v sprint in pregled zgodb za sprejem za Scrum Master-ja --}}
     {{#if scrumMaster}}
     <div>
         <button class="btn submit-form btn-dark add-to-current-sprint" data-spr="{{inProcessSprintsNumbers}}" data-toggle="modal" data-stor="{{json userStories}}" data-target="#modalAddStories" style="background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Add to Current Sprint</button>
+        <a href="/project/{{id}}/acceptance-ready"><button class="btn submit-form btn-dark" style="margin-top: 20px !important;background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Acceptance Ready Stories</button></a>
     </div>
     {{/if}}
 
@@ -1520,7 +1523,7 @@
                   <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                   <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                   <span>Sprint size:</span> {{sprint.sprintSize}}</p>
-                  <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;" >
+                  <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;">
                     Edit sprint
                   </button>
                   <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
