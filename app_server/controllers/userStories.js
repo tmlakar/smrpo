@@ -480,6 +480,7 @@ var podrobnostiProjectSprint = (req, res) => {
           }
             
           // sprints trenutni
+          
           const finishedSprints = [];
             var i1 = 0;
             const inProcessSprints = [];
@@ -487,7 +488,8 @@ var podrobnostiProjectSprint = (req, res) => {
             const futureSprints = [];
             var i3 = 0;
             var sprinti = odgovor.data.sprints;
-         
+         //kater number je sprint
+         var numberSprintId = 0;
           var inProcessSprintsNumbers = [];
             var inProcess = 0;
             var nameOfCurrentSprint = "Sprint";
@@ -498,6 +500,9 @@ var podrobnostiProjectSprint = (req, res) => {
             for (let i = 0; i < sprinti.length; i++) {
                 var start = new Date(sprinti[i].startDate).setHours(0, 0, 0, 0);
                 var end = new Date(sprinti[i].endDate).setHours(0, 0, 0, 0);
+                if (sprinti[i]._id == sprintId) {
+                    numberSprintId = sprinti[i].number;
+                }
                 //če je finished
                 if ((start < now) && (end < now)) {
                     finishedSprints[i1] = sprinti[i];
@@ -519,6 +524,8 @@ var podrobnostiProjectSprint = (req, res) => {
                 }
             }
 
+            console.log(numberSprintId);
+            var numberOfSprint = numberSprintId;
           
 
             res.render('sprint-tasks', {
@@ -532,7 +539,8 @@ var podrobnostiProjectSprint = (req, res) => {
                 teamMembers: teamMembers,
                 productManagers: productManagers,
                 scrumMasters: scrumMasters,
-                nameOfCurrentSprint: nameOfCurrentSprint,
+                nameOfCurrentSprint: "Sprint " + numberSprintId,
+                numberOfSprint: numberOfSprint,
                 currentSprintNumber: currentSprintNumber,
 
             });

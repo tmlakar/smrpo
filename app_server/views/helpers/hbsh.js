@@ -1,4 +1,5 @@
 const hbs = require("hbs");
+const { type } = require("jquery");
 const { bus } = require("nodemon/lib/utils");
 
 
@@ -279,6 +280,35 @@ hbs.registerHelper('InCurrentSprint', function(value1, value2) {
   } else {
     return false;
   }
+
+  
+});
+
+hbs.registerHelper('InSprint', function(value1, value2) {
+  console.log(typeof value1);
+  if (value1 == '') {
+    return false;
+  }
+  value1 = value1.replace(/"/g,'');
+  value1 = value1.replace(/'/g,'');
+  value1 = value1.replace(/]/g,'');
+  value1 = value1.replace(/\[/g,'');
+
+  value1 = value1.split(",");
+
+  //console.log(value1);
+  for (var i = 0; i < value1.length; i++ ) {
+    var value = value1[i].toString();
+    var value3 = value2.toString();
+    
+    if (value == value3) {
+      console.log(value, value3);
+      return true;
+    }
+
+  }
+  
+  return false;
 
   
 });

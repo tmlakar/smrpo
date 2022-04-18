@@ -81,7 +81,7 @@
         
         <!-- kartice v sprintu -->
         {{#each userStories as |story|}}
-        {{#if (InCurrentSprint story.sprint ../currentSprintNumber)}}
+        {{#if (InSprint (json story.allSprints) ../numberOfSprint)}}
 
         <div class="card projekt-publication" style="border: 3px solid (--varc2) !important; background-color: var(--c6) !important; margin-top: 5px !important; margin-left: 50px !important; margin-bottom: 25px !important;">
 
