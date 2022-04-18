@@ -69,13 +69,286 @@
   </div>
 
     <div class="col-lg-10" style="margin-top: 20px !important">
-        
-            
+        <!-- Dokumentacija razporejena po uporabniških zgodbah -->
+         <div class="card projekt-publication" style="border: 3px solid var(--c4) !important; margin-top: 5px !important; margin-left: 50px !important; margin-bottom: 25px !important;">
+
+          <h5 style="padding: 10px !important;"><i># Ime uporabniške zgodbe</i></h5>
+
+            <!-- Documentation -->
+                <div class="mb-3" style="padding: 10px 15px 0px 15px!important;">
+                    <textarea class="form-control input-form-doc" style="height: 400px !important;" name="" id="" aria-describedby="emailHelp" disabled>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+Why do we use it?
+It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
 
 
+Where does it come from?
+Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+
+The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+                    </textarea>
+                </div>
+
+            <!-- save changes, preview photos -->
+            <div>
+            <button type="button" data-toggle="modal" data-target="#modalPreviewPhotos" class="btn submit-form" style="background-color: var(--c4)!important; width: 170px !important; float: left; !important; margin: 10px !important;">Preview photos</button>
+            <button type="button" data-toggle="modal" data-target="#modalEditDoc" class="btn submit-form" style="background-color: var(--c2)!important; width: 200px !important; float: right; !important; margin: 10px !important;">Edit documentation</button>        
+            </div>
+
+         </div>
+
+        <!-- modalno okno za urejanje dokumentacije -->
+        <div class="modal" id="modalEditDoc" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" style="padding-top: 50px !important;">
+            <div class="modal-content modal-content-ekipa" style="background-color: var(--c2) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
+              <div class="modal-header" style="background-color: var(--c2) !important;">
+                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit [story name] documentation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
+              </div>
+
+              <div class="modal-body">
+              <form method="" id="" action="">
+             
+                <!-- Documentation -->
+                <div class="mb-3" style="padding: 0px 10px 0px 10px!important;">
+                    <textarea class="form-control input-form-lglg" style="height: 400px !important;" name="" id="" aria-describedby="emailHelp"></textarea>
+                </div>
+
+                <br>
+                <!-- Upload photo -->
+                <button id="" type="button" class="btn submit-form" style="background-color: var(--c4)!important; float: left; !important">Upload photo</button>
+                <!-- Save changes -->
+                <button id="" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
+              </form>                           
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- modalno okno za urejanje dokumentacije -->
+        <div class="modal" id="modalPreviewPhotos" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" style="padding-top: 50px !important;">
+            <div class="modal-content modal-content-ekipa" style="background-color: var(--c4) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
+              <div class="modal-header" style="background-color: var(--c4) !important;">
+                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Preview [story name] photos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
+              </div>
+
+              <div class="modal-body">
+              <form method="" id="" action="">
+             
+                <!-- Photos -->
+                
+
+                <br>
+                
+                <!-- Save changes - ce bi brisal slike? -->
+                <button id="" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Save changes</button>
+              </form>                           
+              </div>
+            </div>
+          </div>
+        </div>
     
+        <!-- gumb za download -->
+        <button id="" type="button" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right" style="background-color: var(--c4) !important; border: 3px solid var(--c4) !important"><i class="fa-solid fa-arrow-down" style="color: var(--whitest) !important;"></i></button><br>
         
     </div>
 
   </div>
   </div>
+
+
+{{!-- ************************************* MODALNA OKNA USER FEEDBACK ****************************************************** --}}
+
+{{!-- modal window documentation was successfully downloaded --}}
+<div id="docModal1" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Documentation has been successfully downloaded!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyDownloaded}}
+<script>
+    $(document).ready(function(){
+        $("#docModal1").modal('show');
+
+        setTimeout(function() {
+
+            $('#docModal1').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if error occured while downloading documentation --}}
+<div id="docModal2" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important;">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Something went wrong!</p>
+                    <p>Documentation wasn't downloaded.</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if errorDownload}}
+<script>
+    $(document).ready(function(){
+        $("#docModal2").modal('show');
+
+        setTimeout(function() {
+
+            $('#docModal2').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+{{!-- modal window documentation was successfully updated --}}
+<div id="docModal3" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Documentation for User story has been successfully updated!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyUpdatedDoc}}
+<script>
+    $(document).ready(function(){
+        $("#docModal3").modal('show');
+
+        setTimeout(function() {
+
+            $('#docModal3').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if error occured while updating documentation --}}
+<div id="docModal4" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important;">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Something went wrong!</p>
+                    <p>Documentation wasn't updated.</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if errorUpdateDoc}}
+<script>
+    $(document).ready(function(){
+        $("#docModal4").modal('show');
+
+        setTimeout(function() {
+
+            $('#docModal4').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+{{!-- modal window photo was successfully uploaded --}}
+<div id="docModal5" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Photo was successfully uploaded!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyUploadPhoto}}
+<script>
+    $(document).ready(function(){
+        $("#docModal5").modal('show');
+
+        setTimeout(function() {
+
+            $('#docModal5').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if error occured while uploading photo --}}
+<div id="docModal6" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important;">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Something went wrong!</p>
+                    <p>Photo wasn't uploaded.</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if errorUploadPhoto}}
+<script>
+    $(document).ready(function(){
+        $("#docModal6").modal('show');
+
+        setTimeout(function() {
+
+            $('#docModal6').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}

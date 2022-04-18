@@ -389,6 +389,17 @@ tbody {
     vertical-align: top !important;
 }
 
+.input-form-doc {
+    border-radius: 15px !important;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
+    border: solid 1px #FFB703 !important;
+    background-color: #EEEEEE !important;
+    word-break: normal !important;
+    vertical-align: top !important;
+    resize: none;
+    min-height: 100px !important;
+}
+
 .input-form-readonlytext {
     border-radius: 15px !important;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
