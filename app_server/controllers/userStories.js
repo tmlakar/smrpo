@@ -546,11 +546,23 @@ var podrobnostiProjectSprint = (req, res) => {
 const addMultipleToSprint = (req, res) => {
     var projectId = req.params.id;
     //tabela idStoryjev bo
-    var storyId = req.params.idStory;
+    var array = req.body.storiesArray;
+    console.log(array);
+    //split
+    var IDs = array.split(",");
+    console.log(IDs);
     console.log(req.body.sprint);
-    if (!req.body.sprint) {
+    
+    if (array == '') {
+        // opozorilo da mora bit checked.. oziroma ne preusmeri.
+    }
+    
+    if (!req.body.storiesArray) {
 
     } else {
+        for (var i = 0; i < IDs.length; i++) {
+        console.log(IDs[i]);
+        var storyId = IDs[i];
         axios({
             method: 'post',
             url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/add-to-sprint',
@@ -567,6 +579,7 @@ const addMultipleToSprint = (req, res) => {
             res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
 
         });
+    }
     }
 };
 

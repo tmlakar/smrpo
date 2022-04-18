@@ -173,6 +173,12 @@ var prikaz = (req, res) => {
     if (req.query.success == "successfully edited story owner") {
         uspesnoPosodobljenOwnerZgodbe = true;
     }
+    // sucessfully adding multiple stories to sprint
+    var uspesnoDodajanjeKarticVsprint = false;
+    if (req.query.addsprintm == "successfull") {
+        uspesnoDodajanjeKarticVsprint = true;
+    }
+    
 
     var username = user.username;
     var usernameS = user.username;
@@ -326,7 +332,8 @@ var prikaz = (req, res) => {
                     errorDeleteTask: neuspesnoZbrisanaNaloga,
                     errorEditedStory: neuspesnoPosodobljenaZgodba,
                     uspesnoPosodobljenOwnerZgodbe: uspesnoPosodobljenOwnerZgodbe,
-                    uspesnoDodanoVSprint: uspesnoDodanoVSprint
+                    uspesnoDodanoVSprint: uspesnoDodanoVSprint,
+                    uspesnoDodajanjeKarticVsprint
 
 
                 });
@@ -378,7 +385,8 @@ var prikaz = (req, res) => {
                     errorDeleteTask: neuspesnoZbrisanaNaloga,
                     errorEditedStory: neuspesnoPosodobljenaZgodba,
                     uspesnoPosodobljenOwnerZgodbe: uspesnoPosodobljenOwnerZgodbe,
-                    uspesnoDodanoVSprint: uspesnoDodanoVSprint
+                    uspesnoDodanoVSprint: uspesnoDodanoVSprint,
+                    uspesnoDodajanjeKarticVsprint
 
 
                 });

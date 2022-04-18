@@ -85,7 +85,7 @@
   {{!-- gumb za dodajanje zgodb v sprint in pregled zgodb za sprejem za Scrum Master-ja --}}
     {{#if scrumMaster}}
     <div>
-        <button class="btn submit-form btn-dark add-to-current-sprint" data-spr="{{inProcessSprintsNumbers}}" data-toggle="modal" data-stor="{{json userStories}}" data-target="#modalAddStories" style="background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Add to Current Sprint</button>
+        <button class="btn submit-form btn-dark add-to-current-sprint" data-spr="{{inProcessSprintsNumbers}}" data-proj="{{id}}" data-toggle="modal" data-stor="{{json userStories}}" data-target="#modalAddStories" style="background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Add to Current Sprint</button>
         <a href="/project/{{id}}/acceptance-ready"><button class="btn submit-form btn-dark" style="margin-top: 20px !important;background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Acceptance Ready Stories</button></a>
     </div>
     {{/if}}
@@ -94,22 +94,25 @@
 
 {{!-- script za izpisovanje seznama --}}
 <script>
+  var arrStories = [{}];
+  var sprintInProg;
   
   $(document).on("click", ".add-to-current-sprint", function () {
-    
+    var projID1 = $(this).data('proj');
     var userStories = $(this).data('stor');
     var currSprint = $(this).data('spr');
     console.log(userStories);
     console.log(currSprint);
+    sprintInProg = $(this).data('spr');
 
     //pogledas ce -> niso se v trenutnem sprintu, imajo assignan size, priority ni wont have this time
-    var arrStories = [{}];
+    arrStories = [{}];
     var arrI = 0;
     var stringUserStories = '';
     for (var i = 0; i < userStories.length; i++) {
       if ((userStories[i].sprint != currSprint) && (userStories[i].size != 0) && (userStories[i].priority != "Won't have this time")) {
-
-        stringUserStories = stringUserStories + '<tr><td><div style="padding-left: 10px !important;"><input type="checkbox" class="lifecheck" name="" value="'+userStories[i]._id +'"></div></td>';
+        
+        stringUserStories = stringUserStories + '<tr><td><div style="padding-left: 10px !important;"><input type="checkbox" class="lifecheck'+ arrI +'" name="" value="'+userStories[i]._id +'"></div></td>';
         stringUserStories = stringUserStories + '<td>' + userStories[i].name + '</td>';
         stringUserStories = stringUserStories + '<td style="text-align:center;">' + userStories[i].size + userStories[i]._id + '</td>';
         stringUserStories = stringUserStories + '<td>' + userStories[i].priority + '</td></tr>';
@@ -119,20 +122,39 @@
       }
     }
    
+    
     console.log(stringUserStories);
     $('#availableUserStories1').html(stringUserStories);
     
     console.log(arrStories);
-    {{!-- var urlAddMultipleToSprint = '/project/' + projId + '/add-multiple-to-sprint';
-    $('#urlAddMultipleToSprint').attr("action", urlAddMultipleToSprint); --}}
+    var urlAddMultipleToSprint = '/project/' + projID1 + '/add-multiple-to-sprint';
+    $('#urlAddMultipleToSprint').attr("action", urlAddMultipleToSprint);
 
   });
 
  function exefunction() {
-      var lfckv = document.getElementsByClassName("lifecheck").checked;
-      var id = document.getElementsByClassName("lifecheck").value;
+      
+    var IDs = [];
+    var iID = 0;
+
+    for (var i = 0; i < arrStories.length; i++) {
+      var class1 = '.lifecheck' + i;
+      console.log(class1);
+      if($(class1).is(':checked')){ 
+      //console.log(class1 + " is checked.");
+      console.log(arrStories[i]._id + " is checked.")
+      IDs[iID] = arrStories[i]._id;
+      iID = iID + 1;
+      }
+    //console.log(IDs);
+    }
+        $('#storiesArray').val(IDs);
+        $('#sprintInProg').val(sprintInProg);
+
+  
+    //console.log(arrStories);
     
-    alert(lfckv);
+    
     }
 </script>
 
@@ -160,7 +182,9 @@
                 </thead>
                 
                 <tbody id="availableUserStories1">
-                <input hidden>
+                <input name="storiesArray" id="storiesArray" hidden>
+                <input name="sprint" id="sprintInProg" hidden>
+                
                 </tbody>
               </table>
               </div>
@@ -2422,3 +2446,36 @@ $(document).ready(function(){
 </script>
 {{/if}}
 
+
+
+
+{{!-- uspesno dodajanje kartic v sprint --}}
+<div id="add2sprintModal3" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c5) !important">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>User stories were successfully added to the current sprint!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if uspesnoDodajanjeKarticVsprint}}
+<script>
+    $(document).ready(function(){
+        $("#add2sprintModal3").modal('show');
+
+        setTimeout(function() {
+
+            $('#add2sprintModal3').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
