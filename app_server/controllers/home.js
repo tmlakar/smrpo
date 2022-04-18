@@ -44,23 +44,88 @@ var prikaz = (req, res) => {
     var email = user.email;
     var vloga = user.role;
     var activeProjects = user.activeProjects;
+
+    var date = user.date;
+    // parsanje datuma
+  var date_parsed = Date.parse(date);
+  var d = new Date(date_parsed);
+  var month = d.getUTCMonth() + 1; //months from 1-12
+    if (month < 10) {
+      month = "0" + month;
+    }
+    var day = d.getUTCDate();
+    if (day < 10) {
+      day = "0" + day;
+    }
+    var year = d.getUTCFullYear();
+    
+    var hour = d.getUTCHours()+2;
+    if (hour < 10) {
+      hour = "0" + hour;
+    }
+    var minute = d.getUTCMinutes();
+    if (minute < 10) {
+      minute = "0" + minute;
+    }
+
+    var datum = day+ '/' + month + '/' + year +"  " + hour +":"+ minute;
+    
     if(vloga == "user"){
+      let URL1 = apiParametri.streznik + '/api/projects';
+      
+  
+      const promise1 = axios.get(URL1);
+      
+  
+      Promise.all([promise1]).then(function(values) {
+          //pogledamo pri katerih projektih sodeluje user
+          var usersProjects = [];
+          var iUsersProjects = 0;
+          var usernameLoggedIn = user.username;
+          var allProjects = values[0].data;
+          //console.log(allProjects);
+          for (var i = 0; i < allProjects.length; i++) {
+            var collaborators = allProjects[i].collaborators;
+            //console.log(collaborators);
+            for (var j = 0; j < collaborators.length; j++) {
+              if (collaborators[j].username == usernameLoggedIn) {
+                //console.log("Sodeluje na projektu");
+                //shranimo v usersProject project, project id + ime projekta + kaj je njegov role na projektu
+                //console.log(allProjects[i].name, allProjects[i].info, allProjects[i]._id, collaborators[j].project_role);
+                var userProject = new Object();
+                userProject.name = allProjects[i].name;
+                userProject.info = allProjects[i].info;
+                userProject.id = allProjects[i]._id;
+                userProject.project_role = collaborators[j].project_role;
+                //iUsersProjects = iUsersProjects + 1;
+                usersProjects[iUsersProjects] = userProject;
+                iUsersProjects = iUsersProjects + 1;
+                //console.log(userProject);
+              }
+            }
+          }
+          
+          console.log(usersProjects);
+
           res.render('home', {
               name: name,
               surname: surname,
               username: username,
               email: email,
-              activeProjects: activeProjects,
-              layout: 'layout-user'
+              activeProjects: usersProjects,
+              layout: 'layout-user',
+              date: datum
           });
-        }
-        else{
+        
+        })
+      } else {
           res.render('home', {
             name: name,
             surname: surname,
             username: username,
             activeProjects: activeProjects,
             email: email,
+            date: datum
         }); 
       }
 
