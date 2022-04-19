@@ -732,51 +732,72 @@
                                   assignee = functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
                                   console.log(name, hour, assignee);
                                   if (canEdit) {
-                                  subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 55px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important; padding-left: 15px !important"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/ ><span style="padding-left: 10px !important">';
-                                  // name of subtask
-                                  subtasksString = subtasksString + arrayS[j].name + ' [' + arrayS[j].hours + 'h]' + '</span></label></div>';
+                                      //če je naloga končana - se jo obkljuka
+                                      var done = false;
+                                      if(arrayS[j].finished == true){
+                                        done = true;
+                                      }
+                                      if(done== true){
+                                        subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 55px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important; padding-left: 15px !important"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/ checked><span style="padding-left: 10px !important">';
+                                      }
+                                      //če še ni končana
+                                      else{
+                                        subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 55px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important; padding-left: 15px !important"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/><span style="padding-left: 10px !important">';
+                                      }
+                                      // name of subtask
+                                      subtasksString = subtasksString + arrayS[j].name + ' [' + arrayS[j].hours + 'h]' + '</span></label></div>';
 
-                                  var collaborators2 = JSON.stringify(collaborators1);
-                                  var jeSprejel = false;
-                                  if(arrayS[j].pending == "false"){
-                                    jeSprejel = true;
-                                  }
-                                  if(jeSprejel){
-                                    // add owner - če je owner že sprejel se ne da več spremenit in kliknt na gumb
-                                    subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" disabled>';
-                                    subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
-                                    subtasksString = subtasksString + '</button></div></div>';
-                                  }
-                                  else{
-                                    // add owner - če owner še ni sprejel
-                                    subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" >';
-                                    subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
-                                    subtasksString = subtasksString + '</button></div></div>';
-                                  }
+                                      var collaborators2 = JSON.stringify(collaborators1);
+                                      var jeSprejel = false;
+                                      if(arrayS[j].pending == "false"){
+                                        jeSprejel = true;
+                                      }
+                                      if(jeSprejel){
+                                        // add owner - če je owner že sprejel se ne da več spremenit in kliknt na gumb
+                                        subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" disabled>';
+                                        subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
+                                        subtasksString = subtasksString + '</button></div></div>';
+                                      }
+                                      else{
+                                        // add owner - če owner še ni sprejel
+                                        subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" >';
+                                        subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
+                                        subtasksString = subtasksString + '</button></div></div>';
+                                      }
 
                                   //add edit button with id
                                   } else {
-                                    subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 55px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important; padding-left: 15px !important"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/ ><span style="padding-left: 10px !important">';
-                                  // name of subtask
-                                  subtasksString = subtasksString + arrayS[j].name + ' [' + arrayS[j].hours + 'h]' + '</span></label></div>';
+                                        var done = false;
+                                        if(arrayS[j].finished == true){
+                                          done = true;
+                                        }
+                                        if(done== true){
+                                          subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 55px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important; padding-left: 15px !important"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/ checked><span style="padding-left: 10px !important">';
+                                        }
+                                        //če še ni končana
+                                        else{
+                                          subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 55px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important; padding-left: 15px !important"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/><span style="padding-left: 10px !important">';
+                                        }
+                                        // name of subtask
+                                        subtasksString = subtasksString + arrayS[j].name + ' [' + arrayS[j].hours + 'h]' + '</span></label></div>';
 
-                                  var jeSprejel = false;
-                                  if(arrayS[j].pending == "false"){
-                                    jeSprejel = true;
-                                  }
-                                  if(jeSprejel){
-                                    // add owner - če je owner že sprejel se ne da več spremenit in kliknt na gumb
-                                    subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" disabled>';
-                                    subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
-                                    subtasksString = subtasksString + '</button></div></div>';
-                                  }
-                                  else{
-                                    // add owner - če owner še ni sprejel
-                                    subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" >';
-                                    subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
-                                    subtasksString = subtasksString + '</button></div></div>';
-                                  }
-                                  //add edit button with id
+                                        var jeSprejel = false;
+                                        if(arrayS[j].pending == "false"){
+                                          jeSprejel = true;
+                                        }
+                                        if(jeSprejel){
+                                          // add owner - če je owner že sprejel se ne da več spremenit in kliknt na gumb
+                                          subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" disabled>';
+                                          subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
+                                          subtasksString = subtasksString + '</button></div></div>';
+                                        }
+                                        else{
+                                          // add owner - če owner še ni sprejel
+                                          subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" >';
+                                          subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
+                                          subtasksString = subtasksString + '</button></div></div>';
+                                        }
+                                        //add edit button with id
                                   }
 
 

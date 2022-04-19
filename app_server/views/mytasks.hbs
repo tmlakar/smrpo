@@ -108,8 +108,9 @@
                 <a href="/mytasks/accept/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}"  class="btn projekt-management-button btn-dark"
                 style="background-color: #FB8500 !important; padding-top: 10px" id = "accept" >ACCEPT</a>
 
-                <button type="button" class="btn projekt-management-button btn-dark"
-                style="background-color: #FF3C38 !important" id = "decline1">DECLINE</button>
+                <button type="button" class="btn btn-dark decline-button"
+                style="background-color: #FF3C38 !important" id = "decline">DECLINE</button>
+
                <br>
                <h2></h2>
                <b style="color:white; font-size:20px; display:none;" id = "text">Why will you decline this task?</b>
@@ -187,49 +188,7 @@
 
 </div>
 
-<script>
-$('#decline1').on('click', function() {
-                id1 = this.id;
-                let result1 = id1.includes("accept");
-                let result2 = id1.includes("decline1");
-                let result3 = id1.includes("submit")
 
-                if (result1 == 1) {
-                  let id_dec = id1.replace("accept", "decline1");
-                  let id_noti = id1.replace("accept ", "");
-                  let id_input = id1.replace("accept", "input");
-                  let id_subm = id1.replace("accept", "submit");
-                  let id_txt = id1.replace("accep", "text");
-
-                  document.getElementById(id_dec).disabled = true;
-                  document.getElementById(id1).disabled = true;
-                  document.getElementById(id_noti).innerHTML = "TASK ACCEPTED!";
-                  //$('h4').text("TASK ACCEPTED!");
-                   }
-                if (result2 == 1) {
-                  let id_acep = id1.replace("decline1", "accept");
-                  let id_noti = id1.replace("decline1 ", "");
-                  let id_input = id1.replace("decline1", "input");
-                  let id_subm = id1.replace("decline1", "submit");
-                  let id_txt = id1.replace("decline1", "text");
-                  //document.getElementById(id1).disabled = true;
-                  document.getElementById(id_acep).disabled = true;
-                  document.getElementById(id_input).type = "text";
-                  document.getElementById(id_txt).style.display = "";
-                  document.getElementById(id1).disabled = true;
-                  document.getElementById(id_subm).hidden = "";
-                  }
-
-                  if(result3 == 1) {
-                      let id_subm = id1.replace("submit ", "");
-                      let id_input = id1.replace("submit", "input");
-                      let id_noti = id1.replace("submit ", "");
-                      document.getElementById(id1).disabled = true;
-                      document.getElementById(id_input).disabled = "disabled"
-                      document.getElementById(id_noti).innerHTML = "TASK DECLINED!";
-                      }
-            });
-</script>
 <script>
 $('#decline2').on('click', function() {
                 id1 = this.id;
