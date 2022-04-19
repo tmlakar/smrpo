@@ -110,14 +110,9 @@
                 <a href="/mytasks/accept/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}" style="color:white;" id = "accept1" >ACCEPT</a> 
                 </button>
 
-<<<<<<< Updated upstream
                 <button type="button" class="btn btn-dark decline-button"
                 style="background-color: #FF3C38 !important" id = "decline">DECLINE</button>
 
-=======
-                <button type="button" class="btn projekt-management-button btn-dark"
-                style="background-color: #FF3C38 !important" id = "decline1/{{task.[0]._id}}">DECLINE</button>
->>>>>>> Stashed changes
                <br>
                <h2></h2>
                <b style="color:white; font-size:20px; display:none;" id = "text1/{{task.[0]._id}}">Why will you decline this task?</b>
@@ -198,15 +193,6 @@
 
 </div>
 
-<<<<<<< Updated upstream
-
-<script>
-$('#decline2').on('click', function() {
-                id1 = this.id;
-                let result1 = id1.includes("accept");
-                let result2 = id1.includes("decline2");
-                let result3 = id1.includes("submit")
-=======
 <script>
 $('button').on('click', function() {
                 id1 = this.id;
@@ -250,7 +236,6 @@ $('button').on('click', function() {
                       document.getElementById(id_input).disabled = "disabled"
                       //document.getElementById(id_noti).innerHTML = "TASK DECLINED!";
                       }
->>>>>>> Stashed changes
 
 
                  if (result4 == 1) {     
