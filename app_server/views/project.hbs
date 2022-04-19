@@ -71,7 +71,7 @@
     {{!-- legenda --}}
     {{!-- <div class="card account-info" style="background-color: var(--c3) !important;">
                 <div class="card-body">
-                 
+
                         <div><button id="project_circle_legend" style="background-color: var(--c4) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Unfinished</span></div>
                         <div><button id="project_circle_legend" style="background-color: var(--c5) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Finished</span></div>
                         <div><button id="project_circle_legend" style="background-color: var(--c2) !important; margin-right: 5px !important;" disabled="True"></button><span style="font-size: 13px !important; padding-right: 6px !important;">Future</span></div>
@@ -96,7 +96,7 @@
 <script>
   var arrStories = [{}];
   var sprintInProg;
-  
+
   $(document).on("click", ".add-to-current-sprint", function () {
     var projID1 = $(this).data('proj');
     var userStories = $(this).data('stor');
@@ -111,7 +111,7 @@
     var stringUserStories = '';
     for (var i = 0; i < userStories.length; i++) {
       if ((userStories[i].sprint != currSprint) && (userStories[i].size != 0) && (userStories[i].priority != "Won't have this time")) {
-        
+
         stringUserStories = stringUserStories + '<tr><td><div style="padding-left: 10px !important;"><input type="checkbox" class="lifecheck'+ arrI +'" name="" value="'+userStories[i]._id +'"></div></td>';
         stringUserStories = stringUserStories + '<td>' + userStories[i].name + '</td>';
         stringUserStories = stringUserStories + '<td style="text-align:center;">' + userStories[i].size + '</td>';
@@ -121,11 +121,11 @@
         arrI = arrI + 1;
       }
     }2
-   
-    
+
+
     console.log(stringUserStories);
     $('#availableUserStories1').html(stringUserStories);
-    
+
     console.log(arrStories);
     var urlAddMultipleToSprint = '/project/' + projID1 + '/add-multiple-to-sprint';
     $('#urlAddMultipleToSprint').attr("action", urlAddMultipleToSprint);
@@ -133,14 +133,14 @@
   });
 
  function exefunction() {
-      
+
     var IDs = [];
     var iID = 0;
 
     for (var i = 0; i < arrStories.length; i++) {
       var class1 = '.lifecheck' + i;
       console.log(class1);
-      if($(class1).is(':checked')){ 
+      if($(class1).is(':checked')){
       //console.log(class1 + " is checked.");
       console.log(arrStories[i]._id + " is checked.")
       IDs[iID] = arrStories[i]._id;
@@ -151,10 +151,10 @@
         $('#storiesArray').val(IDs);
         $('#sprintInProg').val(sprintInProg);
 
-  
+
     //console.log(arrStories);
-    
-    
+
+
     }
 </script>
 
@@ -164,7 +164,7 @@
         <div class="modal-content modal-content-ekipa" style="background-color: var(--c4) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
             <div class="modal-header" style="background-color: var(--c4) !important;">
                 <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Select User stories for Current Sprint:</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
 
             <div class="modal-body">
@@ -180,19 +180,19 @@
                     <th style="font-weight: normal; !important; font-size: 18px !important; color: var(--c3);background-color: var(--c4) !important;">Priority</th>
                   </tr>
                 </thead>
-                
+
                 <tbody id="availableUserStories1">
                 <input name="storiesArray" id="storiesArray" hidden>
                 <input name="sprint" id="sprintInProg" hidden>
-                
+
                 </tbody>
               </table>
               </div>
               <br>
-             
-            
+
+
             <button id="" onclick="exefunction()" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important;margin-right: 10px !important;">Add</button>
-            </form>                           
+            </form>
             </div>
         </div>
     </div>
@@ -261,12 +261,12 @@
                           <!--<span id="flag-info" style="margin-left: 12px!important;>
                           Unassigned
                           </span> -->
-                          
-                          
+
+
                           <span id="flag-info" style="margin-left: 12px!important; width: 120px !important;">
                            {{isInCurrentSprint story.sprint ../inProcessSprintsNumbers}}
                           </span>
-                          
+
                           {{#if (InCurrentSprint story.sprint ../inProcessSprintsNumbers)}}
                           <button type="button" data-toggle="modal" data-name="{{story.name}}" data-sprints="{{story.allSprints}}" data-target="#modalSprintInfo" class="btn btn-dark sprint-info-button" style="margin-left: 15px !important; margin-right: -20px !important;">in Sprints</button>
                           {{/if}}
@@ -284,7 +284,7 @@
               </div>
             {{/each}}
           </div>
-          
+
           <script>
             $(document).on("click", ".sprint-info-button", function () {
               var sprints = $(this).data('sprints');
@@ -298,7 +298,7 @@
               console.log(resultS);
 
               $('#storySprints').html(resultS);
-              
+
               var heading = 'User story "' + nam + '" was assigned to the following Sprints:';
               $('#headingCardStories').html(heading);
 
@@ -312,10 +312,10 @@
             <div class="modal-content" style="box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px; color: white !important">
               <div class="modal-header" style="padding-bottom: 0px!important; margin-bottom: 0px!important;">
                 <h5 class="modal-title" id="headingCardStories" style="color: white !important"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               </div>
               <div id="storySprints" class="modal-body" >
-                                       
+
               </div>
             </div>
           </div>
@@ -363,9 +363,9 @@
                           <span id="flag-info" style="margin-left: 12px!important; width: 80px !important;">
                            Finished
                           </span>
-                          
+
                           <button type="button" data-name="{{story.name}}" data-sprints="{{story.allSprints}}"  data-toggle="modal" data-target="#modalSprintInfo" class="btn btn-dark sprint-info-button" style="margin-left: 55px !important; margin-right: -20px !important;">in Sprints</button>
-                        
+
                         </div>
                       </div>
                     </div>
@@ -465,8 +465,8 @@
                                 collaborators1 = $(this).data('collaborators');
 
 
-                                
-                                
+
+
                                 // spreminjanje ownerja
                                 var ownerStory = storyOwner;
                                 if (storyOwner == null) {
@@ -536,7 +536,7 @@
 
                                 //append current sprint to button "add to current sprint"
                                 $('#currentSprint').val(sprintsInProgress);
-                                
+
                                 $('#storyOwnerS').val(storyOwner);
 
 
@@ -547,7 +547,7 @@
                                 //pravice kdo lahko ureja informacije in v katerih primerih
                                 if (isScrumMaster == true || isProductManager == true) {
                                       if (isProductManager == true) {
-                                         
+
                                     document.getElementById("storySize").style.display="none";
                                       }
                                       if (storyFinished == false && storySprint == 0) {
@@ -575,7 +575,7 @@
                                   document.getElementById("deleteButton").style.display="none";
                                 }
 
-                                
+
                                 // add to sprint pravice
                                 if (sprintsInProgress == storySprint) {
                                   //naj se gumb ne pokaze
@@ -587,11 +587,11 @@
                                   if (isProductManager == true) {
                                     document.getElementById("addToSprintDisabled").style.display="none";
                                    document.getElementById("addToSprint").style.display="none";
-                                   
-                                  } else { 
+
+                                  } else {
                                    document.getElementById("addToSprintDisabled").style.display="block";
                                    document.getElementById("addToSprint").style.display="none";
-                                  
+
                                   }
 
                                 } else {
@@ -612,7 +612,7 @@
                                       }
                                 }
                                 }
-                  
+
                                 // 1.5 size ***************************************************************************
                                 //izpisovanje
                                 //pravice -> kdo lahko ureja sprint size  in kdaj
@@ -622,10 +622,10 @@
                                     document.getElementById("editSizeButton").style.display="none";
                                     //naj se se renderirajo stvari ki nakazujejo zakaj nemore uredit
                                     document.getElementById("storySizeDisabledPSA").style.display="block";
-                                   
+
                                   } else {
                                     document.getElementById("editSizeButtonDisabled").style.display="none";
-                                    document.getElementById("editSizeButton").style.display="block";   
+                                    document.getElementById("editSizeButton").style.display="block";
                                     document.getElementById("storySizeDisabledPSA").style.display="none";
                                   }
 
@@ -651,7 +651,7 @@
                                 $('#storyAcceptanceTests').html(result);
 
                                 //kdo in v katerih primerih lahko dodaja acceptance tests?
-                                
+
                                   if (isScrumMaster || isProductManager) {
                                     if (storySprint != 0 && storyFinished == false) {
 
@@ -669,7 +669,7 @@
                                 }
 
                                 // 3. subtasks (naloge) *****************************************************************************
-                                
+
                                 // pravice dodajanja novega taska
                                 // dodaja lahko scrum master ali clani razvojne skupine
                                 // v primeru da je zgodba znotraj aktivnega sprinta
@@ -737,25 +737,49 @@
                                   subtasksString = subtasksString + arrayS[j].name + ' [' + arrayS[j].hours + 'h]' + '</span></label></div>';
 
                                   var collaborators2 = JSON.stringify(collaborators1);
-                                  // add owner
-                                  subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" >';
-                                  subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
-                                  subtasksString = subtasksString + '</button></div></div>';
+                                  var jeSprejel = false;
+                                  if(arrayS[j].pending == "false"){
+                                    jeSprejel = true;
+                                  }
+                                  if(jeSprejel){
+                                    // add owner - če je owner že sprejel se ne da več spremenit in kliknt na gumb
+                                    subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" disabled>';
+                                    subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
+                                    subtasksString = subtasksString + '</button></div></div>';
+                                  }
+                                  else{
+                                    // add owner - če owner še ni sprejel
+                                    subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" >';
+                                    subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
+                                    subtasksString = subtasksString + '</button></div></div>';
+                                  }
+
                                   //add edit button with id
                                   } else {
                                     subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 55px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important; padding-left: 15px !important"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/ ><span style="padding-left: 10px !important">';
                                   // name of subtask
                                   subtasksString = subtasksString + arrayS[j].name + ' [' + arrayS[j].hours + 'h]' + '</span></label></div>';
 
-
-                                  // add owner
-                                  subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;" disabled>Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="' + teamMembers +'" class="btn" style="float:right; background-color: var(--c4) !important" disabled>';
-                                  subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
-                                  subtasksString = subtasksString + '</button></div></div>';
+                                  var jeSprejel = false;
+                                  if(arrayS[j].pending == "false"){
+                                    jeSprejel = true;
+                                  }
+                                  if(jeSprejel){
+                                    // add owner - če je owner že sprejel se ne da več spremenit in kliknt na gumb
+                                    subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" disabled>';
+                                    subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
+                                    subtasksString = subtasksString + '</button></div></div>';
+                                  }
+                                  else{
+                                    // add owner - če owner še ni sprejel
+                                    subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" >';
+                                    subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
+                                    subtasksString = subtasksString + '</button></div></div>';
+                                  }
                                   //add edit button with id
                                   }
 
-                                
+
                                 }
 
                                 console.log(subtasksString);
@@ -787,9 +811,9 @@
                                 }
                                 $('#storyCommentsAll').html(commentsString);
 
-                                //pravice dodajanja komentarjev - team members 
+                                //pravice dodajanja komentarjev - team members
                                 if ((isTeamMember || isScrumMaster) && storyFinished == false) {
-                                  
+
                                   document.getElementById("addCommentsButtonEnabled").style.display="block";
                                   document.getElementById("addCommentsButtonDisabled").style.display="none";
 
@@ -840,7 +864,7 @@
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content modal-content-ekipa" style = "border: 3px solid var(--c2) !important;">
                 <div class="modal-header modal-header-ekipa">
-                  <h5 class="modal-title" id="StoryName" style="padding-top=10px; !important">{{story.name}}</h5> 
+                  <h5 class="modal-title" id="StoryName" style="padding-top=10px; !important">{{story.name}}</h5>
                   <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </button>
@@ -908,7 +932,7 @@
                         <input class="form-control input-form" name="businessValue" id="storyBusinessValue" aria-describedby="emailHelp" type="number" min="1" max="10" required>
                     </div>
 
-                    
+
                       <!-- se pogoji kdo lahko spreminja pa pod katerimi pogoji-->
 
 
@@ -1062,13 +1086,13 @@
                                 let string = collaborators.toString();
                                 let result = collaborators.replace(/,/g, '\n');
                                 let arr = result.split('\n');
-                                
+
                                 //current owner
                                 //collaborators
                                 //proj id
                                 //storu id
                                 //subtask id
-                                
+
 
                                 //current owner to field
                                 $('#currentAsignee').val(subtaskOwner);
@@ -1613,7 +1637,7 @@
                   <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                   <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                   <span>Sprint size:</span> {{sprint.sprintSize}}</p>
-        
+
                   <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c4) !important; float: right !important;">
                     Go to Sprint
                   </button></a>
@@ -1675,7 +1699,7 @@
             </div>
           {{!-- gumba za edit projectov --}}
         {{/each}}
-        {{/if}}        
+        {{/if}}
           </div>
 
       </div>

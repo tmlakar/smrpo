@@ -33,7 +33,10 @@ const subtaskShema = new mongoose.Schema({
     pending: {type: String, default: true},
     finished: {type: Boolean, default: false},
     isDeleted: {type: Boolean, default: false},
-    comments: [publicationCommentShema]
+    comments: [publicationCommentShema],
+    startTime: {type: Date},
+    endTime: {type: Date},
+    myHours: {type: Number}
 });
 
 
