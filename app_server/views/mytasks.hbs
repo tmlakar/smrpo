@@ -104,16 +104,23 @@
                 <small style="color:#023047;">From user story:</small><span style="color:#023047;"> {{task.[1]}}</span><br>
                 <small style="color:#023047;">Hours for this task:</small><span style="color:#023047;"> {{task.[0].hours}}</span><br>
                 <br>
+                
+                <button type="button" class="btn projekt-management-button btn-dark"
+                style="background-color: #FB8500 !important" id = "accept1/{{task.[0]._id}}">
+                <a href="/mytasks/accept/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}" style="color:white;" id = "accept1" >ACCEPT</a> 
+                </button>
 
-                <a href="/mytasks/accept/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}"  class="btn projekt-management-button btn-dark"
-                style="background-color: #FB8500 !important; padding-top: 10px" id = "accept" >ACCEPT</a>
-
+<<<<<<< Updated upstream
                 <button type="button" class="btn btn-dark decline-button"
                 style="background-color: #FF3C38 !important" id = "decline">DECLINE</button>
 
+=======
+                <button type="button" class="btn projekt-management-button btn-dark"
+                style="background-color: #FF3C38 !important" id = "decline1/{{task.[0]._id}}">DECLINE</button>
+>>>>>>> Stashed changes
                <br>
                <h2></h2>
-               <b style="color:white; font-size:20px; display:none;" id = "text">Why will you decline this task?</b>
+               <b style="color:white; font-size:20px; display:none;" id = "text1/{{task.[0]._id}}">Why will you decline this task?</b>
                <!-- <input type="hidden" class="form-control input-form" id="input">
                <button hidden = "hidden" type="button" class="btn projekt-management-button btn-dark"
                 style="background-color: #FB8500 !important" id = 'submit'>SUBMIT</button> -->
@@ -121,10 +128,10 @@
 
                     <form id="posodobiUporabnika" method="post" style="" action="/mytasks/decline/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}">
                       <div class="mb-3" style="padding-bottom: 0px !important">
-                        <input type="hidden" class="form-control input-form" name="comment" id="input" type="text" >
+                        <input type="hidden" class="form-control input-form" name="comment" id="input1/{{task.[0]._id}}" type="text" >
                       </div>
                       <div style="padding-top: 0px !important">
-                        <button hidden = "hidden" id = 'submit' type="submit" class="btn projekt-management-button btn-dark">Submit</button>
+                        <button hidden = "hidden" id = 'submit1/{{task.[0]._id}}' type="submit" class="btn projekt-management-button btn-dark">Submit</button>
                       </div>
                     </form>
               </div>
@@ -144,14 +151,16 @@
                 <small style="color:#023047;">From user story:</small><span style="color:#023047;"> {{task.[1]}}</span><br>
                 <small style="color:#023047;">Hours for this task:</small><span style="color:#023047;"> {{task.[0].hours}}</span><br>
                 <br>
-                <a href="/mytasks/finish/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}"  class="btn projekt-management-button btn-dark"
-                style="background-color: #32CD32 !important; padding-top: 10px" id = "accept">FINISH</a>
+                <button type="button" class="btn projekt-management-button btn-dark"
+                style="background-color: #32CD32 !important" id = "accept2/{{task.[0]._id}}">
+                <a href="/mytasks/finish/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}" style="color:white;" id = "accept">FINISH</a>
+                </button>
 
                 <button type="button" class="btn projekt-management-button btn-dark"
-                style="background-color: #FF3C38 !important" id = "decline2">DECLINE</button>
+                style="background-color: #FF3C38 !important" id = "decline2/{{task.[0]._id}}">DECLINE</button>
                <br>
                <h2></h2>
-               <b style="color:white; font-size:20px; display:none;" id = "text">Why will you decline this task?</b>
+               <b style="color:white; font-size:20px; display:none;" id = "text2/{{task.[0]._id}}">Why will you decline this task?</b>
                <!-- <input type="hidden" class="form-control input-form" id="input">
                <button hidden = "hidden" type="button" class="btn projekt-management-button btn-dark"
                 style="background-color: #FB8500 !important" id = 'submit'>SUBMIT</button> -->
@@ -159,10 +168,10 @@
 
                     <form id="posodobiUporabnika" method="post" style="" action="/mytasks/decline/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}">
                       <div class="mb-3" style="padding-bottom: 0px !important">
-                        <input type="hidden" class="form-control input-form" name="comment" id="input" type="text" >
+                        <input type="hidden" class="form-control input-form" name="comment" id="input2/{{task.[0]._id}}" type="text" >
                       </div>
                       <div style="padding-top: 0px !important">
-                        <button hidden = "hidden" id = 'submit' type="submit" class="btn projekt-management-button btn-dark">Submit</button>
+                        <button hidden = "hidden" id = 'submit2/{{task.[0]._id}}' type="submit" class="btn projekt-management-button btn-dark">Submit</button>
                       </div>
                     </form>
 
@@ -189,6 +198,7 @@
 
 </div>
 
+<<<<<<< Updated upstream
 
 <script>
 $('#decline2').on('click', function() {
@@ -196,40 +206,88 @@ $('#decline2').on('click', function() {
                 let result1 = id1.includes("accept");
                 let result2 = id1.includes("decline2");
                 let result3 = id1.includes("submit")
+=======
+<script>
+$('button').on('click', function() {
+                id1 = this.id;
+                let result1 = id1.includes("accept1");
+                let result2 = id1.includes("decline1");
+                let result3 = id1.includes("submit1")
+                let result4 = id1.includes("accept2");
+                let result5 = id1.includes("decline2");
+                let result6 = id1.includes("submit2");
 
                 if (result1 == 1) {
-                  let id_dec = id1.replace("accept", "decline2");
-                  let id_noti = id1.replace("accept ", "");
-                  let id_input = id1.replace("accept", "input");
-                  let id_subm = id1.replace("accept", "submit");
-                  let id_txt = id1.replace("accept", "text");
+                  let id_dec = id1.replace("accept1", "decline1");
+                  //let id_noti = id1.replace("accept1 ", "");
+                  let id_input = id1.replace("accept1", "input1");
+                  let id_subm = id1.replace("accept1", "submit1");
+                  let id_txt = id1.replace("accept1", "text1");
 
                   document.getElementById(id_dec).disabled = true;
                   document.getElementById(id1).disabled = true;
-                  document.getElementById(id_noti).innerHTML = "TASK ACCEPTED!";
+                  //document.getElementById(id_noti).innerHTML = "TASK ACCEPTED!";
                   //$('h4').text("TASK ACCEPTED!");
                    }
                 if (result2 == 1) {
-                  let id_acep = id1.replace("decline2", "accept");
-                  let id_noti = id1.replace("decline2", "");
-                  let id_input = id1.replace("decline2", "input");
-                  let id_subm = id1.replace("decline2", "submit");
-                  let id_txt = id1.replace("decline2", "text");
-                  //document.getElementById(id1).disabled = true;
+                  let id_acep = id1.replace("decline1", "accept1");
+                  //let id_noti = id1.replace("decline1", "");
+                  let id_input = id1.replace("decline1", "input1");
+                  let id_subm = id1.replace("decline1", "submit1");
+                  let id_txt = id1.replace("decline1", "text1");
                   document.getElementById(id_acep).disabled = true;
+                  document.getElementById(id1).disabled = true;
                   document.getElementById(id_input).type = "text";
                   document.getElementById(id_txt).style.display = "";
-                  document.getElementById(id1).disabled = true;
                   document.getElementById(id_subm).hidden = "";
                   }
 
                   if(result3 == 1) {
-                      let id_subm = id1.replace("submit ", "");
-                      let id_input = id1.replace("submit", "input");
-                      let id_noti = id1.replace("submit ", "");
+                      let id_subm = id1.replace("submit1", "");
+                      let id_input = id1.replace("submit1", "input1");
+                      let id_noti = id1.replace("submit1", "");
+                      document.getElementById(id1).disabled = true;
+                      document.getElementById(id_input).disabled = "disabled"
+                      //document.getElementById(id_noti).innerHTML = "TASK DECLINED!";
+                      }
+>>>>>>> Stashed changes
+
+
+                 if (result4 == 1) {     
+                     let id_dec = id1.replace("accept2", "decline2");
+                    let id_noti = id1.replace("accept2", "");
+                    let id_input = id1.replace("accept2", "input2");
+                    let id_subm = id1.replace("accept2", "submit2");
+                    let id_txt = id1.replace("accept2", "text2");
+
+                    document.getElementById(id_dec).disabled = true;
+                    document.getElementById(id1).disabled = true;
+                    //document.getElementById(id_noti).innerHTML = "TASK ACCEPTED!";
+                    //$('h4').text("TASK ACCEPTED!");
+                    }
+
+                 if (result5 == 1) {
+                    let id_acep = id1.replace("decline2", "accept2");
+                    let id_noti = id1.replace("decline2", "");
+                    let id_input = id1.replace("decline2", "input2");
+                    let id_subm = id1.replace("decline2", "submit2");
+                    let id_txt = id1.replace("decline2", "text2");
+                    //document.getElementById(id1).disabled = true;
+                    document.getElementById(id_acep).disabled = true;
+                    document.getElementById(id_input).type = "text";
+                    document.getElementById(id_txt).style.display = "";
+                    document.getElementById(id1).disabled = true;
+                    document.getElementById(id_subm).hidden = "";
+                  }
+
+
+                  if(result6 == 1) {
+                      let id_subm = id1.replace("submit2", "");
+                      let id_input = id1.replace("submit2", "input2");
+                      let id_noti = id1.replace("submit2", "");
                       document.getElementById(id1).disabled = true;
                       document.getElementById(id_input).disabled = "disabled"
                       document.getElementById(id_noti).innerHTML = "TASK DECLINED!";
-                      }
+                      }   
             });
 </script>
