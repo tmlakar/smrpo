@@ -10,6 +10,8 @@ const ctrlSprints = require("../controllers/sprints");
 const ctrlUserStories = require("../controllers/userStories");
 const ctrlPublications = require("../controllers/publications");
 const ctrlTasks = require("../controllers/mytasks");
+const ctrlDocumentation = require("../controllers/documentation");
+
 
 const jwt = require("express-jwt");
 const avtentikacija = jwt({
@@ -132,6 +134,10 @@ router.post("/projects/:idProject/publications/:idPublication/new-comment", ctrl
 router.delete("/projects/:idProject/publications/:idPublication/comment/:idComment/remove", ctrlPublications.removeCommentFromPublication);
 /* Removing comment */
 router.delete("/projects/:idProject/publications/:idPublication/remove", ctrlPublications.deletePublication)
+
+/* Documentation */
+router.put("/projects/:idProject/userStory/:idUserStory/documentation", ctrlDocumentation.updateUserStoryDocumentation);
+
 
 /* Avtentikacija */
 router.post("/registracija", ctrlAvtentikacija.registracija);
