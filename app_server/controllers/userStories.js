@@ -564,6 +564,7 @@ const addMultipleToSprint = (req, res) => {
     if (array == '') {
         // opozorilo da mora bit checked.. oziroma ne preusmeri.
     }
+    var currentSprintNumber = req.body.sprint;
     
     if (!req.body.storiesArray) {
 
@@ -575,19 +576,21 @@ const addMultipleToSprint = (req, res) => {
             method: 'post',
             url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/add-to-sprint',
             data: {
-                sprint: req.body.sprint,
+                sprint: currentSprintNumber,
 
             }
+        
         }).then((odgovor) => {
             var name = odgovor.name;
-            var string = "successfull";
-            res.redirect('/project/' + projectId + '?addsprintm=' + string + '#backlog');
+            
         }).catch((napaka) => {
             var string = "napakaPriDodajanjuM";
-            res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
+            return res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
 
         });
-    }
+     }
+    var string = "successfull";
+    res.redirect('/project/' + projectId + '?addsprintm=' + string + '#backlog');
     }
 };
 
