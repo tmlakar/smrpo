@@ -92,7 +92,7 @@
 
   </div>
 
-{{!-- script za izpisovanje seznama --}}
+{{!-- script za izpisovanje seznama --}} <!-- Anja userStories[i]._id + -->
 <script>
   var arrStories = [{}];
   var sprintInProg;
@@ -114,7 +114,7 @@
         
         stringUserStories = stringUserStories + '<tr><td><div style="padding-left: 10px !important;"><input type="checkbox" class="lifecheck'+ arrI +'" name="" value="'+userStories[i]._id +'"></div></td>';
         stringUserStories = stringUserStories + '<td>' + userStories[i].name + '</td>';
-        stringUserStories = stringUserStories + '<td style="text-align:center;">' + userStories[i].size + userStories[i]._id + '</td>';
+        stringUserStories = stringUserStories + '<td style="text-align:center;">' + userStories[i].size + '</td>';
         stringUserStories = stringUserStories + '<td>' + userStories[i].priority + '</td></tr>';
 
         arrStories[arrI] = userStories[i];
