@@ -27,7 +27,7 @@
                         <br>
                         {{#each productManagers as |productManager|}}
 
-                          <button  id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
+                          <button  id="collaborator_circle" title="{{productManager.username}}" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
                            class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c1) !important; ">
                           {{firstLetterOfUsername productManager.username}}
                           </button>
@@ -40,7 +40,7 @@
 
                         {{#each scrumMasters as |scrumMaster|}}
                           <br>
-                          <button  id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
+                          <button  id="collaborator_circle" title="{{scrumMaster.username}}" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
                            class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c5) !important; ">
                           {{firstLetterOfUsername scrumMaster.username}}
                           </button>
@@ -52,7 +52,7 @@
 
                         {{#each teamMembers as |teamMember|}}
                           <br>
-                          <button  id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
+                          <button  id="collaborator_circle" title="{{teamMember.username}}" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
                            class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c6) !important; ">
                           {{firstLetterOfUsername teamMember.username}}
                           </button>
@@ -241,7 +241,7 @@
                         </div>
 
                         <div class="storyOwner_circle-d col-lg-2 " >
-                            <button  id="storyOwner_circle" type="button"
+                            <button  id="storyOwner_circle" type="button" title="{{story.userStorieOwnerUsername}}" style="pointer-events: auto;"
                                     class="btn btn-dark open-collaboratorEdit" disabled>
                                     {{firstLetterOfUsername story.userStorieOwnerUsername}}
                             </button>
@@ -754,13 +754,13 @@
                                       }
                                       if(jeSprejel){
                                         // add owner - če je owner že sprejel se ne da več spremenit in kliknt na gumb
-                                        subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" disabled>';
+                                        subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button" title="{{subtaskOwnerUsername}}" class="btn button-mini" style="pointer-events: auto; background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" disabled>';
                                         subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
                                         subtasksString = subtasksString + '</button></div></div>';
                                       }
                                       else{
                                         // add owner - če owner še ni sprejel
-                                        subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" >';
+                                        subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button" title="{{subtaskOwnerUsername}}" class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" >';
                                         subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
                                         subtasksString = subtasksString + '</button></div></div>';
                                       }
@@ -787,13 +787,13 @@
                                         }
                                         if(jeSprejel){
                                           // add owner - če je owner že sprejel se ne da več spremenit in kliknt na gumb
-                                          subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" disabled>';
+                                          subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button" title="{{subtaskOwnerUsername}}" class="btn button-mini" style="pointer-events: auto; background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" disabled>';
                                           subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
                                           subtasksString = subtasksString + '</button></div></div>';
                                         }
                                         else{
                                           // add owner - če owner še ni sprejel
-                                          subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button"  class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" >';
+                                          subtasksString = subtasksString + '<div class="col-lg-3"><a data-toggle="modal" data-target="#modalEditTask" data-scrum="'+ isScrumMaster +'" data-product="'+ isProductManager +'"  data-teamm="'+ isTeamMember +'" data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-namesub="'+name+'" data-hoursub="'+hour+'" data-asub="'+assignee+'" id="editTaskButton1" style="padding: 7px !important"><button type="button" title="{{subtaskOwnerUsername}}" class="btn button-mini" style="background-color: var(--c5)!important; float:right; margin-left:5px;">Edit</button></a><button data-toggle="modal" data-target="#modalEditTaskUser" id="taskOwner_circle"data-idproject="'+projId+'" data-iduserstory="'+storyId+'" data-idsubtask="'+idsub+'" data-asub="'+assignee1+'" data-collab="'+teamMembers+'" class="btn " style="float:right; background-color: var(--c4) !important" >';
                                           subtasksString = subtasksString + functionFirstLetterS(arrayS[j].subtaskOwnerUsername);
                                           subtasksString = subtasksString + '</button></div></div>';
                                         }
@@ -1344,7 +1344,7 @@
                       </div>
                   </div>
                   <div class="mb-3">
-                      <label class="form-label">Sprint size</label>
+                      <label class="form-label">Sprint velocity</label>
                       <div class="row" style="padding: 0px !important">
                           <div class="col-lg-10"><input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="" id="inputSprintSize" aria-describedby="emailHelp" readonly></div>
                       </div>
@@ -1386,7 +1386,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Sprint size</label>
+                    <label class="form-label">Sprint velocity</label>
                     <div class="row" style="padding: 0px !important">
                         <div class="col-lg-10"><input class="form-control input-form" style="background-color: rgb(196, 196, 196) !important" name="" id="sprintSize" aria-describedby="emailHelp" readonly></div>
                     </div>
@@ -1603,7 +1603,7 @@
                   <h4 ><b>Sprint {{number}}</b></h4>
                   <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                   <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
-                  <span>Sprint size:</span> {{sprint.sprintSize}}</p>
+                  <span>Sprint velocity:</span> {{sprint.sprintSize}}</p>
                   <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;">
                     Edit sprint
                   </button>
@@ -1636,7 +1636,7 @@
                 <h4 ><b>Sprint {{number}}</b></h4>
                 <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                 <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
-                <span>Sprint size:</span> {{sprint.sprintSize}}</p>
+                <span>Sprint velocity:</span> {{sprint.sprintSize}}</p>
                 <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
                   Go to Sprint
                 </button></a>
@@ -1657,9 +1657,9 @@
                   <h4 ><b>Sprint {{number}}</b></h4>
                   <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                   <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
-                  <span>Sprint size:</span> {{sprint.sprintSize}}</p>
+                  <span>Sprint velocity:</span> {{sprint.sprintSize}}</p>
 
-                  <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c4) !important; float: right !important;">
+                  <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c4) !important; float: right !important;" hidden>
                     Go to Sprint
                   </button></a>
 
@@ -1678,7 +1678,7 @@
                 <h4 ><b>Sprint {{number}}</b></h4>
                 <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                 <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
-                <span>Sprint size:</span> {{sprint.sprintSize}}</p>
+                <span>Sprint velocity:</span> {{sprint.sprintSize}}</p>
                 <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: right !important;">
                   Edit Sprint
                 </button>
@@ -1712,7 +1712,7 @@
                 <h4 ><b>Sprint {{number}}</b></h4>
                 <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                 <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
-                <span>Sprint size:</span> {{sprint.sprintSize}}</p>
+                <span>Sprint velocity:</span> {{sprint.sprintSize}}</p>
                 <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;" hidden>
                   Go to Sprint
                 </button></a>
@@ -2505,7 +2505,7 @@ $(document).ready(function(){
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>User stories were successfully added to the current sprint!</p>
+                    <p>Selected user stories were successfully added to the current sprint!</p>
                 </div>
 
                 </div>

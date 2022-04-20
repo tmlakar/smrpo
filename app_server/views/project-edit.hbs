@@ -34,7 +34,7 @@
                     {{!-- ce je Team Member se krogec obarva s sivo --}}
                     {{#if (isTeamMember collaborator.project_role)}}
 
-                    <button  id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
+                    <button  id="collaborator_circle" type="button" title="{{collaborator.username}}" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}"
                     data-target="#modalnoOknoColl" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c6) !important; ">
                     {{firstLetterOfUsername collaborator.username}}
 
@@ -45,7 +45,7 @@
                     {{!-- ce je Scrum Master se krogec obarva z modro  --}}
                     {{#if (isScrumMaster collaborator.project_role)}}
 
-                    <button id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}" data-target="#modalnoOknoColl" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c5) !important; ">
+                    <button id="collaborator_circle" type="button" title="{{collaborator.username}}" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}" data-target="#modalnoOknoColl" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c5) !important; ">
                     {{firstLetterOfUsername collaborator.username}}
 
                     </button>
@@ -54,7 +54,7 @@
                     {{!-- ce je Product Manager se krogec obarva s oranzno --}}
                     {{#if (isProductManager collaborator.project_role)}}
 
-                    <button id="collaborator_circle" type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}" data-target="#modalnoOknoColl" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c1) !important; ">
+                    <button id="collaborator_circle" type="button" title="{{collaborator.username}}" data-toggle="modal" data-proj="{{../id}}" data-id="{{collaborator._id}}" data-usr="{{collaborator.username}}" data-role="{{collaborator.project_role}}" data-target="#modalnoOknoColl" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c1) !important; ">
                     {{firstLetterOfUsername collaborator.username}}
 
                     </button>
