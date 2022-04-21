@@ -55,7 +55,7 @@
           <div class="card-body">
           <h5><a href="/project/{{activeProject.id}}#backlog">{{activeProject.name}}</a></h5>
           
-          <p style="font-size: 14px !important; padding-left: 0px !important">Your project role on this project is '{{activeProject.project_role}}'.</p>
+          <p style="font-size: 14px !important; padding-left: 0px !important">Your project role on this project is '{{formatRole activeProject.project_role}}'.</p>
           </div>
           
           {{#if (isScrumMaster activeProject.project_role)}}

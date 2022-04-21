@@ -257,6 +257,8 @@ hbs.registerHelper('canAddComment', function(value1) {
 hbs.registerHelper('formatRole', function(value1) {
   if (value1 == "Product Manager") {
     return "Product Owner";
+  } else {
+    return value1;
   }
 
   
