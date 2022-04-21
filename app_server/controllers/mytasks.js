@@ -115,7 +115,7 @@ var prikaz = (req, res) => {
           });
           console.log("ali dela")
           console.log(id1)
-          console.log(myfinishedTasks)
+          console.log(myAcceptedTasks)
         })
 };
 

@@ -208,6 +208,12 @@ const addSize = (req, res) => {
 
 /* PUT - updating subtask owner */
 const addSubtaskOwner = (req, res) => {
+    var tokenParts = req.cookies.authcookie['žeton'].split('.');
+    var encodedPayload = tokenParts[1];
+    //var rawPayload = window.atob(encodedPayload);
+    var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+    var user = JSON.parse(rawPayload);
+    var username = user.username;
     var projectId = req.params.id;
     var storyId = req.params.idStory;
     var subtaskId = req.params.idSubtask;
@@ -219,6 +225,7 @@ const addSubtaskOwner = (req, res) => {
             url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/subtask/' + subtaskId + '/edit-subtask-owner',
             data: {
                 subtaskOwnerUsername: req.body.subtaskOwnerUsername,
+                currentUsername: username
             }
         }).then((odgovor) => {
             var name = odgovor.name;
@@ -414,7 +421,7 @@ var podrobnostiProjectSprint = (req, res) => {
     var user = JSON.parse(rawPayload);
     var projectId = req.params.id;
     var sprintId = req.params.sprintId;
-    
+
 
     var vloga = user.role;
     var layout1 = 'layout';
@@ -422,11 +429,11 @@ var podrobnostiProjectSprint = (req, res) => {
         layout1 = 'layout-user';
     }
 
-    
+
     axios
         .get(apiParametri.streznik + '/api/projects/' + projectId)
         .then((odgovor) => {
-         
+
           var collaborators = odgovor.data.collaborators;
           var scrumMasterUsername;
             var productManagerUsername;
@@ -478,9 +485,9 @@ var podrobnostiProjectSprint = (req, res) => {
                 }
             }
           }
-            
+
           // sprints trenutni
-          
+
           const finishedSprints = [];
             var i1 = 0;
             const inProcessSprints = [];
@@ -526,7 +533,7 @@ var podrobnostiProjectSprint = (req, res) => {
 
             console.log(numberSprintId);
             var numberOfSprint = numberSprintId;
-          
+
 
             res.render('sprint-tasks', {
                 name: odgovor.data.name,
@@ -560,12 +567,12 @@ const addMultipleToSprint = (req, res) => {
     var IDs = array.split(",");
     console.log(IDs);
     console.log(req.body.sprint);
-    
+
     if (array == '') {
         // opozorilo da mora bit checked.. oziroma ne preusmeri.
     }
     var currentSprintNumber = req.body.sprint;
-    
+
     if (!req.body.storiesArray) {
 
     } else {
@@ -579,10 +586,10 @@ const addMultipleToSprint = (req, res) => {
                 sprint: currentSprintNumber,
 
             }
-        
+
         }).then((odgovor) => {
             var name = odgovor.name;
-            
+
         }).catch((napaka) => {
             var string = "napakaPriDodajanjuM";
             return res.redirect('/project/' + projectId + '?error=' + string + '#backlog');

@@ -749,7 +749,8 @@
 
                                       var collaborators2 = JSON.stringify(collaborators1);
                                       var jeSprejel = false;
-                                      if(arrayS[j].pending == "false"){
+                                      //ne moremo več spremeniti če je že sprejel, če je pending pri nekomu, pa če je sam sebe dodal
+                                      if((arrayS[j].pending == "false") || (arrayS[j].pending == "true" && arrayS[j].subtaskOwnerUsername != null)){
                                         jeSprejel = true;
                                       }
                                       if(jeSprejel){

@@ -189,8 +189,8 @@ const projectInfo = (req, res) => {
             currentUserStory.aboutText = req.body.aboutText;
             currentUserStory.priority = req.body.priority;
             currentUserStory.businessValue = req.body.businessValue;
-            
-            
+
+
             // currentUserStory.sprint = req.body.sprint;
             // var sprintString;
             // // posodbimo se flags
@@ -287,10 +287,10 @@ const updateUserStoryAddToSprint = (req, res) => {
         if (!currentUserStory) {
           res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
         } else {
-          
+
           currentUserStory.allSprints.push(req.body.sprint);
           currentUserStory.sprint = req.body.sprint;
-            
+
           project.save((napaka, project) => {
               if (napaka) {
                 res.status(404).json(napaka);
@@ -330,10 +330,10 @@ const updateUserStoryAddSize = (req, res) => {
         if (!currentUserStory) {
           res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
         } else {
-          
-          
+
+
           currentUserStory.size = req.body.size;
-            
+
           project.save((napaka, project) => {
               if (napaka) {
                 res.status(404).json(napaka);
@@ -491,9 +491,15 @@ const updateUserStoryAddOwnerToSubtask = (req, res) => {
             if (!currentSubtask) {
               res.status(404).json({ sporočilo: "Ne najdem subtaksa." });
             } else {
+              //ce je izbran username enak temu ki je prijavljen damo pending na false, ker se smatra kot da je že sprejel
               currentSubtask.subtaskOwnerUsername = req.body.subtaskOwnerUsername;
-              currentSubtask.pending = true;
-
+              if(req.body.subtaskOwnerUsername == req.body.currentUsername){
+                console.log("sta enaka")
+                currentSubtask.pending = false;
+              }
+              else{
+                currentSubtask.pending = true;
+              }
               project.save((napaka, project) => {
                 if (napaka) {
                   res.status(404).json(napaka);
