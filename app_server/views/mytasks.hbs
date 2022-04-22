@@ -232,8 +232,9 @@ $('button').on('click', function() {
                       let id_subm = id1.replace("submit1", "");
                       let id_input = id1.replace("submit1", "input1");
                       let id_noti = id1.replace("submit1", "");
-                      document.getElementById(id1).disabled = true;
-                      document.getElementById(id_input).disabled = "disabled"
+                      document.getElementById(id_subm).id = "submit1"
+                      //document.getElementById(id1).disabled = true;
+                      //document.getElementById(id_input).disabled = "disabled"
                       //document.getElementById(id_noti).innerHTML = "TASK DECLINED!";
                       }
 
@@ -270,9 +271,41 @@ $('button').on('click', function() {
                       let id_subm = id1.replace("submit2", "");
                       let id_input = id1.replace("submit2", "input2");
                       let id_noti = id1.replace("submit2", "");
+                      document.getElementById(id_subm).id = "sumbit2"
+                      //document.getElementById(id1).disabled = true;
+                      //document.getElementById(id_input).disabled = "disabled"
+                      //document.getElementById(id_noti).innerHTML = "TASK DECLINED!";
+                      }   
+            });
+</script>
+
+
+<script>
+$('#submit2').on('click', function() {
+                id1 = this.id;
+                let result3 = id1.includes("submit")
+                
+                  if(result3 == 1) {
+                      let id_input = id1.replace("submit", "input");
+                      let id_noti = id1.replace("submit ", "");
                       document.getElementById(id1).disabled = true;
                       document.getElementById(id_input).disabled = "disabled"
                       document.getElementById(id_noti).innerHTML = "TASK DECLINED!";
-                      }   
+                      }
+            });
+</script>
+
+<script>
+$('#submit1').on('click', function() {
+                id1 = this.id;
+                let result3 = id1.includes("submit")
+                
+                  if(result3 == 1) {
+                      let id_input = id1.replace("submit", "input");
+                      let id_noti = id1.replace("submit ", "");
+                      document.getElementById(id1).disabled = true;
+                      document.getElementById(id_input).disabled = "disabled"
+                      document.getElementById(id_noti).innerHTML = "TASK DECLINED!";
+                      }
             });
 </script>
