@@ -9,7 +9,11 @@ const axios = require("axios").create({
     timeout: 5000,
 });
 
-
+var prikaziAcReady = (req, res) => {
+  res.render('acceptance-ready',{
+    layout: 'layout-user'
+  });
+}
 // get implementiram drugje - tukile samo updejti in creating
 
 /* Podrobnosti projekta */
@@ -618,5 +622,6 @@ module.exports = {
     addToSprint,
     addSize,
     podrobnostiProjectSprint,
-    addMultipleToSprint
+    addMultipleToSprint,
+    prikaziAcReady
 };

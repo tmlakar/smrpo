@@ -112,7 +112,7 @@ router.post("/project/:id/userStory/:idStory/add-size", ctrlUserStories.addSize)
 
 
 router.get("/project/:id/sprint/:sprintId/tasks", ctrlUserStories.podrobnostiProjectSprint);
-
+router.get("/project/:id/acceptance-ready", ctrlUserStories.prikaziAcReady);
 
 
 
