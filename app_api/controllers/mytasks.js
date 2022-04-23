@@ -186,6 +186,27 @@ const finishTask = (req, res) => {
                       //res.status(201).json(user);
                     }
                     });
+                    var storyFinished = false;
+                    var končane = 0;
+                    //pregledam še, če so že vsi taski pri tej zgodbdi končani in če so je tudi zgodba končana
+                    for(var i=0; i < userStory.subtasks.length ; i++){
+                        if(userStory.subtasks[i].finished == true){
+                            končane = končane + 1;
+                        }
+                    }
+                    if(končane == userStory.subtasks.length){
+                      storyFinished = true;
+                    }
+                    if(storyFinished == true){
+                      userStory.finished = true;
+                    }
+                    userStory.save((napaka, user) => {
+                      if (napaka) {
+                      res.status(400).json(napaka);
+                      } else {
+                      //res.status(201).json(user);
+                    }
+                    });
                     //ali moram dodati še user story.save
                       project.save((napaka, project) => {
                         if (napaka) {

@@ -61,7 +61,7 @@ const userStoriesShema = new mongoose.Schema({
     sprint: {type: Number, default: 0},
     allSprints: [{type: String}],
     documentation: {type: String, default: "User manual."},
-
+    accepted: {type: Boolean, default: false}
 });
 
 

@@ -104,10 +104,10 @@
                 <small style="color:#023047;">From user story:</small><span style="color:#023047;"> {{task.[1]}}</span><br>
                 <small style="color:#023047;">Hours for this task:</small><span style="color:#023047;"> {{task.[0].hours}}</span><br>
                 <br>
-                
+
                 <button type="button" class="btn projekt-management-button btn-dark"
                 style="background-color: #FB8500 !important" id = "accept1/{{task.[0]._id}}">
-                <a href="/mytasks/accept/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}" style="color:white;" id = "accept1" >ACCEPT</a> 
+                <a href="/mytasks/accept/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}" style="color:white;" id = "accept1" >ACCEPT</a>
                 </button>
 
                 <button type="button" class="btn btn-dark decline-button"
@@ -140,7 +140,7 @@
  {{#each myAcceptedTasks as |task|}}
  <div class="card projekt-notification col-sm-3" style="">
                <div class="card-body">
-                <b style="color:white; font-size:20px;">{{task.[0].name}}</b>
+                <a href="time-log/{{task.[0]._id}}" style="color:white; font-size:20px;">{{task.[0].name}}</b>
                 <br>
                 <br>
                 <small style="color:#023047;">From user story:</small><span style="color:#023047;"> {{task.[1]}}</span><br>
@@ -239,7 +239,7 @@ $('button').on('click', function() {
                       }
 
 
-                 if (result4 == 1) {     
+                 if (result4 == 1) {
                      let id_dec = id1.replace("accept2", "decline2");
                     let id_noti = id1.replace("accept2", "");
                     let id_input = id1.replace("accept2", "input2");
@@ -275,7 +275,7 @@ $('button').on('click', function() {
                       //document.getElementById(id1).disabled = true;
                       //document.getElementById(id_input).disabled = "disabled"
                       //document.getElementById(id_noti).innerHTML = "TASK DECLINED!";
-                      }   
+                      }
             });
 </script>
 
@@ -284,7 +284,7 @@ $('button').on('click', function() {
 $('#submit2').on('click', function() {
                 id1 = this.id;
                 let result3 = id1.includes("submit")
-                
+
                   if(result3 == 1) {
                       let id_input = id1.replace("submit", "input");
                       let id_noti = id1.replace("submit ", "");
@@ -299,7 +299,7 @@ $('#submit2').on('click', function() {
 $('#submit1').on('click', function() {
                 id1 = this.id;
                 let result3 = id1.includes("submit")
-                
+
                   if(result3 == 1) {
                       let id_input = id1.replace("submit", "input");
                       let id_noti = id1.replace("submit ", "");
