@@ -68,9 +68,11 @@
             </div>
   </div>
 
-    <div class="col-lg-10" style="margin-top: 20px !important">
+    <div class="col-lg-10" style="margin-top: 20px !important; padding-left: 30px !important">
+        <form method="post" >
+        <textarea name="documentation" class="form-control input-form-doc" style="height: 550px !important;"  id="" aria-describedby="emailHelp">{{documentation}}</textarea>
         <!-- Dokumentacija razporejena po uporabniških zgodbah -->
-        {{#each userStories as |story|}}
+        {{!-- {{#each userStories as |story|}}
          <div class="card projekt-publication" style="border: 3px solid var(--c4) !important; margin-top: 5px !important; margin-left: 50px !important; margin-bottom: 25px !important;">
 
           <h5 style="padding: 10px !important;"><i>{{story.name}}</i></h5>
@@ -89,10 +91,10 @@
             </div>
 
          </div>
-         {{/each}}
+         {{/each}} --}}
 
         <!-- modalno okno za urejanje dokumentacije -->
-        <div class="modal" id="modalEditDoc" tabindex="-1" role="dialog" aria-hidden="true">
+        {{!-- <div class="modal" id="modalEditDoc" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog modal-lg" style="padding-top: 50px !important;">
             <div class="modal-content modal-content-ekipa" style="background-color: var(--c2) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
               <div class="modal-header" style="background-color: var(--c2) !important;">
@@ -117,10 +119,10 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> --}}
 
         <!-- modalno okno za urejanje dokumentacije -->
-        <div class="modal" id="modalPreviewPhotos" tabindex="-1" role="dialog" aria-hidden="true">
+        {{!-- <div class="modal" id="modalPreviewPhotos" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog modal-lg" style="padding-top: 50px !important;">
             <div class="modal-content modal-content-ekipa" style="background-color: var(--c4) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
               <div class="modal-header" style="background-color: var(--c4) !important;">
@@ -142,11 +144,67 @@
               </div>
             </div>
           </div>
-        </div>
-    
-        <!-- gumb za download -->
-        <button id="" type="button" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right" style="background-color: var(--c4) !important; border: 3px solid var(--c4) !important"><i class="fa-solid fa-arrow-down" style="color: var(--whitest) !important;"></i></button><br>
+        </div> --}}
+
+        {{!-- upload photos + save changes --}}
+        {{!-- <button type="button" data-toggle="modal" data-target="#modalPreviewPhotos" class="btn submit-form" style="background-color: var(--c3)!important; width: 170px !important; float: left; !important; margin: 10px !important;">Upload photos</button> --}}
         
+        <button type="button" data-toggle="modal" data-target="#modalUploadDocumentation" class="btn submit-form" style="background-color: var(--c3)!important; width: 250px !important; float: left; !important; margin: 10px !important;">Upload documentation</button>
+
+        <button id="" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important;margin: 10px !important;">Save changes</button>
+        </form>
+
+        <div class="modal" id="modalUploadDocumentation" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" style="padding-top: 50px !important;">
+            <div class="modal-content modal-content-ekipa" style="background-color: var(--c3) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
+              <div class="modal-header" style="background-color: var(--c3) !important;">
+                <h5 class="modal-title" id="exampleModalLabel" style="padding-top:10px; !important; color: white !important">Upload documentation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>                
+              </div>
+
+              <div class="modal-body">
+
+              <form action="/project/{{id}}/documentation-upload" method="post">
+                <input style="padding-left: 40px !important" class="" type="file" id="myFile" name="filename" accept=".txt">
+                <p id="output" style="color: white !important" hidden></p>
+                <!-- Upload file -->
+                <input id="parsedDocumentation" name="documentation" hidden>
+                <button id="uploadFile" type="submit" class="btn submit-form" style="background-color: var(--c5)!important; float: right; !important">Upload file</button>
+              </form>  
+                                      
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- gumb za download -->
+        <form method="post" action="/project/{{id}}/documentation-download">
+        <button id="" onclick="saveFile()" type="submit" class="btn btn-dark dodaj-uporabnika fixed-bottom float-right" style="background-color: var(--c4) !important; border: 3px solid var(--c4) !important" ><a download><i class="fa-solid fa-download" style="color: var(--whitest) !important;"></i></a></button><br>
+        </form>
+        
+        <script>
+            document.getElementById('myFile')
+            .addEventListener('change', function() {
+              
+            var fr=new FileReader();
+            fr.onload=function(){
+                document.getElementById('output')
+                        .textContent=fr.result;
+            }
+              
+            fr.readAsText(this.files[0]);
+            })
+
+            
+
+            $(document).on("click", "#uploadFile", function () {
+            var documentation = document.getElementById('output').innerHTML;
+            console.log(documentation);
+
+            $('#parsedDocumentation').val(documentation);
+
+            
+            });
+        </script>
     </div>
 
   </div>
@@ -166,14 +224,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Documentation has been successfully downloaded!</p>
+                    <p>Documentation has been successfully downloaded to the 'Downloads' folder on your computer!</p>
                 </div>
 
                 </div>
             </div>
         </div>
 
-{{#if successfullyDownloaded}}
+{{#if uspesnoDownloadedDokumentacija}}
 <script>
     $(document).ready(function(){
         $("#docModal1").modal('show');
@@ -230,14 +288,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Documentation for User story has been successfully updated!</p>
+                    <p>Project documentation has been successfully updated!</p>
                 </div>
 
                 </div>
             </div>
         </div>
 
-{{#if successfullyUpdatedDoc}}
+{{#if uspesnoPosodobljenaDokumentacija}}
 <script>
     $(document).ready(function(){
         $("#docModal3").modal('show');

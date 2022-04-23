@@ -6,47 +6,48 @@ const User = mongoose.model("User");
 /* Posodabljanje uporabniske dokumentacije - besedilo */
 
 const updateUserStoryDocumentation = (req, res) => {
-    if (!req.params.idProject || !req.params.idUserStory) {
+  if (!req.params.idProject) {
       return res.status(404).json({
-        sporočilo:
-          "Ne najdem projekta oziroma uporabniske zgodbe, " +
-          "idProject in idUserStory sta obvezna parametra.",
+          sporočilo: "Ne najdem projekta, idProject je obvezen parameter.",
       });
-    }
-    Project.findById(req.params.idProject)
-      .select("userStories")
-      .exec((napaka, project) => {
-        if (!project) {
-          return res.status(404).json({ sporočilo: "Ne najdem projekta." });
-        } else if (napaka) {
-          return res.status(500).json(napaka);
-        }
-        if (project.userStories && project.userStories.length > 0) {
-          const currentUserStory = project.userStories.id(
-            req.params.idUserStory
-          );
-          if (!currentUserStory) {
-            res.status(404).json({ sporočilo: "Ne najdem uporabniske zgodbe." });
-          } else {
-            
-            
-            currentUserStory.documentation = req.body.documentation;
-              
-            project.save((napaka, project) => {
-                if (napaka) {
-                  res.status(404).json(napaka);
-                } else {
-                  res.status(200).json(project);
-                }
-              });
-            }
+  }
+    
+    console.log("tuk");
+      
+    Project.find().exec(function(err, projects) {
+                  if (err) {
+                      console.log(err);
+                      res.status(404).json({ "sporočilo": "Napaka pri poizvedbi: " + err });
+                  } else {
+                      Project.findById(req.params.idProject)
+                          .exec((napaka, project) => {
+                              if (!project) {
+                                  return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+                              } else if (napaka) {
+                                  return res.status(500).json(napaka);
+                              }
+
+                              
+
+
+                              project.documentation = req.body.documentation;
+                              
+
+                              project.save((napaka, project) => {
+                                  if (napaka) {
+                                      res.status(404).json(napaka);
+                                  } else {
+                                      res.status(200).json(project);
+                                  }
+                              });
+                          });
+                      
+                      
+                  }
+          });
+
   
-          }
-         else {
-          return res.status(404).json({ sporočilo: "Ni obstojecih uporabniskih zgodb." });
-        }
-      });
-  };
+};
 
 module.exports = {
    updateUserStoryDocumentation

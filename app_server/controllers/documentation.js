@@ -1,3 +1,7 @@
+const fs = require('fs');
+const https = require("https");
+var formidable = require('formidable');
+
 
 var apiParametri = {
     streznik: "http://localhost:" + (process.env.PORT || 3000),
@@ -32,6 +36,17 @@ var apiParametri = {
 
     var username = user.username;
     var isScrumMaster = false;
+
+    var uspesnoPosodobljenaDokumentacija = false;
+    if (req.query.editd == "success") {
+        uspesnoPosodobljenaDokumentacija = true;
+    }
+    var uspesnoDownloadedDokumentacija = false;
+    if (req.query.download == "success") {
+        uspesnoDownloadedDokumentacija = true;
+    }
+   
+  
 
     
 
@@ -81,6 +96,9 @@ var apiParametri = {
                 scrumMasters: scrumMasters,
                 isScrumMaster: isScrumMaster,
                 role: vloga,
+                uspesnoPosodobljenaDokumentacija: uspesnoPosodobljenaDokumentacija,
+                documentation: odgovor.data.documentation,
+                uspesnoDownloadedDokumentacija: uspesnoDownloadedDokumentacija,
 
             });
         });
@@ -88,8 +106,95 @@ var apiParametri = {
 
 };
 
+/* */
+const updateDocumentation = (req, res) => {
+
+    var projectId = req.params.id;
+
+    if (!req.body.documentation) {
+      
+    } else {
+    axios({
+      method: 'put',
+      url: apiParametri.streznik + '/api/projects/' + projectId + '/documentation-edit',
+      data: {
+           documentation: req.body.documentation,
+           }
+      })
+      .then(() => {
+          var string = "success";
+          res.redirect('/project/' + projectId + '/documentation' + '?editd=' + string);
+      }).catch((error) => {
+        var string = "napaka";
+        res.redirect('/project/' + projectId + '/documentation' + '?error=' + string);
+      });
+    }
+};
+
+/* */
+const downloadDocumentation = (req, res) => {
+
+    var projectId = req.params.id;
+
+    axios.get(apiParametri.streznik + '/api/projects/' + projectId)
+    .then((odgovor) => {
+
+        var documentation = odgovor.data.documentation;
+        console.log(documentation);
+       
+        //write documentation into a file and save to downloads folder
+        var fs = require('fs');
+        var path = require('path'); 
+        var DOWNLOAD_DIR = path.join(process.env.HOME || process.env.USERPROFILE, 'downloads/');
+        var file_path = path.join(DOWNLOAD_DIR, 'documentation.txt');
+
+        fs.writeFile(file_path, documentation, function (err) {
+        if (err) return console.log(err);
+        console.log('documentation.txt');
+        });
+
+        
+
+        var string = "success";
+        res.redirect('/project/' + projectId + '/documentation' + '?download=' + string);
+
+    });
+    
+  };
+
+/* */
+  const uploadDocumentation = (req, res) => {
+    
+    var projectId = req.params.id;
+    var documentation = req.body.documentation;
+    console.log(documentation);
+
+    if (!req.body.documentation) {
+      
+    } else {
+    axios({
+      method: 'put',
+      url: apiParametri.streznik + '/api/projects/' + projectId + '/documentation-edit',
+      data: {
+           documentation: req.body.documentation,
+           }
+      })
+      .then(() => {
+          var string = "success";
+          res.redirect('/project/' + projectId + '/documentation' + '?editd=' + string);
+      }).catch((error) => {
+        var string = "napaka";
+        res.redirect('/project/' + projectId + '/documentation' + '?error=' + string);
+      });
+    }
+
+
+  };
 
   module.exports = {
-    prikaz
+    prikaz,
+    updateDocumentation,
+    downloadDocumentation,
+    uploadDocumentation
     
 };

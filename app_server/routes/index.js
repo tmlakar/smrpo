@@ -131,6 +131,10 @@ router.post('/project/:id/publication/:idPublication/comment/:idComment', ctrlPu
 
 var ctrlDocumentation = require("../controllers/documentation");
 router.get('/project/:id/documentation', ctrlDocumentation.prikaz);
+router.post('/project/:id/documentation', ctrlDocumentation.updateDocumentation);
+router.post('/project/:id/documentation-download', ctrlDocumentation.downloadDocumentation);
+router.post('/project/:id/documentation-upload', ctrlDocumentation.uploadDocumentation);
+
 
 
 // account

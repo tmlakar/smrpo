@@ -136,7 +136,7 @@ router.delete("/projects/:idProject/publications/:idPublication/comment/:idComme
 router.delete("/projects/:idProject/publications/:idPublication/remove", ctrlPublications.deletePublication)
 
 /* Documentation */
-router.put("/projects/:idProject/userStory/:idUserStory/documentation", ctrlDocumentation.updateUserStoryDocumentation);
+router.put("/projects/:idProject/documentation-edit", ctrlDocumentation.updateUserStoryDocumentation);
 
 
 /* Avtentikacija */

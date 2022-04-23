@@ -80,7 +80,8 @@ const projectShema = new mongoose.Schema({
     collaborators: [collaboratorShema],
     userStories: [userStoriesShema],
     sprints: [sprintShema],
-    publications: [publicationShema]
+    publications: [publicationShema],
+    documentation: {type: String}
 
 });
 
