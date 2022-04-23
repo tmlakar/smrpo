@@ -572,9 +572,24 @@ p {
     padding-bottom: 30px !important;
 }
 
+.modal-content1 {
+    background-color: #023047 !important;
+    color: white !important;
+    padding-bottom: 30px !important;
+    border-radius: 20px
+}
+
+
 .modal-header {
     background-color: var(--c1) !important;
     color: white !important;
+}
+
+
+.modal-header1 {
+    background-color: #023047 !important;
+    color: white !important;
+    border-radius: 20px
 }
 
 .modal-content-ekipa {
