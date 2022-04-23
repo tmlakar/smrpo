@@ -83,12 +83,16 @@
     </div>
 
   {{!-- gumb za dodajanje zgodb v sprint in pregled zgodb za sprejem za Scrum Master-ja --}}
-    {{#if productManager}}
+    
     <div>
+        {{#if scrumMaster}}
         <button class="btn submit-form btn-dark add-to-current-sprint" data-currs="{{inProcessSprintSize}}" data-storiess="{{sizeAllStoriesInCurrentSprint}}" data-spr="{{inProcessSprintsNumbers}}" data-proj="{{id}}" data-toggle="modal" data-stor="{{json userStories}}" data-target="#modalAddStories" style="background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Add to Current Sprint</button>
-        <a href="/project/{{id}}/acceptance-ready"><button class="btn submit-form btn-dark" style="margin-top: 20px !important;background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Acceptance Ready Stories</button></a>
-    </div>
+        {{/if}}
+        {{#if productManager}}
+       <a href="/project/{{id}}/acceptance-ready"><button class="btn submit-form btn-dark" style="margin-top: 20px !important;background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Acceptance Ready Stories</button></a>
     {{/if}}
+    </div>
+    
 
   </div>
 
@@ -623,7 +627,7 @@
 
                                 // 1.5 size ***************************************************************************
                                 //izpisovanje
-                                //pravice -> kdo lahko ureja sprint size  in kdaj
+                                //pravice -> kdo lahko ureja size  in kdaj
                                 if (isScrumMaster) {
                                   if (storyTests == "" || storySprint != 0) {
                                     document.getElementById("editSizeButtonDisabled").style.display="block";
@@ -1014,7 +1018,7 @@
                         </div>
                     </div>
                     <div id="storySizeDisabledPSA" display="none">
-                    <span style="font-size: 12px !important; color: var(--c1) !important">Story size can't be edited. <br>The reason might be undefined acceptance tests or that the story is already a part of current sprint. </span><br>
+                    <span style="font-size: 12px !important; color: var(--c1) !important">Story size can't be edited. <br>The reason might be undefined acceptance tests or that the story is already a part of current sprint or was a part of a finished one. </span><br>
                     </div>
                     </form>
                   </div>
