@@ -10,7 +10,8 @@ const axios = require("axios").create({
 });
 
 var showTimeLog = (req, res) => {
-  
+  //pridobiti podatke o izbrani nalogi za katero kažemo logiranje časa
+
   res.render('time-log',{
     layout: 'layout-user'
   })
