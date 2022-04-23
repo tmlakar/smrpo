@@ -66,7 +66,7 @@ var prikaz = (req, res) => {
         uspesnoDodanoVSprint = true;
     }
 
-   
+
     var tokenParts = req.cookies.authcookie['žeton'].split('.');
     var encodedPayload = tokenParts[1];
     var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');

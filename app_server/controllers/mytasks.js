@@ -9,6 +9,12 @@ const axios = require("axios").create({
     timeout: 5000,
 });
 
+var showTimeLog = (req, res) => {
+  
+  res.render('time-log',{
+    layout: 'layout-user'
+  })
+}
 
 var prikaz = (req, res) => {
   //v primeru da uspešno zavrnemo nalogo, moram pridobit project id, story id in task id iz parametrov da lahko pošljemo komentar
@@ -195,5 +201,6 @@ module.exports = {
     prikaz,
     acceptTask,
     declineTask,
-    finishTask
+    finishTask,
+    showTimeLog
 };

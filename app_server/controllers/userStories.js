@@ -9,7 +9,46 @@ const axios = require("axios").create({
     timeout: 5000,
 });
 
+function isFutureDate(selected){
+  selected.setHours(0,0,0,0);
+  var now = new Date();
+  now.setHours(0,0,0,0);
+  if (selected < now) {
+    // selected date is in the past
+    return false;
+  }
+  else if(selected >= now){
+    return true;
+  }
+}
+
 var prikaziAcReady = (req, res) => {
+  var projectId = req.params.id;
+  //pridobimo vse storye. ki so acceptance ready - so v sprintu ki je končan, niso še sprejete, so končane in imajo sprejemne teste
+  axios
+      .get(apiParametri.streznik + '/api/projects/' + projectId)
+      .then((odgovor) => {
+        var projekt = odgovor.data;
+        var stories = projekt.userStories;
+        var acReadyStories = []
+        for(var i= 0; i < stories.length; i++){
+          //ali so v sprintu ki je končan
+          var finishedSprint = false;
+          var sprint = stories[i].sprint;
+          for(var j=0; j<projekt.sprints.length; j++){
+            if(projekt.sprints[j].number == sprint){
+              if(isFutureDate(new Date(projekt.sprints[j].startDate)) == false && isFutureDate(new Date(projekt.sprints[j].endDate))==false){
+                finishedSprint = true;
+              }
+            }
+          }
+          //ostali pogoji
+          if(stories[i].accepted == false && stories[i].finished==true && stories[i].tests.length != 0){
+            acReadyStories[i] = stories[i];
+          }
+        }
+        console.log(acReadyStories)
+      });
   res.render('acceptance-ready',{
     layout: 'layout-user'
   });
