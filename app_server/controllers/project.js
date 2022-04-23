@@ -178,6 +178,26 @@ var prikaz = (req, res) => {
     if (req.query.addsprintm == "successfull") {
         uspesnoDodajanjeKarticVsprint = true;
     }
+
+    //unsuccessful adding to sprint (size too big)
+    var neuspesnoDodajanjeKarticeVSprint = false;
+    if (req.query.addtosprint == "unsuccessful") {
+        neuspesnoDodajanjeKarticeVSprint = true;
+    }
+
+    //unsuccessful adding to sprint multiple (size too big)
+    var neuspesnoDodajanjeKarticVSprint = false;
+    if (req.query.addmtosprint == "unsuccessful") {
+        neuspesnoDodajanjeKarticVSprint = true;
+    }
+
+    //sprint is full
+    var neuspesnoDodajanjeKarticVSprintFull = false;
+    if (req.query.addtosprint == "full") {
+        neuspesnoDodajanjeKarticVSprintFull = true;
+    }
+    
+
     
 
     var username = user.username;
@@ -236,6 +256,8 @@ var prikaz = (req, res) => {
 
             var inProcessSprintsNumbers = [];
             var inProcess = 0;
+            var inProcessSprintSize = 0;
+
             var finishedSprintsNumbers = [];
             var futureSprintsNumbers = [];
             var now = new Date().setHours(0, 0, 0, 0);
@@ -251,6 +273,7 @@ var prikaz = (req, res) => {
                 if ((start <= now) && (end >= now)) {
                     inProcessSprints[i2] = sprinti[i];
                     inProcessSprintsNumbers = sprinti[i].number;
+                    inProcessSprintSize = sprinti[i].sprintSize;
                     inProcess = inProcess + 1;
                     i2 = i2 + 1;
                 }
@@ -258,6 +281,14 @@ var prikaz = (req, res) => {
                 if ((start > now) && (end > now)) {
                     futureSprints[i3] = sprinti[i];
                     i3 = i3 + 1;
+                }
+            }
+
+            //sestevek size-a zgodb, ki so ze v sprintu
+            var sizeAllStoriesInCurrentSprint = 0;
+            for (var i = 0; i < uporabniskeZgodbe.length; i++) {
+                if (uporabniskeZgodbe[i].sprint == inProcessSprintsNumbers) {
+                    sizeAllStoriesInCurrentSprint = sizeAllStoriesInCurrentSprint + uporabniskeZgodbe[i].size;
                 }
             }
 
@@ -333,7 +364,12 @@ var prikaz = (req, res) => {
                     errorEditedStory: neuspesnoPosodobljenaZgodba,
                     uspesnoPosodobljenOwnerZgodbe: uspesnoPosodobljenOwnerZgodbe,
                     uspesnoDodanoVSprint: uspesnoDodanoVSprint,
-                    uspesnoDodajanjeKarticVsprint
+                    uspesnoDodajanjeKarticVsprint,
+                    neuspesnoDodajanjeKarticeVSprint,
+                    neuspesnoDodajanjeKarticVSprint,
+                    neuspesnoDodajanjeKarticVSprintFull,
+                    inProcessSprintSize,
+                    sizeAllStoriesInCurrentSprint
 
 
                 });
@@ -386,7 +422,12 @@ var prikaz = (req, res) => {
                     errorEditedStory: neuspesnoPosodobljenaZgodba,
                     uspesnoPosodobljenOwnerZgodbe: uspesnoPosodobljenOwnerZgodbe,
                     uspesnoDodanoVSprint: uspesnoDodanoVSprint,
-                    uspesnoDodajanjeKarticVsprint
+                    uspesnoDodajanjeKarticVsprint,
+                    neuspesnoDodajanjeKarticeVSprint,
+                    neuspesnoDodajanjeKarticVSprint,
+                    neuspesnoDodajanjeKarticVSprintFull,
+                    inProcessSprintSize,
+                    sizeAllStoriesInCurrentSprint
 
 
                 });

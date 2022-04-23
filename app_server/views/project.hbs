@@ -85,7 +85,7 @@
   {{!-- gumb za dodajanje zgodb v sprint in pregled zgodb za sprejem za Scrum Master-ja --}}
     {{#if scrumMaster}}
     <div>
-        <button class="btn submit-form btn-dark add-to-current-sprint" data-spr="{{inProcessSprintsNumbers}}" data-proj="{{id}}" data-toggle="modal" data-stor="{{json userStories}}" data-target="#modalAddStories" style="background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Add to Current Sprint</button>
+        <button class="btn submit-form btn-dark add-to-current-sprint" data-currs="{{inProcessSprintSize}}" data-storiess="{{sizeAllStoriesInCurrentSprint}}" data-spr="{{inProcessSprintsNumbers}}" data-proj="{{id}}" data-toggle="modal" data-stor="{{json userStories}}" data-target="#modalAddStories" style="background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Add to Current Sprint</button>
         <a href="/project/{{id}}/acceptance-ready"><button class="btn submit-form btn-dark" style="margin-top: 20px !important;background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Acceptance Ready Stories</button></a>
     </div>
     {{/if}}
@@ -98,6 +98,11 @@
   var sprintInProg;
 
   $(document).on("click", ".add-to-current-sprint", function () {
+    var currSprintSize = $(this).data('currs');
+    var currStoriesSize = $(this).data('storiess');
+    var stringSprintInfoSize = 'Combined size of all stories in current sprint: ' + currStoriesSize + '<br>' + 'Size of current sprint: ' + currSprintSize;
+    $('#sprintInfoSize').html(stringSprintInfoSize);
+  
     var projID1 = $(this).data('proj');
     var userStories = $(this).data('stor');
     var currSprint = $(this).data('spr');
@@ -120,7 +125,9 @@
         arrStories[arrI] = userStories[i];
         arrI = arrI + 1;
       }
-    }2
+    }
+
+  
 
 
     console.log(stringUserStories);
@@ -162,22 +169,23 @@
 <div class="modal" id="modalAddStories" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="padding-top: 50px !important;">
         <div class="modal-content modal-content-ekipa" style="background-color: var(--c4) !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">
-            <div class="modal-header" style="background-color: var(--c4) !important;">
-                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Select User stories for Current Sprint:</h5>
+            <div class="modal-header" style="background-color: var(--c4) !important; color: white !important">
+                <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important; color: white !important">Select User stories for Current Sprint:</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
-
+            
             <div class="modal-body">
             <form method="post" id="urlAddMultipleToSprint" action="">
-
+              <p id="sprintInfoSize">
+              </p>
               <div class="tableFixHead">
               <table style="width: 100% !important; background-color: var(--c4) !important; border:0px !important; border-collapse:separate !important; border-spacing: 15px!important; padding: 10px !important;">
-                <thead style="background-color: var(--c4) !important; font-style: normal !important;">
+                <thead style="color: white !important; background-color: var(--c4) !important; font-style: normal !important;">
                   <tr>
-                    <th style="background-color: var(--c4) !important;"></th>
-                    <th style="font-weight: normal; !important; font-size: 18px !important; color: var(--c3); background-color: var(--c4) !important;">User story</th>
-                    <th style="font-weight: normal; !important; font-size: 18px !important; color: var(--c3);text-align:center;background-color: var(--c4) !important;">Size</th>
-                    <th style="font-weight: normal; !important; font-size: 18px !important; color: var(--c3);background-color: var(--c4) !important;">Priority</th>
+                    <th style="color: var(--c2) !important; background-color: var(--c4) !important;"></th>
+                    <th style="color: var(--c2) !important; font-weight: normal; !important; font-size: 18px !important; color: var(--c3); background-color: var(--c4) !important;">User story</th>
+                    <th style="color: var(--c2) !important; font-weight: normal; !important; font-size: 18px !important; color: var(--c3);text-align:center;background-color: var(--c4) !important;">Size</th>
+                    <th style="color: var(--c2) !important; font-weight: normal; !important; font-size: 18px !important; color: var(--c3);background-color: var(--c4) !important;">Priority</th>
                   </tr>
                 </thead>
 
@@ -1604,7 +1612,7 @@
                   <h4 ><b>Sprint {{number}}</b></h4>
                   <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                   <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
-                  <span>Sprint velocity:</span> {{sprint.sprintSize}}</p>
+                  <span>Sprint velocity:</span> {{../sizeAllStoriesInCurrentSprint}} / {{../inProcessSprintSize}}</p>
                   <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;">
                     Edit sprint
                   </button>
@@ -2521,6 +2529,99 @@ $(document).ready(function(){
         setTimeout(function() {
 
             $('#add2sprintModal3').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+{{!-- neuspesno dodajanje kartice v sprint --}}
+<div id="add2sprintModal31" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Selected user story's size is too big for the user story to be added to current sprint!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if neuspesnoDodajanjeKarticeVSprint}}
+<script>
+    $(document).ready(function(){
+        $("#add2sprintModal31").modal('show');
+
+        setTimeout(function() {
+
+            $('#add2sprintModal31').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+{{!-- neuspesno dodajanje kartic v sprint --}}
+<div id="add2sprintModal32" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Selected user stories' combined size is too big for the stories to be added to current sprint!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if neuspesnoDodajanjeKarticVSprint}}
+<script>
+    $(document).ready(function(){
+        $("#add2sprintModal32").modal('show');
+
+        setTimeout(function() {
+
+            $('#add2sprintModal32').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+{{!-- neuspesno dodajanje kartic v sprint --}}
+<div id="add2sprintModal33" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>The current sprint is full! There is no room for new user stories to be added to the sprint!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if neuspesnoDodajanjeKarticVSprintFull}}
+<script>
+    $(document).ready(function(){
+        $("#add2sprintModal33").modal('show');
+
+        setTimeout(function() {
+
+            $('#add2sprintModal33').modal('hide');
         }, 7000);
     });
 </script>
