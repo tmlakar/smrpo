@@ -7,8 +7,9 @@
          {{#each acceptanceReadyStories as |story|}}
         <div class="card projekt-notification2 col-10" >
             <div class="card-body">
-                <button data-toggle="modal" data-subtasks="{{json story.subtasks}}" data-target="#exampleModal" style="background-color:Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden0; outline:none; text-align:left;">
+                <button id = "modal" data-toggle="modal" data-subtasks="{{json story.subtasks}}" data-target="#exampleModal" style="background-color:Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden0; outline:none; text-align:left;">
                     <b style="color:#023047; font-size:20px;">User Story: </b>
+                    <br>
                     <b style="color:white; font-size:20px;">{{story.name}}</b>
                     <br>
                     <br>
@@ -18,28 +19,29 @@
                     <small style="color:#023047;">Size:</small><span style="color:white;"> {{story.size}}</span><br>
                     <br>
                   </button>
-                    <a href="/project/accept-story/{{../projectId}}/{{story._id}}"  class="btn projekt-management-button btn-dark"
-                    style="background-color: #FB8500 !important; padding-top: 10px; margin-right:5px" id = "accept">ACCEPT</a>
+                    <button class="btn projekt-management-button btn-dark" style="background-color: #FB8500 !important; padding-top: 5px; margin-right:5px" id = "accept1/{{story._id}}">
+                     <a style="color:white;" href="/project/accept-story/{{../projectId}}/{{story._id}}">ACCEPT</a>
+                    </button>
                     <!-- <a href=" "  class="btn projekt-management-button btn-dark"
                     style="background-color: #FF3C38 !important; padding-top: 10px" id = "decline">DECLINE</a> -->
 
 
-                    <button type="button" class="btn btn-dark decline-button"
-                    style="background-color: #FF3C38 !important" id = "decline1/{{story_id}}">DECLINE</button>
+                    <button type="button" class="btn btn-dark decline-button" style="background-color: #FF3C38 !important" id = "decline1/{{story._id}}">                    
+                    DECLINE</button>
                     <br>
                     <h2></h2>
-                    <b style="color:white; font-size:20px; display:none;" id = "text1/{{story._id}}">Why will you decline this task?</b>
+                    <b style="color:white; font-size:20px; display:none;" id = "text1/{{story._id}}">Why will you decline this user story?</b>
                     <!-- <input type="hidden" class="form-control input-form" id="input">
                     <button hidden = "hidden" type="button" class="btn projekt-management-button btn-dark"
                      style="background-color: #FB8500 !important" id = 'submit'>SUBMIT</button> -->
 
 
-                         <form id="posodobiUporabnika" method="post" style="" action="/mytasks/decline/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}">
+                         <form id="posodobiUporabnika" method="post" style="" action="/acceptance-ready/decline/{{story._id}}">
                            <div class="mb-3" style="padding-bottom: 0px !important">
-                             <input type="hidden" class="form-control input-form" name="comment" id="input1/{{task.[0]._id}}" type="text" >
+                             <input type="hidden" class="form-control input-form" name="comment" id="input1/{{story._id}}" type="text" >
                            </div>
                            <div style="padding-top: 0px !important">
-                             <button hidden = "hidden" id = 'submit1/{{task.[0]._id}}' type="submit" class="btn projekt-management-button btn-dark">Submit</button>
+                             <button hidden = "hidden" id = 'submit1/{{story._id}}' type="submit" class="btn projekt-management-button btn-dark">Submit</button>
                            </div>
                          </form>
             </div>
@@ -53,6 +55,7 @@
               <div class="card-body">
                 <button id="modal-btn/2"  style="background-color:Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden0; outline:none; text-align:left;">
                     <b style="color:#023047; font-size:20px;">User Story: </b>
+                    <br>
                     <b style="color:white; font-size:20px;">{{story.name}}</b>
                     <br>
                     <br>
@@ -74,17 +77,21 @@
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
+  <div class="modal-dialog" role="document">  
+    <div class="modal-content1" style="background-color:#023047;">
+      <div class="modal-header1" style="background-color:#023047;">
             <br>
-            <p style="text-align:center; color:#8ECAE6;">USER STORY INFORMATION</p>
+            <p style="background-color:#023047; text-align:center; color:#8ECAE6;">USER STORY INFORMATION</p>
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             </div>
 
-            <div class="modal-body">
-            <b style="color:white;">   TASKS: </b>
-            <div id="addnewSubtask1"></div>
+            <div class="modal-body" style="background-color:#023047;">
+            <b style="color:white;" >   TASKS: </b>
+            <div id="addnewSubtask1" style="background-color:#023047;"></div>
+            <ul style="color:#8ECAE6;">
+
+              
+            </ul>
              <!-- <ul style="color:#8ECAE6;">
               <li>Načrtovanje plakata.</li>
               <li>Evaluacija gradiva.</li>
@@ -106,7 +113,10 @@
 
           </div>
           </div>
-    </div>
+</div>
+
+
+
 
 </div>
 </div>
@@ -187,9 +197,6 @@ $('button').on('click', function() {
                 let result1 = id1.includes("accept1");
                 let result2 = id1.includes("decline1");
                 let result3 = id1.includes("submit1")
-                let result4 = id1.includes("accept2");
-                let result5 = id1.includes("decline2");
-                let result6 = id1.includes("submit2");
 
                 if (result1 == 1) {
                   let id_dec = id1.replace("accept1", "decline1");
@@ -210,30 +217,7 @@ $('button').on('click', function() {
                   if(result3 == 1) {
                       let id_subm = id1.replace("submit1", "");
                       document.getElementById(id_subm).id = "submit1"
-                      }
-
-
-                 if (result4 == 1) {
-                    let id_dec = id1.replace("accept2", "decline2");
-                    document.getElementById(id_dec).disabled = true;
-                    document.getElementById(id1).disabled = true;
-                    }
-
-                 if (result5 == 1) {
-                    let id_acep = id1.replace("decline2", "accept2");
-                    let id_input = id1.replace("decline2", "input2");
-                    let id_subm = id1.replace("decline2", "submit2");
-                    document.getElementById(id_acep).disabled = true;
-                    document.getElementById(id_input).type = "text";
-                    document.getElementById(id1).disabled = true;
-                    document.getElementById(id_subm).hidden = "";
-                  }
-
-
-                  if(result6 == 1) {
-                      let id_subm = id1.replace("submit2", "");
-                      document.getElementById(id_subm).id = "sumbit2"
-                      }
+                      }             
             });
 </script>
 
@@ -248,3 +232,4 @@ $('#submit1').on('click', function() {
                       }
             });
 </script>
+
