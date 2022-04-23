@@ -2,6 +2,122 @@ const mongoose = require("mongoose");
 const Project = mongoose.model("Project");
 const User = mongoose.model("User");
 
+//product owner sprejme nalogo iz acceptance ready kot sprejto - se ji posodobi accepted na true
+const acceptStory = (req, res) => {
+  console.log("apiii")
+  if (!req.params.idProject || !req.params.idStory) {
+    return res.status(404).json({
+      sporočilo:
+        "Ne najdem projekta oziroma zgodbe, " +
+        "idProject in idStory sta obvezna parametra."
+    });
+  }
+  Project.findById(req.params.idProject)
+    .select("userStories")
+    .exec((napaka, project) => {
+      if (!project) {
+        return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+      }
+      else if (napaka) {
+        return res.status(500).json(napaka);
+      }
+
+      if (project.userStories && project.userStories.length > 0) {
+        const userStory = project.userStories.id(
+          req.params.idStory
+        );
+            if (!userStory) {
+              res.status(404).json({ sporočilo: "Ne najdem zgodbe." });
+            }
+            else {
+                    //updejtam accepted atribut kar bo pomenilo da je zgodba sprejeta
+                    userStory.accepted = true;
+                    //shranim še komentar v tabelo komentarjev taska
+                    userStory.save((napaka, user) => {
+                      if (napaka) {
+                      res.status(400).json(napaka);
+                      } else {
+                      //res.status(201).json(user);
+                    }
+                    });
+                    //ali moram dodati še user story.save
+                      project.save((napaka, project) => {
+                        if (napaka) {
+                          res.status(404).json(napaka);
+                        } else {
+                          res.status(200).json(project);
+                        }
+                      });
+                }
+              }
+       else {
+        return res.status(404).json({ sporočilo: "Ni obstojecih sprintov." });
+      }
+    });
+}
+
+//product owner lahko declina nalogo
+const declineStory = (req, res) => {
+  console.log("apiii")
+  if (!req.params.idProject || !req.params.idStory) {
+    return res.status(404).json({
+      sporočilo:
+        "Ne najdem projekta oziroma zgodbe, " +
+        "idProject in idStory sta obvezna parametra."
+    });
+  }
+  var projectId = req.params.idProject;
+  var storyId = req.params.idStory;
+  Project.findById(req.params.idProject)
+    .select("userStories")
+    .exec((napaka, project) => {
+      if (!project) {
+        return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+      }
+      else if (napaka) {
+        return res.status(500).json(napaka);
+      }
+
+      if (project.userStories && project.userStories.length > 0) {
+        const userStory = project.userStories.id(
+          req.params.idStory
+        );
+            if (!userStory) {
+              res.status(404).json({ sporočilo: "Ne najdem zgodbe." });
+            }
+            else {
+                  //shranim komentar k user story
+                  console.log("v apiju")
+                  console.log(req.body.komentar)
+                  userStory.comments.push({
+                      comment: req.body.komentar,
+                      commentOwnerUsername: req.body.username
+                  });
+                    //updejtam pending atribut - to bo pokazalo da je član skupine nalogo sprejel
+                    userStory.finished = false;
+                    userStory.save((napaka, user) => {
+                      if (napaka) {
+                        res.status(400).json(napaka);
+                      } else {
+                        //res.send({projectId: projectId, storyId: storyId, taskId: taskId})
+
+                    }
+                    });
+                      project.save((napaka, project) => {
+                        if (napaka) {
+                          res.status(404).json(napaka);
+                        } else {
+                          res.status(200).json(project);
+                        }
+                      });
+                    }
+              }
+       else {
+        return res.status(404).json({ sporočilo: "Ni obstojecih sprintov." });
+      }
+    });
+}
+
 /* Particular project info */
 
 const projectInfo = (req, res) => {
@@ -746,6 +862,7 @@ module.exports = {
     updateUserStoryAddOwner,
     deleteUserStory,
     updateUserStoryAddToSprint,
-    updateUserStoryAddSize
-
+    updateUserStoryAddSize,
+    acceptStory,
+    declineStory
 };

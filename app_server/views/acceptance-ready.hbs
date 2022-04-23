@@ -3,112 +3,147 @@
 
 
 
-
-    <div class="col-lg-3" style="padding-left: 0px !important; height:100%;"><p style="color:#023047; font-size:30px;">Acceptance Ready</p>
+    <div class="col-lg-3" style="margin-left: 200px; padding-left: 0px !important; height:100%;"><p style="color:#023047; font-size:30px;">Acceptance Ready</p>
+         {{#each acceptanceReadyStories as |story|}}
         <div class="card projekt-notification2 col-10" >
             <div class="card-body">
-                <button id="modal-btn/1"  style="background-color:Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden0; outline:none; text-align:left;">
+                <button data-toggle="modal" data-subtasks="{{json story.subtasks}}" data-target="#exampleModal" style="background-color:Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden0; outline:none; text-align:left;">
                     <b style="color:#023047; font-size:20px;">User Story: </b>
-                    <b style="color:white; font-size:20px;">ZGODBA 46</b>
+                    <b style="color:white; font-size:20px;">{{story.name}}</b>
                     <br>
                     <br>
-                    <small style="color:#023047;">Acceptance tests done:</small><span style="color:white;"> Yes</span><br>
-                    <small style="color:#023047;">Priority</small><span style="color:white;"> Could have</span><br>
-                    <small style="color:#023047;">Business value:</small><span style="color:white;"> 5</span><br>
-                    <small style="color:#023047;">Size:</small><span style="color:white;"> 2</span><br>
+                    <!-- <small style="color:#023047;">Acceptance tests done:</small><span style="color:white;"> Yes</span><br> -->
+                    <small style="color:#023047;">Priority:</small><span style="color:white;"> {{story.priority}}</span><br>
+                    <small style="color:#023047;">Business value:</small><span style="color:white;"> {{story.businessValue}}</span><br>
+                    <small style="color:#023047;">Size:</small><span style="color:white;"> {{story.size}}</span><br>
                     <br>
                   </button>
-                    <a href=""  class="btn projekt-management-button btn-dark"
+                    <a href="/project/accept-story/{{../projectId}}/{{story._id}}"  class="btn projekt-management-button btn-dark"
                     style="background-color: #FB8500 !important; padding-top: 10px; margin-right:5px" id = "accept">ACCEPT</a>
-                    <a href=" "  class="btn projekt-management-button btn-dark"
-                    style="background-color: #FF3C38 !important; padding-top: 10px" id = "decline">DECLINE</a>       
+                    <!-- <a href=" "  class="btn projekt-management-button btn-dark"
+                    style="background-color: #FF3C38 !important; padding-top: 10px" id = "decline">DECLINE</a> -->
+
+
+                    <button type="button" class="btn btn-dark decline-button"
+                    style="background-color: #FF3C38 !important" id = "decline1/{{story_id}}">DECLINE</button>
+                    <br>
+                    <h2></h2>
+                    <b style="color:white; font-size:20px; display:none;" id = "text1/{{story._id}}">Why will you decline this task?</b>
+                    <!-- <input type="hidden" class="form-control input-form" id="input">
+                    <button hidden = "hidden" type="button" class="btn projekt-management-button btn-dark"
+                     style="background-color: #FB8500 !important" id = 'submit'>SUBMIT</button> -->
+
+
+                         <form id="posodobiUporabnika" method="post" style="" action="/mytasks/decline/{{task.[2]}}/{{task.[3]}}/{{task.[0]._id}}">
+                           <div class="mb-3" style="padding-bottom: 0px !important">
+                             <input type="hidden" class="form-control input-form" name="comment" id="input1/{{task.[0]._id}}" type="text" >
+                           </div>
+                           <div style="padding-top: 0px !important">
+                             <button hidden = "hidden" id = 'submit1/{{task.[0]._id}}' type="submit" class="btn projekt-management-button btn-dark">Submit</button>
+                           </div>
+                         </form>
             </div>
-        </div> 
-            
+        </div>
+         {{/each}}
     </div>
 
-
-        <div class="col-lg-3" style="padding-left: 0px !important; height:100%;"><p style="color:#023047; font-size:30px;">Finished</p>
+        <div class="col-lg-3" style="margin-left: 200px; padding-left: 0px !important; height:100%;"><p style="color:#023047; font-size:30px;">Done</p>
+           {{#each doneStories as |story|}}
             <div class="card projekt-notification col-10">
               <div class="card-body">
                 <button id="modal-btn/2"  style="background-color:Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden0; outline:none; text-align:left;">
                     <b style="color:#023047; font-size:20px;">User Story: </b>
-                    <b style="color:white; font-size:20px;">ZGODBA 1</b>
+                    <b style="color:white; font-size:20px;">{{story.name}}</b>
                     <br>
                     <br>
-                    <small style="color:#023047;">Acceptance tests done:</small><span style="color:white;"> Yes</span><br>
-                    <small style="color:#023047;">Priority</small><span style="color:white;"> Should have</span><br>
-                    <small style="color:#023047;">Business value:</small><span style="color:white;"> 5</span><br>
-                    <small style="color:#023047;">Size:</small><span style="color:white;"> 5</span><br>
+                    <!-- <small style="color:#023047;">Acceptance tests done:</small><span style="color:white;"> Yes</span><br> -->
+                    <small style="color:#023047;">Priority</small><span style="color:white;"> {{story.priority}}</span><br>
+                    <small style="color:#023047;">Business value:</small><span style="color:white;"> {{story.businessValue}}</span><br>
+                    <small style="color:#023047;">Size:</small><span style="color:white;"> {{story.size}}</span><br>
                     <br>
                     </button>
-                    <a href=""  class="btn projekt-management-button btn-dark"
-                    style="background-color: #FB8500 !important; padding-top: 10px; margin-right:5px" id = "accept/2">ACCEPT</a>
-                    <a href=" "  class="btn projekt-management-button btn-dark"
-                    style="background-color: #FF3C38 !important; padding-top: 10px" id = "decline/2">DECLINE</a>                
               </div>
             </div>
-        
-      </div> 
-
-
-
-
-
-
-
-
-  <div id="my-modal" class="modalacc">
-    <div style="background-color:#023047; width:500px; height:500px; margin:15%; border-radius: 20px;">
-      <div class="modal-body-acc" style="border-radius: 20px;">
-        <span class="close" id="close">&times;</span>
-        <br>
-        <p style="text-align:center; color:#8ECAE6;">USER STORY INFOMRATION</p>
-        <b style="color:white;">   TASKS: </b>
-         <ul style="color:#8ECAE6;">
-          <li id="tekst">Načrtovanje plakata.</li>
-          <li>Evaluacija gradiva.</li>
-          <li>Preračunavanje finančnih sredstev.</li>
-          <li>Planiranje promocij.</li>
-          <li>Testiranje znanja.</li>
-         </ul>
-         <br>
-
-          <b style="color:white;">   ACCEPTANCE TESTING: </b>
-            <ul style="color:#8ECAE6;">
-            <li>Načrtovanje plakata.</li>
-            <li>Evaluacija gradiva.</li>
-            <li>Preračunavanje finančnih sredstev.</li>
-            <li>Planiranje promocij.</li>
-            <li>Testiranje znanja.</li>
-            <li>Testiranje znanja.</li>
-          
-            
-        </ul> 
+             {{/each}}
       </div>
+
+
+
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+            <br>
+            <p style="text-align:center; color:#8ECAE6;">USER STORY INFORMATION</p>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            </div>
+
+            <div class="modal-body">
+            <b style="color:white;">   TASKS: </b>
+            <div id="addnewSubtask1"></div>
+             <!-- <ul style="color:#8ECAE6;">
+              <li>Načrtovanje plakata.</li>
+              <li>Evaluacija gradiva.</li>
+              <li>Preračunavanje finančnih sredstev.</li>
+              <li>Planiranje promocij.</li>
+              <li>Testiranje znanja.</li>
+             </ul> -->
+             <br>
+              <b style="color:white;">   ACCEPTANCE TESTING: </b>
+                <ul style="color:#8ECAE6;">
+                <li>Načrtovanje plakata.</li>
+                <li>Evaluacija gradiva.</li>
+                <li>Preračunavanje finančnih sredstev.</li>
+                <li>Planiranje promocij.</li>
+                <li>Testiranje znanja.</li>
+                <li>Testiranje znanja.</li>
+            </ul>
+            </div>
+
+          </div>
+          </div>
     </div>
-  </div>
 
-
-  
-
-
-
-
-</div> 
+</div>
 </div>
 
-
-
-
-
 <script>
+          $("#exampleModal").on("click", function () {
+            var subtasksString = '';
+            let storySubtasks = $(this).data('subtasks');
+            var arrayS = storySubtasks;
+            for (j in arrayS) {
+              var done = false;
+              if(arrayS[j].finished == true){
+                done = true;
+              }
+              if(done== true){
+                subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 55px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important; padding-left: 15px !important"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/ checked><span style="padding-left: 10px !important">';
+              }
+              //če še ni končana
+              else{
+                subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 55px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important; padding-left: 15px !important"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/><span style="padding-left: 10px !important">';
+              }
+              // name of subtask
+              subtasksString = subtasksString + arrayS[j].name + ' [' + arrayS[j].hours + 'h]' + '</span></label></div>';
+            }
+            $('#addnewSubtask1').html(subtasksString);
+          })
+</script>
+
+
+
+<!-- <script>
   const closeBtn = document.querySelector('.close');
   closeBtn.addEventListener('click', closeModal);
   function closeModal() {
     document.getElementById("my-modal").style.display = 'none';
     }
-  
+
   $('button').on('click', function() {
     id1 = this.id;
     let result1 = id1.includes("1");
@@ -126,9 +161,9 @@
       }
 
     });
-</script>
+</script> -->
 
-<script>
+<!-- <script>
   $('button').on('click', function() {
     id1 = this.id;
     let result1 = id1.includes("accept");
@@ -143,9 +178,73 @@
       let btn = id1.replace("decline", "modal-btn");
       document.getElementById(btn).style.displa = "none";
     }
+</script> -->
 
+
+<script>
+$('button').on('click', function() {
+                id1 = this.id;
+                let result1 = id1.includes("accept1");
+                let result2 = id1.includes("decline1");
+                let result3 = id1.includes("submit1")
+                let result4 = id1.includes("accept2");
+                let result5 = id1.includes("decline2");
+                let result6 = id1.includes("submit2");
+
+                if (result1 == 1) {
+                  let id_dec = id1.replace("accept1", "decline1");
+                  document.getElementById(id_dec).disabled = true;
+                  document.getElementById(id1).disabled = true;
+                   }
+
+                if (result2 == 1) {
+                  let id_acep = id1.replace("decline1", "accept1");
+                  let id_input = id1.replace("decline1", "input1");
+                  let id_subm = id1.replace("decline1", "submit1");
+                  document.getElementById(id_acep).disabled = true;
+                  document.getElementById(id1).disabled = true;
+                  document.getElementById(id_input).type = "text";
+                  document.getElementById(id_subm).hidden = "";
+                  }
+
+                  if(result3 == 1) {
+                      let id_subm = id1.replace("submit1", "");
+                      document.getElementById(id_subm).id = "submit1"
+                      }
+
+
+                 if (result4 == 1) {
+                    let id_dec = id1.replace("accept2", "decline2");
+                    document.getElementById(id_dec).disabled = true;
+                    document.getElementById(id1).disabled = true;
+                    }
+
+                 if (result5 == 1) {
+                    let id_acep = id1.replace("decline2", "accept2");
+                    let id_input = id1.replace("decline2", "input2");
+                    let id_subm = id1.replace("decline2", "submit2");
+                    document.getElementById(id_acep).disabled = true;
+                    document.getElementById(id_input).type = "text";
+                    document.getElementById(id1).disabled = true;
+                    document.getElementById(id_subm).hidden = "";
+                  }
+
+
+                  if(result6 == 1) {
+                      let id_subm = id1.replace("submit2", "");
+                      document.getElementById(id_subm).id = "sumbit2"
+                      }
+            });
 </script>
 
+<script>
+$('#submit1').on('click', function() {
+                id1 = this.id;
+                let result3 = id1.includes("submit")
 
-
-
+                  if(result3 == 1) {
+                      let id_input = id1.replace("submit", "input");
+                      document.getElementById(id1).disabled = true;
+                      }
+            });
+</script>

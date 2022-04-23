@@ -120,8 +120,9 @@ router.delete("/projects/:idProject/userStory/:idUserStory/delete", ctrlUserStor
 router.post("/projects/:idProject/userStory/:idUserStory/add-to-sprint", ctrlUserStories.updateUserStoryAddToSprint);
 /* Add size */
 router.post("/projects/:idProject/userStory/:idUserStory/add-size", ctrlUserStories.updateUserStoryAddSize);
-
-
+// produktni vodja sprejme zgodbo
+router.put("/stories/accept/:idProject/:idStory", ctrlUserStories.acceptStory);
+router.put("/stories/decline/:idProject/:idStory", ctrlUserStories.declineStory);
 
 
 /* Publications */
