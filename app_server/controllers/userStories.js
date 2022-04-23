@@ -30,7 +30,8 @@ var prikaziAcReady = (req, res) => {
       .then((odgovor) => {
         var projekt = odgovor.data;
         var stories = projekt.userStories;
-        var acReadyStories = []
+        var acReadyStories = [];
+        var doneStories = [];
         for(var i= 0; i < stories.length; i++){
           //ali so v sprintu ki je končan
           var finishedSprint = false;
@@ -42,17 +43,78 @@ var prikaziAcReady = (req, res) => {
               }
             }
           }
-          //ostali pogoji
+          //ostali pogoji za acceptance ready stories
+          //ne pozabi na koncu dodat finished sprints = true ker zdaj samo testiram ker se še ni končal
           if(stories[i].accepted == false && stories[i].finished==true && stories[i].tests.length != 0){
             acReadyStories[i] = stories[i];
           }
+          //pogledamo če je zgodba že sprejeta - te spadajo pod done
+          else if(stories[i].accepted == true){
+            doneStories[i] = stories[i];
+          }
         }
         console.log(acReadyStories)
+        res.render('acceptance-ready',{
+          layout: 'layout-user',
+          acceptanceReadyStories: acReadyStories,
+          projectId: projectId,
+          doneStories: doneStories
+        });
       });
-  res.render('acceptance-ready',{
-    layout: 'layout-user'
-  });
 }
+
+//sprejmi acceptance ready story v Done
+var acceptStory = (req, res) => {
+  //pokličem api, da posodobim atribut v bazi
+  var projectId = req.params.projectId;
+  var storyId = req.params.storyId;
+  axios({
+    method: 'put',
+    url: apiParametri.streznik + '/api/stories/accept/' + projectId + '/' + storyId
+    })
+    .then(() => {
+      console.log("uspešno sprejeta zgodba")
+      var string = "successStory";
+      res.redirect('/project/' + projectId + '/acceptance-ready/' + '?add=' + string);
+    }).catch((error) => {
+      console.log("napaka")
+    });
+}
+
+
+
+var declineStory = (req, res) => {
+  var projectId = req.params.id;
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
+  console.log(req.body.comment)
+  // //pokličem api, da posodobim atribut v bazi, poleg tega pošljem še komentar
+  var projectId = req.params.projectId;
+  var storyId = req.params.storyId;
+  var komentar = req.body.comment;
+  console.log("komentar")
+  console.log(req.query.neki)
+  axios({
+    method: 'put',
+    url: apiParametri.streznik + '/api/stories/decline/' + projectId + '/' + storyId,
+    data: {
+      komentar: komentar,
+      username: user.username
+    }
+    })
+    .then(() => {
+      console.log("uspešno zavrnjena zgodba")
+      //odgovor.data.projectId
+      var string = "declinedStory";
+      res.redirect('/project/' + projectId + 'acceptance-ready' + '?add=' + string);
+    }).catch((error) => {
+      console.log("napaka")
+    });
+}
+
 // get implementiram drugje - tukile samo updejti in creating
 
 /* Podrobnosti projekta */
@@ -662,5 +724,7 @@ module.exports = {
     addSize,
     podrobnostiProjectSprint,
     addMultipleToSprint,
-    prikaziAcReady
+    prikaziAcReady,
+    acceptStory,
+    declineStory
 };

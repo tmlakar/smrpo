@@ -114,8 +114,8 @@ router.post("/project/:id/userStory/:idStory/add-size", ctrlUserStories.addSize)
 
 router.get("/project/:id/sprint/:sprintId/tasks", ctrlUserStories.podrobnostiProjectSprint);
 router.get("/project/:id/acceptance-ready", ctrlUserStories.prikaziAcReady);
-
-
+router.get("/project/accept-story/:projectId/:storyId", ctrlUserStories.acceptStory);
+router.post("/project/decline-story/:projectId/:storyId", ctrlUserStories.declineStory);
 
 /* Publications */
 var ctrlPublications = require("../controllers/publications");
