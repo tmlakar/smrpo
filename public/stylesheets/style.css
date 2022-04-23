@@ -602,7 +602,48 @@ p {
 /* */
 
 
-/* */
+/* Buttons for Accepting User Stories*/
+
+.modal-body-acc {
+    padding: 0px 40px;
+    background-color:#023047;
+  }
+
+.modalacc {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+.close {
+    color: #ccc;
+    float: right;
+    font-size: 30px;
+    color: #fff;
+    background-color:#023047;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    background-color:#023047;
+  }
+  
+  @keyframes modalopen {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
 
 /* */
@@ -613,7 +654,7 @@ p {
 
 /* */
 
-
+  
 /* */
 
 
@@ -631,6 +672,17 @@ p {
 .projekt-notification {
     box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;
     background-color: var(--c5) !important;
+    border: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin-top: 30px !important;
+    margin-right: 30px !important;
+    padding: 15px !important;
+}
+
+.projekt-notification2 {
+    box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;
+    background-color: #ffba3a !important;
     border: none !important;
     width: 100% !important;
     height: 100% !important;
