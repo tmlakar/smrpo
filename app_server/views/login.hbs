@@ -33,18 +33,18 @@
                     x.type = "text";
                     var pass1 = new String;
                     pass1 = pass;
-                    console.log(pass1.length)
+                    //console.log(pass1.length)
                     for (var char in pass1) {
                       console.log(pass1[char]);
                       
                     }
                     
-                    console.log(pass);
-                    console.log(pass1);
+                    //console.log(pass);
+                    //console.log(pass1);
                     var last = pass1.substr(pass1.length-1,pass1.length);
                     var previous =  '•'.repeat(pass1.length-1);
                     previous = previous.concat(last);
-                    console.log(previous);
+                    //console.log(previous);
 
                     $('#password').val(previous);
 
