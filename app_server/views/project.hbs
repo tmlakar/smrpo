@@ -86,7 +86,7 @@
 
     <div>
         {{#if scrumMaster}}
-        <button class="btn submit-form btn-dark add-to-current-sprint" data-currs="{{inProcessSprintSize}}" data-storiess="{{sizeAllStoriesInCurrentSprint}}" data-spr="{{inProcessSprintsNumbers}}" data-proj="{{id}}" data-toggle="modal" data-stor="{{json userStories}}" data-target="#modalAddStories" style="background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Add to Current Sprint</button>
+        <button class="btn submit-form btn-dark add-to-current-sprint" data-currs="{{inProcessSprintSize}}" data-storiess="{{sizeAllStoriesInCurrentSprint}}" data-spr="{{inProcessSprintsNumbers}}" data-proj="{{id}}" data-toggle="modal" data-stor="{{json userStories}}" data-target="#modalAddStories" style="background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Add to Sprint</button>
         {{/if}}
         {{#if productManager}}
        <a href="/project/{{id}}/acceptance-ready"><button class="btn submit-form btn-dark" style="margin-top: 20px !important;background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Acceptance Ready Stories</button></a>
@@ -370,7 +370,7 @@
 
                     <div class="row" style="padding: 0px !important;">
                       <div class="card-flagss col-lg-12">
-                        <div class="row">
+                        <div class="row" style="padding: 0px !important;  margin: 0px !important;">
 
                           <span id="flag-info" style="margin-left: 12px!important; width: 80px !important;">
                            Finished
