@@ -160,7 +160,7 @@ router.put("/mytasks/finish/:idProject/:idStory/:idTask", ctrlTasks.finishTask);
 
 //logiranje časa
 //shranim število sekund dela na nalogi na današnji datum
-router.post("/time-log/save-work-hours/:idTask", ctrlTasks.saveWorkHours);
+router.post("/time-log/save-work-hours/:idProject/:idStory/:idTask", ctrlTasks.saveWorkHours);
 
 
 module.exports = router;

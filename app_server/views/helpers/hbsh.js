@@ -2,7 +2,17 @@ const hbs = require("hbs");
 const { type } = require("jquery");
 const { bus } = require("nodemon/lib/utils");
 
-
+hbs.registerHelper("formatirajSekunde", function(value) {
+    const sec = parseInt(value, 10); // convert value to number if it's string
+    let hours   = Math.floor(sec / 3600); // get hours
+    let minutes = Math.floor((sec - (hours * 3600)) / 60); // get minutes
+    let seconds = sec - (hours * 3600) - (minutes * 60); //  get seconds
+    // add 0 if value < 10; Example: 2 => 02
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    return hours+':'+minutes+':'+seconds; // Return is HH : MM : SS
+});
 
 hbs.registerHelper("inc", function(value, options)
 {
@@ -12,7 +22,7 @@ hbs.registerHelper("inc", function(value, options)
 hbs.registerHelper('isDeleted1', function (value) {
   if (value === "false") {
     return true;
-  } 
+  }
   return false;
 });
 
@@ -20,14 +30,14 @@ hbs.registerHelper('isDeleted1', function (value) {
 hbs.registerHelper('isTheSame', function (value, value2) {
   if (value !== value2) {
     return true;
-  } 
+  }
   return false;
 });
 
 hbs.registerHelper('isTheSameAsLoggedIn', function (value, value2) {
   if (value == value2) {
     return true;
-  } 
+  }
   return false;
 });
 
@@ -36,21 +46,21 @@ hbs.registerHelper('isTheSameAsLoggedIn', function (value, value2) {
 hbs.registerHelper('isTeamMember', function (value) {
   if (value == "Team Member") {
     return true;
-  } 
+  }
   return false;
 });
 
 hbs.registerHelper('isScrumMaster', function (value) {
   if (value == "Scrum Master") {
     return true;
-  } 
+  }
   return false;
 });
 
 hbs.registerHelper('isProductManager', function (value) {
   if (value == "Product Manager") {
     return true;
-  } 
+  }
   return false;
 });
 
@@ -67,7 +77,7 @@ hbs.registerHelper('firstLetterOfUsername', function (value) {
 hbs.registerHelper('isUser', function (value) {
   if (value == "user") {
     return true;
-  } 
+  }
   return false;
 });
 
@@ -85,7 +95,7 @@ hbs.registerHelper('formatirajDatum', function (value) {
             day = "0" + day;
           }
           var year = d.getUTCFullYear();
-          
+
           var hour = d.getUTCHours()+2;
           if (hour < 10) {
             hour = "0" + hour;
@@ -107,7 +117,7 @@ hbs.registerHelper('formatirajInfo', function (value) {
     var dots = " ...";
     var trimmedString = trimmedString.concat(dots);
   }
-  
+
   return trimmedString;
 
 });
@@ -120,18 +130,18 @@ hbs.registerHelper('formatirajZapisAcceptanceTestov', function (value) {
     var string = tests[i];
     string = '# ' + string;
     tests[i] = string;
-  } 
+  }
 
   return tests;
 
 });
 
 
-/* 
-pogoji za urejanje in izbris kartic 
+/*
+pogoji za urejanje in izbris kartic
 - lahko jo samo scrum master al pa product manager
 - nesme pripadat katermu koli sprintu
-- nesme bit realizirana 
+- nesme bit realizirana
 */
 
 // se pokaze, ampak disabled -> seprav mora bit vedno true;
@@ -147,12 +157,12 @@ hbs.registerHelper('karticeNemoresUrejat', function (value1, value2, value3, val
   if (value3 != 0) {
     return true;
   }
-  //nesme bit scrum master al pa 
+  //nesme bit scrum master al pa
   if (value1 != true && value2 != true) {
     return true;
   }
 
-  
+
   return false;
 
 });
@@ -170,7 +180,7 @@ hbs.registerHelper('karticaSeLahkoUreja', function (value1, value2, value3, valu
     } else {
       return false;
     }
-    
+
 
   }
 
@@ -195,9 +205,9 @@ hbs.registerHelper('columnFirst', function(value1, value2, value3) {
   if (value1 == false) {
     return true;
   }
-  
+
   return false;
-  
+
 });
 
 hbs.registerHelper('columnSecond', function(value1, value2) {
@@ -208,7 +218,7 @@ hbs.registerHelper('columnSecond', function(value1, value2) {
     return true;
   }
   return false;
-  
+
 });
 
 hbs.registerHelper('columnThird', function(value1, value2, value3) {
@@ -219,7 +229,7 @@ hbs.registerHelper('columnThird', function(value1, value2, value3) {
     return true;
   }
   return false;
-  
+
 });
 
 hbs.registerHelper('isnotPO', function(value1, value2, value3) {
@@ -228,7 +238,7 @@ hbs.registerHelper('isnotPO', function(value1, value2, value3) {
   } else {
     return false;
   }
-  
+
 });
 
 
@@ -238,7 +248,7 @@ hbs.registerHelper('missingData', function(value1, value2, value3) {
   }
   return true;
 
-  
+
 });
 
 
@@ -250,7 +260,7 @@ hbs.registerHelper('canAddComment', function(value1) {
     return false;
   }
 
-  
+
 });
 
 
@@ -261,7 +271,7 @@ hbs.registerHelper('formatRole', function(value1) {
     return value1;
   }
 
-  
+
 });
 
 hbs.registerHelper('isInCurrentSprint', function(value1, value2) {
@@ -271,7 +281,7 @@ hbs.registerHelper('isInCurrentSprint', function(value1, value2) {
     return "Unassigned";
   }
 
-  
+
 });
 
 hbs.registerHelper('InCurrentSprint', function(value1, value2) {
@@ -283,7 +293,7 @@ hbs.registerHelper('InCurrentSprint', function(value1, value2) {
     return false;
   }
 
-  
+
 });
 
 hbs.registerHelper('InSprint', function(value1, value2) {
@@ -302,16 +312,15 @@ hbs.registerHelper('InSprint', function(value1, value2) {
   for (var i = 0; i < value1.length; i++ ) {
     var value = value1[i].toString();
     var value3 = value2.toString();
-    
+
     if (value == value3) {
       console.log(value, value3);
       return true;
     }
 
   }
-  
+
   return false;
 
-  
-});
 
+});

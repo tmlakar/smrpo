@@ -39,12 +39,14 @@ function sprintDatesValid(sprintStart, sprintEnd){
 
 //v bazo shranim število sekund za delo na nalogi kar se je zmerilo s counterjem za današnji datum
 var saveWorkHours = (req, res) => {
+  var projectId = req.params.projectId;
+  var storyId = req.params.storyId;
   var taskId = req.params.taskId;
   //counter hrani stevilo dela v sekundah
   var counter = req.query.cas;
   axios({
     method: 'post',
-    url: apiParametri.streznik + '/api/time-log/save-work-hours/' +  taskId,
+    url: apiParametri.streznik + '/api/time-log/save-work-hours/' +  projectId + '/' + storyId + '/' + taskId,
     data: {
       cas: counter
     }
@@ -53,7 +55,7 @@ var saveWorkHours = (req, res) => {
       console.log("uspešno shranjen delovni čas za današnji dan")
       //odgovor.data.projectId
       var string = "saved time log";
-      res.redirect('/mytasks/' + '?add=' + string);
+      res.redirect('/time-log/' + taskId +  '?add=' + string);
     }).catch((error) => {
       console.log("napaka")
     });
@@ -63,6 +65,8 @@ var saveWorkHours = (req, res) => {
 var showTimeLog = (req, res) => {
   //pridobiti podatke o izbrani nalogi za katero kažemo logiranje časa
   var taskId = req.params.taskId;
+  var projectId;
+  var storyId;
   var taskName;
   var userStoryName;
   var taskEstimatedHours;
@@ -70,6 +74,7 @@ var showTimeLog = (req, res) => {
   var sprint;
   var sprintStart;
   var sprintEnd;
+  var workingHours;
   axios
       .get(apiParametri.streznik + '/api/projects')
       .then((odgovor) => {
@@ -86,10 +91,14 @@ var showTimeLog = (req, res) => {
                   taskEstimatedHours = tasks[k].hours;
                   sprints = projekti[i].sprints;
                   sprint = stories[j].sprint;
+                  projectId = projekti[i]._id;
+                  storyId = stories[j]._id;
+                  workingHours = tasks[k].workingHours;
                 }
               }
           }
         }
+        console.log(workingHours)
         //pridobim start in end date iz sprinta kjer je naloga
         for(var i=0; i<sprints.length; i++){
           if(sprints[i].number == sprint){
@@ -100,9 +109,24 @@ var showTimeLog = (req, res) => {
         }
         //naredim tabelo datumov od začetnega datuma sprinta do končnega
         var datumi = [];
+        var seUjema = false;
         for(var i = new Date(sprintStart); i<= new Date(sprintEnd); i.setDate(i.getDate()+1)){
-          datumi.push(new Date(i));
+          var workingSeconds;
+          seUjema = false;
+          //pogledam še v tabelo working hours če se kje ujema datum, da dodam število sekund
+          for(var j=0; j<workingHours.length; j++){
+            if(i.toISOString().split("T")[0] == (new Date(workingHours[j].datum)).toISOString().split("T")[0]){
+              workingSeconds = workingHours[j].workingSeconds;
+              datumi.push([new Date(i), workingSeconds]);
+              seUjema = true;
+            }
+          }
+          //če ni še nič zapisano o working seconds:
+          if(seUjema == false){
+            datumi.push([new Date(i), 0]);
+          }
         }
+        console.log(datumi)
         //renderiram stran s pravimi podatki
         res.render('time-log',{
           layout: 'layout-user',
@@ -110,7 +134,9 @@ var showTimeLog = (req, res) => {
           userStoryName: userStoryName,
           taskEstimatedHours: taskEstimatedHours,
           datumi: datumi,
-          id: taskId
+          taskId: taskId,
+          projectId: projectId,
+          storyId: storyId
         })
       })
 }

@@ -32,8 +32,10 @@
             </div>
         </div>
 
-        <script one="{{id}}">
+        <script one="{{taskId}}" two="{{projectId}}" three="{{storyId}}">
             var taskId = document.currentScript.getAttribute('one');
+            var projectId = document.currentScript.getAttribute('two');
+            var storyId = document.currentScript.getAttribute('three');
             const ret = document.getElementById("timer");
             const startBtn = document.querySelector("#start-timer");
 
@@ -45,8 +47,10 @@
               startBtn.disabled = false;
               //counter vsebuje pretečen čas v sekundah, to pošljem na api, da se shrani v working hours pri današnjem datumu
               console.log("tukaj bi prisel taskID")
+              console.log(projectId)
+              console.log(storyId)
               console.log(taskId)
-              location.href = "/time-log/save-work-hours/" + taskId + '?cas=' + counter;
+              location.href = "/time-log/save-work-hours/" + projectId + '/' + storyId + '/' +  taskId + '?cas=' + counter;
             }
 
             function convertSec(cnt) {
@@ -90,7 +94,7 @@
             <div style="color:#023047; font-size:20px; text-align:center;">Worktime [hours]</div>
             <br>
             {{#each datumi}}
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center"></div>
+            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">{{formatirajSekunde this.[1]}}</div>
             {{/each}}
 
         </div>

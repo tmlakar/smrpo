@@ -28,7 +28,7 @@ const userStoryCommentsShema = new mongoose.Schema({
 
 const hoursShema = new mongoose.Schema({
     datum: {type: Date},
-    hours: {type: Number}
+    workingSeconds: {type: Number}
 });
 
 const subtaskShema = new mongoose.Schema({
