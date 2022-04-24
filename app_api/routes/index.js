@@ -158,4 +158,9 @@ router.put("/mytasks/accept/:idProject/:idStory/:idTask", ctrlTasks.acceptTask);
 router.put("/mytasks/decline/:idProject/:idStory/:idTask", ctrlTasks.declineTask);
 router.put("/mytasks/finish/:idProject/:idStory/:idTask", ctrlTasks.finishTask);
 
+//logiranje časa
+//shranim število sekund dela na nalogi na današnji datum
+router.post("/time-log/save-work-hours/:idTask", ctrlTasks.saveWorkHours);
+
+
 module.exports = router;

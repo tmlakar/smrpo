@@ -1,6 +1,13 @@
 const mongoose = require("mongoose");
 const Project = mongoose.model("Project");
 
+//v bazo pri podani nalogi za današnji dan shranim število delovnih ur
+const saveWorkHours = (req, res) => {
+  console.log("pridem v api")
+  //deluje zdaj moram samo še shraniti
+  console.log(req.body.cas)
+
+}
 
 /* Če član sprejme nalogo se v bazi posodobi atribut pending na false */
 const acceptTask = (req, res) => {
@@ -278,5 +285,6 @@ module.exports = {
     acceptTask,
     declineTask,
     finishTask,
-    addComment
+    addComment,
+    saveWorkHours
 };
