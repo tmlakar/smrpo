@@ -86,7 +86,7 @@
 
     <div>
         {{#if scrumMaster}}
-        <button class="btn submit-form btn-dark add-to-current-sprint" data-currs="{{inProcessSprintSize}}" data-storiess="{{sizeAllStoriesInCurrentSprint}}" data-spr="{{inProcessSprintsNumbers}}" data-proj="{{id}}" data-toggle="modal" data-stor="{{json userStories}}" data-target="#modalAddStories" style="background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Add to Current Sprint</button>
+        <button class="btn submit-form btn-dark add-to-current-sprint" data-currs="{{inProcessSprintSize}}" data-storiess="{{sizeAllStoriesInCurrentSprint}}" data-spr="{{inProcessSprintsNumbers}}" data-proj="{{id}}" data-toggle="modal" data-stor="{{json userStories}}" data-target="#modalAddStories" style="background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Add to Sprint</button>
         {{/if}}
         {{#if productManager}}
        <a href="/project/{{id}}/acceptance-ready"><button class="btn submit-form btn-dark" style="margin-top: 20px !important;background-color: var(--c2) !important; width: 100% !important; text-align: center !important; color: var(--c3) !important; border: 3px var(--c3) solid !important; box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;">Acceptance Ready Stories</button></a>
@@ -342,11 +342,12 @@
             <div class="card-group">
               <div class="row" style="padding: 0px !important">
                 {{#if (columnSecond story.finished story.sprint)}}
-                <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
+                <!--<a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
                 data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}" data-collaborators="{{json ../collaborators}}"
                 data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
                 data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
-                data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
+                data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">-->
+                <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory">
 
                 <div id="uporabniskaZgodbaProductBacklog" class="card projekt-user-card" style="border: 3px solid var(--c5) !important;">
                   <div class="card-body user-card-info">
@@ -370,7 +371,7 @@
 
                     <div class="row" style="padding: 0px !important;">
                       <div class="card-flagss col-lg-12">
-                        <div class="row">
+                        <div class="row" style="padding: 0px !important;  margin: 0px !important;">
 
                           <span id="flag-info" style="margin-left: 12px!important; width: 80px !important;">
                            Finished
