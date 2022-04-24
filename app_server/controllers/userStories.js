@@ -46,7 +46,7 @@ var prikaziAcReady = (req, res) => {
           }
           //ostali pogoji za acceptance ready stories
           //ne pozabi na koncu dodat finished sprints = true ker zdaj samo testiram ker se še ni končal
-          if(stories[i].accepted == false && stories[i].finished==true && stories[i].tests.length != 0){
+          if(stories[i].accepted == false && stories[i].finished==true && stories[i].tests.length != 0 && finishedSprint == true){
             acReadyStories[i] = stories[i];
           }
           //pogledamo če je zgodba že sprejeta - te spadajo pod done
@@ -54,7 +54,7 @@ var prikaziAcReady = (req, res) => {
             doneStories[i] = stories[i];
           }
           //tuki tut še dodat za finished sprint je true
-          else if(stories[i].accepted == false && stories[i].finished==false){
+          else if(stories[i].accepted == false && stories[i].finished==false && finishedSprint == true){
             notFinishedStories[i] = stories[i];
           }
         }

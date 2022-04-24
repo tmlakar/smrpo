@@ -9,6 +9,34 @@ const axios = require("axios").create({
     timeout: 5000,
 });
 
+function isFutureDate(selected){
+  selected.setHours(0,0,0,0);
+  var now = new Date();
+  now.setHours(0,0,0,0);
+  if (selected < now) {
+    // selected date is in the past
+    return false;
+  }
+  else if(selected >= now){
+    return true;
+  }
+}
+
+function sprintDatesValid(sprintStart, sprintEnd){
+  var start = new Date(sprintStart);
+  var end = new Date(sprintEnd);
+  start.setHours(0,0,0,0);
+  end.setHours(0,0,0,0);
+  var now = new Date();
+  now.setHours(0,0,0,0);
+  if((start <= now) && (end >= now)){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
 var showTimeLog = (req, res) => {
   //pridobiti podatke o izbrani nalogi za katero kažemo logiranje časa
   var taskId = req.params.taskId;
@@ -24,7 +52,6 @@ var showTimeLog = (req, res) => {
       .then((odgovor) => {
         var projekti = odgovor.data;
         for(var i=0; i<projekti.length; i++){
-          sprints = projekti[i].sprints;
           var stories = projekti[i].userStories;
           for(var j=0; j<stories.length; j++){
               var tasks = stories[j].subtasks;
@@ -34,6 +61,7 @@ var showTimeLog = (req, res) => {
                   taskName = tasks[k].name;
                   userStoryName = stories[j].name;
                   taskEstimatedHours = tasks[k].hours;
+                  sprints = projekti[i].sprints;
                   sprint = stories[j].sprint;
                 }
               }
@@ -120,6 +148,19 @@ var prikaz = (req, res) => {
               if(zgodbe[j].sprint != 0){
                 tasks = zgodbe[j].subtasks;
                 for(var k=0; k<tasks.length; k++){
+                  var sprint = zgodbe[j].sprint;
+                  var sprints = projekti[i].sprints;
+                  for(var l=0; l<sprints.length; l++){
+                    if(sprints[l].number == sprint){
+                      var sprintStart = sprints[l].startDate;
+                      var sprintEnd = sprints[l].endDate;
+                    }
+                  }
+                  //se preveri če je naloga v sprintu ki je v teku
+                  var sprintVTeku = false;
+                  if(sprintDatesValid(sprintStart, sprintEnd)){
+                    sprintVTeku = true;
+                  }
                     //nalogo se lahko sploh prikaže, če je prijavljen uporabnik subtask owner, če je pending in če je v aktivnem sprintu
                     if(tasks[k].subtaskOwnerUsername == username && tasks[k].pending == "true" && tasks[k].isDeleted == false && tasks[k].finished == false){
                       if(prvic){
@@ -131,7 +172,7 @@ var prikaz = (req, res) => {
                       }
                     }
                     //naloge, ki so že od uporabnika, ker jih je že sprejel se shranijo, to so tiste ki imajo pending false in username enak
-                    if(tasks[k].subtaskOwnerUsername == username && tasks[k].pending == "false" && tasks[k].isDeleted == false && tasks[k].finished == false){
+                    if(tasks[k].subtaskOwnerUsername == username && tasks[k].pending == "false" && tasks[k].isDeleted == false && tasks[k].finished == false && sprintVTeku == true){
                       if(prvic2){
                         myAcceptedTasks = [[tasks[k], zgodbe[j].name, projectId, storyId]];
                         prvic2 = false;

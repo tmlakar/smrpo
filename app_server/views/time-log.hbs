@@ -3,6 +3,8 @@
     <div class="projekt-time" style="width:800px; margin:0 auto; margin-top:20px;" >
 
 
+<div class="row">
+  <div class="col">
         <div style="width: 100%px; margin-left:20px;">
             <div>
                 <div style="font-size:20px;color:#023047;text-align:left">
@@ -20,7 +22,55 @@
                 </div>
                 </div>
             </div>
+</div>
+</div>
+<div class="col" style="margin-left: 300px">
+            <div class="timer-display-id">
+              <p id="timer">00:00:00 </p>
+              <button id="start-timer" onclick="start()">Start </button>
+              <button id="stop-timer" onclick="stop()">Stop  </button>
+            </div>
         </div>
+
+        <script>
+            const ret = document.getElementById("timer");
+            const startBtn = document.querySelector("#start-timer");
+
+            let counter = 0;
+            let interval;
+
+            function stop() {
+              clearInterval(interval);
+              startBtn.disabled = false;
+              //counter vsebuje pretečen čas v sekundah, to pošljem na api, da se shrani v working hours pri današnjem datumu
+
+            }
+
+            function convertSec(cnt) {
+              let sec = cnt % 60;
+              let min = Math.floor(cnt / 60);
+              if (sec < 10) {
+                if (min < 10) {
+                  return "0" + min + ":0" + sec;
+                } else {
+                  return min + ":0" + sec;
+                }
+              } else if ((min < 10) && (sec >= 10)) {
+                return "0" + min + ":" + sec;
+              } else {
+                return min + ":" + sec;
+              }
+            }
+
+            function start() {
+              startBtn.disabled = true;
+              interval = setInterval(function() {
+                ret.innerHTML = convertSec(counter++); // timer start counting here...
+              }, 1000);
+            }
+        </script>
+
+</div>
 
         <br>
         <br>
@@ -36,24 +86,20 @@
         <div style="float: left; margin-right: 10px; width: 300px;">
             <div style="color:#023047; font-size:20px; text-align:center;">Worktime [hours]</div>
             <br>
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">3</div>
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">4</div>
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">10</div>
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">1</div>
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">2</div>
-            <input class="form-control input-time" style="margin-bottom: 5px !important;" align="center"></input>
+            {{#each datumi}}
+            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center"></div>
+            {{/each}}
 
         </div>
+
+
 
         <div style="overflow: hidden; width: 300px;">
             <div style="color:#023047; font-size:20px; text-align:center;">Future Estimation [hours]</div>
             <br>
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">8</div>
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">6</div>
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">3</div>
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">1</div>
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">2</div>
-            <input class="form-control input-time" style="margin-bottom: 5px !important;" align="center"></input>
+            {{#each datumi}}
+            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center"></div>
+            {{/each}}
 
         </div>
 
