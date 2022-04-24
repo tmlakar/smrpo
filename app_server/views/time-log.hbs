@@ -8,15 +8,15 @@
                 <div style="font-size:20px;color:#023047;text-align:left">
                 <div style="font-size:20px;color:#023047">
                 Task:
-                <b style="color:white;">Name of the Task</b>
+                <b style="color:white;">{{name}}</b>
                 </div>
                 <div style="font-size:20px;color:#023047">
                 From user story:
-                <b style="color:white;">Name of User Story</b>
+                <b style="color:white;">{{userStoryName}}</b>
                 </div>
                 <div style="font-size:20px;color:#023047">
                 Hours:
-                <b style="color:white;">Estimation of hours</b>
+                <b style="color:white;">{{taskEstimatedHours}}</b>
                 </div>
                 </div>
             </div>
@@ -27,13 +27,9 @@
         <div style="float: left; margin-right: 10px; width: 20%;">
             <div style="color:#023047; font-size:20px; text-align:center;">Date</div>
             <br>
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">22/04/2022</div>
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">23/04/2022</div>
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">24/04/2022</div>
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">25/04/2022</div>
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">26/04/2022</div>
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">27/04/2022</div>
-
+            {{#each datumi}}
+            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">{{formatirajDatum this}}</div>
+            {{/each}}
         </div>
 
 

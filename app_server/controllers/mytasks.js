@@ -11,10 +11,56 @@ const axios = require("axios").create({
 
 var showTimeLog = (req, res) => {
   //pridobiti podatke o izbrani nalogi za katero kažemo logiranje časa
-
-  res.render('time-log',{
-    layout: 'layout-user'
-  })
+  var taskId = req.params.taskId;
+  var taskName;
+  var userStoryName;
+  var taskEstimatedHours;
+  var sprints;
+  var sprint;
+  var sprintStart;
+  var sprintEnd;
+  axios
+      .get(apiParametri.streznik + '/api/projects')
+      .then((odgovor) => {
+        var projekti = odgovor.data;
+        for(var i=0; i<projekti.length; i++){
+          sprints = projekti[i].sprints;
+          var stories = projekti[i].userStories;
+          for(var j=0; j<stories.length; j++){
+              var tasks = stories[j].subtasks;
+              for(var k=0; k<tasks.length; k++){
+                if(tasks[k]._id == taskId){
+                  //najdli taprav task
+                  taskName = tasks[k].name;
+                  userStoryName = stories[j].name;
+                  taskEstimatedHours = tasks[k].hours;
+                  sprint = stories[j].sprint;
+                }
+              }
+          }
+        }
+        //pridobim start in end date iz sprinta kjer je naloga
+        for(var i=0; i<sprints.length; i++){
+          if(sprints[i].number == sprint){
+            //imamo taprav sprint
+            sprintStart = sprints[i].startDate;
+            sprintEnd = sprints[i].endDate;
+          }
+        }
+        //naredim tabelo datumov od začetnega datuma sprinta do končnega
+        var datumi = [];
+        for(var i = new Date(sprintStart); i<= new Date(sprintEnd); i.setDate(i.getDate()+1)){
+          datumi.push(new Date(i));
+        }
+        //renderiram stran s pravimi podatki
+        res.render('time-log',{
+          layout: 'layout-user',
+          name: taskName,
+          userStoryName: userStoryName,
+          taskEstimatedHours: taskEstimatedHours,
+          datumi: datumi
+        })
+      })
 }
 
 var prikaz = (req, res) => {
