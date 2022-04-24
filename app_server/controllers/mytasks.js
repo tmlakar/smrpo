@@ -111,7 +111,7 @@ var showTimeLog = (req, res) => {
         var datumi = [];
         var seUjema = false;
         for(var i = new Date(sprintStart); i<= new Date(sprintEnd); i.setDate(i.getDate()+1)){
-          var workingSeconds;
+          var workingSeconds = 0;
           seUjema = false;
           //pogledam še v tabelo working hours če se kje ujema datum, da dodam število sekund
           for(var j=0; j<workingHours.length; j++){
