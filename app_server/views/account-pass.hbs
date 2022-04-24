@@ -46,16 +46,9 @@
                            <div class="mb-3">
                             <label class="form-label">Old password</label>
                             <input class="form-control input-form" name="password" onCopy="return false" onpaste="return false;" id="oldpassword" type="password" value="{{password}}" pattern="(?!.* ).{12,128}" title="The password must be at least 12 characters long and shouldn't contain whitespaces!" aria-describedby="emailHelp" required>
-                            {{!-- <input id="prikazi" style="margin-right: 10px;margin-top:20px;" type="checkbox" onClick="myFunction2()">Show Password --}}
+                            {{!-- <input id="prikazi" style="margin-right: 10px;margin-top:20px;" type="checkbox" onClick="myFunction2()"><span style="margin-top: 10px !important; font-size: 14px !important">show last character</span> --}}
                             <script>
-                              {{!-- function myFunction2() {
-                                var x = document.getElementById("oldpassword");
-                                if (x.type === "password") {
-                                  x.type = "text";
-                                } else {
-                                  x.type = "password";
-                                }
-                              } --}}
+                              
                               $('#oldpassword').passtrength({
                                     minChars: 12
                               });
