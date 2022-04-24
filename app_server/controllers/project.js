@@ -196,6 +196,13 @@ var prikaz = (req, res) => {
     if (req.query.addtosprint == "full") {
         neuspesnoDodajanjeKarticVSprintFull = true;
     }
+
+    //size
+    var uspesnoSize = false;
+    if (req.query.addsize == "successfull") {
+        uspesnoSize = true;
+    }
+   
     
 
     
@@ -369,7 +376,8 @@ var prikaz = (req, res) => {
                     neuspesnoDodajanjeKarticVSprint,
                     neuspesnoDodajanjeKarticVSprintFull,
                     inProcessSprintSize,
-                    sizeAllStoriesInCurrentSprint
+                    sizeAllStoriesInCurrentSprint,
+                    uspesnoSize: uspesnoSize
 
 
                 });
@@ -427,7 +435,8 @@ var prikaz = (req, res) => {
                     neuspesnoDodajanjeKarticVSprint,
                     neuspesnoDodajanjeKarticVSprintFull,
                     inProcessSprintSize,
-                    sizeAllStoriesInCurrentSprint
+                    sizeAllStoriesInCurrentSprint,
+                    uspesnoSize: uspesnoSize,
 
 
                 });
