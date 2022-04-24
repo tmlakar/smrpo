@@ -109,7 +109,7 @@ var declineStory = (req, res) => {
       console.log("uspešno zavrnjena zgodba")
       //odgovor.data.projectId
       var string = "declinedStory";
-      res.redirect('/project/' + projectId + 'acceptance-ready' + '?add=' + string);
+      res.redirect('/project/' + projectId + '/acceptance-ready/' + '?add=' + string);
     }).catch((error) => {
       console.log("napaka")
     });
@@ -641,15 +641,15 @@ const addToSprint = (req, res) => {
     var projectId = req.params.id;
     var storyId = req.params.idStory;
     console.log(req.body.sprint);
-    
+
     axios
         .get(apiParametri.streznik + '/api/projects/' + projectId)
         .then((odgovor) => {
             // size of current sprint -> cez sprinte + pogledas kok je size current sprinta
-            // size of all cards in current sprint -> cez kartice + pogledas 
+            // size of all cards in current sprint -> cez kartice + pogledas
             //ločimo sprinte v pretekle, v teku in v prihodnosti
-            
-            
+
+
             var sprinti = odgovor.data.sprints;
 
             // uporabniske zgodbe
@@ -688,8 +688,8 @@ const addToSprint = (req, res) => {
                 }
             }
 
-            
-            
+
+
             //stevilo current sprinta + size current sprinta
             var inProcessSprintsNumbers = [];
             var inProcessSprintSize = 0;
@@ -703,19 +703,19 @@ const addToSprint = (req, res) => {
                 var end = new Date(sprinti[i].endDate).setHours(0, 0, 0, 0);
                 //če je finished
                 if ((start < now) && (end < now)) {
-                    
+
                 }
                 //če je in process
                 if ((start <= now) && (end >= now)) {
-                    
+
                     inProcessSprintsNumbers = sprinti[i].number;
                     inProcessSprintSize = sprinti[i].sprintSize;
                     inProcess = inProcess + 1;
-                    
+
                 }
                 //če je v prihodnosti
                 if ((start > now) && (end > now)) {
-                    
+
                 }
             }
 
@@ -728,7 +728,7 @@ const addToSprint = (req, res) => {
                 } else if (uporabniskeZgodbe[i]._id == storyId) {
                     sizeCurrentStory = uporabniskeZgodbe[i].size;
                 }
-                
+
             }
             if (sizeAllStoriesInSprint == inProcessSprintSize) {
                 var string = "full";
@@ -749,7 +749,7 @@ const addToSprint = (req, res) => {
                     url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/add-to-sprint',
                     data: {
                         sprint: req.body.sprint,
-        
+
                     }
                 }).then((odgovor) => {
                     var name = odgovor.name;
@@ -758,13 +758,13 @@ const addToSprint = (req, res) => {
                 }).catch((napaka) => {
                     var string = "napakaPriDodajanjuSubtaska";
                     res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
-        
+
                 });
             }
         });
 
 
-    
+
 };
 
 
@@ -791,14 +791,14 @@ const addMultipleToSprint = (req, res) => {
         .get(apiParametri.streznik + '/api/projects/' + projectId)
         .then((odgovor) => {
             // size of current sprint -> cez sprinte + pogledas kok je size current sprinta
-            // size of all cards in current sprint -> cez kartice (idje dobis iz tabele IDs) + pogledas 
-        
+            // size of all cards in current sprint -> cez kartice (idje dobis iz tabele IDs) + pogledas
+
             //sprinti
             var sprinti = odgovor.data.sprints;
 
             // uporabniske zgodbe
            var uporabniskeZgodbe = odgovor.data.userStories;
-            
+
             //stevilo current sprinta + size current sprinta
             var inProcessSprintsNumbers = [];
             var inProcessSprintSize = 0;
@@ -810,11 +810,11 @@ const addMultipleToSprint = (req, res) => {
                 var end = new Date(sprinti[i].endDate).setHours(0, 0, 0, 0);
                 //če je in process
                 if ((start <= now) && (end >= now)) {
-                    
+
                     inProcessSprintsNumbers = sprinti[i].number;
                     inProcessSprintSize = sprinti[i].sprintSize;
                     inProcess = inProcess + 1;
-                    
+
                 }
             }
 
@@ -822,11 +822,11 @@ const addMultipleToSprint = (req, res) => {
             var sizeAllStoriesInSprint = 0;
             var sizeCurrentStory = 0;
             //cez tabelco z idji uporabniskih zgodb
-           
+
             for (let i = 0; i < uporabniskeZgodbe.length; i++) {
                 if (uporabniskeZgodbe[i].sprint == inProcessSprintsNumbers) {
                     sizeAllStoriesInSprint = sizeAllStoriesInSprint + uporabniskeZgodbe[i].size;
-                }      
+                }
             }
 
             var sizeAllStoriesChecked = 0;
@@ -839,8 +839,8 @@ const addMultipleToSprint = (req, res) => {
             }
 
 
-            
-            
+
+
             if (sizeAllStoriesInSprint == inProcessSprintSize) {
                 var string = "full";
                 return res.redirect('/project/' + projectId + '?addtosprint=' + string + '#backlog');
@@ -862,27 +862,27 @@ const addMultipleToSprint = (req, res) => {
                     url: apiParametri.streznik + '/api/projects/' + projectId + '/userStory/' + storyId + '/add-to-sprint',
                     data: {
                         sprint: currentSprintNumber,
-        
+
                     }
-        
+
                 }).then((odgovor) => {
                     var name = odgovor.name;
-        
+
                 }).catch((napaka) => {
                     var string = "napakaPriDodajanjuM";
                     return res.redirect('/project/' + projectId + '?error=' + string + '#backlog');
-        
+
                 });
              }
             var string = "successfull";
             res.redirect('/project/' + projectId + '?addsprintm=' + string + '#backlog');
             }
 
-    
+
     });
 
 
-    
+
 };
 
 

@@ -26,7 +26,7 @@
                     style="background-color: #FF3C38 !important; padding-top: 10px" id = "decline">DECLINE</a> -->
 
 
-                    <button type="button" class="btn btn-dark decline-button" style="background-color: #FF3C38 !important" id = "decline1/{{story._id}}">                    
+                    <button type="button" class="btn btn-dark decline-button" style="background-color: #FF3C38 !important" id = "decline1/{{story._id}}">
                     DECLINE</button>
                     <br>
                     <h2></h2>
@@ -36,7 +36,7 @@
                      style="background-color: #FB8500 !important" id = 'submit'>SUBMIT</button> -->
 
 
-                         <form id="posodobiUporabnika" method="post" style="" action="/acceptance-ready/decline/{{story._id}}">
+                         <form id="posodobiUporabnika" method="post" style="" action="/project/decline-story/{{../projectId}}/{{story._id}}">
                            <div class="mb-3" style="padding-bottom: 0px !important">
                              <input type="hidden" class="form-control input-form" name="comment" id="input1/{{story._id}}" type="text" >
                            </div>
@@ -77,7 +77,7 @@
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">  
+  <div class="modal-dialog" role="document">
     <div class="modal-content1" style="background-color:#023047;">
       <div class="modal-header1" style="background-color:#023047;">
             <br>
@@ -90,7 +90,7 @@
             <div id="addnewSubtask1" style="background-color:#023047;"></div>
             <ul style="color:#8ECAE6;">
 
-              
+
             </ul>
              <!-- <ul style="color:#8ECAE6;">
               <li>Načrtovanje plakata.</li>
@@ -217,7 +217,7 @@ $('button').on('click', function() {
                   if(result3 == 1) {
                       let id_subm = id1.replace("submit1", "");
                       document.getElementById(id_subm).id = "submit1"
-                      }             
+                      }
             });
 </script>
 
@@ -232,4 +232,3 @@ $('#submit1').on('click', function() {
                       }
             });
 </script>
-
