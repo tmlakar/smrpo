@@ -7,7 +7,7 @@
          {{#each acceptanceReadyStories as |story|}}
         <div class="card projekt-notification2 col-10" >
             <div class="card-body">
-                <button id = "modal" data-toggle="modal" data-subtasks="{{json story.subtasks}}" data-target="#exampleModal" style="background-color:Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden0; outline:none; text-align:left;">
+                <button id = "modal" data-toggle="modal" data-subtasks="{{json story.subtasks}}" data-target="#exampleModal{{story._id}}" style="background-color:Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden0; outline:none; text-align:left;">
                     <b style="color:#023047; font-size:20px;">User Story: </b>
                     <br>
                     <b style="color:white; font-size:20px;">{{story.name}}</b>
@@ -48,7 +48,7 @@
          {{#each notFinishedStories as |story|}}
         <div class="card projekt-notification2 col-10" >
             <div class="card-body">
-                <button id = "modal" data-toggle="modal" data-subtasks="{{json story.subtasks}}" data-target="#exampleModal" style="background-color:Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden0; outline:none; text-align:left;">
+                <button id = "modal" data-toggle="modal" data-subtasks="{{json story.subtasks}}" data-target="#exampleModal{{story._id}}" style="background-color:Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden0; outline:none; text-align:left;">
                     <b style="color:#023047; font-size:20px;">User Story: </b>
                     <br>
                     <b style="color:white; font-size:20px;">{{story.name}}</b>
@@ -114,8 +114,8 @@
 
 
 
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{#each acceptanceReadyStories as |story|}}
+<div class="modal fade" id="exampleModal{{story._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content1" style="background-color:#023047;">
       <div class="modal-header1" style="background-color:#023047;">
@@ -126,33 +126,79 @@
 
             <div class="modal-body" style="background-color:#023047;">
             <b style="color:white;" >   TASKS: </b>
-            <div id="addnewSubtask1" style="background-color:#023047;"></div>
+            <div style="background-color:#023047;"></div>
+            <!--ul style="color:#8ECAE6;">
+               {{#each story.subtasks}}
+                  <input type="checkbox"> <li>{{name}}</li> </input>
+                {{/each}}
+            </ul-->
             <ul style="color:#8ECAE6;">
-
-
+            {{#each story.subtasks}}
+            {{#if finished}}
+            <input type="checkbox" id="{{name}}" checked="true">
+            <label for="{{name}}">{{name}}</label><br>
+            {{/if}}
+            {{/each}}
             </ul>
-             <!-- <ul style="color:#8ECAE6;">
-              <li>Načrtovanje plakata.</li>
-              <li>Evaluacija gradiva.</li>
-              <li>Preračunavanje finančnih sredstev.</li>
-              <li>Planiranje promocij.</li>
-              <li>Testiranje znanja.</li>
-             </ul> -->
-             <br>
-              <b style="color:white;">   ACCEPTANCE TESTING: </b>
-                <ul style="color:#8ECAE6;">
-                <li>Načrtovanje plakata.</li>
-                <li>Evaluacija gradiva.</li>
-                <li>Preračunavanje finančnih sredstev.</li>
-                <li>Planiranje promocij.</li>
-                <li>Testiranje znanja.</li>
-                <li>Testiranje znanja.</li>
-            </ul>
+            
+            <br>
+            <b style="color:white;">   ACCEPTANCE TESTING: </b>
+            <div style="background-color:#023047;"></div>
+              <ul style="color:#8ECAE6;">
+                {{#each tests}}
+                  <input type="checkbox" id="{{this}}">
+                  <label for="{{this}}">{{this}}</label><br>
+                {{/each}}  
+              </ul>
             </div>
 
           </div>
           </div>
 </div>
+{{/each}}
+
+
+
+{{#each notFinishedStories as |story|}}
+<div class="modal fade" id="exampleModal{{story._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content1" style="background-color:#023047;">
+      <div class="modal-header1" style="background-color:#023047;">
+            <br>
+            <p style="background-color:#023047; text-align:center; color:#8ECAE6;">USER STORY INFORMATION</p>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            </div>
+
+            <div class="modal-body" style="background-color:#023047;">
+            <b style="color:white;" >   TASKS: </b>
+            <div style="background-color:#023047;"></div>
+            <!--ul style="color:#8ECAE6;">
+               {{#each story.subtasks}}
+                  <input type="checkbox"> <li>{{name}}</li> </input>
+                {{/each}}
+            </ul-->
+            <ul style="color:#8ECAE6;">
+            {{#each story.subtasks}}
+            <input type="checkbox" id="{{name}}" checked="true">
+            <label for="{{name}}">{{name}}</label><br>
+            {{/each}}
+            </ul>
+            
+            <br>
+            <b style="color:white;">   ACCEPTANCE TESTING: </b>
+            <div style="background-color:#023047;"></div>
+              <ul style="color:#8ECAE6;">
+                {{#each tests}}
+                  <input type="checkbox" id="{{this}}">
+                  <label for="{{this}}">{{this}}</label><br>
+                {{/each}}  
+              </ul>
+            </div>
+
+          </div>
+          </div>
+</div>
+{{/each}}
 
 
 
@@ -160,7 +206,7 @@
 </div>
 </div>
 
-<script>
+<!--script>
           $("#exampleModal").on("click", function () {
             var subtasksString = '';
             let storySubtasks = $(this).data('subtasks');
@@ -182,7 +228,7 @@
             }
             $('#addnewSubtask1').html(subtasksString);
           })
-</script>
+</script-->
 
 
 
