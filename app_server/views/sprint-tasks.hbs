@@ -86,6 +86,17 @@
         <div class="card projekt-publication" style="border: 3px solid (--varc2) !important; background-color: var(--c6) !important; margin-top: 5px !important; margin-left: 50px !important; margin-bottom: 25px !important;">
 
           <h5 style="padding: 10px !important;"><i>{{story.name}}</i></h5>
+
+          <!-- oznaka vrstic z urami -->
+          <div class="row">
+            <div class="col-lg-10"></div>
+            <div class="col-lg-1" style="font-size: 10px !important; padding: 0px !important; margin: 0px !important;">
+              <p style="text-align:center;">Hours done</p>
+            </div>
+            <div class="col-lg-1" style="font-size: 10px !important; padding: 0px !important; margin: 0px !important;">
+              <p style="text-align:center;">Hours to do</p>
+            </div>
+          </div>
           
           <!-- row: done/not done + task + assigned & in progress -->
           <div class="row">
@@ -110,15 +121,27 @@
                 <!-- Unassigned -->
                 {{else}}
                 <button  id="taskOwner_circle" class="btn" style="background-color: var(--dark-charcoal) !important; height: 35px !important; width: 35px !important; margin-top: -3px !important;" disabled>U</button>
+                <!-- ven -->
+                <i class="fa-solid fa-person-digging fa-xl" style="color: var(--c4) !important; padding-left: 14px !important;"></i>
                 {{/if}}
               </div>
-              
-                            
-              <div class="col-lg-10">
+                     
+              <div class="col-lg-8">
                 <p style="padding: 0px !important; padding-top: 5px!important; padding-left: 5px!important; margin-bottom: 25px !important">{{subtask.name}}</p>
               </div>
 
+              <div class="col-lg-1">
+                <p style="padding: 0px !important; padding-top: 5px!important; margin-bottom: 25px !important; text-align: center;">{10}</p>
+              </div>
+
+              <div class="col-lg-1">
+                <p style="padding: 0px !important; padding-top: 5px!important; margin-bottom: 25px !important; text-align: center;">{1}</p>
+              </div>   
+
             {{/each}}
+          </div>
+          <div>
+            <p style="margin-right: 40px !important; float: right">Hours spent on this User story:  <b>{10}</b></p>
           </div>
          
         </div>

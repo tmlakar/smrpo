@@ -95,6 +95,8 @@ const declineStory = (req, res) => {
                   });
                     //updejtam pending atribut - to bo pokazalo da je član skupine nalogo sprejel
                     userStory.finished = false;
+                    userStory.sprint = 0;
+                    userStory.allSprints = [];
                     userStory.save((napaka, user) => {
                       if (napaka) {
                         res.status(400).json(napaka);
