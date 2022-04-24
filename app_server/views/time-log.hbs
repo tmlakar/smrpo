@@ -32,7 +32,8 @@
             </div>
         </div>
 
-        <script>
+        <script one="{{id}}">
+            var taskId = document.currentScript.getAttribute('one');
             const ret = document.getElementById("timer");
             const startBtn = document.querySelector("#start-timer");
 
@@ -43,7 +44,9 @@
               clearInterval(interval);
               startBtn.disabled = false;
               //counter vsebuje pretečen čas v sekundah, to pošljem na api, da se shrani v working hours pri današnjem datumu
-
+              console.log("tukaj bi prisel taskID")
+              console.log(taskId)
+              location.href = "/time-log/save-work-hours/" + taskId + '?cas=' + counter;
             }
 
             function convertSec(cnt) {

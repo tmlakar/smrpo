@@ -37,6 +37,29 @@ function sprintDatesValid(sprintStart, sprintEnd){
   }
 }
 
+//v bazo shranim število sekund za delo na nalogi kar se je zmerilo s counterjem za današnji datum
+var saveWorkHours = (req, res) => {
+  var taskId = req.params.taskId;
+  //counter hrani stevilo dela v sekundah
+  var counter = req.query.cas;
+  axios({
+    method: 'post',
+    url: apiParametri.streznik + '/api/time-log/save-work-hours/' +  taskId,
+    data: {
+      cas: counter
+    }
+    })
+    .then(() => {
+      console.log("uspešno shranjen delovni čas za današnji dan")
+      //odgovor.data.projectId
+      var string = "saved time log";
+      res.redirect('/mytasks/' + '?add=' + string);
+    }).catch((error) => {
+      console.log("napaka")
+    });
+}
+
+
 var showTimeLog = (req, res) => {
   //pridobiti podatke o izbrani nalogi za katero kažemo logiranje časa
   var taskId = req.params.taskId;
@@ -86,7 +109,8 @@ var showTimeLog = (req, res) => {
           name: taskName,
           userStoryName: userStoryName,
           taskEstimatedHours: taskEstimatedHours,
-          datumi: datumi
+          datumi: datumi,
+          id: taskId
         })
       })
 }
@@ -290,5 +314,6 @@ module.exports = {
     acceptTask,
     declineTask,
     finishTask,
-    showTimeLog
+    showTimeLog,
+    saveWorkHours
 };

@@ -60,7 +60,7 @@ router.get('/mytasks/accept/:projectId/:storyId/:taskId', ctrlMyTasks.acceptTask
 router.post('/mytasks/decline/:projectId/:storyId/:taskId', ctrlMyTasks.declineTask);
 router.get('/mytasks/finish/:projectId/:storyId/:taskId', ctrlMyTasks.finishTask);
 router.get('/time-log/:taskId', ctrlMyTasks.showTimeLog);
-
+router.get('/time-log/save-work-hours/:taskId', ctrlMyTasks.saveWorkHours);
 /* Project -> Sprint -> User stories */
 var ctrlProject = require("../controllers/project");
 //router.get('/project', ctrlProject.prikaz);
