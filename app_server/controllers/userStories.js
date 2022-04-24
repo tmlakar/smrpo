@@ -32,6 +32,7 @@ var prikaziAcReady = (req, res) => {
         var stories = projekt.userStories;
         var acReadyStories = [];
         var doneStories = [];
+        var notFinishedStories = [];
         for(var i= 0; i < stories.length; i++){
           //ali so v sprintu ki je končan
           var finishedSprint = false;
@@ -52,13 +53,18 @@ var prikaziAcReady = (req, res) => {
           else if(stories[i].accepted == true){
             doneStories[i] = stories[i];
           }
+          //tuki tut še dodat za finished sprint je true
+          else if(stories[i].accepted == false && stories[i].finished==false){
+            notFinishedStories[i] = stories[i];
+          }
         }
         console.log(acReadyStories)
         res.render('acceptance-ready',{
           layout: 'layout-user',
           acceptanceReadyStories: acReadyStories,
           projectId: projectId,
-          doneStories: doneStories
+          doneStories: doneStories,
+          notFinishedStories: notFinishedStories
         });
       });
 }

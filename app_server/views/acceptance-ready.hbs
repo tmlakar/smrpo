@@ -47,6 +47,45 @@
             </div>
         </div>
          {{/each}}
+         {{#each notFinishedStories as |story|}}
+        <div class="card projekt-notification2 col-10" >
+            <div class="card-body">
+                <button id = "modal" data-toggle="modal" data-subtasks="{{json story.subtasks}}" data-target="#exampleModal" style="background-color:Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden0; outline:none; text-align:left;">
+                    <b style="color:#023047; font-size:20px;">User Story: </b>
+                    <br>
+                    <b style="color:white; font-size:20px;">{{story.name}}</b>
+                    <br>
+                    <b style="color:black; font-size:12px;">Not finished</b>
+                    <br>
+                    <br>
+                    <!-- <small style="color:#023047;">Acceptance tests done:</small><span style="color:white;"> Yes</span><br> -->
+                    <small style="color:#023047;">Priority:</small><span style="color:white;"> {{story.priority}}</span><br>
+                    <small style="color:#023047;">Business value:</small><span style="color:white;"> {{story.businessValue}}</span><br>
+                    <small style="color:#023047;">Size:</small><span style="color:white;"> {{story.size}}</span><br>
+                    <br>
+                  </button>
+
+                    <button type="button" class="btn btn-dark decline-button" style="background-color: #FF3C38 !important; float: right;" id = "decline1/{{story._id}}">
+                    DECLINE</button>
+                    <br>
+                    <h2></h2>
+                    <b style="color:white; font-size:20px; display:none;" id = "text1/{{story._id}}">Why will you decline this user story?</b>
+                    <!-- <input type="hidden" class="form-control input-form" id="input">
+                    <button hidden = "hidden" type="button" class="btn projekt-management-button btn-dark"
+                     style="background-color: #FB8500 !important" id = 'submit'>SUBMIT</button> -->
+
+
+                         <form id="posodobiUporabnika" method="post" style="" action="/project/decline-story/{{../projectId}}/{{story._id}}">
+                           <div class="mb-3" style="padding-bottom: 0px !important">
+                             <input type="hidden" class="form-control input-form" name="comment" id="input1/{{story._id}}" type="text" >
+                           </div>
+                           <div style="padding-top: 0px !important">
+                             <button hidden = "hidden" id = 'submit1/{{story._id}}' type="submit" class="btn projekt-management-button btn-dark">Submit</button>
+                           </div>
+                         </form>
+            </div>
+        </div>
+         {{/each}}
     </div>
 
         <div class="col-lg-3" style="margin-left: 200px; padding-left: 0px !important; height:100%;"><p style="color:#023047; font-size:30px;">Done</p>
