@@ -607,6 +607,10 @@
 
 
                                 // add to sprint pravice
+                                if (isTeamMember) {
+                                  document.getElementById("addToSprintDisabled").style.display="none";
+                                   document.getElementById("addToSprint").style.display="none";
+                                }
                                 if (sprintsInProgress == storySprint) {
                                   //naj se gumb ne pokaze
                                   document.getElementById("addToSprintDisabled").style.display="none";
@@ -634,7 +638,7 @@
                                         //story size more bit razlicen od 0 da lahko da v current sprint
                                         if (storySize == 0) {
                                            document.getElementById("addToSprintDisabled").style.display="block";
-                                   document.getElementById("addToSprint").style.display="none";
+                                          document.getElementById("addToSprint").style.display="none";
                                         } else {
                                         document.getElementById("addToSprintDisabled").style.display="none";
                                        document.getElementById("addToSprint").style.display="block";
