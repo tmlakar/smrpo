@@ -28,14 +28,14 @@
 
                     <button type="button" class="btn btn-dark decline-button" style="background-color: #FF3C38 !important; float: right;" id = "decline1/{{story._id}}">
                     DECLINE</button>
-                    <br>
-                    <br>
+           
                     <br>   
-
-                    <button class="btn projekt-management-button btn-dark" style="background-color: #fb00c5 !important; padding-top: 5px; margin-right:5px; float: left;" id = "test1/{{story._id}}">
+                    <br>
+                    <!--button class="btn projekt-management-button btn-dark" style="background-color: #fb00c5 !important; padding-top: 5px; margin-right:5px; float: left;" id = "test12/{{story._id}}">
                     TEST ACCEPT</button> 
-                    <button class="btn projekt-management-button btn-dark" style="background-color: #000dfb !important; padding-top: 5px; margin-right:5px; float: right;" id = "test2/{{story._id}}">
-                    TEST SUBMIT</button>                  
+                    <button class="btn projekt-management-button btn-dark" style="background-color: #000dfb !important; padding-top: 5px; margin-right:5px; float: right;" id = "test22/{{story._id}}">
+                    TEST SUBMIT</button-->
+                                   
                     <h2></h2>
                     <br>
                     <b style="color:white; font-size:20px; display:none;" id = "text1/{{story._id}}">Why will you decline this user story?</b>
@@ -70,6 +70,10 @@
                     DECLINE</button>
                     <br>
                     <br>
+                    <button class="btn projekt-management-button btn-dark" style="background-color: #fb00c5 !important; padding-top: 5px; margin-right:5px; float: left;" id = "test12/{{story._id}}">
+                    TEST ACCEPT</button> 
+                    <button class="btn projekt-management-button btn-dark" style="background-color: #000dfb !important; padding-top: 5px; margin-right:5px; float: right;" id = "test22/{{story._id}}">
+                    TEST SUBMIT</button>  
                     <br>
                     <h2></h2>
                     <b style="color:white; font-size:20px; display:none;" id = "text2/{{story._id}}">Why will you decline this user story?</b>
@@ -106,7 +110,7 @@
 
             <ul>
               <input type="checkbox" id="noja" checked="true" disabled ="true" style="margin-right:25px;">
-              <label for="noja" style="color:white;">All tasks were finished.</label>
+              <label for="noja" style="color:white;">All tasks were completed.</label>
             </ul>
 
             <!--ul style="color:#8ECAE6;">
@@ -129,10 +133,13 @@
             <b style="color:white;">   ACCEPTANCE TESTING: </b>
             <div style="background-color:#023047;"></div>
               <ul style="color:#8ECAE6;">
-                {{#each tests}}
-                  <input type="checkbox" id="{{this}}">
-                  <label for="{{this}}">{{this}}</label><br>
-                {{/each}}  
+                  <ol>
+                    {{#each tests}}
+                    <li>
+                      {{this}}
+                    </li>
+                    {{/each}}  
+                  </ol>                
               </ul>
             </div>
 
@@ -248,17 +255,17 @@ $('button').on('click', function() {
                 let result1 = id1.includes("accept1");
                 let result2 = id1.includes("decline1");
                 let result3 = id1.includes("submit1")
-                let result4 = id1.includes("decline2")
                 let result5 = id1.includes("close1");
                 let result6 = id1.includes("modal-btn1");
-                let result7= id1.includes("test1");
                 let result8 = id1.includes("test2");
+                let result9 = id1.includes("test1");
+
 
                 if (result1 == 1) {
                   let id_dec = id1.replace("accept1", "decline1");
                   document.getElementById(id_dec).disabled = true;
                   document.getElementById(id1).disabled = true;
-                   }
+                  }
 
                 if (result2 == 1) {
                   let id_acep = id1.replace("decline1", "accept1");
@@ -270,24 +277,12 @@ $('button').on('click', function() {
                   document.getElementById(id1).disabled = true;
                   document.getElementById(id_input).type = "text";
                   document.getElementById(id_subm).hidden = "";
-
                   }
 
                   if(result3 == 1) {
-                      let id_subm = id1.replace("submit1", "");
-                      document.getElementById(id_subm).id = "submit1"
-                      }
-
-
-                   if (result4 == 1) {
-                    let id_input = id1.replace("decline2", "input2");
-                    let id_subm = id1.replace("decline2", "submit2");
-                    let id_text = id1.replace("decline2","text2");
-                    document.getElementById(id_text).style.display = "";
-                    document.getElementById(id1).disabled = true;
-                    document.getElementById(id_input).type = "text";
-                    document.getElementById(id_subm).hidden = "";
-                  }  
+                    let id_subm = id1.replace("submit1", "");
+                    document.getElementById(id_subm).id = "submit1";
+                    }
 
 
                   if (result5 == 1) {
@@ -313,20 +308,26 @@ $('button').on('click', function() {
                    document.getElementById(id12).style.display= "block";
                  }  
 
+                 if(result8 == 1) {
+                  $(document).ready(function(){
+                  $("#myModalD").modal('show');
+                  setTimeout(function() {
+                  $('#myModalD').modal('hide');
+                      }, 7000);
+                    });
+                   }
 
-                 if (result7 == 1) {
-                   $("#myModalA").modal('show');
-                    setTimeout(function() {
-                     $('#myModalA').modal('hide');
-                    }, 2000);
-                  }
+                   if(result9 == 1) {
+                  $(document).ready(function(){
+                  $("#myModalA").modal('show');
+                  setTimeout(function() {
+                  $('#myModalA').modal('hide');
+                      }, 7000);
+                    });
+                   }
+                   
 
-                  if (result8 == 1) {
-                   $("#myModalD").modal('show');
-                    setTimeout(function() {
-                     $('#myModalD').modal('hide');
-                    }, 2000);
-                  }
+
 
 
             });
@@ -335,7 +336,23 @@ $('button').on('click', function() {
 
 
 <script>
-$('span').on('click', function() {
+$('#submit1').on('click', function() {
+                id1 = this.id;
+                let result3 = id1.includes("submit")
+
+                  if(result3 == 1) {
+                      let id_input = id1.replace("submit", "input");
+                      document.getElementById(id1).disabled = true;
+                      $("#myModalD").modal('show');
+                      setTimeout(function() {
+                       $('#myModalD').modal('hide');
+                     }, 2000);
+                      }
+            });
+</script>
+
+<script>
+$('#submit2').on('click', function() {
                 id1 = this.id;
                 let result3 = id1.includes("submit")
 
@@ -349,35 +366,3 @@ $('span').on('click', function() {
 
 
 
-
-
-
-
-{{#if accepted}}
-  <script>
-      $(document).ready(function(){
-          $("#myModalA").modal('show');
-
-          setTimeout(function() {
-
-              $('#myModalA').modal('hide');
-          }, 7000);
-      });
-  </script>
-  {{/if}}
-
-
-
-
-   {{#if declined}}
-  <script>
-      $(document).ready(function(){
-          $("#myModalD").modal('show');
-
-          setTimeout(function() {
-
-              $('#myModalD').modal('hide');
-          }, 7000);
-      });
-  </script>
-  {{/if}}
