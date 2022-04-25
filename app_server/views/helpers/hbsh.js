@@ -3,7 +3,7 @@ const { type } = require("jquery");
 const { bus } = require("nodemon/lib/utils");
 
 hbs.registerHelper("pridobiUre", function(value) {
-    if (value != 0) {
+    if (value == null) {
         return "00:00"
     }
     const sec = parseInt(value, 10); // convert value to number if it's string
