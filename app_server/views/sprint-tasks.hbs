@@ -92,10 +92,10 @@
           <div class="row">
             <div class="col-lg-10"></div>
             <div class="col-lg-1" style="font-size: 10px !important; padding: 0px !important; margin: 0px !important;">
-              <p style="text-align:center;"><b>Hours done</b></p>
+              <p style="text-align:center;"><b>Time done</b></p>
             </div>
             <div class="col-lg-1" style="font-size: 10px !important; padding: 0px !important; margin: 0px !important;">
-              <p style="text-align:center;"><b>Hours to do</b></p>
+              <p style="text-align:center;"><b>Time to do</b></p>
             </div>
           </div>
           {{/if}}
@@ -135,14 +135,14 @@
               </div>
 
               <div class="col-lg-1">
-                <p style="padding: 0px !important; padding-top: 5px!important; margin-bottom: 25px !important; text-align: center;">{1}</p>
+                <p style="padding: 0px !important; padding-top: 5px!important; margin-bottom: 25px !important; text-align: center;"></p> <!-- Add when possible -->
               </div>
 
             {{/each}}
           </div>
           {{#if (taskNone story.subtasks)}}
           <div>
-            <p style="margin-right: 40px !important; float: right">Hours spent on this User story:  <b>{{pridobiUre story.allWorkingSeconds}}</b></p>
+            <p style="margin-right: 40px !important; float: right">Time spent on this User story:  <b>{{pridobiUre story.allWorkingSeconds}}</b></p>
           </div>
           {{/if}}
 
