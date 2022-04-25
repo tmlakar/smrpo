@@ -140,16 +140,18 @@
  {{#each myAcceptedTasks as |task|}}
  <div class="card projekt-notification col-sm-3" style="">
                <div class="card-body">
-                 <div class="row">
                     <a href="time-log/{{task.[0]._id}}" style="color:white; font-size:20px;">{{task.[0].name}}</a>
                     <br>
                     <br>
+
                     {{#if task.[0].active}}
-                      <b style="margin-left:65px; margin-bottom:10px; color:black; ">ACTIVE</b>
+                      <b style="margin-bottom:10px; color:#023047; ">ACTIVE</b>
+                      <br>
+                      <br>
                     {{else}}
                       <b></b>
                     {{/if}}
-                </div>
+
                 <small style="color:#023047;">From user story:</small><span style="color:#023047;"> {{task.[1]}}</span><br>
                 <small style="color:#023047;">Hours for this task:</small><span style="color:#023047;"> {{task.[0].hours}}</span><br>
                 <br>
