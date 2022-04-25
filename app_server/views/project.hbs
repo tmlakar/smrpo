@@ -1026,7 +1026,7 @@
                     <div class = "row" style="padding-left: 0px !important;">
                    {{!-- input size --}}
                       <div id="storySizeInput" class="mb-3 col-lg-9" style="padding-bottom: 10px !important;">
-                        <label id="storySizeInputLabel" class="form-label" style="padding-top: 10px !important">Size (in points)</label>
+                        <label id="storySizeInputLabel" class="form-label" style="padding-top: 10px !important">Size [in points]</label>
                         <input class="form-control input-form" name="size" id="storySize" aria-describedby="emailHelp" type="number" min="1" required>
                     </div>
                     {{!-- button save size --}}
@@ -1355,7 +1355,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content modal-content-ekipa">
             <div class="modal-header modal-header-ekipa">
-            <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit sprint info</h5>
+            <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit Sprint info</h5>
             <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -1397,7 +1397,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content modal-content-ekipa">
             <div class="modal-header modal-header-ekipa">
-            <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit sprint info</h5>
+            <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit Sprint info</h5>
             <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -1636,7 +1636,7 @@
                   <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                   <span>Sprint velocity:</span> {{../sizeAllStoriesInCurrentSprint}} / {{../inProcessSprintSize}}</p>
                   <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;">
-                    Edit sprint
+                    Edit Sprint
                   </button>
                   <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
                     Go to Sprint
