@@ -178,14 +178,25 @@ const logout = (req, res) => {
               var tasks = stories[j].subtasks;
               for(var k=0; k<tasks.length; k++){
                 if(tasks[k].active == true){
-                  console.log("našli aktivno")
                   //ta je še aktivna, moramo ji nastaviti da ne bo več aktivna in shraniti pretečen čas od začetka
-                  globalThis.enaAktivna = true;
                   projectId = projekti[i]._id;
                   storyId = stories[j]._id;
                   taskId = tasks[k]._id;
-                  var string = "log time";
-                  res.redirect('/time-log/' + taskId +  '?add=' + string);
+                  var endDate = new Date();
+                  axios({
+                    method: 'post',
+                    url: apiParametri.streznik + '/api/time-log/save-work-hours/stop-task/' +  projectId + '/' + storyId + '/' + taskId,
+                    data: {
+                      endDate: endDate
+                    }
+                    })
+                    .then(() => {
+                      console.log("uspešno shranjen delovni čas za današnji dan")
+                      //odgovor.data.projectId
+                      var string = "saved time log";
+                    }).catch((error) => {
+                      console.log("napaka")
+                    });
                 }
               }
             }
@@ -193,29 +204,22 @@ const logout = (req, res) => {
         }).catch((napaka) => {
             console.log("napaka");
         });
-        if(enaAktivna == true){
-            //redirecta nazaj na ta task da ustavi timer
-            var string = "log time";
-            res.redirect('/time-log/' + taskId +  '?add=' + string);
-        }
-        else{
-              var tokenParts = req.cookies.authcookie['žeton'].split('.');
-              var encodedPayload = tokenParts[1];
-              var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
-              var user = JSON.parse(rawPayload);
-              var name = user.name;
-              var surname = user.surname;
-              var id = user._id;
-              var username = user.username;
-              var email = user.email;
-              var vloga = user.role;
-              if (req.cookies.authcookie) {
+        var tokenParts = req.cookies.authcookie['žeton'].split('.');
+        var encodedPayload = tokenParts[1];
+        var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+        var user = JSON.parse(rawPayload);
+        var name = user.name;
+        var surname = user.surname;
+        var id = user._id;
+        var username = user.username;
+        var email = user.email;
+        var vloga = user.role;
+        if (req.cookies.authcookie) {
 
-                console.log(req.cookies.authcookie);
-                res.clearCookie("authcookie")
-              }
-              res.redirect('/');
-          }
+          console.log(req.cookies.authcookie);
+          res.clearCookie("authcookie")
+        }
+        res.redirect('/');
 };
 
 module.exports = {
