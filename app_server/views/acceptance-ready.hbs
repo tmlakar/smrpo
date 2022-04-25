@@ -19,6 +19,7 @@
                     <small style="color:#023047;">Size:</small><span style="color:white;"> {{story.size}}</span><br>
                     <br>
                   </button>
+                  <br>
                     <button class="btn projekt-management-button btn-dark" style="background-color: #FB8500 !important; padding-top: 5px; margin-right:5px; float: left;" id = "accept1/{{story._id}}">
                      <a style="color:white;" href="/project/accept-story/{{../projectId}}/{{story._id}}">ACCEPT</a>
                     </button>                
@@ -62,6 +63,7 @@
                     <small style="color:#023047;">Size:</small><span style="color:white;"> {{story.size}}</span><br>
                     <br>
                   </button>
+                  <br>
 
                     <button type="button" class="btn btn-dark decline-button" style="background-color: #FF3C38 !important; float: right;" id = "decline2/{{story._id}}">
                     DECLINE</button>
@@ -137,6 +139,9 @@
             {{#if finished}}
             <input type="checkbox" id="{{name}}" checked="true">
             <label for="{{name}}">{{name}}</label><br>
+            {{else}}
+            <input type="checkbox" id="{{name}}">
+            <label for="{{name}}">{{name}}</label><br>
             {{/if}}
             {{/each}}
             </ul>
@@ -179,8 +184,13 @@
             </ul-->
             <ul style="color:#8ECAE6;">
             {{#each story.subtasks}}
+            {{#if finished}}
             <input type="checkbox" id="{{name}}" checked="true">
             <label for="{{name}}">{{name}}</label><br>
+            {{else}}
+            <input type="checkbox" id="{{name}}">
+            <label for="{{name}}">{{name}}</label><br>
+            {{/if}}
             {{/each}}
             </ul>
             
