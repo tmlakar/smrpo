@@ -3,10 +3,9 @@ const { type } = require("jquery");
 const { bus } = require("nodemon/lib/utils");
 
 hbs.registerHelper("pridobiUre", function(value) {
-    if (value != 0) {
-        return "00:00"
-    }
+    console.log(value)
     const sec = parseInt(value, 10); // convert value to number if it's string
+    //console.log(sec)
     let hours = Math.floor(sec / 3600); // get hours
     let minutes = Math.floor((sec - (hours * 3600)) / 60);
     if (hours != 0) {
@@ -364,4 +363,17 @@ hbs.registerHelper('taskNone', function(value1) {
     }
     return false;
 
+});
+
+
+//inProgress - beleženje časa
+hbs.registerHelper('taskInProgress', function(value1) {
+
+    //console.log(value1)
+    const sec = parseInt(value1, 10);
+    //console.log(sec)
+    if (value1 == 0 || value1 == NaN || value1 == null || value1 == '') {
+        return false
+    }
+    return true
 });

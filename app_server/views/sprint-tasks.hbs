@@ -117,9 +117,11 @@
                 <!-- možnosti za značke - tk da je v else brez značke? Uredimo, ko se bo logiralo ure; pa finished, ko je klukca v checkboxu na tasku v zgodbi-->
                 {{#if subtask.finished}}
                 <i class="fa-solid fa-circle-check fa-2xl" style="color: var(--c1) !important; padding-left: 11px !important;"></i>
-                {{else}}
+                {{/if}}
+                {{#if (taskInProgress subtask.allWorkingSeconds)}}
                 <i class="fa-solid fa-person-digging fa-xl" style="color: var(--c4) !important; padding-left: 14px !important;"></i>
                 {{/if}}
+
                 <!-- Unassigned -->
                 {{else}}
                 <button  id="taskOwner_circle" class="btn" style="background-color: var(--dark-charcoal) !important; height: 35px !important; width: 35px !important; margin-top: -3px !important;" disabled>U</button>
