@@ -101,7 +101,7 @@
             <div style="color:#023047; font-size:20px; text-align:center;">Date</div>
             <br>
             {{#each datumi}}
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">{{formatirajDatum this}}</div>
+            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">{{formatirajDatum this.[0]}}</div>
             {{/each}}
         </div>
 
@@ -121,7 +121,7 @@
             <div style="color:#023047; font-size:20px; text-align:center;">Future Estimation [hours]</div>
             <br>
             {{#each datumi}}
-            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center"></div>
+            <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">{{formatirajSekunde this.[2]}}</div>
             {{/each}}
 
         </div>

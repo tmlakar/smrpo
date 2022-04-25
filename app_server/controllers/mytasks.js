@@ -86,6 +86,12 @@ var stopTask = (req, res) => {
 
 
 var showTimeLog = (req, res) => {
+  var tokenParts = req.cookies.authcookie['žeton'].split('.');
+  var encodedPayload = tokenParts[1];
+  //var rawPayload = window.atob(encodedPayload);
+  var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
+  var user = JSON.parse(rawPayload);
+  var username = user.username;
   //pridobiti podatke o izbrani nalogi za katero kažemo logiranje časa
   var opozorilo = req.query.add;
   var logTime = false;
@@ -116,8 +122,10 @@ var showTimeLog = (req, res) => {
               var tasks = stories[j].subtasks;
               for(var k=0; k<tasks.length; k++){
                 if(tasks[k].active == true){
-                  isActive = true;
-                  activeTaskId = tasks[k]._id;
+                  if(tasks[k].subtaskOwnerUsername == username){
+                    isActive = true;
+                    activeTaskId = tasks[k]._id;
+                  }
                 }
                 if(tasks[k]._id == taskId){
                   //najdli taprav task
@@ -162,18 +170,19 @@ var showTimeLog = (req, res) => {
         var seUjema = false;
         for(var i = new Date(sprintStart); i<= new Date(sprintEnd); i.setDate(i.getDate()+1)){
           var workingSeconds = 0;
+          var estimatedSeconds = taskEstimatedHours*60*60;
           seUjema = false;
           //pogledam še v tabelo working hours če se kje ujema datum, da dodam število sekund
           for(var j=0; j<workingHours.length; j++){
             if(i.toISOString().split("T")[0] == (new Date(workingHours[j].datum)).toISOString().split("T")[0]){
               workingSeconds = workingHours[j].workingSeconds;
-              datumi.push([new Date(i), workingSeconds]);
+              datumi.push([new Date(i), workingSeconds, estimatedSeconds]);
               seUjema = true;
             }
           }
           //če ni še nič zapisano o working seconds:
           if(seUjema == false){
-            datumi.push([new Date(i), 0]);
+            datumi.push([new Date(i), 0, estimatedSeconds]);
           }
         }
         console.log(datumi)

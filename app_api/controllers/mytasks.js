@@ -379,6 +379,7 @@ const finishTask = (req, res) => {
                     } else {
                     //updejtam pending atribut - to bo pokazalo da je član skupine nalogo sprejel
                     task.finished = true;
+                    task.active = false;
                     task.save((napaka, user) => {
                       if (napaka) {
                       res.status(400).json(napaka);
