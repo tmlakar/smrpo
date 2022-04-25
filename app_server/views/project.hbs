@@ -627,6 +627,10 @@
                                    document.getElementById("addToSprint").style.display="none";
 
                                   }
+                                  if (isTeamMember) {
+                                  document.getElementById("addToSprintDisabled").style.display="none";
+                                   document.getElementById("addToSprint").style.display="none";
+                                }
 
                                 } else {
                                   // lahko
@@ -643,6 +647,11 @@
                                         document.getElementById("addToSprintDisabled").style.display="none";
                                        document.getElementById("addToSprint").style.display="block";
                                         }
+
+                                        if (isTeamMember) {
+                                  document.getElementById("addToSprintDisabled").style.display="none";
+                                   document.getElementById("addToSprint").style.display="none";
+                                }
                                       }
                                 }
                                 }
