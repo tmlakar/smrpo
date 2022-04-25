@@ -3,20 +3,24 @@ const { type } = require("jquery");
 const { bus } = require("nodemon/lib/utils");
 
 hbs.registerHelper("pridobiUre", function(value) {
+    if (value != 0) {
+        return "00:00"
+    }
     const sec = parseInt(value, 10); // convert value to number if it's string
     let hours = Math.floor(sec / 3600); // get hours
     let minutes = Math.floor((sec - (hours * 3600)) / 60);
-    if (hours < 10) { hours = "0" + hours; }
+    if (hours != 0) {
+        if (hours < 10) { hours = "0" + hours; }
+    }
     if (minutes < 10) { minutes = "0" + minutes; }
     return hours + ':' + minutes;
 });
 
 hbs.registerHelper("jeActive", function(value) {
-    if(value == true){
-      return true;
-    }
-    else{
-      return false;
+    if (value == true) {
+        return true;
+    } else {
+        return false;
     }
 });
 
