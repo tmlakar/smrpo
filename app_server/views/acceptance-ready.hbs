@@ -1,4 +1,70 @@
 <div class="hbses">
+
+  {{!-- modal window if task has been accepted --}}
+  <div id="myModal43" class=" modal" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content alert-s-200">
+                  <div class="modal-header" style="background-color: var(--c5) !important">
+                      <h5 class="modal-title">Success!</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <p>You accepted this story!</p>
+                  </div>
+
+                  </div>
+              </div>
+          </div>
+
+  {{#if accepted}}
+  <script>
+      $(document).ready(function(){
+          $("#myModal43").modal('show');
+
+          setTimeout(function() {
+
+              $('#myModal43').modal('hide');
+          }, 7000);
+      });
+  </script>
+  {{/if}}
+
+
+  {{!-- modal window if task has been accepted --}}
+  <div id="myModal44" class=" modal" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content alert-s-200">
+                  <div class="modal-header" style="background-color: var(--c5) !important">
+                      <h5 class="modal-title">Success!</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <p>You declined this story!</p>
+                  </div>
+
+                  </div>
+              </div>
+          </div>
+
+  {{#if declined}}
+  <script>
+      $(document).ready(function(){
+          $("#myModal44").modal('show');
+
+          setTimeout(function() {
+
+              $('#myModal44').modal('hide');
+          }, 7000);
+      });
+  </script>
+  {{/if}}
+
+
+
 <div class="row" style="padding-top: 40px !important; color: var(--c1) !important">
 
 
@@ -21,21 +87,21 @@
                   <br>
                     <button class="btn projekt-management-button btn-dark" style="background-color: #FB8500 !important; padding-top: 5px; margin-right:5px; float: left;" id = "accept1/{{story._id}}">
                      <a style="color:white;" href="/project/accept-story/{{../projectId}}/{{story._id}}">ACCEPT</a>
-                    </button>                
+                    </button>
                     <!-- <a href=" "  class="btn projekt-management-button btn-dark"
                     style="background-color: #FF3C38 !important; padding-top: 10px" id = "decline">DECLINE</a> -->
 
 
                     <button type="button" class="btn btn-dark decline-button" style="background-color: #FF3C38 !important; float: right;" id = "decline1/{{story._id}}">
                     DECLINE</button>
-           
-                    <br>   
+
+                    <br>
                     <br>
                     <!--button class="btn projekt-management-button btn-dark" style="background-color: #fb00c5 !important; padding-top: 5px; margin-right:5px; float: left;" id = "test12/{{story._id}}">
-                    TEST ACCEPT</button> 
+                    TEST ACCEPT</button>
                     <button class="btn projekt-management-button btn-dark" style="background-color: #000dfb !important; padding-top: 5px; margin-right:5px; float: right;" id = "test22/{{story._id}}">
                     TEST SUBMIT</button-->
-                                   
+
                     <h2></h2>
                     <br>
                     <b style="color:white; font-size:20px; display:none;" id = "text1/{{story._id}}">Why will you decline this user story?</b>
@@ -71,9 +137,9 @@
                     <br>
                     <br>
                     <button class="btn projekt-management-button btn-dark" style="background-color: #fb00c5 !important; padding-top: 5px; margin-right:5px; float: left;" id = "test12/{{story._id}}">
-                    TEST ACCEPT</button> 
+                    TEST ACCEPT</button>
                     <button class="btn projekt-management-button btn-dark" style="background-color: #000dfb !important; padding-top: 5px; margin-right:5px; float: right;" id = "test22/{{story._id}}">
-                    TEST SUBMIT</button>  
+                    TEST SUBMIT</button>
                     <br>
                     <h2></h2>
                     <b style="color:white; font-size:20px; display:none;" id = "text2/{{story._id}}">Why will you decline this user story?</b>
@@ -101,7 +167,7 @@
         <button class="close1" id="close1{{story._id}}" style="border: none; background: none; outline: none;">&times;</button>
         <br>
         <p style="background-color:#023047; text-align:center; color:#8ECAE6;">USER STORY INFORMATION</p>
-        
+
         <div class="modal-body" style="background-color:#023047;">
             <b style="color:white;" >   TASKS: </b>
             <div style="background-color:#023047;"></div>
@@ -128,7 +194,7 @@
             {{/if}}
             {{/each}}
             </ul-->
-            
+
             <br>
             <b style="color:white;">   ACCEPTANCE TESTING: </b>
             <div style="background-color:#023047;"></div>
@@ -138,13 +204,13 @@
                     <li>
                       {{this}}
                     </li>
-                    {{/each}}  
-                  </ol>                
+                    {{/each}}
+                  </ol>
               </ul>
             </div>
 
 
-        </ul> 
+        </ul>
       </div>
     </div>
   </div>
@@ -161,7 +227,7 @@
         <button class="close1" id="close1{{story._id}}" style="border: none; background: none; outline: none;">&times;</button>
         <br>
         <p style="background-color:#023047; text-align:center; color:#8ECAE6;">USER STORY INFORMATION</p>
-        
+
         <div class="modal-body" style="background-color:#023047;">
             <b style="color:white;" >   TASKS: </b>
             <div style="background-color:#023047;"></div>
@@ -179,7 +245,7 @@
             </ol>
             {{/if}}
             {{/each}}
-            </ul>            
+            </ul>
             <br>
             <b style="color:white;">   ACCEPTANCE TESTING: </b>
             <div style="background-color:#023047;"></div>
@@ -187,10 +253,10 @@
                 {{#each tests}}
                   <input type="checkbox" id="{{this}}">
                   <label for="{{this}}">{{this}}</label><br>
-                {{/each}}  
+                {{/each}}
               </ul>
             </div>
-        </ul> 
+        </ul>
       </div>
     </div>
   </div-->
@@ -215,7 +281,7 @@
                   </div>
               </div>
           </div>
-       </div>   
+       </div>
 
 
 {{!-- modal window if user story has been declined --}}
@@ -238,7 +304,7 @@
           </div>
       </div>
 
-      
+
 </div>
 </div>
 
@@ -294,7 +360,7 @@ $('button').on('click', function() {
                    document.getElementById(example).style.display= "none";
                    document.getElementById(id11).style.display= "none";
                    document.getElementById(id12).style.display= "none";
-                    }  
+                    }
 
 
                   if (result6 == 1) {
@@ -306,7 +372,7 @@ $('button').on('click', function() {
                     document.getElementById(example).style.display= "block";
                     document.getElementById(id11).style.display= "block";
                    document.getElementById(id12).style.display= "block";
-                 }  
+                 }
 
                  if(result8 == 1) {
                   $(document).ready(function(){
@@ -325,7 +391,7 @@ $('button').on('click', function() {
                       }, 7000);
                     });
                    }
-                   
+
 
 
 
@@ -362,7 +428,3 @@ $('#submit2').on('click', function() {
                       }
             });
 </script>
-
-
-
-

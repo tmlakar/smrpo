@@ -23,6 +23,15 @@ function isFutureDate(selected){
 }
 
 var prikaziAcReady = (req, res) => {
+  var sporocilo = req.query.add;
+  var accepted = false;
+  var declined = false;
+  if(sporocilo == "successStory"){
+    accepted = true;
+  }
+  if(sporocilo == "declinedStory"){
+    declined = true;
+  }
   var projectId = req.params.id;
   //pridobimo vse storye. ki so acceptance ready - so v sprintu ki je končan, niso še sprejete, so končane in imajo sprejemne teste
   axios
@@ -64,7 +73,9 @@ var prikaziAcReady = (req, res) => {
           acceptanceReadyStories: acReadyStories,
           projectId: projectId,
           doneStories: doneStories,
-          notFinishedStories: notFinishedStories
+          notFinishedStories: notFinishedStories,
+          accepted: accepted,
+          declined: declined
         });
       });
 }
