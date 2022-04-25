@@ -29,7 +29,13 @@
                     <button type="button" class="btn btn-dark decline-button" style="background-color: #FF3C38 !important; float: right;" id = "decline1/{{story._id}}">
                     DECLINE</button>
                     <br>
-                    <br>                    
+                    <br>
+                    <br>   
+
+                    <button class="btn projekt-management-button btn-dark" style="background-color: #fb00c5 !important; padding-top: 5px; margin-right:5px; float: left;" id = "test1/{{story._id}}">
+                    TEST ACCEPT</button> 
+                    <button class="btn projekt-management-button btn-dark" style="background-color: #000dfb !important; padding-top: 5px; margin-right:5px; float: right;" id = "test2/{{story._id}}">
+                    TEST SUBMIT</button>                  
                     <h2></h2>
                     <br>
                     <b style="color:white; font-size:20px; display:none;" id = "text1/{{story._id}}">Why will you decline this user story?</b>
@@ -245,6 +251,8 @@ $('button').on('click', function() {
                 let result4 = id1.includes("decline2")
                 let result5 = id1.includes("close1");
                 let result6 = id1.includes("modal-btn1");
+                let result7= id1.includes("test1");
+                let result8 = id1.includes("test2");
 
                 if (result1 == 1) {
                   let id_dec = id1.replace("accept1", "decline1");
@@ -262,6 +270,7 @@ $('button').on('click', function() {
                   document.getElementById(id1).disabled = true;
                   document.getElementById(id_input).type = "text";
                   document.getElementById(id_subm).hidden = "";
+
                   }
 
                   if(result3 == 1) {
@@ -302,7 +311,24 @@ $('button').on('click', function() {
                     document.getElementById(example).style.display= "block";
                     document.getElementById(id11).style.display= "block";
                    document.getElementById(id12).style.display= "block";
-                 }                    
+                 }  
+
+
+                 if (result7 == 1) {
+                   $("#myModalA").modal('show');
+                    setTimeout(function() {
+                     $('#myModalA').modal('hide');
+                    }, 2000);
+                  }
+
+                  if (result8 == 1) {
+                   $("#myModalD").modal('show');
+                    setTimeout(function() {
+                     $('#myModalD').modal('hide');
+                    }, 2000);
+                  }
+
+
             });
 </script>
 
@@ -322,6 +348,11 @@ $('span').on('click', function() {
 
 
 
+
+
+
+
+
 {{#if accepted}}
   <script>
       $(document).ready(function(){
@@ -334,6 +365,8 @@ $('span').on('click', function() {
       });
   </script>
   {{/if}}
+
+
 
 
    {{#if declined}}
