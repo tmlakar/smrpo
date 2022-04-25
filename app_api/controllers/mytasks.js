@@ -53,6 +53,8 @@ const startTask = (req, res) => {
                             }
                           }
                           if(jeZe == false){
+                            task.allWorkingSeconds = 0;
+                            userStory.allWorkingSeconds = 0;
                             workingHours.push({
                               datum: date,
                               startTime: new Date(startDate),
@@ -62,6 +64,8 @@ const startTask = (req, res) => {
                       }
                       //če še ni v tabelo pusham element z današnjim datumom
                       else{
+                          task.allWorkingSeconds = 0;
+                          userStory.allWorkingSeconds = 0;
                           workingHours.push({
                             datum: date,
                             startTime: new Date(startDate),
@@ -70,6 +74,13 @@ const startTask = (req, res) => {
                       }
                       task.active = true;
                       task.save((napaka, user) => {
+                        if (napaka) {
+                        res.status(400).json(napaka);
+                        } else {
+                        //res.status(201).json(user);
+                      }
+                      });
+                      userStory.save((napaka, user) => {
                         if (napaka) {
                         res.status(400).json(napaka);
                         } else {
@@ -151,6 +162,8 @@ const stopTask = (req, res) => {
                               console.log("razlika v sekundah")
                               console.log(parseInt(sec2))
                               workingHours[i].workingSeconds = workingHours[i].workingSeconds + parseInt(sec2);
+                              task.allWorkingSeconds = task.allWorkingSeconds + parseInt(sec2);
+                              userStory.allWorkingSeconds = userStory.allWorkingSeconds + parseInt(sec2);
                               console.log(workingHours[i])
                               workingHours[i].endTime = endDate;
                             }
@@ -158,6 +171,13 @@ const stopTask = (req, res) => {
                       }
                       task.active = false;
                       task.save((napaka, user) => {
+                        if (napaka) {
+                        res.status(400).json(napaka);
+                        } else {
+                        //res.status(201).json(user);
+                      }
+                      });
+                      userStory.save((napaka, user) => {
                         if (napaka) {
                         res.status(400).json(napaka);
                         } else {

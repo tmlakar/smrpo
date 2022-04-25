@@ -131,7 +131,7 @@
               </div>
 
               <div class="col-lg-1">
-                <p style="padding: 0px !important; padding-top: 5px!important; margin-bottom: 25px !important; text-align: center;">{10}</p>
+                <p style="padding: 0px !important; padding-top: 5px!important; margin-bottom: 25px !important; text-align: center;">{{pridobiUre subtask.allWorkingSeconds}}</p>
               </div>
 
               <div class="col-lg-1">
@@ -142,7 +142,7 @@
           </div>
           {{#if (taskNone story.subtasks)}}
           <div>
-            <p style="margin-right: 40px !important; float: right">Hours spent on this User story:  <b>{10}</b></p>
+            <p style="margin-right: 40px !important; float: right">Hours spent on this User story:  <b>{{pridobiUre story.allWorkingSeconds}}</b></p>
           </div>
           {{/if}}
 
