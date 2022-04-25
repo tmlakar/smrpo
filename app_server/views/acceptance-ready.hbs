@@ -7,13 +7,12 @@
          {{#each acceptanceReadyStories as |story|}}
         <div class="card projekt-notification2 col-10" >
             <div class="card-body">
-                <button id = "modal" data-toggle="modal" data-subtasks="{{json story.subtasks}}" data-target="#exampleModal{{story._id}}" style="background-color:Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden0; outline:none; text-align:left;">
+                <button id = "modal-btn1{{story._id}}" data-toggle="modal" data-subtasks="{{json story.subtasks}}" data-target="#exampleModal{{story._id}}" style="background-color:Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden0; outline:none; text-align:left;">
                     <b style="color:#023047; font-size:20px;">User Story: </b>
                     <br>
                     <b style="color:white; font-size:20px;">{{story.name}}</b>
                     <br>
                     <br>
-                    <!-- <small style="color:#023047;">Acceptance tests done:</small><span style="color:white;"> Yes</span><br> -->
                     <small style="color:#023047;">Priority:</small><span style="color:white;"> {{story.priority}}</span><br>
                     <small style="color:#023047;">Business value:</small><span style="color:white;"> {{story.businessValue}}</span><br>
                     <small style="color:#023047;">Size:</small><span style="color:white;"> {{story.size}}</span><br>
@@ -34,11 +33,6 @@
                     <h2></h2>
                     <br>
                     <b style="color:white; font-size:20px; display:none;" id = "text1/{{story._id}}">Why will you decline this user story?</b>
-                    <!-- <input type="hidden" class="form-control input-form" id="input">
-                    <button hidden = "hidden" type="button" class="btn projekt-management-button btn-dark"
-                     style="background-color: #FB8500 !important" id = 'submit'>SUBMIT</button> -->
-
-
                          <form id="posodobiUporabnika" method="post" style="" action="/project/decline-story/{{../projectId}}/{{story._id}}">
                              <input type="hidden" class="form-control input-form" name="comment" id="input1/{{story._id}}" type="text" >
                              <button hidden = "hidden" id = 'submit1/{{story._id}}' type="submit" class="btn projekt-management-button btn-dark">Submit</button>
@@ -46,10 +40,12 @@
             </div>
         </div>
          {{/each}}
+
+
          {{#each notFinishedStories as |story|}}
-        <div class="card projekt-notification2 col-10" >
+        <!--div class="card projekt-notification2 col-10" >
             <div class="card-body">
-                <button id = "modal" data-toggle="modal" data-subtasks="{{json story.subtasks}}" data-target="#exampleModal{{story._id}}" style="background-color:Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden0; outline:none; text-align:left;">
+                <button id = "modal-btn1{{story._id}}" data-toggle="modal" data-subtasks="{{json story.subtasks}}" data-target="#exampleModal{{story._id}}" style="background-color:Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden0; outline:none; text-align:left;">
                     <b style="color:#023047; font-size:20px;">User Story: </b>
                     <br>
                     <b style="color:white; font-size:20px;">{{story.name}}</b>
@@ -57,7 +53,6 @@
                     <b style="color:#023047; font-size:12px;">Not finished</b>
                     <br>
                     <br>
-                    <!-- <small style="color:#023047;">Acceptance tests done:</small><span style="color:white;"> Yes</span><br> -->
                     <small style="color:#023047;">Priority:</small><span style="color:white;"> {{story.priority}}</span><br>
                     <small style="color:#023047;">Business value:</small><span style="color:white;"> {{story.businessValue}}</span><br>
                     <small style="color:#023047;">Size:</small><span style="color:white;"> {{story.size}}</span><br>
@@ -72,11 +67,6 @@
                     <br>
                     <h2></h2>
                     <b style="color:white; font-size:20px; display:none;" id = "text2/{{story._id}}">Why will you decline this user story?</b>
-                    <!-- <input type="hidden" class="form-control input-form" id="input">
-                    <button hidden = "hidden" type="button" class="btn projekt-management-button btn-dark"
-                     style="background-color: #FB8500 !important" id = 'submit'>SUBMIT</button> -->
-
-
                          <form id="posodobiUporabnika" method="post" style="" action="/project/decline-story/{{../projectId}}/{{story._id}}">
                            <div class="mb-3" style="padding-bottom: 0px !important">
                              <input type="hidden" class="form-control input-form" name="comment" id="input2/{{story._id}}" type="text" >
@@ -85,66 +75,49 @@
                              <button hidden = "hidden" id = 'submit2/{{story._id}}' type="submit" class="btn projekt-management-button btn-dark">Submit</button>
                            </div>
                          </form>
-            </div>
-        </div>
+                  </div>
+              </div-->
          {{/each}}
     </div>
-
-        <div class="col-lg-3" style="margin-left: 200px; padding-left: 0px !important; height:100%;"><p style="color:#023047; font-size:30px;">Done</p>
-           {{#each doneStories as |story|}}
-            <div class="card projekt-notification col-10">
-              <div class="card-body">
-                <button id="modal-btn/2"  style="background-color:Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden0; outline:none; text-align:left;">
-                    <b style="color:#023047; font-size:20px;">User Story: </b>
-                    <br>
-                    <b style="color:white; font-size:20px;">{{story.name}}</b>
-                    <br>
-                    <br>
-                    <!-- <small style="color:#023047;">Acceptance tests done:</small><span style="color:white;"> Yes</span><br> -->
-                    <small style="color:#023047;">Priority</small><span style="color:white;"> {{story.priority}}</span><br>
-                    <small style="color:#023047;">Business value:</small><span style="color:white;"> {{story.businessValue}}</span><br>
-                    <small style="color:#023047;">Size:</small><span style="color:white;"> {{story.size}}</span><br>
-                    <br>
-                    </button>
-              </div>
-            </div>
-             {{/each}}
-      </div>
-
-
 
 
 
 
 {{#each acceptanceReadyStories as |story|}}
-<div class="modal fade" id="exampleModal{{story._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content1" style="background-color:#023047;">
-      <div class="modal-header1" style="background-color:#023047;">
-            <br>
-            <p style="background-color:#023047; text-align:center; color:#8ECAE6;">USER STORY INFORMATION</p>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            </div>
 
-            <div class="modal-body" style="background-color:#023047;">
+  <div id="my-modal{{story._id}}" class="modalacc">
+    <div id = "1{{story._id}}" style="background-color:#023047; width:500px; height:500px; border-radius: 20px; margin-left: 40%; margin-top: 11%;">
+      <div id = "2{{story._id}}" class="modal-body-acc" style="border-radius: 20px;">
+        <button class="close1" id="close1{{story._id}}" style="border: none; background: none; outline: none;">&times;</button>
+        <br>
+        <p style="background-color:#023047; text-align:center; color:#8ECAE6;">USER STORY INFORMATION</p>
+        
+        <div class="modal-body" style="background-color:#023047;">
             <b style="color:white;" >   TASKS: </b>
             <div style="background-color:#023047;"></div>
+
+
+
+            <ul>
+              <input type="checkbox" id="noja" checked="true" disabled ="true" style="margin-right:25px;">
+              <label for="noja" style="color:white;">All tasks were finished.</label>
+            </ul>
+
             <!--ul style="color:#8ECAE6;">
-               {{#each story.subtasks}}
-                  <input type="checkbox"> <li>{{name}}</li> </input>
-                {{/each}}
-            </ul-->
-            <ul style="color:#8ECAE6;">
             {{#each story.subtasks}}
             {{#if finished}}
-            <input type="checkbox" id="{{name}}" checked="true">
-            <label for="{{name}}">{{name}}</label><br>
+            <ol start="1">
+              <input type="checkbox" id="{{name}}" checked="true" disabled ="true" style="margin-right:25px;">
+              <label for="{{name}}"><li>This task was finished.</li></label>
+            </ol>
             {{else}}
-            <input type="checkbox" id="{{name}}">
-            <label for="{{name}}">{{name}}</label><br>
+            <ol start="1">
+              <input type="checkbox" id="{{name}}" disabled ="true" style="margin-right:25px;">
+              <label for="{{name}}"><li>This task was finished.</li></label>
+            </ol>
             {{/if}}
             {{/each}}
-            </ul>
+            </ul-->
             
             <br>
             <b style="color:white;">   ACCEPTANCE TESTING: </b>
@@ -157,43 +130,43 @@
               </ul>
             </div>
 
-          </div>
-          </div>
-</div>
+
+        </ul> 
+      </div>
+    </div>
+  </div>
+
+
 {{/each}}
 
 
 
 {{#each notFinishedStories as |story|}}
-<div class="modal fade" id="exampleModal{{story._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content1" style="background-color:#023047;">
-      <div class="modal-header1" style="background-color:#023047;">
-            <br>
-            <p style="background-color:#023047; text-align:center; color:#8ECAE6;">USER STORY INFORMATION</p>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            </div>
-
-            <div class="modal-body" style="background-color:#023047;">
+  <!--div id="my-modal{{story._id}}" class="modalacc">
+    <div id = "1{{story._id}}" style="background-color:#023047; width:500px; height:500px; border-radius: 20px; margin-left: 40%; margin-top: 11%;">
+      <div id = "2{{story._id}}" class="modal-body-acc" style="border-radius: 20px;">
+        <button class="close1" id="close1{{story._id}}" style="border: none; background: none; outline: none;">&times;</button>
+        <br>
+        <p style="background-color:#023047; text-align:center; color:#8ECAE6;">USER STORY INFORMATION</p>
+        
+        <div class="modal-body" style="background-color:#023047;">
             <b style="color:white;" >   TASKS: </b>
             <div style="background-color:#023047;"></div>
-            <!--ul style="color:#8ECAE6;">
-               {{#each story.subtasks}}
-                  <input type="checkbox"> <li>{{name}}</li> </input>
-                {{/each}}
-            </ul-->
             <ul style="color:#8ECAE6;">
             {{#each story.subtasks}}
             {{#if finished}}
-            <input type="checkbox" id="{{name}}" checked="true">
-            <label for="{{name}}">{{name}}</label><br>
+            <ol start="1">
+              <input type="checkbox" id="{{name}}" checked="true" disabled ="true" style="margin-right:25px;">
+              <label for="{{name}}"><li>This task was finished.</li></label>
+            </ol>
             {{else}}
-            <input type="checkbox" id="{{name}}">
-            <label for="{{name}}">{{name}}</label><br>
+            <ol start="1">
+              <input type="checkbox" id="{{name}}" disabled ="true" style="margin-right:25px;">
+              <label for="{{name}}"><li>This task was finished.</li></label>
+            </ol>
             {{/if}}
             {{/each}}
-            </ul>
-            
+            </ul>            
             <br>
             <b style="color:white;">   ACCEPTANCE TESTING: </b>
             <div style="background-color:#023047;"></div>
@@ -204,86 +177,63 @@
                 {{/each}}  
               </ul>
             </div>
-
-          </div>
-          </div>
-</div>
+        </ul> 
+      </div>
+    </div>
+  </div-->
 {{/each}}
 
 
+  {{!-- modal window if user story has been accepted --}}
+    <div id="myModalA" class=" modal" tabindex="-1" role="dialog">
+        <div id="myModalA" >
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content alert-s-200">
+                  <div class="modal-header" style="background-color: var(--c5) !important">
+                      <h5 class="modal-title">Success!</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <p>You accepted this User Story!</p>
+                  </div>
+
+                  </div>
+              </div>
+          </div>
+       </div>   
 
 
+{{!-- modal window if user story has been declined --}}
+    <div id="myModalD" class=" modal" tabindex="-1" role="dialog">
+          <div id="myModalD" >
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content alert-s-200">
+                  <div class="modal-header" style="background-color: var(--c5) !important">
+                      <h5 class="modal-title">Success!</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <p>You declined this User Story!</p>
+                  </div>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      
 </div>
 </div>
 
-<!--script>
-          $("#exampleModal").on("click", function () {
-            var subtasksString = '';
-            let storySubtasks = $(this).data('subtasks');
-            var arrayS = storySubtasks;
-            for (j in arrayS) {
-              var done = false;
-              if(arrayS[j].finished == true){
-                done = true;
-              }
-              if(done== true){
-                subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 55px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important; padding-left: 15px !important"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/ checked><span style="padding-left: 10px !important">';
-              }
-              //če še ni končana
-              else{
-                subtasksString = subtasksString + '<div class="row" style="padding: 0px !important; height: 55px !important"><div class="col-lg-9"><label for="tasks" style="color: var(--c3) !important; padding-left: 15px !important"><input type="checkbox" name="tasks" id="tasks" aria-describedby="emailHelp"/><span style="padding-left: 10px !important">';
-              }
-              // name of subtask
-              subtasksString = subtasksString + arrayS[j].name + ' [' + arrayS[j].hours + 'h]' + '</span></label></div>';
-            }
-            $('#addnewSubtask1').html(subtasksString);
-          })
-</script-->
 
 
 
-<!-- <script>
-  const closeBtn = document.querySelector('.close');
-  closeBtn.addEventListener('click', closeModal);
-  function closeModal() {
-    document.getElementById("my-modal").style.display = 'none';
-    }
-
-  $('button').on('click', function() {
-    id1 = this.id;
-    let result1 = id1.includes("1");
-    let result2 = id1.includes("2");
 
 
-    if (result1 == 1) {
-       document.getElementById("my-modal").style.display= "block";
-       document.getElementById("tekst").innerHTML = "JABOLKA";
-      }
-
-      if (result2 == 1) {
-       document.getElementById("my-modal").style.display= "block";
-       document.getElementById("tekst").innerHTML = "SPREMEMBA";
-      }
-
-    });
-</script> -->
-
-<!-- <script>
-  $('button').on('click', function() {
-    id1 = this.id;
-    let result1 = id1.includes("accept");
-    let result2 = id1.includes("decline");
-
-    if(result1 == 1) {
-      let btn = id1.replace("accept", "modal-btn");
-      document.getElementById(btn).style.displa = "none";
-    }
-
-    if(result1 == 2) {
-      let btn = id1.replace("decline", "modal-btn");
-      document.getElementById(btn).style.displa = "none";
-    }
-</script> -->
 
 
 <script>
@@ -293,6 +243,8 @@ $('button').on('click', function() {
                 let result2 = id1.includes("decline1");
                 let result3 = id1.includes("submit1")
                 let result4 = id1.includes("decline2")
+                let result5 = id1.includes("close1");
+                let result6 = id1.includes("modal-btn1");
 
                 if (result1 == 1) {
                   let id_dec = id1.replace("accept1", "decline1");
@@ -326,12 +278,38 @@ $('button').on('click', function() {
                     document.getElementById(id1).disabled = true;
                     document.getElementById(id_input).type = "text";
                     document.getElementById(id_subm).hidden = "";
-                  }    
+                  }  
+
+
+                  if (result5 == 1) {
+                   mym_id = id1.replace("close1","my-modal")
+                   example = id1.replace("close1","exampleModal")
+                   id11 = id1.replace("close1","1")
+                   id12 = id1.replace("close1","2")
+                   document.getElementById(mym_id).style.display = 'none';
+                   document.getElementById(example).style.display= "none";
+                   document.getElementById(id11).style.display= "none";
+                   document.getElementById(id12).style.display= "none";
+                    }  
+
+
+                  if (result6 == 1) {
+                    example = id1.replace("modal-btn1","exampleModal")
+                    mym_id = id1.replace("modal-btn1","my-modal")
+                    id11 = id1.replace("close1","1")
+                    id12 = id1.replace("close1","2")
+                    document.getElementById(mym_id).style.display= "block";
+                    document.getElementById(example).style.display= "block";
+                    document.getElementById(id11).style.display= "block";
+                   document.getElementById(id12).style.display= "block";
+                 }                    
             });
 </script>
 
+
+
 <script>
-$('#submit1').on('click', function() {
+$('span').on('click', function() {
                 id1 = this.id;
                 let result3 = id1.includes("submit")
 
@@ -341,3 +319,32 @@ $('#submit1').on('click', function() {
                       }
             });
 </script>
+
+
+
+{{#if accepted}}
+  <script>
+      $(document).ready(function(){
+          $("#myModalA").modal('show');
+
+          setTimeout(function() {
+
+              $('#myModalA').modal('hide');
+          }, 7000);
+      });
+  </script>
+  {{/if}}
+
+
+   {{#if declined}}
+  <script>
+      $(document).ready(function(){
+          $("#myModalD").modal('show');
+
+          setTimeout(function() {
+
+              $('#myModalD').modal('hide');
+          }, 7000);
+      });
+  </script>
+  {{/if}}
