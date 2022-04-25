@@ -432,7 +432,17 @@ tbody {
 /*  */
 
 
-/*  */
+/* START and STOP Time Management*/
+.start-button {
+    border-radius: 20px !important;
+    background-color: #023047;
+    border: 15px solid !important;
+    border-color: #023047 !important;
+    color: white;
+    margin-top: 10px !important;
+    margin-right: 10px !important;
+    font-size: 21px !important;
+}
 
 
 /*  */
