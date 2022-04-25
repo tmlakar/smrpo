@@ -2,6 +2,15 @@ const hbs = require("hbs");
 const { type } = require("jquery");
 const { bus } = require("nodemon/lib/utils");
 
+hbs.registerHelper("jeActive", function(value) {
+    if(value == true){
+      return true;
+    }
+    else{
+      return false;
+    }
+});
+
 hbs.registerHelper("formatirajSekunde", function(value) {
     const sec = parseInt(value, 10); // convert value to number if it's string
     let hours   = Math.floor(sec / 3600); // get hours

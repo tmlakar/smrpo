@@ -68,8 +68,8 @@ var availableCollaboratorsList = (req, res) => {
 
 
     Promise.all([promise1, promise2]).then(function(values) {
-        
-        
+
+
 
         var hasProductOwner = false;
           var hasTeamMembers = false;

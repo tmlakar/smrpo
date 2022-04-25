@@ -78,7 +78,7 @@
   </div>
 
     <div class="col-lg-10" style="margin-top: 20px !important">
-        
+
         <!-- kartice v sprintu -->
         {{#each userStories as |story|}}
         {{#if (InSprint (json story.allSprints) ../numberOfSprint)}}
@@ -97,7 +97,7 @@
               <p style="text-align:center;">Hours to do</p>
             </div>
           </div>
-          
+
           <!-- row: done/not done + task + assigned & in progress -->
           <div class="row">
 
@@ -123,7 +123,7 @@
                 <button  id="taskOwner_circle" class="btn" style="background-color: var(--dark-charcoal) !important; height: 35px !important; width: 35px !important; margin-top: -3px !important;" disabled>U</button>
                 {{/if}}
               </div>
-                     
+
               <div class="col-lg-8">
                 <p style="padding: 0px !important; padding-top: 5px!important; padding-left: 5px!important; margin-bottom: 25px !important">{{subtask.name}}</p>
               </div>
@@ -134,18 +134,17 @@
 
               <div class="col-lg-1">
                 <p style="padding: 0px !important; padding-top: 5px!important; margin-bottom: 25px !important; text-align: center;">{1}</p>
-              </div>   
+              </div>
 
             {{/each}}
           </div>
           <div>
             <p style="margin-right: 40px !important; float: right">Hours spent on this User story:  <b>{10}</b></p>
           </div>
-         
+
         </div>
         {{/if}}
-    {{/each}}     
-        
-  </div>
-  </div>
+    {{/each}}
 
+  </div>
+  </div>

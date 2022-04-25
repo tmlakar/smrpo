@@ -87,6 +87,11 @@ var stopTask = (req, res) => {
 
 var showTimeLog = (req, res) => {
   //pridobiti podatke o izbrani nalogi za katero kažemo logiranje časa
+  var opozorilo = req.query.add;
+  var logTime = false;
+  if(opozorilo=="log time"){
+    logTime = true;
+  }
   var taskId = req.params.taskId;
   var projectId;
   var storyId;
@@ -184,7 +189,8 @@ var showTimeLog = (req, res) => {
           storyId: storyId,
           isActive: isActive,
           noActive: noActive,
-          anotherActive: anotherActive
+          anotherActive: anotherActive,
+          logTime: logTime
         })
       })
 }
@@ -282,11 +288,23 @@ var prikaz = (req, res) => {
                     //naloge, ki jih je uporabnik končal
                     if(tasks[k].subtaskOwnerUsername == username && tasks[k].finished == true && tasks[k].pending == "false" && tasks[k].isDeleted == false){
                       if(prvic3){
-                        myfinishedTasks = [[tasks[k], zgodbe[j].name, projectId, storyId]];
+                        //seštejem čas za vse dneve dela na nalogi
+                        var sumTime = 0;
+                        var workingHours = tasks[k].workingHours;
+                        for(var m=0; m<workingHours.length; m++){
+                          sumTime = sumTime + workingHours[m].workingSeconds;
+                        }
+                        myfinishedTasks = [[tasks[k], zgodbe[j].name, projectId, storyId, sumTime]];
                         prvic3 = false;
                       }
                       else{
-                        myfinishedTasks.push([tasks[k],zgodbe[j].name, projectId, storyId]);
+                        //seštejem čas za vse dneve dela na nalogi
+                        var sumTime = 0;
+                        var workingHours = tasks[k].workingHours;
+                        for(var m=0; m<workingHours.length; m++){
+                          sumTime = sumTime + workingHours[m].workingSeconds;
+                        }
+                        myfinishedTasks.push([tasks[k],zgodbe[j].name, projectId, storyId, sumTime]);
                       }
                     }
                 }
