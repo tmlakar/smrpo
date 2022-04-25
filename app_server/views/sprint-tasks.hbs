@@ -1,7 +1,7 @@
 
 <div class="hbses">
 
-<h3>{{nameOfCurrentSprint}} backlog</h3>
+<h3>Sprint backlog</h3>
 
 
 
@@ -88,15 +88,17 @@
           <h5 style="padding: 10px !important;"><i>{{story.name}}</i></h5>
 
           <!-- oznaka vrstic z urami -->
+          {{#if (taskNone story.subtasks)}}          
           <div class="row">
             <div class="col-lg-10"></div>
             <div class="col-lg-1" style="font-size: 10px !important; padding: 0px !important; margin: 0px !important;">
-              <p style="text-align:center;">Hours done</p>
+              <p style="text-align:center;"><b>Hours done</b></p>
             </div>
             <div class="col-lg-1" style="font-size: 10px !important; padding: 0px !important; margin: 0px !important;">
-              <p style="text-align:center;">Hours to do</p>
+              <p style="text-align:center;"><b>Hours to do</b></p>
             </div>
           </div>
+          {{/if}}
           
           <!-- row: done/not done + task + assigned & in progress -->
           <div class="row">
@@ -104,7 +106,7 @@
               {{#each story.subtasks as |subtask|}}
 
               <div class="col-lg-1">
-                <p style="padding: 0px !important; padding-top: 5px!important; padding-left: 10px!important; margin-bottom: 25px !important">1.</p>
+                <p style="padding: 0px !important; padding-top: 5px!important; padding-left: 10px!important; margin-bottom: 25px !important">{{taskIndex @index}}</p>
               </div>
 
 
@@ -138,9 +140,11 @@
 
             {{/each}}
           </div>
+          {{#if (taskNone story.subtasks)}}     
           <div>
             <p style="margin-right: 40px !important; float: right">Hours spent on this User story:  <b>{10}</b></p>
           </div>
+          {{/if}}
          
         </div>
         {{/if}}
