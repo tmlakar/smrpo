@@ -37,18 +37,41 @@ function sprintDatesValid(sprintStart, sprintEnd){
   }
 }
 
-//v bazo shranim število sekund za delo na nalogi kar se je zmerilo s counterjem za današnji datum
-var saveWorkHours = (req, res) => {
+var startActiveTask = (req, res) => {
+  //ko pritisnem na gumb start aktivne naloge, se na api pošlje start time, ki se zabeleži in hkrati se bo zabeležilo tudi da je ta naloga aktivna
   var projectId = req.params.projectId;
   var storyId = req.params.storyId;
   var taskId = req.params.taskId;
-  //counter hrani stevilo dela v sekundah
-  var counter = req.query.cas;
+  var startDate = req.query.startDate;
+  console.log(startDate)
   axios({
     method: 'post',
-    url: apiParametri.streznik + '/api/time-log/save-work-hours/' +  projectId + '/' + storyId + '/' + taskId,
+    url: apiParametri.streznik + '/api/time-log/save-work-hours/start-task/' +  projectId + '/' + storyId + '/' + taskId,
     data: {
-      cas: counter
+      startDate: startDate
+    }
+    })
+    .then(() => {
+      console.log("uspešno shranjen začetni čas na nalogi za današen dan")
+      //odgovor.data.projectId
+      var string = "saved time log";
+      res.redirect('/time-log/' + taskId +  '?add=' + string);
+    }).catch((error) => {
+      console.log("napaka")
+    });
+}
+
+//v bazo shranim število sekund za delo na nalogi kar se je zmerilo s counterjem za današnji datum
+var stopTask = (req, res) => {
+  var projectId = req.params.projectId;
+  var storyId = req.params.storyId;
+  var taskId = req.params.taskId;
+  var endDate = req.query.endDate;
+  axios({
+    method: 'post',
+    url: apiParametri.streznik + '/api/time-log/save-work-hours/stop-task/' +  projectId + '/' + storyId + '/' + taskId,
+    data: {
+      endDate: endDate
     }
     })
     .then(() => {
@@ -75,6 +98,9 @@ var showTimeLog = (req, res) => {
   var sprintStart;
   var sprintEnd;
   var workingHours;
+  var isActive = false;
+  var noActive = false;
+  var anotherActive = false;
   axios
       .get(apiParametri.streznik + '/api/projects')
       .then((odgovor) => {
@@ -84,6 +110,10 @@ var showTimeLog = (req, res) => {
           for(var j=0; j<stories.length; j++){
               var tasks = stories[j].subtasks;
               for(var k=0; k<tasks.length; k++){
+                if(tasks[k].active == true){
+                  isActive = true;
+                  activeTaskId = tasks[k]._id;
+                }
                 if(tasks[k]._id == taskId){
                   //najdli taprav task
                   taskName = tasks[k].name;
@@ -97,6 +127,21 @@ var showTimeLog = (req, res) => {
                 }
               }
           }
+        }
+        //najdl smo eno aktivno nalogo
+        if(isActive == true){
+          isActive = false;
+          //pogledamo če je ta trenutna aktivna ali katera druga
+          if(activeTaskId == taskId){
+            isActive = true;
+          }
+          else{
+            anotherActive = true;
+          }
+        }
+        else{
+          //ni aktivnih nalog
+          noActive = true;
         }
         console.log(workingHours)
         //pridobim start in end date iz sprinta kjer je naloga
@@ -136,7 +181,10 @@ var showTimeLog = (req, res) => {
           datumi: datumi,
           taskId: taskId,
           projectId: projectId,
-          storyId: storyId
+          storyId: storyId,
+          isActive: isActive,
+          noActive: noActive,
+          anotherActive: anotherActive
         })
       })
 }
@@ -341,5 +389,6 @@ module.exports = {
     declineTask,
     finishTask,
     showTimeLog,
-    saveWorkHours
+    stopTask,
+    startActiveTask
 };

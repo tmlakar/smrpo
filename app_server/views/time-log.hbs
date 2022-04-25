@@ -24,11 +24,18 @@
             </div>
 </div>
 </div>
-<div class="col" style="margin-left: 300px">
+<div class="col" style="margin-left: 330px; margin-top: 50px">
             <div class="timer-display-id">
-              <p id="timer">00:00:00 </p>
+              {{#if isActive}}
+              <button id="start-timer" onclick="start()" disabled>Start </button>
+              <button id="stop-timer" onclick="stop()">Stop  </button>
+              {{else if anotherActive}}
+              <button id="start-timer" onclick="start()" disabled>Start </button>
+              <button id="stop-timer" onclick="stop()" disabled>Stop  </button>
+              {{else}}
               <button id="start-timer" onclick="start()">Start </button>
               <button id="stop-timer" onclick="stop()">Stop  </button>
+              {{/if}}
             </div>
         </div>
 
@@ -36,7 +43,6 @@
             var taskId = document.currentScript.getAttribute('one');
             var projectId = document.currentScript.getAttribute('two');
             var storyId = document.currentScript.getAttribute('three');
-            const ret = document.getElementById("timer");
             const startBtn = document.querySelector("#start-timer");
 
             let counter = 0;
@@ -47,10 +53,13 @@
               startBtn.disabled = false;
               //counter vsebuje pretečen čas v sekundah, to pošljem na api, da se shrani v working hours pri današnjem datumu
               console.log("tukaj bi prisel taskID")
+              console.log(interval)
               console.log(projectId)
               console.log(storyId)
               console.log(taskId)
-              location.href = "/time-log/save-work-hours/" + projectId + '/' + storyId + '/' +  taskId + '?cas=' + counter;
+              //se delo zaključi, pošlje se stop time v datumu na strežnik, kjer se zračuna čas dela, se zapiše v bazo in nato prikaže in še označi da ni več aktivna
+              var now = new Date();
+              location.href = "/time-log/save-work-hours/stop-task/" + projectId + '/' + storyId + '/' +  taskId +  '?endDate=' + now;
             }
 
             function convertSec(cnt) {
@@ -70,10 +79,13 @@
             }
 
             function start() {
-              startBtn.disabled = true;
-              interval = setInterval(function() {
-                ret.innerHTML = convertSec(counter++); // timer start counting here...
-              }, 1000);
+              //pošljem start time na server
+              var now = new Date();
+              location.href = "/time-log/save-work-hours/start-task/" + projectId + '/' + storyId + '/' +  taskId + '?startDate=' + now;
+              // startBtn.disabled = true;
+              // interval = setInterval(function() {
+              //   ret.innerHTML = convertSec(counter++); // timer start counting here...
+              // }, 1000);
             }
         </script>
 

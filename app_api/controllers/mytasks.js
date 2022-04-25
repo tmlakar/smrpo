@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
 const Project = mongoose.model("Project");
 
-//v bazo pri podani nalogi za današnji dan shranim število delovnih ur
-const saveWorkHours = (req, res) => {
+
+//v bazo zapišem začetni čas dela na nalogi za današnji dan, ter označim nalogo kot aktivno tako da atribut active na nalogi podam na true
+const startTask = (req, res) => {
   var projectId = req.params.idProject;
   var storyId = req.params.idStory;
   var taskId = req.params.idTask;
-  var casSek = req.body.cas;
+  var startDate = req.body.startDate;
   console.log("pridem v api")
   //deluje zdaj moram samo še shraniti
   //najdem ta task z podanim idjem
@@ -38,32 +39,124 @@ const saveWorkHours = (req, res) => {
                     } else {
                       //današnji datum
                       var date = new Date();
+                      console.log(date)
                       //pridobim tabelo working hours
                       var workingHours = task.workingHours;
                       var jeZe = false;
-                      //v tabeli pogledam če je že shranjen kakšen element z današnjim datumom in če je samo prištejem sekunde k podanim
+                      //v tabeli pogledam če je že shranjen kakšen element z današnjim datumom in če je samo dodam start date
                       if(workingHours.length !=0){
                           for(var i=0; i<workingHours.length; i++){
                             var datum = workingHours[i].datum;
                             if(date.toISOString().split("T")[0] == datum.toISOString().split("T")[0]){
-                              workingHours[i].workingSeconds = workingHours[i].workingSeconds + parseInt(casSek);
+                              workingHours[i].startTime = new Date(startDate);
                               jeZe = true;
                             }
                           }
                           if(jeZe == false){
                             workingHours.push({
                               datum: date,
-                              workingSeconds: casSek
+                              startTime: new Date(startDate),
+                              workingSeconds: 0
                             })
                           }
                       }
-                      //če še ni v tabelo pusham element z današnjim datumom in prinesenim številom sekund
+                      //če še ni v tabelo pusham element z današnjim datumom
                       else{
                           workingHours.push({
                             datum: date,
-                            workingSeconds: casSek
+                            startTime: new Date(startDate),
+                            workingSeconds: 0
                           })
                       }
+                      task.active = true;
+                      task.save((napaka, user) => {
+                        if (napaka) {
+                        res.status(400).json(napaka);
+                        } else {
+                        //res.status(201).json(user);
+                      }
+                      });
+                        project.save((napaka, project) => {
+                          if (napaka) {
+                            res.status(404).json(napaka);
+                          } else {
+                            res.status(200).json(project);
+                          }
+                        });
+                  }
+                }
+              }
+            }
+            else {
+             return res.status(404).json({ sporočilo: "Ni obstojecih sprintov." });
+           }
+          });
+        }
+
+
+//v bazo pri podani nalogi za današnji dan shranim število delovnih ur
+const stopTask = (req, res) => {
+  var projectId = req.params.idProject;
+  var storyId = req.params.idStory;
+  var taskId = req.params.idTask;
+  var endDate = req.body.endDate;
+  console.log("pridem v api")
+  //deluje zdaj moram samo še shraniti
+  //najdem ta task z podanim idjem
+  Project.findById(projectId)
+    .select("userStories")
+    .exec((napaka, project) => {
+      if (!project) {
+        return res.status(404).json({ sporočilo: "Ne najdem projekta." });
+      }
+      else if (napaka) {
+        return res.status(500).json(napaka);
+      }
+
+      if (project.userStories && project.userStories.length > 0) {
+        const userStory = project.userStories.id(
+          storyId
+        );
+            if (!userStory) {
+              res.status(404).json({ sporočilo: "Ne najdem zgodbe." });
+            }
+            else {
+                  //pridobim še taske
+                  if (userStory.subtasks && userStory.subtasks.length > 0) {
+                    const task = userStory.subtasks.id(
+                      taskId
+                    );
+                    if (!task) {
+                      res.status(404).json({ sporočilo: "Ne najdem naloge." });
+                    } else {
+                      //današnji datum
+                      var date = new Date();
+                      console.log(date)
+                      //pridobim tabelo working hours
+                      var workingHours = task.workingHours;
+                      //v tabeli pogledam če je že shranjen kakšen element z današnjim datumom in če je samo prištejem sekunde k podanim
+                      if(workingHours.length !=0){
+                          for(var i=0; i<workingHours.length; i++){
+                            var datum = workingHours[i].datum;
+                            if(date.toISOString().split("T")[0] == datum.toISOString().split("T")[0]){
+                              //zračunam število sekund za working seconds in prištejem k zapisu in shranim še end time
+                              var startTime = workingHours[i].startTime;
+                              console.log("start time")
+                              console.log(startTime)
+                              console.log("end time")
+                              console.log(new Date(endDate))
+                              var dif = startTime.getTime() - (new Date(endDate)).getTime();
+                              var sec1 = dif / 1000;
+                              var sec2 = Math.abs(sec1);
+                              console.log("razlika v sekundah")
+                              console.log(parseInt(sec2))
+                              workingHours[i].workingSeconds = workingHours[i].workingSeconds + parseInt(sec2);
+                              console.log(workingHours[i])
+                              workingHours[i].endTime = endDate;
+                            }
+                          }
+                      }
+                      task.active = false;
                       task.save((napaka, user) => {
                         if (napaka) {
                         res.status(400).json(napaka);
@@ -366,5 +459,6 @@ module.exports = {
     declineTask,
     finishTask,
     addComment,
-    saveWorkHours
+    stopTask,
+    startTask
 };
