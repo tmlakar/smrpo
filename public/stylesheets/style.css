@@ -812,6 +812,13 @@ p {
     padding: 3px !important;
 }
 
+.projekt-user-card>div>div>div>a>h4 {
+    font-size: 15px !important;
+    line-height: 20px !important;
+    color: var(--c3) !important;
+    height: 65px !important;
+}
+
 .projekt-user-card>div>div>div>h4 {
     font-size: 15px !important;
     line-height: 20px !important;

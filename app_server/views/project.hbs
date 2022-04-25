@@ -239,20 +239,28 @@
             <div class="card-group">
               <div class="row" style="padding: 0px !important">
                 {{#if (columnFirst story.finished story.sprint story.priority)}}
-                <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
+                <!--<a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
                 data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}" data-collaborators="{{json ../collaborators}}"
                 data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
                 data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
-                data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
+                data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">-->
 
                 <div id="uporabniskaZgodbaProductBacklog" class="card projekt-user-card" style="border: 3px solid var(--c4) !important;">
                   <div class="card-body user-card-info">
+                    
+            
                     <div class="row" style="padding: 0px !important;">
-                        <div class=" col-lg-10" >
-                          <h4><i>{{story.name}}</i></h4>
+          
+                        <div class=" col-sm-10" >
+                          <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
+                      data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}" data-collaborators="{{json ../collaborators}}"
+                      data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
+                      data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
+                      data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
+                          <h4><i>{{story.name}}</i></h4></a>
                         </div>
 
-                        <div class="storyOwner_circle-d col-lg-2 " >
+                        <div class="storyOwner_circle-d col-sm-2 " >
                             <button  id="storyOwner_circle" type="button" title="{{story.userStorieOwnerUsername}}" style="pointer-events: auto;"
                                     class="btn btn-dark open-collaboratorEdit" disabled>
                                     {{firstLetterOfUsername story.userStorieOwnerUsername}}
@@ -290,7 +298,6 @@
                   </div>
 
                 </div>
-                </a>
               {{/if}}
               </div>
               </div>
@@ -342,17 +349,24 @@
             <div class="card-group">
               <div class="row" style="padding: 0px !important">
                 {{#if (columnSecond story.finished story.sprint)}}
-                <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
+                <!--<a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
                 data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}" data-collaborators="{{json ../collaborators}}"
                 data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
                 data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
-                data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
+                data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">-->
 
                 <div id="uporabniskaZgodbaProductBacklog" class="card projekt-user-card" style="border: 3px solid var(--c5) !important;">
                   <div class="card-body user-card-info">
                     <div class="row" style="padding: 0px !important;">
+                  
                         <div class=" col-lg-10" >
-                          <h4><i>{{story.name}}</i></h4>
+                          <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
+                      data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}" data-collaborators="{{json ../collaborators}}"
+                      data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
+                      data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
+                      data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
+
+                          <h4><i>{{story.name}}</i></h4></a>
                         </div>
 
                         <div class="storyOwner_circle-d col-lg-2 " >
@@ -386,7 +400,6 @@
                   </div>
 
                 </div>
-                </a>
               {{/if}}
               </div>
               </div>
@@ -399,18 +412,24 @@
             <div class="card-group">
               <div class="row" style="padding: 0px !important">
                 {{#if (columnThird story.finished story.sprint story.priority)}}
-                <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
+                <!--<a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
                 data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}" data-collaborators="{{json ../collaborators}}"
                 data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
                 data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
-                data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
+                data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">-->
 
                 <div id="uporabniskaZgodbaProductBacklog" class="card projekt-user-card" style="border: 3px solid var(--c2) !important;">
                   <div class="card-body user-card-info">
                     <div class="row" style="padding: 0px !important;">
+                    
                         <div class=" col-lg-10" >
-                          <h4><i>{{story.name}}</i></h4>
-                        </div>
+                           <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
+                      data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}" data-collaborators="{{json ../collaborators}}"
+                      data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
+                      data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
+                      data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
+                          <h4><i>{{story.name}}</i></h4></a>
+                        </div></a>
 
                         <div class="storyOwner_circle-d col-lg-2 " >
                             <button  id="storyOwner_circle" type="button" title="{{story.userStorieOwnerUsername}}" style="pointer-events: auto;"
@@ -432,7 +451,6 @@
                   </div>
 
                 </div>
-                </a>
               {{/if}}
               </div>
               </div>
@@ -589,6 +607,10 @@
 
 
                                 // add to sprint pravice
+                                if (isTeamMember) {
+                                  document.getElementById("addToSprintDisabled").style.display="none";
+                                   document.getElementById("addToSprint").style.display="none";
+                                }
                                 if (sprintsInProgress == storySprint) {
                                   //naj se gumb ne pokaze
                                   document.getElementById("addToSprintDisabled").style.display="none";
@@ -605,6 +627,10 @@
                                    document.getElementById("addToSprint").style.display="none";
 
                                   }
+                                  if (isTeamMember) {
+                                  document.getElementById("addToSprintDisabled").style.display="none";
+                                   document.getElementById("addToSprint").style.display="none";
+                                }
 
                                 } else {
                                   // lahko
@@ -616,11 +642,16 @@
                                         //story size more bit razlicen od 0 da lahko da v current sprint
                                         if (storySize == 0) {
                                            document.getElementById("addToSprintDisabled").style.display="block";
-                                   document.getElementById("addToSprint").style.display="none";
+                                          document.getElementById("addToSprint").style.display="none";
                                         } else {
                                         document.getElementById("addToSprintDisabled").style.display="none";
                                        document.getElementById("addToSprint").style.display="block";
                                         }
+
+                                        if (isTeamMember) {
+                                  document.getElementById("addToSprintDisabled").style.display="none";
+                                   document.getElementById("addToSprint").style.display="none";
+                                }
                                       }
                                 }
                                 }
@@ -1008,7 +1039,7 @@
                     <div class = "row" style="padding-left: 0px !important;">
                    {{!-- input size --}}
                       <div id="storySizeInput" class="mb-3 col-lg-9" style="padding-bottom: 10px !important;">
-                        <label id="storySizeInputLabel" class="form-label" style="padding-top: 10px !important">Size (in points)</label>
+                        <label id="storySizeInputLabel" class="form-label" style="padding-top: 10px !important">Size [in points]</label>
                         <input class="form-control input-form" name="size" id="storySize" aria-describedby="emailHelp" type="number" min="1" required>
                     </div>
                     {{!-- button save size --}}
@@ -1337,7 +1368,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content modal-content-ekipa">
             <div class="modal-header modal-header-ekipa">
-            <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit sprint info</h5>
+            <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit Sprint info</h5>
             <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -1379,7 +1410,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content modal-content-ekipa">
             <div class="modal-header modal-header-ekipa">
-            <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit sprint info</h5>
+            <h5 class="modal-title" id="exampleModalLabel" style="padding-top=10px; !important">Edit Sprint info</h5>
             <button type="button" class="close"  data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -1618,7 +1649,7 @@
                   <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                   <span>Sprint velocity:</span> {{../sizeAllStoriesInCurrentSprint}} / {{../inProcessSprintSize}}</p>
                   <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl1" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;">
-                    Edit sprint
+                    Edit Sprint
                   </button>
                   <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;">
                     Go to Sprint
@@ -1692,7 +1723,7 @@
                 <p><span>From:</span> {{formatirajDatum sprint.startDate}}<br>
                 <span>To:</span> {{formatirajDatum sprint.endDate}}<br><br>
                 <span>Sprint velocity:</span> {{sprint.sprintSize}}</p>
-                <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: right !important;">
+                <button type="button" data-toggle="modal" data-proj="{{../id}}" data-id="{{sprint._id}}" data-start="{{formatirajDatum sprint.startDate}}" data-end="{{formatirajDatum sprint.endDate}}" data-size="{{sprint.sprintSize}}" data-target="#modalnoOknoColl" class="btn btn-dark projekt-management-button" style="background-color: var(--c1) !important; float: left !important;">
                   Edit Sprint
                 </button>
                 <a href="/project/{{../id}}/sprint/{{sprint._id}}/tasks"><button type="button" class="btn btn-dark projekt-management-button" style="background-color: var(--c5) !important; float: right !important;"hidden>
