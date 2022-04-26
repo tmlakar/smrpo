@@ -168,6 +168,8 @@ var showTimeLog = (req, res) => {
         //naredim tabelo datumov od začetnega datuma sprinta do končnega
         var datumi = [];
         var seUjema = false;
+        var prvic = true;
+        var razlika = taskEstimatedHours * 60 * 60;
         for(var i = new Date(sprintStart); i<= new Date(sprintEnd); i.setDate(i.getDate()+1)){
           var workingSeconds = 0;
           var estimatedSeconds = taskEstimatedHours*60*60;
@@ -176,13 +178,20 @@ var showTimeLog = (req, res) => {
           for(var j=0; j<workingHours.length; j++){
             if(i.toISOString().split("T")[0] == (new Date(workingHours[j].datum)).toISOString().split("T")[0]){
               workingSeconds = workingHours[j].workingSeconds;
-              datumi.push([new Date(i), workingSeconds, estimatedSeconds]);
+              if(prvic){
+                razlika = estimatedSeconds-workingSeconds;
+                datumi.push([new Date(i), workingSeconds, estimatedSeconds-workingSeconds]);
+                prvic = false;
+              }
+              else{
+                datumi.push([new Date(i), workingSeconds, razlika]);
+              }
               seUjema = true;
             }
           }
           //če ni še nič zapisano o working seconds:
           if(seUjema == false){
-            datumi.push([new Date(i), 0, estimatedSeconds]);
+            datumi.push([new Date(i), 0, razlika]);
           }
         }
         console.log(datumi)

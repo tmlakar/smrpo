@@ -31,14 +31,14 @@
 <div class="col" style="margin-left: 330px; margin-top: 50px">
             <div class="timer-display-id">
               {{#if isActive}}
-              <button class ="start-button" id="start-timer" onclick="start()" disabled>Start </button>
-              <button class ="start-button" id="stop-timer" onclick="stop()">Stop  </button>
+              <button id="start-timer" onclick="start()" disabled>Start </button>
+              <button id="stop-timer" onclick="stop()">Stop  </button>
               {{else if anotherActive}}
-              <button class ="start-button" id="start-timer" onclick="start()" disabled>Start </button>
-              <button class ="start-button" id="stop-timer" onclick="stop()" disabled>Stop  </button>
+              <button id="start-timer" onclick="start()" disabled>Start </button>
+              <button id="stop-timer" onclick="stop()" disabled>Stop  </button>
               {{else}}
-              <button class ="start-button" id="start-timer" onclick="start()">Start </button>
-              <button class ="start-button" id="stop-timer" onclick="stop()">Stop  </button>
+              <button id="start-timer" onclick="start()">Start </button>
+              <button id="stop-timer" onclick="stop()">Stop  </button>
               {{/if}}
             </div>
         </div>

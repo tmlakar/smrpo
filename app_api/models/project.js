@@ -46,7 +46,8 @@ const subtaskShema = new mongoose.Schema({
     workingHours: [hoursShema],
     estimatedHours: [hoursShema],
     active: {type: Boolean, default: false},
-    allWorkingSeconds: {type: Number}
+    allWorkingSeconds: {type: Number},
+    allEstimatedSeconds: {type: Number}
 });
 
 
@@ -72,7 +73,8 @@ const userStoriesShema = new mongoose.Schema({
     allSprints: [{type: String}],
     documentation: {type: String, default: "User manual."},
     accepted: {type: Boolean, default: false},
-    allWorkingSeconds: {type: Number}
+    allWorkingSeconds: {type: Number},
+    allEstimatedSeconds: {type: Number}
 });
 
 

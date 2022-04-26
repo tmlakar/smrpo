@@ -54,7 +54,9 @@ const startTask = (req, res) => {
                           }
                           if(jeZe == false){
                             task.allWorkingSeconds = 0;
+                            task.allEstimatedSeconds = task.hours*60*60;
                             userStory.allWorkingSeconds = 0;
+                            userStory.allEstimatedSeconds = userStory.size*6*60*60;
                             workingHours.push({
                               datum: date,
                               startTime: new Date(startDate),
@@ -65,7 +67,9 @@ const startTask = (req, res) => {
                       //če še ni v tabelo pusham element z današnjim datumom
                       else{
                           task.allWorkingSeconds = 0;
+                          task.allEstimatedSeconds = task.hours*60*60;
                           userStory.allWorkingSeconds = 0;
+                          userStory.allEstimatedSeconds = userStory.size*6*60*60;
                           workingHours.push({
                             datum: date,
                             startTime: new Date(startDate),
@@ -162,8 +166,14 @@ const stopTask = (req, res) => {
                               console.log("razlika v sekundah")
                               console.log(parseInt(sec2))
                               workingHours[i].workingSeconds = workingHours[i].workingSeconds + parseInt(sec2);
+                              workingHours[i].estimatedSeconds = workingHours[i].workingSeconds + parseInt(sec2);
+
                               task.allWorkingSeconds = task.allWorkingSeconds + parseInt(sec2);
                               userStory.allWorkingSeconds = userStory.allWorkingSeconds + parseInt(sec2);
+
+                              task.allEstimatedSeconds = task.allEstimatedSeconds - parseInt(sec2);
+                              userStory.allEstimatedSeconds = userStory.allEstimatedSeconds - parseInt(sec2);
+
                               console.log(workingHours[i])
                               workingHours[i].endTime = endDate;
                             }
