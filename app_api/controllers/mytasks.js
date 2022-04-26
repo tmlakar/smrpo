@@ -54,7 +54,7 @@ const startTask = (req, res) => {
                           }
                           if(jeZe == false){
                             task.allWorkingSeconds = 0;
-                            task.allEstimatedSeconds = task.hours*60*60;
+                            //task.allEstimatedSeconds = task.allEstimatedSeconds*60*60;
                             userStory.allWorkingSeconds = 0;
                             userStory.allEstimatedSeconds = userStory.size*6*60*60;
                             workingHours.push({
@@ -67,7 +67,7 @@ const startTask = (req, res) => {
                       //če še ni v tabelo pusham element z današnjim datumom
                       else{
                           task.allWorkingSeconds = 0;
-                          task.allEstimatedSeconds = task.hours*60*60;
+                          //task.allEstimatedSeconds = task.allEstimatedSeconds*60*60;
                           userStory.allWorkingSeconds = 0;
                           userStory.allEstimatedSeconds = userStory.size*6*60*60;
                           workingHours.push({

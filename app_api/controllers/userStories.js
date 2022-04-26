@@ -362,7 +362,8 @@ const updateUserStoryAddSubtask = (req, res) => {
           //tle pushas na
           currentUserStory.subtasks.push({
             name: req.body.name,
-            hours: req.body.hours
+            hours: req.body.hours,
+            allEstimatedSeconds: (req.body.hours)*60*60
           });
 
           project.save((napaka, project) => {
