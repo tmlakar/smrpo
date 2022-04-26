@@ -50,3 +50,136 @@
 
 
 </div>
+
+{{!-- ************************************* MODALNA OKNA USER FEEDBACK ****************************************************** --}}
+
+{{!-- modal window if user was successfully created --}}
+<div id="myModalNewUser" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>New user was successfully created!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyCreateUser}}
+<script>
+    $(document).ready(function(){
+        $("#myModalNewUser").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModalNewUser').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if error occured while creating new user --}}
+<div id="myModalNewUserError" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important;">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>New user wasn't created!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if errorCreateUser}}
+<script>
+    $(document).ready(function(){
+        $("#myModalNewUserError").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModalNewUserError').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+{{!-- modal window if user was successfully deleted --}}
+<div id="myModalDeleteUser" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>User was successfully deleted!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyDeleteUser}}
+<script>
+    $(document).ready(function(){
+        $("#myModalDeleteUser").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModalDeleteUser').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if error occured while creating new user --}}
+<div id="myModalDeleteUserError" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important;">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>User wasn't deleted!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if errorDeleteUser}}
+<script>
+    $(document).ready(function(){
+        $("#myModalDeleteUserError").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModalDeleteUserError').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+
+
+

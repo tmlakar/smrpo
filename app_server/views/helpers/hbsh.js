@@ -369,11 +369,14 @@ hbs.registerHelper('taskNone', function(value1) {
 
 
 //inProgress - beleženje časa
-hbs.registerHelper('taskInProgress', function(value1) {
+hbs.registerHelper('taskInProgress', function(value1, value2) {
 
-    //console.log(value1)
+    //console.log(value2)
     const sec = parseInt(value1, 10);
     //console.log(sec)
+    if (value2 == true) {
+        return false
+    }
     if (value1 == 0 || value1 == NaN || value1 == null || value1 == '') {
         return false
     }

@@ -118,4 +118,131 @@
                   
 </div>
 
-</div
+{{!-- ************************************* MODALNA OKNA USER FEEDBACK ****************************************************** --}}
+
+{{!-- modal window if user info was successfully edited --}}
+<div id="myModalUpdateUserInfo" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>User information was successfully updated!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyUpdateUserInfo}}
+<script>
+    $(document).ready(function(){
+        $("#myModalUpdateUserInfo").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModalUpdateUserInfo').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if error occured while updating error user info --}}
+<div id="myModalUpdateInfoError" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200" style="background-color: var(--c1) !important;">
+                <div class="modal-header" style="background-color: var(--c1) !important">
+                    <h5 class="modal-title">Whoops!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>User information wasn't updated!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if errorUpdateUserInfo}}
+<script>
+    $(document).ready(function(){
+        $("#myModalUpdateInfoError").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModalUpdateInfoError').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+{{!-- modal window if username info was successfully edited --}}
+<div id="myModalUpdateUsername" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Username was successfully changed!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyUpdateUsername}}
+<script>
+    $(document).ready(function(){
+        $("#myModalUpdateUsername").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModalUpdateUsername').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
+
+{{!-- modal window if user password was successfully edited --}}
+<div id="myModalUpdateUserPassword" class=" modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content alert-s-200">
+                <div class="modal-header" style="background-color: var(--c5) !important">
+                    <h5 class="modal-title">Success!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>User password was successfully changed!</p>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+{{#if successfullyUpdateUserPassword}}
+<script>
+    $(document).ready(function(){
+        $("#myModalUpdateUserPassword").modal('show');
+
+        setTimeout(function() {
+
+            $('#myModalUpdateUserPassword').modal('hide');
+        }, 7000);
+    });
+</script>
+{{/if}}
+
