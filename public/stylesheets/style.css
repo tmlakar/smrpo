@@ -713,6 +713,17 @@ p {
     padding: 15px !important;
 }
 
+.projekt-notification3 {
+    box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;
+    background-color: #bdd7e4 !important;
+    border: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin-top: 30px !important;
+    margin-right: 30px !important;
+    padding: 15px !important;
+}
+
 .projekt-time {
     box-shadow: rgba(0, 0, 0, 0.24) 6px 6px 7px;
     background-color: var(--c5) !important;
