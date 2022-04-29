@@ -2,6 +2,18 @@ const hbs = require("hbs");
 const { type } = require("jquery");
 const { bus } = require("nodemon/lib/utils");
 
+
+hbs.registerHelper("jeDanasnjiDatum", function(value) {
+  //value je neformatiran datum, moramo preveriti če je enak današnjemu, ne glede na ure in če je vrnemo true
+  var now = new Date();
+  if(now.toISOString().split("T")[0] == new Date(value).toISOString().split("T")[0]){
+    return true;
+  }
+  else{
+    return false;
+  }
+});
+
 hbs.registerHelper("pridobiUre", function(value) {
     if (value == null) {
         return "00:00"

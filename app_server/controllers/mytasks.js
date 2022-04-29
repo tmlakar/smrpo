@@ -169,8 +169,14 @@ var showTimeLog = (req, res) => {
         var datumi = [];
         var seUjema = false;
         var prvic = true;
+        var danasnji = false;
         var razlika = taskEstimatedHours * 60 * 60;
         for(var i = new Date(sprintStart); i<= new Date(sprintEnd); i.setDate(i.getDate()+1)){
+          danasnji = false;
+          //pogledam še če je današnji datum
+          if(i.toISOString().split("T")[0] == (new Date()).toISOString().split("T")[0]){
+            danasnji = true;
+          }
           var workingSeconds = 0;
           var estimatedSeconds = taskEstimatedHours*60*60;
           seUjema = false;
@@ -180,18 +186,18 @@ var showTimeLog = (req, res) => {
               workingSeconds = workingHours[j].workingSeconds;
               if(prvic){
                 razlika = estimatedSeconds-workingSeconds;
-                datumi.push([new Date(i), workingSeconds, estimatedSeconds-workingSeconds]);
+                datumi.push([new Date(i), workingSeconds, estimatedSeconds-workingSeconds, danasnji]);
                 prvic = false;
               }
               else{
-                datumi.push([new Date(i), workingSeconds, razlika]);
+                datumi.push([new Date(i), workingSeconds, razlika, danasnji]);
               }
               seUjema = true;
             }
           }
           //če ni še nič zapisano o working seconds:
           if(seUjema == false){
-            datumi.push([new Date(i), 0, razlika]);
+            datumi.push([new Date(i), 0, razlika, danasnji]);
           }
         }
         console.log(datumi)

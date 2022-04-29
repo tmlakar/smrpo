@@ -101,7 +101,11 @@
             <div style="color:#023047; font-size:20px; text-align:center;">Date</div>
             <br>
             {{#each datumi}}
+            {{#if this.[3]}}
+            <div class="form-control input-time" style="margin-bottom: 5px !important; background-color:lightgrey !important;" align="center">{{formatirajDatum this.[0]}}</div>
+            {{else}}
             <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">{{formatirajDatum this.[0]}}</div>
+            {{/if}}
             {{/each}}
         </div>
 
@@ -110,7 +114,11 @@
             <div style="color:#023047; font-size:20px; text-align:center;">Worktime [hours]</div>
             <br>
             {{#each datumi}}
+            {{#if this.[3]}}
+            <div class="form-control input-time" style="margin-bottom: 5px !important; background-color:lightgrey !important;" align="center">{{formatirajSekunde this.[1]}}</div>
+            {{else}}
             <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">{{formatirajSekunde this.[1]}}</div>
+            {{/if}}
             {{/each}}
 
         </div>
@@ -121,7 +129,11 @@
             <div style="color:#023047; font-size:20px; text-align:center;">Future Estimation [hours]</div>
             <br>
             {{#each datumi}}
+            {{#if this.[3]}}
+            <div class="form-control input-time" style="margin-bottom: 5px !important; background-color:lightgrey !important;" align="center">{{formatirajSekunde this.[2]}}</div>
+            {{else}}
             <div class="form-control input-time" style="margin-bottom: 5px !important;" align="center">{{formatirajSekunde this.[2]}}</div>
+            {{/if}}
             {{/each}}
 
         </div>
