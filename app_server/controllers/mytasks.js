@@ -186,18 +186,18 @@ var showTimeLog = (req, res) => {
               workingSeconds = workingHours[j].workingSeconds;
               if(prvic){
                 razlika = estimatedSeconds-workingSeconds;
-                datumi.push([new Date(i), workingSeconds, estimatedSeconds-workingSeconds, danasnji]);
+                datumi.push([new Date(i), workingSeconds, estimatedSeconds, danasnji]);
                 prvic = false;
               }
               else{
-                datumi.push([new Date(i), workingSeconds, razlika, danasnji]);
+                datumi.push([new Date(i), workingSeconds, estimatedSeconds, danasnji]);
               }
               seUjema = true;
             }
           }
           //če ni še nič zapisano o working seconds:
           if(seUjema == false){
-            datumi.push([new Date(i), 0, razlika, danasnji]);
+            datumi.push([new Date(i), 0, estimatedSeconds, danasnji]);
           }
         }
         console.log(datumi)
