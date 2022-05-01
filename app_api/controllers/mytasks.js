@@ -307,13 +307,6 @@ const declineTask = (req, res) => {
               res.status(404).json({ sporočilo: "Ne najdem zgodbe." });
             }
             else {
-                  //shranim komentar k user story
-                  console.log("v apiju")
-                  console.log(req.body.komentar)
-                  userStory.comments.push({
-                      comment: req.body.komentar,
-                      commentOwnerUsername: req.body.username
-                  });
                   //pridobim še taske
                   if (userStory.subtasks && userStory.subtasks.length > 0) {
                     const task = userStory.subtasks.id(
@@ -322,6 +315,14 @@ const declineTask = (req, res) => {
                     if (!task) {
                       res.status(404).json({ sporočilo: "Ne najdem naloge." });
                     } else {
+                      //shranim komentar k user story
+                      console.log("v apiju")
+                      console.log(req.body.komentar)
+                      userStory.declineTaskComments.push({
+                          comment: req.body.komentar,
+                          commentOwnerUsername: req.body.username,
+                          taskName: task.name
+                      });
                     //updejtam pending atribut - to bo pokazalo da je član skupine nalogo sprejel
                     task.subtaskOwnerUsername = null;
                     task.pending = true;

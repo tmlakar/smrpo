@@ -26,6 +26,12 @@ const userStoryCommentsShema = new mongoose.Schema({
     commentOwnerUsername: {type: String}
 });
 
+const taskCommentsShema = new mongoose.Schema({
+    taskName: {type: String},
+    comment: {type: String},
+    commentOwnerUsername: {type: String}
+});
+
 const hoursShema = new mongoose.Schema({
     datum: {type: Date},
     workingSeconds: {type: Number},
@@ -64,6 +70,7 @@ const userStoriesShema = new mongoose.Schema({
     tests: [{type: String}],
     subtasks: [subtaskShema],
     comments: [userStoryCommentsShema],
+    declineTaskComments: [taskCommentsShema],
     userStorieOwnerUsername: {type: String, default: null},
     flags: [{type: String}],
     pending: {type: Boolean, default: true},

@@ -247,14 +247,14 @@
 
                 <div id="uporabniskaZgodbaProductBacklog" class="card projekt-user-card" style="border: 3px solid var(--c4) !important;">
                   <div class="card-body user-card-info">
-                    
-            
+
+
                     <div class="row" style="padding: 0px !important;">
-          
+
                         <div class=" col-sm-10" >
                           <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
                       data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}" data-collaborators="{{json ../collaborators}}"
-                      data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
+                      data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-taskcom="{{json story.declineTaskComments}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
                       data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
                       data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
                           <h4><i>{{story.name}}</i></h4></a>
@@ -358,11 +358,11 @@
                 <div id="uporabniskaZgodbaProductBacklog" class="card projekt-user-card" style="border: 3px solid var(--c5) !important;">
                   <div class="card-body user-card-info">
                     <div class="row" style="padding: 0px !important;">
-                  
+
                         <div class=" col-lg-10" >
                           <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
                       data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}" data-collaborators="{{json ../collaborators}}"
-                      data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
+                      data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-taskcom="{{json story.declineTaskComments}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
                       data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
                       data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
 
@@ -421,11 +421,11 @@
                 <div id="uporabniskaZgodbaProductBacklog" class="card projekt-user-card" style="border: 3px solid var(--c2) !important;">
                   <div class="card-body user-card-info">
                     <div class="row" style="padding: 0px !important;">
-                    
+
                         <div class=" col-lg-10" >
                            <a id="storypush" type="button"data-toggle="modal" href="#info" onclick="location.href='#info'" class="modalnoOknoStory" data-target="#modalnoOknoStory" data-id="{{story._id}}"
                       data-name="{{story.name}}" data-desc="{{story.aboutText}}" data-priority="{{story.priority}}" data-busval="{{story.businessValue}}" data-collaborators="{{json ../collaborators}}"
-                      data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
+                      data-size="{{story.size}}" data-acc="{{story.tests}}" data-subt="{{json story.subtasks}}" data-taskcom="{{json story.declineTaskComments}}" data-com="{{json story.comments}}" data-pending="{{story.pending}}"
                       data-owner="{{story.userStorieOwnerUsername}}" data-flags="{{story.flags}}" data-sprint1="{{story.sprint}}" data-projid="{{../id}}" data-finished="{{story.finished}}"
                       data-scrum="{{../scrumMaster}}" data-projman="{{../productManager}}" data-team="{{../teamMember}}" data-admin="{{../nivoDostopa}}" data-user="{{../username}}" data-sprintsall="{{../inProcessSprintsNumbers}}">
                           <h4><i>{{story.name}}</i></h4></a>
@@ -480,6 +480,7 @@
                                 let storyComments = $(this).data('com');
                                 let storyComments1 = [{Object}];
                                 storyComments1 = JSON.stringify($(this).data('com'));
+                                let declinedTaskComments = $(this).data('taskcom');
                                 let storyPendingFlag = $(this).data('pending');
                                 let storyOwner = $(this).data('owner');
                                 let storyFlags = $(this).data('flags');
@@ -895,26 +896,25 @@
                                 //{{!-- declinedOwnerUsername --}}
                                 //{{!-- declined --}}
                                 // prikazovanje komentarjev
-                                //let array = storyDeclined;
-                                //function functionFirstLetter(value) {
-                                  //  let letter = value.charAt(0);
-                                  //  letter = letter.toUpperCase();
-                                  //  return letter;
-                                //}
-                                //var declinedString = '';
-                                //for (j in array) {
+                                let taskComments = declinedTaskComments;
+                                var declinedString = '';
+                                for (k in taskComments) {
                                   //comment owners
                                   //prefix
-                                  //declinedString = declinedString + '<div class="row" style="height: 80px !important; padding: 5px !important"><div class="col-lg-1"><div style="margin-left: 0px !important"><button id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c3) !important" disabled>';
+                                  declinedString = declinedString + '<div class="row" style="height: 80px !important; padding: 5px !important"><div class="col-lg-1"><div style="margin-left: 0px !important"><button id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c3) !important" disabled>';
                                   //postfix
-                                  //declinedString = declinedString + functionFirstLetter(array[j].declinedOwnerUsername) + '</button></div></div>';
+                                  declinedString = declinedString + functionFirstLetter(taskComments[k].commentOwnerUsername) + '</button>' + '</div></div>';
+                                  //napis katero nalogo declina
+                                  //prefix
+                                  declinedString = declinedString + '<div class="col-lg-11" style="font-size: 15px; color: var(--c2)!important; padding-left: 2px; padding-top: 8px !important">';
+                                  declinedString = declinedString + "is declining task: " + taskComments[k].taskName + ":" + '</div>';
                                   //comments
                                   //prefix
-                                  //declinedString = declinedString + '<div class="col-lg-11" style="color: var(--c3)!important; padding-top: 10px !important">';
+                                  declinedString = declinedString + '<div class="col-lg-11" style="font-size:18px; margin-bottom: 20px; margin-left:62px; color: var(--c3)!important; padding-top: 5px !important">';
                                   //postfix
-                                  //declinedString = declinedString + array[j].declined + '</div></div>';
-                                //}
-                                //$('#storyCommentsAll').html(declinedString);
+                                  declinedString = declinedString + taskComments[k].comment + '</div></div>';
+                                }
+                                $('#storyRejectComments').html(declinedString);
 
 
 
@@ -1275,7 +1275,7 @@
                     <div id="storyRejectComments" style="padding: 0px !important">
 
                       <!-- Za v script - nardila sm prikaz tuki -->
-                      <div class="row" style="height: 80px !important; padding: 5px !important">
+                      <!-- <div class="row" style="height: 80px !important; padding: 5px !important">
                         <div class="col-lg-1">
                           <div style="margin-left: 0px !important"><button id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c3) !important" disabled>
                             N</button>
@@ -1283,14 +1283,14 @@
                         </div>
                         <div class="col-lg-11" style="color: var(--c3)!important; padding-top: 10px !important">
                           Tukaj bo komentar za reject.
-                        </div>
-                        
+                        </div> -->
+
                       </div>
                       <!-- END -  Za v script - nardila sm prikaz tuki -->
                     </div>
 
 
-                    
+
                   </div>
               </div>
               </div>
