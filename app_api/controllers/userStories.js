@@ -188,7 +188,8 @@ const projectInfo = (req, res) => {
         aboutText: req.body.aboutText,
         priority: req.body.priority,
         businessValue: req.body.businessValue,
-        flags: ["Unassigned", "Unfinished"]
+        flags: ["Unassigned", "Unfinished"],
+        allWorkingSeconds: 0
       });
       project.save((napaka, project) => {
         if (napaka) {

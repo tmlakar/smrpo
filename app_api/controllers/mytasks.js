@@ -55,8 +55,8 @@ const startTask = (req, res) => {
                           if(jeZe == false){
                             task.allWorkingSeconds = 0;
                             //task.allEstimatedSeconds = task.allEstimatedSeconds*60*60;
-                            userStory.allWorkingSeconds = 0;
-                            userStory.allEstimatedSeconds = userStory.size*6*60*60;
+                            // userStory.allWorkingSeconds = 0;
+                            // userStory.allEstimatedSeconds = userStory.size*6*60*60;
                             workingHours.push({
                               datum: date,
                               startTime: new Date(startDate),
@@ -68,8 +68,8 @@ const startTask = (req, res) => {
                       else{
                           task.allWorkingSeconds = 0;
                           //task.allEstimatedSeconds = task.allEstimatedSeconds*60*60;
-                          userStory.allWorkingSeconds = 0;
-                          userStory.allEstimatedSeconds = userStory.size*6*60*60;
+                          // userStory.allWorkingSeconds = 0;
+                          // userStory.allEstimatedSeconds = userStory.size*6*60*60;
                           workingHours.push({
                             datum: date,
                             startTime: new Date(startDate),
@@ -171,8 +171,8 @@ const stopTask = (req, res) => {
                               task.allWorkingSeconds = task.allWorkingSeconds + parseInt(sec2);
                               userStory.allWorkingSeconds = userStory.allWorkingSeconds + parseInt(sec2);
 
-                              task.allEstimatedSeconds = task.allEstimatedSeconds - parseInt(sec2);
-                              userStory.allEstimatedSeconds = userStory.allEstimatedSeconds - parseInt(sec2);
+                              // task.allEstimatedSeconds = task.allEstimatedSeconds - parseInt(sec2);
+                              // userStory.allEstimatedSeconds = userStory.allEstimatedSeconds - parseInt(sec2);
 
                               console.log(workingHours[i])
                               workingHours[i].endTime = endDate;
