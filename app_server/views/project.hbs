@@ -891,10 +891,8 @@
                                 {{!-- za input za username od trenutno prijavnega uporabnika --}}
                                 $('#commentOwnerUsername').val(commentOwnerUsername);
 
-                                  //EVA
+                               
                                  // 5. komentarji reject ************************************************************************
-                                //{{!-- declinedOwnerUsername --}}
-                                //{{!-- declined --}}
                                 // prikazovanje komentarjev
                                 let taskComments = declinedTaskComments;
                                 var declinedString = '';
@@ -906,13 +904,13 @@
                                   declinedString = declinedString + functionFirstLetter(taskComments[k].commentOwnerUsername) + '</button>' + '</div></div>';
                                   //napis katero nalogo declina
                                   //prefix
-                                  declinedString = declinedString + '<div class="col-lg-11" style="font-size: 15px; color: var(--c2)!important; padding-left: 2px; padding-top: 8px !important">';
-                                  declinedString = declinedString + "is declining task: " + taskComments[k].taskName + ":" + '</div>';
+                                  declinedString = declinedString + '<div class="col-lg-11"><div style="font-size: 15px; color: var(--c2)!important; padding-left: 2px; padding-top: 8px !important">';
+                                  declinedString = declinedString + 'Task "' + taskComments[k].taskName + '" was declined.' + '</div>';
                                   //comments
                                   //prefix
-                                  declinedString = declinedString + '<div class="col-lg-11" style="font-size:18px; margin-bottom: 20px; margin-left:62px; color: var(--c3)!important; padding-top: 5px !important">';
+                                  declinedString = declinedString + '<div style="font-size:18px; margin-left:20px; color: var(--c3)!important; padding-top: 5px !important; padding-bottom: 25px !important;">';
                                   //postfix
-                                  declinedString = declinedString + taskComments[k].comment + '</div></div>';
+                                  declinedString = declinedString +'"'+ taskComments[k].comment +'"'+ '</div></div></div>';
                                 }
                                 $('#storyRejectComments').html(declinedString);
 
@@ -1273,25 +1271,12 @@
 
                     <!-- All reject comments -->
                     <div id="storyRejectComments" style="padding: 0px !important">
-
-                      <!-- Za v script - nardila sm prikaz tuki -->
-                      <!-- <div class="row" style="height: 80px !important; padding: 5px !important">
-                        <div class="col-lg-1">
-                          <div style="margin-left: 0px !important"><button id="taskOwner_circle" type="button" class="btn btn-dark open-collaboratorEdit" style="background-color: var(--c3) !important" disabled>
-                            N</button>
-                          </div>
-                        </div>
-                        <div class="col-lg-11" style="color: var(--c3)!important; padding-top: 10px !important">
-                          Tukaj bo komentar za reject.
-                        </div> -->
-
-                      </div>
-                      <!-- END -  Za v script - nardila sm prikaz tuki -->
                     </div>
+              </div>
 
 
 
-                  </div>
+              </div>
               </div>
               </div>
 
