@@ -14,7 +14,7 @@ const registracija = (req, res) => {
     uporabnik.nastaviGeslo(req.body.password);
     uporabnik.save((napaka) => {
       if (napaka) res.status(500).json(napaka);
-      //tukaj manjka še da generiramo in odjemalcu vrnemo jwt žeton?
+      
       else res.status(200).json();
     });
   };

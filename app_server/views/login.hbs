@@ -23,37 +23,9 @@
             <div class="form-outline form-outline-bottom mb-4">
 
               <input name="password" id="password" type="password" type="password" pattern="(?!.* ).{12,128}" onCopy="return false" onpaste="return false;" title="The password must be at least 12 characters long and shouldn't contain whitespaces!" class="form-control form-control-lg login-form-input placeholder-text" placeholder="Password" required>
-              <input id="prikazi" style="margin-right: 10px;margin-top:20px;" type="checkbox" onClick="myFunction()"><span style="margin-top: 10px !important; font-size: 14px !important">show last character</span>
+              {{!-- <input id="prikazi" style="margin-right: 10px;margin-top:20px;" type="checkbox" onClick="myFunction()"><span style="margin-top: 10px !important; font-size: 14px !important">show last character</span> --}}
               <script>
-                function myFunction() {
-                  var x = document.getElementById("password");
-                   var pass = document.getElementById("password").value;
-                   
-                  if (x.type === "password") {
-                    x.type = "text";
-                    var pass1 = new String;
-                    pass1 = pass;
-                    //console.log(pass1.length)
-                    for (var char in pass1) {
-                      console.log(pass1[char]);
-                      
-                    }
-                    
-                    //console.log(pass);
-                    //console.log(pass1);
-                    var last = pass1.substr(pass1.length-1,pass1.length);
-                    var previous =  '•'.repeat(pass1.length-1);
-                    previous = previous.concat(last);
-                    //console.log(previous);
-
-                    $('#password').val(previous);
-
-
-
-                  } else {
-                    x.type = "password";
-                  }
-                }
+                
                 $('#password').passtrength({
                       minChars: 12
                 });

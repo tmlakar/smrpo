@@ -1,4 +1,3 @@
-# smrpo
 
 ## SCRUMLY
 
@@ -10,7 +9,6 @@ metode razvoja programske opreme. Je ogrodje v pomoč razvoju programske opreme 
 
 ```bash
 $ git clone https://github.com/tmlakar/smrpo
-$ cd smrpo
 $ npm install
 $ sudo npm install -g nodemon
 $ nodemon
