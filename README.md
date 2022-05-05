@@ -11,7 +11,13 @@ metode razvoja programske opreme. Je ogrodje v pomoč razvoju programske opreme 
 $ git clone https://github.com/tmlakar/smrpo
 $ npm install
 $ sudo npm install -g nodemon
+```
+
+Create an .env file in root directory with content "JWT_GESLO=toleNašeGeslo".
+
+```bash
 $ nodemon
 ```
+
 
 Aplikacijo odpiramo v brskalniku na naslovu http://localhost:3000/.
