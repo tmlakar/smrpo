@@ -13,7 +13,7 @@ $ npm install
 $ sudo npm install -g nodemon
 ```
 
-Create an .env file in root directory with content "JWT_GESLO=toleNašeGeslo".
+Ustvari .env datoteko v korenski mapi in vanjo shrani "JWT_GESLO=toleNašeGeslo".
 
 ```bash
 $ nodemon
