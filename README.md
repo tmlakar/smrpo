@@ -13,11 +13,17 @@ $ npm install
 $ sudo npm install -g nodemon
 ```
 
-Ustvari .env datoteko v korenski mapi in vanjo shrani "JWT_GESLO=toleNašeGeslo".
+Ustvarite .env datoteko v korenski mapi in vanjo shrani "JWT_GESLO=toleNašeGeslo".
 
 ```bash
 $ nodemon
 ```
 
 
-Aplikacijo odpiramo v brskalniku na naslovu http://localhost:3000/.
+Aplikacija se odpira v brskalniku na naslovu http://localhost:3000/.
+
+Uporabniški račun za vstop:
+username: tamara
+pass: zatvojvsakdan.
+
+Za prijavo z adminom kontaktirajte lastnika repozitorija.
