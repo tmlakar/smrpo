@@ -20,7 +20,7 @@ var seznam = (req, res) => {
   var rawPayload = Buffer.from(encodedPayload, 'base64').toString('ascii');
   var user = JSON.parse(rawPayload);
 
-  var successfullyAdded = req.query.add;
+  //var successfullyAdded = req.query.add;
   var uspesnoDodano = false;
   if (successfullyAdded == "successfully added") {
     uspesnoDodano = true;

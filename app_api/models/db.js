@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-//var dbURI = "mongodb://localhost/mongodb-community";
-var dbURI = "mongodb+srv://evav:nepravilno@scrumly.m19q2.mongodb.net/scrumlyDb?retryWrites=true&w=majority";
+var dbURI = "mongodb://localhost/mongodb-community";
+//var dbURI = "mongodb+srv://evav:nepravilno@scrumly.m19q2.mongodb.net/scrumlyDb?retryWrites=true&w=majority";
 //if (process.env.NODE_ENV === "production") {
   //dbURI = process.env.MONGODB_URI;
 //}

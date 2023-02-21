@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "uporabniki-uvoz": "mongoimport app_server/models/user.json -d mongodb-community --jsonArray -c Users",
-    "admini-uvoz": "mongoimport app_server/models/admin.json -d mongodb-community --jsonArray -c Admins"
+    "projekti-uvoz": "mongoimport app_server/models/project.json -d mongodb-community --jsonArray -c Projects"
   },
   "engines": {
     "node": ">=16.14.0",
